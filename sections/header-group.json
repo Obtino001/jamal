@@ -5,16 +5,24 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
-        "announcement-bar-0": {
+        "announcement-1": {
           "type": "announcement",
           "settings": {
-            "text": "Medlemmer får altid gratis fragt | Tilmeld dig vores nyhedsbrev og få 10%",
+            "text": "Medlemmer får altid gratis fragt",
+            "link": ""
+          }
+        },
+        "announcement-2": {
+          "type": "announcement",
+          "settings": {
+            "text": "Tilmeld dig vores nyhedsbrev og få 10%",
             "link": ""
           }
         }
       },
       "block_order": [
-        "announcement-bar-0"
+        "announcement-1",
+        "announcement-2"
       ],
       "settings": {
         "auto_rotate": false,
