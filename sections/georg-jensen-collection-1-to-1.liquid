@@ -1,0 +1,575 @@
+{% comment %}
+  Georg Jensen 1-to-1 Collection Page (Exact HTML & Styling Match)
+{% endcomment %}
+
+<div id="main" role="main" class="clearfix georg-collection-section section-{{ section.id }}">
+  <div id="primary" class="primary-content clearfix georg-container">
+    <div class="category-page-list">
+
+      <!-- Hero Banner -->
+      <div class="content-slot slot-grid-header search-result-header">
+        <div class="herobanner_poster herobanner_poster_category">
+          <div class="herobanner_poster_image">
+            <picture>
+              {%- if collection.image -%}
+                <source media="(max-width: 767px)" srcset="{{ collection.image | image_url: width: 767 }}">
+                <source media="(max-width: 1023px)" srcset="{{ collection.image | image_url: width: 1024 }}">
+                <img alt="{{ collection.title | escape }}" src="{{ collection.image | image_url: width: 1600 }}" class="" loading="eager">
+              {%- else -%}
+                <source media="(max-width: 767px)" srcset="https://res.cloudinary.com/georgjensen/image/upload/f_auto,c_scale,dpr_2/remote_media/prd_new/on/demandware.static/-/Sites-GeorgJensen_DK-Library/default/images/content/georgjensen/georgjensen/jewellery/fusion/GJ_SS26_Seasonal_JW_eCOM_category_banner_mobile_1767.jpg">
+                <source media="(max-width: 1023px)" srcset="https://res.cloudinary.com/georgjensen/image/upload/f_auto,c_scale,dpr_2/remote_media/prd_new/on/demandware.static/-/Sites-GeorgJensen_DK-Library/default/images/content/georgjensen/georgjensen/jewellery/fusion/GJ_SS26_Seasonal_JW_eCOM_category_banner_tablet_11023.jpg">
+                <img alt="{{ collection.title | escape }}" src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,c_scale,dpr_2/remote_media/prd_new/on/demandware.static/-/Sites-GeorgJensen_DK-Library/default/images/content/georgjensen/georgjensen/jewellery/fusion/GJ_SS26_Seasonal_JW_eCOM_category_banner_desktop_11600.jpg" class="" loading="eager">
+              {%- endif -%}
+            </picture>
+          </div>
+          <div class="herobanner_poster_content placementCenterLeft alignmentLeft">
+            <div class="herobanner_poster_content_subheadline"></div>
+            <div class="herobanner_poster_content_headline">
+              <div class="">{{ collection.title | default: 'Alle smykker' }}</div>
+            </div>
+            <div class="herobanner_poster_content_body">
+              {%- if collection.description != blank -%}
+                {{ collection.description }}
+              {%- else -%}
+                <span>Fra sofistikerede og elegante klassikere til skulpturelle, moderne smykker med karakter. Udforsk alle vores smykker i dansk design til kvinder, og fortæl din personlige historie med et tidløst smykke eller smykkesæt, som varer for livet. Gå på opdagelse i Georg Jensens brede sortiment af øreringe, armbånd, halskæder, ringe og brocher i sterlingsølv, 18 karat guld, genanvendt 18 karat guld og diamanter.</span>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="products collection-main-layout">
+        
+        <!-- Left Sidebar: Filters -->
+        <div id="secondary" class="refinements">
+          <div class="search-result-options">
+            <div class="refinements-wrapper">
+              <div class="refinement-items">
+                
+                <h2 class="visually-hidden">Kategorier</h2>
+                <h2 class="visually-hidden">Refine Your Results By:</h2>
+
+                <!-- Example Filter: Price -->
+                <div class="refinement refinement-item">
+                  <button class="toggle" aria-expanded="false">Pris</button>
+                  <ul class="filterList">
+                    <li>
+                      <ul class="price-refinement-list">
+                        <li><a class="refinement-link" href="#"><span>Kr 0 - 1.000</span></a></li>
+                        <li><a class="refinement-link" href="#"><span>Kr 1.000 - 3.000</span></a></li>
+                        <li><a class="refinement-link" href="#"><span>Kr 3.000 - 5.000</span></a></li>
+                        <li><a class="refinement-link" href="#"><span>Kr 5.000 - 10.000</span></a></li>
+                        <li><a class="refinement-link" href="#"><span>Kr 10.000 - 30.000</span></a></li>
+                        <li><a class="refinement-link" href="#"><span>Kr 30.000 - 50.000</span></a></li>
+                        <li><a class="refinement-link" href="#"><span>Kr 50.000 -</span></a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Example Filter: Produkttype -->
+                <div class="refinement refinement-item">
+                  <button class="toggle" aria-expanded="false">Produkttype</button>
+                  <ul class="filterList">
+                    <li>
+                      <ul class="clearfix swatches">
+                        <li><a class="product-refinements" href="#">Øreringe</a></li>
+                        <li><a class="product-refinements" href="#">Armbånd</a></li>
+                        <li><a class="product-refinements" href="#">Armbåndsur</a></li>
+                        <li><a class="product-refinements" href="#">Halskæde</a></li>
+                        <li><a class="product-refinements" href="#">Ring</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Example Filter: Kollektion -->
+                <div class="refinement refinement-item">
+                  <button class="toggle" aria-expanded="false">Kollektion</button>
+                  <ul class="filterList">
+                    <li>
+                      <ul class="clearfix swatches">
+                        <li><a class="product-refinements" href="#">Arc</a></li>
+                        <li><a class="product-refinements" href="#">Curve</a></li>
+                        <li><a class="product-refinements" href="#">Daisy</a></li>
+                        <li><a class="product-refinements" href="#">Fusion</a></li>
+                        <li><a class="product-refinements" href="#">Moonlight Grapes</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                
+                <!-- Example Filter: Materiale -->
+                <div class="refinement refinement-item">
+                  <button class="toggle" aria-expanded="false">Materiale</button>
+                  <ul class="filterList">
+                    <li>
+                      <ul class="clearfix swatches">
+                        <li><a class="product-refinements" href="#">Guld</a></li>
+                        <li><a class="product-refinements" href="#">Platin</a></li>
+                        <li><a class="product-refinements" href="#">Sterlingsølv</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+              
+              <div class="refinement-footer">
+                <button class="hide-filters">Se resultater</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Main Content: Sort & Product Grid -->
+        <div id="primary-grid" class="primary-content">
+          
+          <div class="mobile-filter-btns">
+            <button id="btnFilterBy" class="go-to-filter-1">Filtrer efter</button>
+          </div>
+          
+          <div class="sort-bar-container">
+            <!-- Sort By -->
+            <div class="sort-by" id="sort-by-container">
+              <form action="#" method="get">
+                <fieldset class="ui-front">
+                  <legend>Sorter efter</legend>
+                  <label for="grid-sort-header">Sorter efter</label>
+                  <select id="grid-sort-header" name="sort_by" class="sort-select">
+                    <option value="created-descending">Nyheder</option>
+                    <option value="best-selling">Mest populære</option>
+                    <option value="price-ascending">Pris lav til høj</option>
+                    <option value="price-descending">Pris høj til lav</option>
+                  </select>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+
+          <div class="search-result-content">
+            {%- paginate collection.products by section.settings.products_per_page -%}
+            <ul id="search-result-items" class="search-result-items tiles-container clearfix">
+              
+              {%- if collection.products.size > 0 -%}
+                {%- for product in collection.products -%}
+                  <li class="grid-tile">
+                    <a class="product-tile tile-not-clickable" href="{{ product.url }}">
+                      <div class="product-image-carousel plp-carousel">
+                        {%- if product.featured_media -%}
+                          <div class="product-image main-image first">
+                            <div class="image-wrapper">
+                              <img src="{{ product.featured_media | image_url: width: 600 }}" alt="{{ product.title | escape }}" class="cld-responsive">
+                            </div>
+                          </div>
+                          {%- if product.media[1] != blank -%}
+                            <div class="product-image main-image notFirst hoverImage">
+                              <div class="image-wrapper">
+                                <img src="{{ product.media[1] | image_url: width: 600 }}" alt="{{ product.title | escape }}" class="cld-responsive">
+                              </div>
+                            </div>
+                          {%- endif -%}
+                        {%- else -%}
+                          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {%- endif -%}
+                      </div>
+
+                      <div class="product-details-wrapper">
+                        <div class="product-name">
+                          <div class="name-link tile-clickable">{{ product.title }}</div>
+                          <span class="wlt" tabindex="0" aria-label="Tilføj til ønskeliste">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                          </span>
+                        </div>
+                        <div class="product-material">
+                          <div>{{ product.metafields.custom.material | default: 'Sterlingsølv' }}</div>
+                        </div>
+                        <div class="product-pricing product-price">
+                          <span class="product-sales-price price-sales effectiveprice">{{ product.price | money }}</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                {%- endfor -%}
+              {%- else -%}
+                <!-- Static Fallback matching user's HTML payload if collection is empty -->
+                <li class="grid-tile">
+                  <a class="product-tile tile-not-clickable" href="/products/weft-slanke-oereringe">
+                    <div class="product-image-carousel plp-carousel">
+                      <div class="product-image main-image first">
+                        <div class="image-wrapper">
+                          <img src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,dpr_2/w_auto,c_scale/products/images/hi-res/GJ_AW26_ECOM_ON_MODEL_WEFT_EARRINGS_20002088_1x1?_i=AG" alt="" class="cld-responsive">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="product-details-wrapper">
+                      <div class="product-name">
+                        <div class="name-link tile-clickable">Weft slanke øreringe</div>
+                        <span class="wlt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+                      </div>
+                      <div class="product-material"><div>Sterlingsølv</div></div>
+                      <div class="product-pricing product-price"><span class="product-sales-price price-sales effectiveprice">DKK 4.200,00</span></div>
+                    </div>
+                  </a>
+                </li>
+                
+                <li class="grid-tile">
+                  <a class="product-tile tile-not-clickable" href="/products/torun-armring">
+                    <div class="product-image-carousel plp-carousel">
+                      <div class="product-image main-image first">
+                        <div class="image-wrapper">
+                          <img src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,dpr_2/w_400,c_scale/products/images/hi-res/GJ_SS25_ECOM_SHOOT_TORUN_BRACELET_20000525?_i=AG" alt="" class="cld-responsive">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="product-details-wrapper">
+                      <div class="product-name">
+                        <div class="name-link tile-clickable">Torun armring</div>
+                        <span class="wlt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+                      </div>
+                      <div class="product-material"><div>Sterlingsølv</div></div>
+                      <div class="product-pricing product-price"><span class="product-sales-price price-sales effectiveprice">DKK 3.100,00</span></div>
+                    </div>
+                  </a>
+                </li>
+              {%- endif -%}
+
+            </ul>
+            {%- endpaginate -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .georg-collection-section {
+    font-family: var(--georg-font-sans);
+    color: #111111;
+  }
+  .georg-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  
+  /* Hero Banner */
+  .herobanner_poster_category {
+    position: relative;
+    width: 100%;
+    margin-bottom: 40px;
+    background: #f7f7f7;
+    overflow: hidden;
+  }
+  .herobanner_poster_image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .herobanner_poster_content {
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    transform: translateY(-50%);
+    max-width: 500px;
+    color: #000;
+  }
+  .herobanner_poster_content_headline {
+    font-size: 48px;
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+  .herobanner_poster_content_body {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #000;
+  }
+  
+  /* Collection Main Layout */
+  .collection-main-layout {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 80px;
+  }
+  
+  /* Left Sidebar Filters */
+  .refinements {
+    width: 250px;
+    flex-shrink: 0;
+  }
+  .refinement-item {
+    border-bottom: 1px solid #eaeaea;
+  }
+  .refinement-item .toggle {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 18px 0;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    position: relative;
+    color: #111;
+  }
+  .refinement-item .toggle::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    font-size: 16px;
+  }
+  .filterList {
+    list-style: none;
+    padding: 0 0 18px 0;
+    margin: 0;
+    display: none;
+  }
+  .price-refinement-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .price-refinement-list a {
+    display: block;
+    padding: 6px 0;
+    color: #555;
+    text-decoration: none;
+    font-size: 13px;
+  }
+  .price-refinement-list a:hover {
+    color: #111;
+  }
+  .swatches {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .swatches a {
+    display: block;
+    padding: 6px 0;
+    color: #555;
+    text-decoration: none;
+    font-size: 13px;
+  }
+  .swatches a:hover {
+    color: #111;
+  }
+  .refinement-footer {
+    margin-top: 24px;
+    display: none;
+  }
+  .hide-filters {
+    width: 100%;
+    padding: 14px;
+    background: #111;
+    color: #fff;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+  }
+
+  /* Right Grid Area */
+  #primary-grid {
+    flex-grow: 1;
+  }
+  
+  .sort-bar-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 12px;
+  }
+  .sort-by fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .sort-by legend {
+    display: none;
+  }
+  .sort-by label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #111;
+  }
+  .sort-select {
+    border: none;
+    background: transparent;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #111;
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* Product Grid Tiles */
+  .tiles-container {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    row-gap: 48px;
+  }
+  .grid-tile {
+    position: relative;
+  }
+  .product-tile {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .product-image-carousel {
+    background: #f7f7f7;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  
+  /* Hover effect for secondary image */
+  .hoverImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .product-image-carousel:hover .hoverImage {
+    opacity: 1;
+  }
+  
+  .product-details-wrapper {
+    padding: 0 4px;
+  }
+  .product-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 6px;
+    color: #111;
+  }
+  .wlt {
+    color: #999;
+    transition: color 0.2s;
+  }
+  .wlt:hover {
+    color: #111;
+  }
+  .product-material {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 12px;
+  }
+  .product-price {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111;
+  }
+  
+  .mobile-filter-btns {
+    display: none;
+  }
+
+  @media screen and (max-width: 1023px) {
+    .tiles-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 890px) {
+    .collection-main-layout {
+      flex-direction: column;
+    }
+    .refinements {
+      display: none;
+    }
+    .mobile-filter-btns {
+      display: block;
+      margin-bottom: 24px;
+    }
+    .mobile-filter-btns button {
+      width: 100%;
+      padding: 14px;
+      background: #f7f7f7;
+      border: 1px solid #eaeaea;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .herobanner_poster_content {
+      position: static;
+      transform: none;
+      padding: 32px 24px;
+      text-align: center;
+      background: #f7f7f7;
+    }
+    .herobanner_poster_content_headline {
+      font-size: 32px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Sidebar Filter Acccordions
+    var toggles = document.querySelectorAll(".refinement-item .toggle");
+    toggles.forEach(function(toggle) {
+      toggle.addEventListener("click", function() {
+        var list = this.nextElementSibling;
+        if (list.style.display === "block") {
+          list.style.display = "none";
+          this.innerHTML = this.innerHTML.replace("-", "+");
+        } else {
+          list.style.display = "block";
+          this.innerHTML = this.innerHTML.replace("+", "-");
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Georg Jensen Collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 12,
+      "label": "Products per page"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Georg Jensen Collection 1-to-1"
+    }
+  ]
+}
+{% endschema %}

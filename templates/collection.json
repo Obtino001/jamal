@@ -1,49 +1,13 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "georg_collection_banner": {
-      "type": "georg-jensen-collection-banner",
+    "georg_jensen_collection": {
+      "type": "georg-jensen-collection-1-to-1",
       "settings": {
-        "title": "Designikoner",
-        "description": "Opdag de Georg Jensen-design, der har skabt historie."
-      }
-    },
-    "georg_filter_bar": {
-      "type": "georg-jensen-collection-filter-bar",
-      "settings": {}
-    },
-    "product_grid": {
-      "type": "main-collection-product-grid",
-      "settings": {
-        "products_per_page": 16,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": true,
-        "show_rating": false,
-        "quick_add": "none",
-        "enable_filtering": true,
-        "filter_type": "horizontal",
-        "enable_sorting": true,
-        "columns_mobile": "2",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "products_per_page": 12
       }
     }
   },
   "order": [
-    "georg_collection_banner",
-    "georg_filter_bar",
-    "product_grid"
+    "georg_jensen_collection"
   ]
 }

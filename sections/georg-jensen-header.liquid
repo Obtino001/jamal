@@ -174,8 +174,10 @@
   }
 
   .georg-logo-img {
-    height: auto;
     display: inline-block;
+    max-height: 24px;
+    width: auto !important; /* Override inline width which might cause square aspect ratio */
+    object-fit: contain;
   }
 
   .georg-header-right {
