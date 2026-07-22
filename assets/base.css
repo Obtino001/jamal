@@ -3775,19 +3775,6 @@ details-disclosure > details {
   padding: 6px 0 !important;
 }
 
-.utility-bar__grid {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  width: 100% !important;
-}
-
-.announcement-bar-slider {
-  display: flex !important;
-  justify-content: space-between !important;
-  width: 100% !important;
-}
-
 .announcement-bar__message {
   font-family: var(--georg-font-sans) !important;
   font-size: 1.1rem !important;
@@ -3795,7 +3782,6 @@ details-disclosure > details {
   color: #444444 !important;
   text-transform: none !important;
 }
-
 
 /* Header & Navigation */
 .header {
