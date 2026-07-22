@@ -1,16 +1,18 @@
 {% comment %}
-  Georg Jensen Main Product Detail Page (PDP) - 1-to-1 Replica
+  Georg Jensen Main Product Detail Page (PDP) - Fully Theme Customizer Editable
 {% endcomment %}
 
-<div class="georg-pdp-container">
+<div class="georg-pdp-container section-{{ section.id }}">
   <div class="georg-container">
     <!-- Breadcrumbs -->
-    <div class="georg-breadcrumbs">
-      <a href="/collections/all">Smykker</a> / <a href="/collections/all">Halskæder</a> / <span class="georg-bc-current">{{ product.title }}</span>
-    </div>
+    {%- if section.settings.show_breadcrumbs -%}
+      <div class="georg-breadcrumbs">
+        <a href="/collections/all">Smykker</a> / <a href="/collections/all">Halskæder</a> / <span class="georg-bc-current">{{ product.title }}</span>
+      </div>
+    {%- endif -%}
 
     <div class="georg-pdp-grid">
-      <!-- Left 2-Column Media Gallery -->
+      <!-- Left Media Gallery -->
       <div class="georg-pdp-gallery">
         {%- if product.media.size > 0 -%}
           <div class="georg-gallery-grid">
@@ -43,7 +45,7 @@
       <div class="georg-pdp-info-sticky">
         <div class="georg-pdp-info-inner">
           <div class="georg-pdp-collection-tag">
-            {{ product.vendor | default: 'MOONLIGHT GRAPES' | upcase }} KOLLEKTION
+            {{ product.vendor | default: section.settings.default_brand | default: 'MOONLIGHT GRAPES' | upcase }} KOLLEKTION
           </div>
 
           <h1 class="georg-pdp-title georg-serif">
@@ -54,16 +56,18 @@
             {%- if product.metafields.custom.material != blank -%}
               {{ product.metafields.custom.material | upcase }}
             {%- else -%}
-              OXIDERET STERLINGSØLV
+              {{ section.settings.default_material | default: 'OXIDERET STERLINGSØLV' | upcase }}
             {%- endif -%}
           </div>
 
           <!-- Size Selector -->
-          <div class="georg-pdp-size-picker">
-            <button type="button" class="georg-size-btn">
-              VÆLG STØRRELSE <span class="georg-caret">▾</span>
-            </button>
-          </div>
+          {%- if section.settings.show_size_picker -%}
+            <div class="georg-pdp-size-picker">
+              <button type="button" class="georg-size-btn">
+                {{ section.settings.size_picker_label | default: 'VÆLG STØRRELSE' }} <span class="georg-caret">▾</span>
+              </button>
+            </div>
+          {%- endif -%}
 
           <!-- Price -->
           <div class="georg-pdp-price">
@@ -73,29 +77,37 @@
           <!-- Add to Cart Form -->
           {%- form 'product', product, id: 'GeorgPdpForm' -%}
             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-            <button type="submit" class="button-georg-pdp-buy">
-              LÆG I KURV
+            <button type="submit" class="button-georg-pdp-buy" style="background-color: {{ section.settings.button_bg }}; color: {{ section.settings.button_text_color }};">
+              {{ section.settings.buy_button_label | default: 'LÆG I KURV' }}
             </button>
           {%- endform -%}
 
           <!-- Wishlist Toggle -->
-          <div class="georg-pdp-wishlist-row">
-            <button type="button" class="georg-wishlist-btn">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-              <span>TILFØJ ØNSKELISTE</span>
-            </button>
-          </div>
+          {%- if section.settings.show_wishlist -%}
+            <div class="georg-pdp-wishlist-row">
+              <button type="button" class="georg-wishlist-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <span>{{ section.settings.wishlist_label | default: 'TILFØJ ØNSKELISTE' }}</span>
+              </button>
+            </div>
+          {%- endif -%}
 
           <!-- Free Gift Wrapping Banner -->
-          <div class="georg-gift-wrap-banner">
-            <div class="georg-gift-text">
-              <div class="georg-gift-tag">GRATIS</div>
-              <div class="georg-gift-title">GAVEINDPAKNING</div>
+          {%- if section.settings.show_gift_wrap_banner -%}
+            <div class="georg-gift-wrap-banner">
+              <div class="georg-gift-text">
+                <div class="georg-gift-tag">{{ section.settings.gift_wrap_tag | default: 'GRATIS' }}</div>
+                <div class="georg-gift-title">{{ section.settings.gift_wrap_title | default: 'GAVEINDPAKNING' }}</div>
+              </div>
+              <div class="georg-gift-img-wrap">
+                {%- if section.settings.gift_wrap_image != blank -%}
+                  <img src="{{ section.settings.gift_wrap_image | image_url: width: 200 }}" alt="Gaveindpakning" class="georg-gift-img">
+                {%- else -%}
+                  <img src="{{ 'GJ_AW25_ALL_SEASON_GIFTING_200x200190_190_190.jpg' | asset_url }}" alt="Gaveindpakning" class="georg-gift-img">
+                {%- endif -%}
+              </div>
             </div>
-            <div class="georg-gift-img-wrap">
-              <img src="{{ 'GJ_AW25_ALL_SEASON_GIFTING_200x200190_190_190.jpg' | asset_url }}" alt="Gaveindpakning" class="georg-gift-img">
-            </div>
-          </div>
+          {%- endif -%}
 
           <!-- Product Description -->
           <div class="georg-pdp-description georg-sans">
@@ -104,25 +116,16 @@
 
           <!-- Accordion Details -->
           <div class="georg-pdp-accordions">
-            <details class="georg-accordion-item">
-              <summary class="georg-accordion-header">
-                <span>+ PRODUKTDETALJER</span>
-              </summary>
-              <div class="georg-accordion-content">
-                <p><strong>Varenummer:</strong> 20001008</p>
-                <p><strong>Materiale:</strong> Oxideret sterlingsølv</p>
-                <p><strong>Kollektion:</strong> Moonlight Grapes</p>
-              </div>
-            </details>
-
-            <details class="georg-accordion-item">
-              <summary class="georg-accordion-header">
-                <span>+ LEVERING OG RETUR</span>
-              </summary>
-              <div class="georg-accordion-content">
-                <p>Gratis fragt på alle ordrer. 30 dages fuld returret.</p>
-              </div>
-            </details>
+            {%- for block in section.blocks -%}
+              <details class="georg-accordion-item" {{ block.shopify_attributes }}>
+                <summary class="georg-accordion-header">
+                  <span>+ {{ block.settings.heading | upcase }}</span>
+                </summary>
+                <div class="georg-accordion-content">
+                  {{ block.settings.content }}
+                </div>
+              </details>
+            {%- endfor -%}
           </div>
         </div>
       </div>
@@ -238,8 +241,6 @@
 
   .button-georg-pdp-buy {
     width: 100%;
-    background-color: #8ed0f8;
-    color: #111111;
     border: none;
     padding: 16px 20px;
     font-family: var(--georg-font-sans);
@@ -248,13 +249,13 @@
     letter-spacing: 0.16em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: opacity 0.2s ease;
     border-radius: 0;
     margin-bottom: 16px;
   }
 
   .button-georg-pdp-buy:hover {
-    background-color: #79c4f0;
+    opacity: 0.85;
   }
 
   .georg-pdp-wishlist-row {
@@ -341,10 +342,130 @@
 {% schema %}
 {
   "name": "Georg Main Product",
-  "settings": [],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumbs",
+      "label": "Show Breadcrumbs",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "default_brand",
+      "label": "Default Brand / Collection Tag",
+      "default": "MOONLIGHT GRAPES"
+    },
+    {
+      "type": "text",
+      "id": "default_material",
+      "label": "Default Material Subtitle",
+      "default": "OXIDERET STERLINGSØLV"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_size_picker",
+      "label": "Show Size Picker Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "size_picker_label",
+      "label": "Size Picker Label",
+      "default": "VÆLG STØRRELSE"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Add to Cart Button Background",
+      "default": "#8ed0f8"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Add to Cart Button Text Color",
+      "default": "#111111"
+    },
+    {
+      "type": "text",
+      "id": "buy_button_label",
+      "label": "Buy Button Text",
+      "default": "LÆG I KURV"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist",
+      "label": "Show Wishlist Link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "wishlist_label",
+      "label": "Wishlist Link Text",
+      "default": "TILFØJ ØNSKELISTE"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gift_wrap_banner",
+      "label": "Show Gift Wrapping Banner",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "gift_wrap_tag",
+      "label": "Gift Wrap Subtag",
+      "default": "GRATIS"
+    },
+    {
+      "type": "text",
+      "id": "gift_wrap_title",
+      "label": "Gift Wrap Title",
+      "default": "GAVEINDPAKNING"
+    },
+    {
+      "type": "image_picker",
+      "id": "gift_wrap_image",
+      "label": "Gift Wrap Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Accordion Title",
+          "default": "PRODUKTDETALJER"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Accordion Content",
+          "default": "<p><strong>Varenummer:</strong> 20001008<br><strong>Materiale:</strong> Oxideret sterlingsølv<br><strong>Kollektion:</strong> Moonlight Grapes</p>"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Georg Main Product"
+      "name": "Georg Main Product",
+      "blocks": [
+        {
+          "type": "accordion",
+          "settings": {
+            "heading": "PRODUKTDETALJER",
+            "content": "<p><strong>Varenummer:</strong> 20001008<br><strong>Materiale:</strong> Oxideret sterlingsølv<br><strong>Kollektion:</strong> Moonlight Grapes</p>"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "heading": "LEVERING OG RETUR",
+            "content": "<p>Gratis fragt på alle ordrer. 30 dages fuld returret.</p>"
+          }
+        }
+      ]
     }
   ]
 }

@@ -1,10 +1,10 @@
 {% comment %}
-  Georg Jensen Split Banner Section (2-Column Banners) - 1-to-1 Replica
+  Georg Jensen Split Banner Section (2-Column Banners) - Fully Theme Customizer Editable
 {% endcomment %}
 
-<div class="georg-split-banner-section">
+<div class="georg-split-banner-section section-{{ section.id }}">
   <div class="georg-container">
-    <div class="georg-split-grid">
+    <div class="georg-split-grid" style="grid-template-columns: repeat({{ section.blocks.size | default: 2 }}, 1fr);">
       {%- for block in section.blocks -%}
         <div class="georg-split-col" {{ block.shopify_attributes }}>
           <div class="georg-split-media">
@@ -17,17 +17,22 @@
             {%- endif -%}
           </div>
 
-
           <div class="georg-split-content">
-            <h3 class="georg-split-title georg-serif">{{ block.settings.title | default: 'Gaveidéer' }}</h3>
+            {%- if block.settings.title != blank -%}
+              <h3 class="georg-split-title georg-serif">{{ block.settings.title }}</h3>
+            {%- endif -%}
+
             {%- if block.settings.text != blank -%}
               <p class="georg-split-desc georg-sans">{{ block.settings.text }}</p>
             {%- endif -%}
-            <div class="georg-split-cta">
-              <a href="{{ block.settings.button_link | default: '#' }}" class="button-georg-blue">
-                {{ block.settings.button_label | default: 'Udforsk gaveidéer' }}
-              </a>
-            </div>
+
+            {%- if block.settings.button_label != blank -%}
+              <div class="georg-split-cta">
+                <a href="{{ block.settings.button_link | default: '#' }}" class="{% if block.settings.button_style == 'black' %}button-georg-black{% else %}button-georg-blue{% endif %}">
+                  {{ block.settings.button_label }}
+                </a>
+              </div>
+            {%- endif -%}
           </div>
         </div>
       {%- endfor -%}
@@ -37,13 +42,12 @@
 
 <style>
   .georg-split-banner-section {
-    padding: 70px 0;
-    background-color: #ffffff;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 0;
+    background-color: {{ section.settings.bg_color }};
   }
 
   .georg-split-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     gap: 32px;
   }
 
@@ -101,7 +105,7 @@
 
   @media screen and (max-width: 749px) {
     .georg-split-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr !important;
       gap: 40px;
     }
   }
@@ -109,8 +113,33 @@
 
 {% schema %}
 {
-  "name": "Georg Jensen Split Banner",
-  "settings": [],
+  "name": "Georg Split Banner",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "default": 70,
+      "label": "Padding Top (px)"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "default": 70,
+      "label": "Padding Bottom (px)"
+    }
+  ],
   "blocks": [
     {
       "type": "banner",
@@ -143,20 +172,31 @@
           "type": "url",
           "id": "button_link",
           "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button Style",
+          "options": [
+            { "value": "blue", "label": "Navy Blue Solid" },
+            { "value": "black", "label": "Black Solid" }
+          ],
+          "default": "blue"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Georg Jensen Split Banner",
+      "name": "Georg Split Banner",
       "blocks": [
         {
           "type": "banner",
           "settings": {
             "title": "Gaveidéer",
             "text": "Find den perfekte gave til enhver anledning iblandt klassisk dansk design.",
-            "button_label": "UDFORSK GAVEIDÉER"
+            "button_label": "UDFORSK GAVEIDÉER",
+            "button_style": "blue"
           }
         },
         {
@@ -164,7 +204,8 @@
           "settings": {
             "title": "Sølvbestik",
             "text": "Se vores smukke sølvbestikserier skabt med fokus på håndværk og elegance.",
-            "button_label": "UDFORSK SØLVBESTIK"
+            "button_label": "UDFORSK SØLVBESTIK",
+            "button_style": "black"
           }
         }
       ]

@@ -1,16 +1,53 @@
 {
-  "name": "Header Group",
+  "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "georg_jensen_header": {
-      "type": "georg-jensen-header",
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement-bar-0": {
+          "type": "announcement",
+          "settings": {
+            "text": "Medlemmer får altid gratis fragt | Tilmeld dig vores nyhedsbrev og få 10%",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement-bar-0"
+      ],
       "settings": {
-        "announcement_left_text": "Medlemmer får altid gratis fragt",
-        "announcement_right_text": "Tilmeld dig vores nyhedsbrev og få 10%"
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "color_scheme": "scheme-1",
+        "show_line_separator": true,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_position": "middle-center",
+        "mobile_logo_position": "center",
+        "menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": true,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_customer_avatar": true,
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20
       }
     }
   },
   "order": [
-    "georg_jensen_header"
+    "announcement-bar",
+    "header"
   ]
 }

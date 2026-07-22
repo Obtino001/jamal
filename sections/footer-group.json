@@ -1,13 +1,62 @@
 {
-  "name": "Footer Group",
+  "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
-    "georg_jensen_footer": {
-      "type": "georg-jensen-footer",
-      "settings": {}
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "menu_1": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Kundeservice",
+            "menu": "main-menu"
+          }
+        },
+        "menu_2": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Online Shopping",
+            "menu": "footer"
+          }
+        },
+        "menu_3": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Mere fra Georg Jensen",
+            "menu": "footer"
+          }
+        },
+        "menu_4": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Firmainfo",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "menu_1",
+        "menu_2",
+        "menu_3",
+        "menu_4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "newsletter_enable": true,
+        "newsletter_heading": "Bliv medlem af Georg Jensen",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "georg_jensen_footer"
+    "footer"
   ]
 }

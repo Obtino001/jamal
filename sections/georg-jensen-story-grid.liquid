@@ -1,16 +1,18 @@
 {% comment %}
-  Georg Jensen Story Grid Section ("Bliv inspireret") - 1-to-1 Replica
+  Georg Jensen Story Grid Section ("Bliv inspireret") - Fully Theme Customizer Editable
 {% endcomment %}
 
-<div class="georg-story-grid-section">
+<div class="georg-story-grid-section section-{{ section.id }}">
   <div class="georg-container">
     {%- if section.settings.section_title != blank -%}
       <div class="georg-section-header-wrap">
-        <h2 class="georg-section-title georg-serif">{{ section.settings.section_title }}</h2>
+        <h2 class="georg-section-title georg-serif" style="color: {{ section.settings.title_color }}; font-size: {{ section.settings.title_size }}px;">
+          {{ section.settings.section_title }}
+        </h2>
       </div>
     {%- endif -%}
 
-    <div class="georg-story-grid">
+    <div class="georg-story-grid" style="grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);">
       {%- for block in section.blocks -%}
         <div class="georg-story-card" {{ block.shopify_attributes }}>
           <div class="georg-story-media-wrap">
@@ -25,13 +27,14 @@
             {%- endif -%}
           </div>
 
-
           <div class="georg-story-content">
             {%- if block.settings.category_tag != blank -%}
               <span class="georg-story-tag">{{ block.settings.category_tag }}</span>
             {%- endif -%}
 
-            <h3 class="georg-story-title georg-serif">{{ block.settings.title | default: 'Georg Jensens designikoner' }}</h3>
+            {%- if block.settings.title != blank -%}
+              <h3 class="georg-story-title georg-serif">{{ block.settings.title }}</h3>
+            {%- endif -%}
 
             {%- if block.settings.text != blank -%}
               <p class="georg-story-desc georg-sans">{{ block.settings.text }}</p>
@@ -53,8 +56,8 @@
 
 <style>
   .georg-story-grid-section {
-    padding: 70px 0;
-    background-color: #ffffff;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 0;
+    background-color: {{ section.settings.bg_color }};
   }
 
   .georg-section-header-wrap {
@@ -63,16 +66,12 @@
   }
 
   .georg-section-title {
-    font-size: 34px;
     font-weight: 400;
-    color: #1a1a1a;
-    letter-spacing: -0.01em;
     margin: 0;
   }
 
   .georg-story-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     gap: 32px;
   }
 
@@ -138,13 +137,13 @@
 
   @media screen and (max-width: 989px) {
     .georg-story-grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 1fr) !important;
     }
   }
 
   @media screen and (max-width: 640px) {
     .georg-story-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr !important;
       gap: 40px;
     }
   }
@@ -152,13 +151,61 @@
 
 {% schema %}
 {
-  "name": "Georg Jensen Story Grid",
+  "name": "Georg Story Grid",
   "settings": [
     {
       "type": "text",
       "id": "section_title",
       "label": "Section Title",
       "default": "Bliv inspireret"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 50,
+      "step": 2,
+      "default": 34,
+      "label": "Title Font Size (px)"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "Desktop Columns"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "default": 70,
+      "label": "Padding Top (px)"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "default": 70,
+      "label": "Padding Bottom (px)"
     }
   ],
   "blocks": [
@@ -187,7 +234,7 @@
           "type": "textarea",
           "id": "text",
           "label": "Description Text",
-          "default": "Udforsk vores ikoniske kollektioner skabt af anerkendte skandinaviske designere."
+          "default": "Udforsk vores mest elskede og ikoniske kollektioner igennem tiden."
         },
         {
           "type": "text",
@@ -205,7 +252,7 @@
   ],
   "presets": [
     {
-      "name": "Georg Jensen Story Grid",
+      "name": "Georg Story Grid",
       "blocks": [
         {
           "type": "story_card",

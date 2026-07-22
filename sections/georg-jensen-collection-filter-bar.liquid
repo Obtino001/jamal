@@ -1,54 +1,56 @@
 {% comment %}
-  Georg Jensen Collection Filter & Sort Bar - 1-to-1 Replica
+  Georg Jensen Collection Filter & Sort Bar - Fully Theme Customizer Editable
 {% endcomment %}
 
-<div class="georg-filter-bar-section">
+<div class="georg-filter-bar-section section-{{ section.id }}">
   <div class="georg-container">
     <div class="georg-filter-bar-inner">
       <!-- Left Filters -->
       <div class="georg-filter-group-left">
-        <div class="georg-filter-item">
-          <button class="georg-filter-btn" type="button">
-            PRIS <span class="georg-caret">▾</span>
-          </button>
-        </div>
-        <div class="georg-filter-item">
-          <button class="georg-filter-btn" type="button">
-            PRODUKTTYPE <span class="georg-caret">▾</span>
-          </button>
-        </div>
-        <div class="georg-filter-item">
-          <button class="georg-filter-btn" type="button">
-            KOLLEKTION <span class="georg-caret">▾</span>
-          </button>
-        </div>
-        <div class="georg-filter-item">
-          <button class="georg-filter-btn" type="button">
-            MATERIALE <span class="georg-caret">▾</span>
-          </button>
-        </div>
-        <div class="georg-filter-item">
-          <button class="georg-filter-btn" type="button">
-            MERE <span class="georg-caret">▾</span>
-          </button>
-        </div>
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            <div class="georg-filter-item" {{ block.shopify_attributes }}>
+              <button class="georg-filter-btn" type="button">
+                {{ block.settings.label | upcase }} <span class="georg-caret">▾</span>
+              </button>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <div class="georg-filter-item">
+            <button class="georg-filter-btn" type="button">PRIS <span class="georg-caret">▾</span></button>
+          </div>
+          <div class="georg-filter-item">
+            <button class="georg-filter-btn" type="button">PRODUKTTYPE <span class="georg-caret">▾</span></button>
+          </div>
+          <div class="georg-filter-item">
+            <button class="georg-filter-btn" type="button">KOLLEKTION <span class="georg-caret">▾</span></button>
+          </div>
+          <div class="georg-filter-item">
+            <button class="georg-filter-btn" type="button">MATERIALE <span class="georg-caret">▾</span></button>
+          </div>
+          <div class="georg-filter-item">
+            <button class="georg-filter-btn" type="button">MERE <span class="georg-caret">▾</span></button>
+          </div>
+        {%- endif -%}
       </div>
 
       <!-- Right Sort -->
-      <div class="georg-filter-group-right">
-        <div class="georg-filter-item">
-          <button class="georg-filter-btn georg-sort-btn" type="button">
-            SORTER EFTER <span class="georg-caret">▾</span>
-          </button>
+      {%- if section.settings.show_sort -%}
+        <div class="georg-filter-group-right">
+          <div class="georg-filter-item">
+            <button class="georg-filter-btn georg-sort-btn" type="button">
+              {{ section.settings.sort_label | default: 'SORTER EFTER' | upcase }} <span class="georg-caret">▾</span>
+            </button>
+          </div>
         </div>
-      </div>
+      {%- endif -%}
     </div>
   </div>
 </div>
 
 <style>
   .georg-filter-bar-section {
-    background-color: #ffffff;
+    background-color: {{ section.settings.bg_color | default: '#ffffff' }};
     border-bottom: 1px solid #e8e8e8;
     padding: 16px 0;
     font-family: var(--georg-font-sans);
@@ -109,10 +111,50 @@
 {% schema %}
 {
   "name": "Georg Filter Bar",
-  "settings": [],
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sort",
+      "label": "Show Sort Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sort_label",
+      "label": "Sort Label",
+      "default": "SORTER EFTER"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter_item",
+      "name": "Filter Dropdown Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Filter Button Label",
+          "default": "PRIS"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Georg Filter Bar"
+      "name": "Georg Filter Bar",
+      "blocks": [
+        { "type": "filter_item", "settings": { "label": "PRIS" } },
+        { "type": "filter_item", "settings": { "label": "PRODUKTTYPE" } },
+        { "type": "filter_item", "settings": { "label": "KOLLEKTION" } },
+        { "type": "filter_item", "settings": { "label": "MATERIALE" } },
+        { "type": "filter_item", "settings": { "label": "MERE" } }
+      ]
     }
   ]
 }

@@ -3764,4 +3764,110 @@ details-disclosure > details {
   border-color: #222222 !important;
 }
 
+/* ==========================================================================
+   NATIVE DAWN HEADER & FOOTER GEORG JENSEN LUXURY STYLING OVERRIDES
+   ========================================================================== */
+
+/* Utility & Announcement Bar */
+.utility-bar {
+  background-color: #f7f7f7 !important;
+  border-bottom: 1px solid #eaeaea !important;
+  padding: 6px 0 !important;
+}
+
+.announcement-bar__message {
+  font-family: var(--georg-font-sans) !important;
+  font-size: 1.1rem !important;
+  letter-spacing: 0.05em !important;
+  color: #444444 !important;
+  text-transform: none !important;
+}
+
+/* Header & Navigation */
+.header {
+  background-color: #ffffff !important;
+  padding-top: 1.6rem !important;
+  padding-bottom: 1.6rem !important;
+}
+
+.header__heading-text {
+  font-family: var(--georg-font-serif) !important;
+  font-size: 2.8rem !important;
+  letter-spacing: 0.25em !important;
+  font-weight: 500 !important;
+  color: #000000 !important;
+  text-transform: uppercase !important;
+}
+
+.header__menu-item {
+  font-family: var(--georg-font-sans) !important;
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  color: #1c1c1c !important;
+}
+
+.header__menu-item:hover {
+  color: #666666 !important;
+  text-decoration: none !important;
+}
+
+.header__icon {
+  color: #111111 !important;
+}
+
+.header__icon .icon {
+  width: 2rem !important;
+  height: 2rem !important;
+}
+
+/* Footer Section */
+.footer {
+  background-color: #ffffff !important;
+  border-top: 1px solid #eeeeee !important;
+  font-family: var(--georg-font-sans) !important;
+}
+
+.footer-block--newsletter {
+  background-color: #191c20 !important;
+  color: #ffffff !important;
+  padding: 4rem 3rem !important;
+  margin-bottom: 4rem !important;
+}
+
+.footer-block__heading {
+  font-family: var(--georg-font-sans) !important;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: #000000 !important;
+}
+
+.footer-block--newsletter .footer-block__heading {
+  color: #ffffff !important;
+  font-family: var(--georg-font-serif) !important;
+  font-size: 2.8rem !important;
+  text-transform: none !important;
+}
+
+.footer-block__details-content .list-menu__item--link {
+  font-family: var(--georg-font-sans) !important;
+  font-size: 1.3rem !important;
+  color: #555555 !important;
+}
+
+.footer-block__details-content .list-menu__item--link:hover {
+  color: #000000 !important;
+  text-decoration: underline !important;
+}
+
+.footer__copyright {
+  font-family: var(--georg-font-sans) !important;
+  font-size: 1.2rem !important;
+  color: #777777 !important;
+}
+
+
 
