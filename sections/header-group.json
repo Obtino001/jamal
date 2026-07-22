@@ -8,63 +8,30 @@
  * ------------------------------------------------------------
  */
 {
-  "name": "t:sections.header.name",
+  "name": "Header Group",
   "type": "header",
   "sections": {
-    "announcement-bar": {
-      "type": "announcement-bar",
-      "blocks": {
-        "announcement-1": {
-          "type": "announcement",
-          "settings": {
-            "text": "Medlemmer får altid gratis fragt",
-            "link": ""
-          }
-        },
-        "announcement-2": {
-          "type": "announcement",
-          "settings": {
-            "text": "Tilmeld dig vores nyhedsbrev og få 10%",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "announcement-1",
-        "announcement-2"
-      ],
+    "georg_jensen_header": {
+      "type": "georg-jensen-header",
       "settings": {
-        "auto_rotate": false,
-        "change_slides_speed": 5,
-        "color_scheme": "scheme-1",
-        "show_line_separator": true,
-        "show_social": false,
-        "enable_country_selector": false,
-        "enable_language_selector": false
-      }
-    },
-    "header": {
-      "type": "header",
-      "settings": {
-        "logo_position": "middle-center",
-        "mobile_logo_position": "center",
+        "show_announcement": true,
+        "announcement_left_text": "Medlemmer får altid gratis fragt",
+        "announcement_left_link": "",
+        "announcement_right_text": "Tilmeld dig vores nyhedsbrev og få 10%",
+        "announcement_right_link": "",
+        "announcement_bg": "#1b2430",
+        "announcement_text_color": "#ffffff",
+        "store_locator_label": "Find butik",
+        "store_locator_link": "",
+        "support_label": "Kundeservice",
+        "support_link": "",
+        "logo_width": 220,
         "menu": "main-menu",
-        "menu_type_desktop": "dropdown",
-        "sticky_header_type": "on-scroll-up",
-        "show_line_separator": true,
-        "color_scheme": "scheme-1",
-        "menu_color_scheme": "scheme-1",
-        "enable_country_selector": true,
-        "enable_language_selector": true,
-        "enable_customer_avatar": true,
-        "margin_bottom": 0,
-        "padding_top": 20,
-        "padding_bottom": 20
+        "search_placeholder": "Søg"
       }
     }
   },
   "order": [
-    "announcement-bar",
-    "header"
+    "georg_jensen_header"
   ]
 }
