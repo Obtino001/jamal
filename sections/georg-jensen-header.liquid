@@ -1,9 +1,9 @@
 {% comment %}
-  Georg Jensen Header Section - Fully Theme Customizer Editable with 1-to-1 Announcement Bar
+  Georg Jensen 1-to-1 Custom Header (Exact HTML & Styling Match)
 {% endcomment %}
 
 <div class="georg-header-wrapper">
-  <!-- Announcement Bar -->
+  <!-- Top Announcement Bar -->
   {%- if section.settings.show_announcement -%}
     <div class="georg-announcement-bar" style="background-color: {{ section.settings.announcement_bg | default: '#1b2430' }}; color: {{ section.settings.announcement_text_color | default: '#ffffff' }};">
       <div class="georg-container georg-announcement-inner">
@@ -27,97 +27,118 @@
     </div>
   {%- endif -%}
 
-  <!-- Main Header Top Row -->
-  <header class="georg-main-header">
-    <div class="georg-container georg-header-inner">
-      <!-- Left Quick Links -->
-      <div class="georg-header-left">
-        {%- if section.settings.store_locator_label != blank -%}
-          <a href="{{ section.settings.store_locator_link | default: '#' }}" class="georg-utility-link">
-            <svg class="georg-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-6-5.33-6-10a6 6 0 0 1 12 0c0 4.67-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg>
-            <span>{{ section.settings.store_locator_label }}</span>
-          </a>
-        {%- endif -%}
-        {%- if section.settings.support_label != blank -%}
-          <a href="{{ section.settings.support_link | default: '#' }}" class="georg-utility-link">
-            <span>{{ section.settings.support_label }}</span>
-          </a>
-        {%- endif -%}
+  <!-- Main Top Banner Header -->
+  <header class="top-banner" role="banner">
+    <div class="grid-wrapper georg-container">
+      <!-- Left: Store & Customer Service Links -->
+      <div class="header-left-links">
+        <ul>
+          <li class="stores desktop">
+            <a href="{{ section.settings.store_link | default: '/pages/contact' }}" aria-label="Gå til Butikslokator">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-6-5.33-6-10a6 6 0 0 1 12 0c0 4.67-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg>
+              <span>{{ section.settings.store_locator_label | default: 'Find butik' }}</span>
+            </a>
+          </li>
+          <li class="customerService">
+            <a href="{{ section.settings.support_link | default: '/pages/contact' }}" aria-label="Gå til kundeservicesiden">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span>{{ section.settings.support_label | default: 'Kundeservice' }}</span>
+            </a>
+          </li>
+        </ul>
       </div>
 
-      <!-- Center Brand Logo -->
-      <div class="georg-header-center">
-        <a href="{{ routes.root_url }}" class="georg-brand-logo-link">
+      <!-- Center Logo -->
+      <div class="primary-logo">
+        <a href="{{ routes.root_url }}" title="Georg Jensen Hjem">
           {%- if section.settings.logo != blank -%}
-            <img src="{{ section.settings.logo | image_url: width: 400 }}" alt="{{ shop.name }}" class="georg-logo-img" style="width: {{ section.settings.logo_width }}px;">
+            <img src="{{ section.settings.logo | image_url: width: 400 }}" alt="Georg Jensen" class="logo-img" style="width: {{ section.settings.logo_width }}px;">
           {%- else -%}
-            <img src="{{ 'logo.svg' | asset_url }}" alt="GEORG JENSEN" class="georg-logo-img" style="width: {{ section.settings.logo_width }}px;">
+            <img src="{{ 'logo.svg' | asset_url }}" alt="Georg Jensen" class="logo-img" style="width: {{ section.settings.logo_width }}px;">
           {%- endif -%}
         </a>
       </div>
 
-      <!-- Right Utility Actions -->
-      <div class="georg-header-right">
-        <form action="{{ routes.search_url }}" method="get" class="georg-search-box">
-          <input type="text" name="q" placeholder="{{ section.settings.search_placeholder | default: 'Søg...' }}" class="georg-search-input">
-          <button type="submit" class="georg-search-btn" aria-label="Søg">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
-          </button>
-        </form>
+      <!-- Right Actions: Search, User Account, Wishlist, Mini-Cart -->
+      <div class="header-right-actions">
+        <!-- Search Box -->
+        <div class="search">
+          <form action="{{ routes.search_url }}" method="get" class="search-form">
+            <input name="q" type="text" title="Søg" placeholder="{{ section.settings.search_placeholder | default: 'Søg' }}" class="header-search-input" autocomplete="off">
+            <button type="submit" class="searchicon" aria-label="Søgeknap">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+            </button>
+          </form>
+        </div>
 
-        <a href="{{ routes.account_url }}" class="georg-icon-link" aria-label="Konto">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+        <!-- User Info / Account -->
+        <div id="user-info" class="user-info">
+          <a href="{{ routes.account_url }}" class="user-account">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+            <span class="user-account-login desktop-only">{{ section.settings.account_label | default: 'Log ind / Opret' }}</span>
+          </a>
+        </div>
+
+        <!-- Wishlist -->
+        <a class="wishlist" href="#" aria-label="Gå til din ønskeliste">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          <span class="whishlist-quantity">0</span>
         </a>
 
-        <a href="#" class="georg-icon-link georg-wishlist-icon" aria-label="Ønskeliste">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          <span class="georg-badge">0</span>
-        </a>
-
-        <a href="{{ routes.cart_url }}" class="georg-icon-link georg-cart-icon" aria-label="Kurv">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <span class="georg-badge">{{ cart.item_count }}</span>
-        </a>
+        <!-- Mini Cart -->
+        <div id="mini-cart">
+          <a class="mini-cart-link" href="{{ routes.cart_url }}" title="Se kurv">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="minicart-quantity">{{ cart.item_count }}</span>
+            <div class="minicart-title desktop-only">Kurv</div>
+          </a>
+        </div>
       </div>
     </div>
-  </header>
 
-  <!-- Navigation Menu Bar -->
-  <nav class="georg-nav-bar">
-    <div class="georg-container">
-      <ul class="georg-nav-menu">
-        {%- assign nav_menu = linklists[section.settings.menu] -%}
-        {%- if nav_menu != blank and nav_menu.links.size > 0 -%}
-          {%- for link in nav_menu.links -%}
-            <li class="georg-nav-item">
-              <a href="{{ link.url }}" class="georg-nav-link">{{ link.title | upcase }}</a>
+    <!-- Navigation Menu Bar -->
+    <nav id="navigation" role="navigation">
+      <div class="georg-container">
+        <ul class="menu-category level-1">
+          {%- assign main_menu = linklists[section.settings.menu] -%}
+          {%- if main_menu != blank and main_menu.links.size > 0 -%}
+            {%- for link in main_menu.links -%}
+              <li class="level-1-normal-header">
+                <a href="{{ link.url }}"><span>{{ link.title }}</span></a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <!-- Fallback 1-to-1 Nav Menu Items from Georg Jensen HTML -->
+            <li class="level-1-normal-header">
+              <a href="/collections/all"><span>Smykker</span></a>
             </li>
-          {%- endfor -%}
-        {%- elsif section.blocks.size > 0 -%}
-          {%- for block in section.blocks -%}
-            <li class="georg-nav-item" {{ block.shopify_attributes }}>
-              <a href="{{ block.settings.link | default: '#' }}" class="georg-nav-link">{{ block.settings.title | upcase }}</a>
+            <li class="level-1-normal-header">
+              <a href="/collections/all"><span>Bolig</span></a>
             </li>
-          {%- endfor -%}
-        {%- else -%}
-          <li class="georg-nav-item"><a href="#" class="georg-nav-link">SMYKKER</a></li>
-          <li class="georg-nav-item"><a href="#" class="georg-nav-link">BOLIG</a></li>
-          <li class="georg-nav-item"><a href="#" class="georg-nav-link">TIL BORD & BAR</a></li>
-          <li class="georg-nav-item"><a href="#" class="georg-nav-link">SØLVHÅNDVÆRK</a></li>
-          <li class="georg-nav-item"><a href="#" class="georg-nav-link">URE & ACCESSOIRES</a></li>
-          <li class="georg-nav-item"><a href="#" class="georg-nav-link">GAVER</a></li>
-          <li class="georg-nav-item"><a href="#" class="georg-nav-link">UDFORSK</a></li>
-          <li class="georg-nav-item"><a href="#" class="georg-nav-link">SALE</a></li>
-        {%- endif -%}
-      </ul>
-    </div>
-  </nav>
+            <li class="level-1-normal-header">
+              <a href="/collections/all"><span>Til bord & Bar</span></a>
+            </li>
+            <li class="level-1-normal-header">
+              <a href="/collections/all"><span>Sølvhåndværk</span></a>
+            </li>
+            <li class="level-1-normal-header">
+              <a href="/collections/all"><span>Gaver</span></a>
+            </li>
+            <li class="level-1-normal-header">
+              <a href="/pages/about"><span>Brand</span></a>
+            </li>
+          {%- endif -%}
+        </ul>
+      </div>
+    </nav>
+  </header>
 </div>
 
 <style>
   .georg-header-wrapper {
     font-family: var(--georg-font-sans);
     background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
   }
 
   .georg-container {
@@ -159,91 +180,100 @@
     opacity: 0.8;
   }
 
-  .georg-main-header {
-    padding: 20px 0;
+  .top-banner {
+    padding-top: 16px;
   }
 
-  .georg-header-inner {
+  .top-banner .grid-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-bottom: 16px;
   }
 
-  .georg-header-left {
+  .header-left-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     align-items: center;
     gap: 20px;
-    flex: 1;
   }
 
-  .georg-utility-link {
+  .header-left-links a {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     font-size: 12px;
     color: #222222;
     text-decoration: none;
+    transition: color 0.2s;
   }
 
-  .georg-header-center {
+  .header-left-links a:hover {
+    color: #666666;
+  }
+
+  .primary-logo {
     text-align: center;
-    flex: 1;
   }
 
-  .georg-logo-img {
+  .logo-img {
     height: auto;
     display: inline-block;
   }
 
-  .georg-header-right {
+  .header-right-actions {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 20px;
-    flex: 1;
+    gap: 22px;
   }
 
-  .georg-search-box {
+  .search-form {
     position: relative;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 2px;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 3px;
   }
 
-  .georg-search-input {
+  .header-search-input {
     border: none;
     outline: none;
     background: transparent;
     font-size: 12px;
     width: 140px;
     padding-right: 24px;
+    color: #222222;
   }
 
-  .georg-search-btn {
+  .searchicon {
     position: absolute;
     right: 0;
     border: none;
     background: transparent;
     cursor: pointer;
     padding: 0;
-    color: #444;
-  }
-
-  .georg-icon-link {
-    color: #222;
-    position: relative;
-    display: inline-flex;
+    color: #222222;
+    display: flex;
     align-items: center;
   }
 
-  .georg-badge {
-    position: absolute;
-    top: -6px;
-    right: -8px;
-    background: #111;
-    color: #fff;
+  .user-account, .wishlist, .mini-cart-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #222222;
+    text-decoration: none;
+    position: relative;
+  }
+
+  .whishlist-quantity, .minicart-quantity {
+    background: #8ed0f8;
+    color: #111111;
     font-size: 9px;
+    font-weight: 700;
     width: 15px;
     height: 15px;
     border-radius: 50%;
@@ -252,43 +282,43 @@
     justify-content: center;
   }
 
-  .georg-nav-bar {
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+  #navigation {
+    border-top: 1px solid #eaeaea;
     padding: 12px 0;
   }
 
-  .georg-nav-menu {
+  .menu-category {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 32px;
+    gap: 36px;
   }
 
-  .georg-nav-link {
+  .level-1-normal-header a {
     font-size: 11px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.14em;
     color: #111111;
     text-decoration: none;
+    text-transform: uppercase;
     transition: color 0.2s;
   }
 
-  .georg-nav-link:hover {
+  .level-1-normal-header a:hover {
     color: #777777;
   }
 
-  @media screen and (max-width: 768px) {
-    .georg-header-left {
+  @media screen and (max-width: 890px) {
+    .header-left-links {
       display: none;
     }
-    .georg-search-input {
-      width: 90px;
+    .desktop-only {
+      display: none;
     }
-    .georg-nav-menu {
+    .menu-category {
       gap: 16px;
       overflow-x: auto;
       justify-content: flex-start;
@@ -299,7 +329,7 @@
 
 {% schema %}
 {
-  "name": "Georg Jensen Header",
+  "name": "Georg Jensen Header 1-to-1",
   "settings": [
     {
       "type": "header",
@@ -332,7 +362,7 @@
     {
       "type": "url",
       "id": "announcement_left_link",
-      "label": "Left Message Link"
+      "label": "Left Link"
     },
     {
       "type": "text",
@@ -343,24 +373,24 @@
     {
       "type": "url",
       "id": "announcement_right_link",
-      "label": "Right Message Link"
+      "label": "Right Link"
     },
     {
       "type": "header",
-      "content": "Header Navigation & Logo"
+      "content": "Header Logo & Labels"
     },
     {
       "type": "image_picker",
       "id": "logo",
-      "label": "Custom Logo Image"
+      "label": "Logo Image"
     },
     {
       "type": "range",
       "id": "logo_width",
-      "min": 100,
-      "max": 300,
+      "min": 120,
+      "max": 320,
       "step": 10,
-      "default": 180,
+      "default": 200,
       "unit": "px",
       "label": "Logo Width"
     },
@@ -372,25 +402,31 @@
     },
     {
       "type": "url",
-      "id": "store_locator_link",
-      "label": "Store Locator Link"
+      "id": "store_link",
+      "label": "Store Locator URL"
     },
     {
       "type": "text",
       "id": "support_label",
-      "label": "Support Label",
+      "label": "Customer Support Label",
       "default": "Kundeservice"
     },
     {
       "type": "url",
       "id": "support_link",
-      "label": "Support Link"
+      "label": "Customer Support URL"
     },
     {
       "type": "text",
       "id": "search_placeholder",
       "label": "Search Placeholder",
-      "default": "Søg..."
+      "default": "Søg"
+    },
+    {
+      "type": "text",
+      "id": "account_label",
+      "label": "Account Link Label",
+      "default": "Log ind / Opret"
     },
     {
       "type": "link_list",
@@ -398,34 +434,9 @@
       "label": "Navigation Menu (Linklist)"
     }
   ],
-  "blocks": [
-    {
-      "type": "menu_item",
-      "name": "Custom Menu Item",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Menu Item Label",
-          "default": "SMYKKER"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Menu Item Link"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
-      "name": "Georg Jensen Header",
-      "blocks": [
-        { "type": "menu_item", "settings": { "title": "SMYKKER" } },
-        { "type": "menu_item", "settings": { "title": "BOLIG" } },
-        { "type": "menu_item", "settings": { "title": "TIL BORD & BAR" } },
-        { "type": "menu_item", "settings": { "title": "SØLVHÅNDVÆRK" } }
-      ]
+      "name": "Georg Jensen Header 1-to-1"
     }
   ]
 }
