@@ -30,8 +30,6 @@
         <div class="">{{ section.settings.heading }}</div>
       </div>
       <div class="herobanner_poster_content_body">
-        <!-- Kept the exact breaks from HTML dump -->
-        <br><br><br><br><br><br><br><br><br>
         {{ section.settings.text }}
       </div>
       <div class="herobanner_poster_content_button">
@@ -121,18 +119,26 @@
   }
 
   @media screen and (max-width: 1023px) {
-    .herobanner_poster_content {
-      position: static;
-      transform: none;
-      padding: 40px 24px;
-      background: #f7f7f7;
-      text-align: center;
-      margin: 0 auto;
+    .georg-video-hero {
+      overflow: visible; /* Allow button to overflow */
     }
+    .herobanner_poster_content {
+      position: absolute;
+      bottom: -24px;
+      top: auto;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0;
+      background: transparent;
+      text-align: center;
+      width: 100%;
+      z-index: 10;
+    }
+    /* Hide text on mobile as per design reference */
     .herobanner_poster_content_headline,
     .herobanner_poster_content_subheadline,
     .herobanner_poster_content_body {
-      color: #111;
+      display: none; 
     }
   }
 </style>
