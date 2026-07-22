@@ -1,131 +1,210 @@
 {% comment %}
-  Georg Jensen Main Product Detail Page (PDP) - Fully Theme Customizer Editable
+  Georg Jensen 1-to-1 Main Product Detail Page (Exact HTML & Styling Match)
 {% endcomment %}
 
-<div class="georg-pdp-container section-{{ section.id }}">
+<div id="main" role="main" class="full-width clearfix georg-pdp-section section-{{ section.id }}">
   <div class="georg-container">
     <!-- Breadcrumbs -->
-    {%- if section.settings.show_breadcrumbs -%}
-      <div class="georg-breadcrumbs">
-        <a href="/collections/all">Smykker</a> / <a href="/collections/all">Halskæder</a> / <span class="georg-bc-current">{{ product.title }}</span>
-      </div>
-    {%- endif -%}
+    <ul class="breadcrumbs">
+      <li class="d-none">
+        <span><a class="breadcrumb-element" href="{{ routes.root_url }}"><span>Hjem</span></a></span>
+      </li>
+      <li>
+        <span><a class="breadcrumb-element" href="/collections/all"><span>Smykker</span></a></span>
+      </li>
+      <li>
+        <span><a class="breadcrumb-element" href="{{ collection.url | default: '/collections/all' }}"><span>Halskæder</span></a></span>
+      </li>
+      <li class="d-none">
+        <span><span class="breadcrumb-element">{{ product.title }}</span></span>
+      </li>
+    </ul>
 
-    <div class="georg-pdp-grid">
-      <!-- Left Media Gallery -->
-      <div class="georg-pdp-gallery">
-        {%- if product.media.size > 0 -%}
-          <div class="georg-gallery-grid">
-            {%- for media in product.media -%}
-              <div class="georg-gallery-item">
-                <img src="{{ media | image_url: width: 1200 }}" alt="{{ media.alt | escape }}" class="georg-pdp-img">
-              </div>
-            {%- endfor -%}
-          </div>
-        {%- else -%}
-          <!-- Demo fallback images matching Moonlight Grapes PDP -->
-          <div class="georg-gallery-grid">
-            <div class="georg-gallery-item">
-              <img src="{{ 'downloaded_image_10.jpg' | asset_url }}" alt="Moonlight Grapes halskæde" class="georg-pdp-img">
-            </div>
-            <div class="georg-gallery-item">
-              <img src="{{ 'downloaded_image_11.jpg' | asset_url }}" alt="Moonlight Grapes halskæde model" class="georg-pdp-img">
-            </div>
-            <div class="georg-gallery-item">
-              <img src="{{ 'downloaded_image_12.jpg' | asset_url }}" alt="Moonlight Grapes detalje" class="georg-pdp-img">
-            </div>
-            <div class="georg-gallery-item">
-              <img src="{{ 'downloaded_image_13.jpg' | asset_url }}" alt="Moonlight Grapes sølv" class="georg-pdp-img">
-            </div>
-          </div>
-        {%- endif -%}
-      </div>
-
-      <!-- Right Product Information Panel -->
-      <div class="georg-pdp-info-sticky">
-        <div class="georg-pdp-info-inner">
-          <div class="georg-pdp-collection-tag">
-            {{ product.vendor | default: section.settings.default_brand | default: 'MOONLIGHT GRAPES' | upcase }} KOLLEKTION
-          </div>
-
-          <h1 class="georg-pdp-title georg-serif">
-            {{ product.title | default: 'MOONLIGHT GRAPES halskæde' }}
-          </h1>
-
-          <div class="georg-pdp-material">
-            {%- if product.metafields.custom.material != blank -%}
-              {{ product.metafields.custom.material | upcase }}
-            {%- else -%}
-              {{ section.settings.default_material | default: 'OXIDERET STERLINGSØLV' | upcase }}
-            {%- endif -%}
-          </div>
-
-          <!-- Size Selector -->
-          {%- if section.settings.show_size_picker -%}
-            <div class="georg-pdp-size-picker">
-              <button type="button" class="georg-size-btn">
-                {{ section.settings.size_picker_label | default: 'VÆLG STØRRELSE' }} <span class="georg-caret">▾</span>
-              </button>
-            </div>
-          {%- endif -%}
-
-          <!-- Price -->
-          <div class="georg-pdp-price">
-            {{ product.price | default: 975000 | money_with_currency }}
-          </div>
-
-          <!-- Add to Cart Form -->
-          {%- form 'product', product, id: 'GeorgPdpForm' -%}
-            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-            <button type="submit" class="button-georg-pdp-buy" style="background-color: {{ section.settings.button_bg }}; color: {{ section.settings.button_text_color }};">
-              {{ section.settings.buy_button_label | default: 'LÆG I KURV' }}
-            </button>
-          {%- endform -%}
-
-          <!-- Wishlist Toggle -->
-          {%- if section.settings.show_wishlist -%}
-            <div class="georg-pdp-wishlist-row">
-              <button type="button" class="georg-wishlist-btn">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                <span>{{ section.settings.wishlist_label | default: 'TILFØJ ØNSKELISTE' }}</span>
-              </button>
-            </div>
-          {%- endif -%}
-
-          <!-- Free Gift Wrapping Banner -->
-          {%- if section.settings.show_gift_wrap_banner -%}
-            <div class="georg-gift-wrap-banner">
-              <div class="georg-gift-text">
-                <div class="georg-gift-tag">{{ section.settings.gift_wrap_tag | default: 'GRATIS' }}</div>
-                <div class="georg-gift-title">{{ section.settings.gift_wrap_title | default: 'GAVEINDPAKNING' }}</div>
-              </div>
-              <div class="georg-gift-img-wrap">
-                {%- if section.settings.gift_wrap_image != blank -%}
-                  <img src="{{ section.settings.gift_wrap_image | image_url: width: 200 }}" alt="Gaveindpakning" class="georg-gift-img">
+    <div id="primary" class="primary-content">
+      <div id="pdpMain" class="pdp-main">
+        
+        <!-- Left Column: Images -->
+        <div class="product-col-1">
+          <div class="pdp-sticky-left product-image-container">
+            <div class="product-primary-image">
+              <div class="product-image-carousel">
+                {%- if product.media.size > 0 -%}
+                  {%- for media in product.media -%}
+                    <a class="product-image main-image {% if forloop.first %}active{% endif %}" href="{{ media | image_url: width: 1200 }}" title="{{ product.title }}">
+                      <img src="{{ media | image_url: width: 600 }}" alt="{{ product.title | escape }} {{ forloop.index }}" class="cld-responsive primary-image product-image" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+                    </a>
+                  {%- endfor -%}
                 {%- else -%}
-                  <img src="{{ 'GJ_AW25_ALL_SEASON_GIFTING_200x200190_190_190.jpg' | asset_url }}" alt="Gaveindpakning" class="georg-gift-img">
+                  <a class="product-image main-image active" href="#" title="MOONLIGHT GRAPES halskæde">
+                    <img src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,dpr_2/w_500,c_scale/products/images/hi-res/GJ_SS25_ECOM_SHOOT_MOONLIGHT_GRAPES_NECKLACE_20001008?_i=AG" alt="MOONLIGHT GRAPES halskæde" class="cld-responsive primary-image product-image">
+                  </a>
+                  <a class="product-image main-image" href="#" title="MOONLIGHT GRAPES halskæde">
+                    <img src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,dpr_2/w_500,c_scale/products/images/hi-res/GJ_SS25_ECOM_SHOOT_MOONLIGHT_GRAPES_NECKLACE_20001008_?_i=AG" alt="MOONLIGHT GRAPES halskæde" class="cld-responsive primary-image product-image">
+                  </a>
+                  <a class="product-image main-image" href="#" title="MOONLIGHT GRAPES halskæde">
+                    <img src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,dpr_2/w_500,c_scale/products/images/hi-res/20001008_GRAPE_NECKLACE_551I_SILVER?_i=AG" alt="MOONLIGHT GRAPES halskæde" class="cld-responsive primary-image product-image">
+                  </a>
                 {%- endif -%}
               </div>
-            </div>
-          {%- endif -%}
 
-          <!-- Product Description -->
-          <div class="georg-pdp-description georg-sans">
-            {{ product.description | default: 'Moonlight Grapes halskæden i sterlingsølv bærer de elegante druer i en abstrakt fortolkning og er inspireret af Georg Jensens tidlige værker. Sølvet har fået en oxideret finish og er håndpoleret af vores dygtige sølvsmede for at fremhæve druernes form og give designet mere dybde.' }}
-          </div>
-
-          <!-- Accordion Details -->
-          <div class="georg-pdp-accordions">
-            {%- for block in section.blocks -%}
-              <details class="georg-accordion-item" {{ block.shopify_attributes }}>
-                <summary class="georg-accordion-header">
-                  <span>+ {{ block.settings.heading | upcase }}</span>
-                </summary>
-                <div class="georg-accordion-content">
-                  {{ block.settings.content }}
+              <!-- Thumbnails -->
+              <div id="thumbnails" class="product-thumbnails not-show-desktop">
+                <div class="owl-thumbs">
+                  {%- if product.media.size > 0 -%}
+                    {%- for media in product.media -%}
+                      <button class="thumb {% if forloop.first %}selected{% endif %}" aria-label="change current image">
+                        <div class="thumbnail-link">
+                          <img src="{{ media | image_url: width: 100 }}" alt="" class="cld-responsive productthumbnail">
+                        </div>
+                      </button>
+                    {%- endfor -%}
+                  {%- else -%}
+                    <button class="thumb selected"><div class="thumbnail-link"><img src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,dpr_2/w_100,c_scale/products/images/hi-res/GJ_SS25_ECOM_SHOOT_MOONLIGHT_GRAPES_NECKLACE_20001008?_i=AG" class="cld-responsive productthumbnail"></div></button>
+                    <button class="thumb"><div class="thumbnail-link"><img src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,dpr_2/w_100,c_scale/products/images/hi-res/GJ_SS25_ECOM_SHOOT_MOONLIGHT_GRAPES_NECKLACE_20001008_?_i=AG" class="cld-responsive productthumbnail"></div></button>
+                    <button class="thumb"><div class="thumbnail-link"><img src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,dpr_2/w_100,c_scale/products/images/hi-res/20001008_GRAPE_NECKLACE_551I_SILVER?_i=AG" class="cld-responsive productthumbnail"></div></button>
+                  {%- endif -%}
                 </div>
-              </details>
-            {%- endfor -%}
+              </div>
+            </div>
+
+            <!-- Gallery Extension Top -->
+            <div class="gallery-extension-top">
+              <span class="gallery-extension-text">{{ section.settings.gallery_text | default: 'Vi har genfortolket elementer fra klassiske Georg Jensen-designs med smukke resultater. Lige fra det underspillede og sofistikerede til det dristige og personlighedsskabende.' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Product Detail -->
+        <div class="product-col-2 product-detail pdp-sticky-right">
+          <div id="product-content">
+            <!-- Collection Name -->
+            <a class="product-collection" href="/collections/all">{{ product.vendor | default: 'Moonlight Grapes' }} Kollektion</a>
+            
+            <!-- Title -->
+            <h1 class="product-name">{{ product.title }}</h1>
+            
+            <!-- Material Info -->
+            <div class="product-material pdpMaterial">
+              <div class="">{{ product.metafields.custom.material | default: 'Oxideret sterlingsølv' }}</div>
+            </div>
+
+            <!-- Variations / Sizes -->
+            {%- unless product.has_only_default_variant -%}
+              <div class="product-variations-container">
+                <div class="product-variations">
+                  <h2 class="visually-hidden">Variations</h2>
+                  <ul>
+                    {%- for option in product.options_with_values -%}
+                      <li class="attribute variation-dropdown">
+                        <div class="value">
+                          <label for="Option-{{ option.name }}" class="d-none">Vælg {{ option.name | downcase }}</label>
+                          <select id="Option-{{ option.name }}" class="variation-select" name="options[{{ option.name | escape }}]">
+                            <option value="">Vælg {{ option.name | downcase }}</option>
+                            {%- for value in option.values -%}
+                              <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
+                                {{ value }}
+                              </option>
+                            {%- endfor -%}
+                          </select>
+                        </div>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              </div>
+            {%- endunless -%}
+
+            <!-- Price -->
+            <div class="product-price pdpPrice">
+              <span class="price-sales effectiveprice">{{ product.price | money }}</span>
+            </div>
+
+            <!-- Add to Cart Form -->
+            <div class="mobile-sticky-container">
+              <div class="cta">
+                <form method="post" action="/cart/add" id="add-to-cart-form" class="pdpForm">
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  <fieldset>
+                    <legend style="display:none;">Læg i kurv Felter</legend>
+                    <div class="product-add-to-cart">
+                      <button id="add-to-cart" type="submit" class="button-fancy-large add-to-cart {% unless product.available %}disabled{% endunless %}" {% unless product.available %}disabled{% endunless %}>
+                        {% if product.available %}Læg i kurv{% else %}Udsolgt{% endif %}
+                      </button>
+                    </div>
+                  </fieldset>
+                </form>
+
+                <!-- Wishlist -->
+                <div class="add-remove-wishlist add" tabindex="0">Tilføj ønskeliste</div>
+              </div>
+            </div>
+
+            <!-- Gift Wrapping Banner -->
+            {%- if section.settings.show_gift_wrapping -%}
+              <div class="giftwrapping">
+                <span class="giftwrapping-text">Gratis gaveindpakning</span>
+                <img class="giftwrapping-image" src="https://www.georgjensen.com/on/demandware.static/-/Sites/default/dwd8cb5458/gift-wrap-banner@2x.jpg" alt="Gratis gaveindpakning" loading="eager">
+              </div>
+            {%- endif -%}
+
+            <!-- Product Info Description -->
+            <div class="product-info_content_item active">
+              <p>{{ product.description | strip_html | truncatewords: 40 | default: 'Moonlight Grapes halskæden i sterlingsølv bærer de elegante druer i en abstrakt fortolkning og er inspireret af Georg Jensens tidlige værker.' }}</p>
+            </div>
+            <div class="product-info_content_item-read-more">Læs mere</div>
+
+            <!-- Accordions -->
+            <div class="product-accordion">
+              <!-- Details Accordion -->
+              <h2 class="accordion-head accordion-1"><span></span>Produktdetaljer</h2>
+              <div class="accordion-body accordion-1">
+                <section class="product-info">
+                  <div class="product-info_details">
+                    <div class="product-info_content">
+                      <div class="product-info_content_item_list">
+                        <ul>
+                          <li><span class="product-info_content_item_detail">Varenummer:</span> {{ product.selected_or_first_available_variant.sku | default: '20001008' }}</li>
+                          <li><span class="product-info_content_item_detail">Materialer:</span> {{ product.metafields.custom.material | default: 'Oxideret sterlingsølv' }}</li>
+                          <li><span class="product-info_content_item_detail">Mål:</span> B: 12 mm. L: 425 mm.</li>
+                          <li><span class="product-info_content_item_detail">Omkreds:</span> S: 405 mm, M: 440 mm, L: 470 mm</li>
+                          <li><span class="product-info_content_item_detail">Designår:</span> {{ product.metafields.custom.design_year | default: '2021' }}</li>
+                          <li>
+                            <span class="product-info_content_item_detail meta-collection">Kollektion: </span>
+                            <a href="/collections/all">{{ product.vendor | default: 'Moonlight Grapes' }}</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <!-- Shipping & Returns Accordion -->
+              <h2 class="accordion-head accordion-2"><span></span>Forsendelse og returnering</h2>
+              <div class="accordion-body accordion-2">
+                <ul>
+                  <li>Gratis gaveindpakning undtagen på nedsatte varer</li>
+                  <li>Fri fragt på alle ordrer over 800 kr.</li>
+                  <li>Nem ombytning og returnering</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Contact USP Items -->
+            <div class="product-usp-items-container">
+              <div class="product-usp-item book-appointment">
+                <a href="/pages/contact">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  Book en aftale
+                </a>
+              </div>
+              <div class="product-usp-item call-customer-service">
+                <a href="tel: +45 38 14 90 44">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  Ring +45 38 14 90 44
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -134,338 +213,320 @@
 </div>
 
 <style>
-  .georg-pdp-container {
-    padding: 24px 0 80px 0;
-    background-color: #ffffff;
+  .georg-pdp-section {
     font-family: var(--georg-font-sans);
-  }
-
-  .georg-breadcrumbs {
-    font-size: 11px;
-    color: #666666;
-    margin-bottom: 30px;
-    letter-spacing: 0.05em;
-  }
-
-  .georg-breadcrumbs a {
-    color: #444444;
-    text-decoration: none;
-  }
-
-  .georg-bc-current {
     color: #111111;
-    font-weight: 500;
   }
-
-  .georg-pdp-grid {
-    display: grid;
-    grid-template-columns: 1.3fr 0.7fr;
-    gap: 48px;
+  .georg-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
   }
-
-  .georg-gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-
-  .georg-gallery-item {
-    background-color: #f7f7f7;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-  }
-
-  .georg-pdp-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .georg-pdp-info-sticky {
-    position: sticky;
-    top: 30px;
-    height: fit-content;
-  }
-
-  .georg-pdp-collection-tag {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    color: #666666;
-    margin-bottom: 8px;
-  }
-
-  .georg-pdp-title {
-    font-size: 34px;
-    font-weight: 400;
-    color: #111111;
-    margin: 0 0 12px 0;
-    line-height: 1.15;
-  }
-
-  .georg-pdp-material {
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    color: #444444;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #eeeeee;
-    margin-bottom: 20px;
-  }
-
-  .georg-pdp-size-picker {
-    margin-bottom: 24px;
-  }
-
-  .georg-size-btn {
-    width: 100%;
-    padding: 12px 0;
-    border: none;
-    border-bottom: 1px solid #cccccc;
-    background: transparent;
-    font-family: var(--georg-font-sans);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+  
+  /* Breadcrumbs */
+  .breadcrumbs {
+    list-style: none;
+    padding: 24px 0 16px;
+    margin: 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-  }
-
-  .georg-pdp-price {
-    font-size: 18px;
-    font-weight: 600;
-    color: #111111;
-    margin-bottom: 24px;
-  }
-
-  .button-georg-pdp-buy {
-    width: 100%;
-    border: none;
-    padding: 16px 20px;
-    font-family: var(--georg-font-sans);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
-    border-radius: 0;
-    margin-bottom: 16px;
-  }
-
-  .button-georg-pdp-buy:hover {
-    opacity: 0.85;
-  }
-
-  .georg-pdp-wishlist-row {
-    margin-bottom: 28px;
-  }
-
-  .georg-wishlist-btn {
-    border: none;
-    background: transparent;
-    display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-family: var(--georg-font-sans);
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    color: #111111;
-    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
-
-  .georg-gift-wrap-banner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #edece8;
-    padding: 14px 20px;
-    margin-bottom: 28px;
+  .breadcrumbs li:not(:last-child)::after {
+    content: "/";
+    color: #777;
+    margin-left: 8px;
   }
-
-  .georg-gift-tag {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: #666;
+  .breadcrumb-element {
+    color: #555;
+    text-decoration: none;
   }
-
-  .georg-gift-title {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
+  .breadcrumb-element:hover {
     color: #111;
   }
 
-  .georg-gift-img {
-    width: 70px;
-    height: 50px;
-    object-fit: cover;
+  /* Main PDP Layout */
+  .pdp-main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-top: 10px;
+    margin-bottom: 80px;
+  }
+  
+  .product-col-1 {
+    flex: 1 1 55%;
+    min-width: 300px;
+  }
+  .product-col-2 {
+    flex: 1 1 35%;
+    max-width: 450px;
   }
 
-  .georg-pdp-description {
-    font-size: 13px;
-    line-height: 1.7;
-    color: #555555;
-    margin-bottom: 28px;
+  /* Left Image Gallery */
+  .product-image-carousel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .product-image {
+    display: block;
+    width: 100%;
+    background: #f7f7f7;
+  }
+  .product-image img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
-  .georg-accordion-item {
-    border-top: 1px solid #eeeeee;
-    padding: 14px 0;
-  }
-
-  .georg-accordion-header {
-    cursor: pointer;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    color: #111111;
-    list-style: none;
-  }
-
-  .georg-accordion-content {
-    padding-top: 12px;
-    font-size: 12px;
-    color: #555555;
+  .gallery-extension-top {
+    margin-top: 40px;
+    font-size: 14px;
     line-height: 1.6;
+    color: #444;
   }
 
-  @media screen and (max-width: 989px) {
-    .georg-pdp-grid {
-      grid-template-columns: 1fr;
+  /* Right Details Panel */
+  .pdp-sticky-right {
+    position: sticky;
+    top: 100px;
+  }
+  
+  .product-collection {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #555;
+    text-decoration: none;
+    margin-bottom: 12px;
+    display: block;
+  }
+  
+  .product-name {
+    font-size: 28px;
+    font-weight: 400;
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+    color: #111;
+  }
+
+  .product-material {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 24px;
+  }
+
+  .variation-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    background: #fff;
+    font-size: 13px;
+    border-radius: 0;
+    appearance: none;
+    margin-bottom: 24px;
+  }
+
+  .product-price {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+
+  /* Buttons */
+  .cta {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .button-fancy-large {
+    width: 100%;
+    padding: 16px;
+    background: #111;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .button-fancy-large:hover {
+    background: #333;
+  }
+  
+  .add-remove-wishlist {
+    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-decoration: underline;
+    color: #555;
+  }
+  .add-remove-wishlist:hover {
+    color: #111;
+  }
+
+  .giftwrapping {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 40px;
+    background: #fdfdfd;
+    padding: 16px;
+    border: 1px solid #eaeaea;
+  }
+  .giftwrapping-text {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .giftwrapping-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .product-info_content_item {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 12px;
+  }
+  .product-info_content_item-read-more {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-bottom: 40px;
+  }
+
+  /* Accordion */
+  .product-accordion {
+    border-top: 1px solid #eaeaea;
+  }
+  .accordion-head {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 20px 0;
+    border-bottom: 1px solid #eaeaea;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+  }
+  .accordion-head::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    font-size: 18px;
+  }
+  .accordion-body {
+    padding: 20px 0;
+    border-bottom: 1px solid #eaeaea;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #555;
+  }
+  .accordion-body ul {
+    padding-left: 20px;
+    margin: 0;
+  }
+  .product-info_content_item_list ul {
+    list-style: none;
+    padding: 0;
+  }
+  .product-info_content_item_detail {
+    font-weight: 600;
+    margin-right: 4px;
+  }
+
+  /* USP Contact Items */
+  .product-usp-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .product-usp-item a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #111;
+    text-decoration: none;
+    padding: 16px;
+    border: 1px solid #eaeaea;
+    transition: background 0.3s;
+  }
+  .product-usp-item a:hover {
+    background: #f7f7f7;
+  }
+
+  @media screen and (max-width: 890px) {
+    .pdp-main {
+      flex-direction: column;
+    }
+    .product-col-2 {
+      max-width: 100%;
     }
   }
 </style>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Simple Accordion Toggle Script
+    var accHeads = document.querySelectorAll(".accordion-head");
+    accHeads.forEach(function(head) {
+      head.addEventListener("click", function() {
+        var body = this.nextElementSibling;
+        if (body.style.display === "none") {
+          body.style.display = "block";
+          this.style.borderBottom = "none";
+          this.innerHTML = this.innerHTML.replace("+", "-"); // quick indicator hack
+        } else {
+          body.style.display = "none";
+          this.style.borderBottom = "1px solid #eaeaea";
+          this.innerHTML = this.innerHTML.replace("-", "+");
+        }
+      });
+      // Hide initially
+      head.nextElementSibling.style.display = "none";
+    });
+  });
+</script>
+
 {% schema %}
 {
-  "name": "Georg Main Product",
+  "name": "Georg Jensen Product",
   "settings": [
     {
       "type": "checkbox",
-      "id": "show_breadcrumbs",
-      "label": "Show Breadcrumbs",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "default_brand",
-      "label": "Default Brand / Collection Tag",
-      "default": "MOONLIGHT GRAPES"
-    },
-    {
-      "type": "text",
-      "id": "default_material",
-      "label": "Default Material Subtitle",
-      "default": "OXIDERET STERLINGSØLV"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_size_picker",
-      "label": "Show Size Picker Button",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "size_picker_label",
-      "label": "Size Picker Label",
-      "default": "VÆLG STØRRELSE"
-    },
-    {
-      "type": "color",
-      "id": "button_bg",
-      "label": "Add to Cart Button Background",
-      "default": "#8ed0f8"
-    },
-    {
-      "type": "color",
-      "id": "button_text_color",
-      "label": "Add to Cart Button Text Color",
-      "default": "#111111"
-    },
-    {
-      "type": "text",
-      "id": "buy_button_label",
-      "label": "Buy Button Text",
-      "default": "LÆG I KURV"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_wishlist",
-      "label": "Show Wishlist Link",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "wishlist_label",
-      "label": "Wishlist Link Text",
-      "default": "TILFØJ ØNSKELISTE"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_gift_wrap_banner",
+      "id": "show_gift_wrapping",
       "label": "Show Gift Wrapping Banner",
       "default": true
     },
     {
       "type": "text",
-      "id": "gift_wrap_tag",
-      "label": "Gift Wrap Subtag",
-      "default": "GRATIS"
-    },
-    {
-      "type": "text",
-      "id": "gift_wrap_title",
-      "label": "Gift Wrap Title",
-      "default": "GAVEINDPAKNING"
-    },
-    {
-      "type": "image_picker",
-      "id": "gift_wrap_image",
-      "label": "Gift Wrap Image"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "accordion",
-      "name": "Accordion Item",
-      "settings": [
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Accordion Title",
-          "default": "PRODUKTDETALJER"
-        },
-        {
-          "type": "richtext",
-          "id": "content",
-          "label": "Accordion Content",
-          "default": "<p><strong>Varenummer:</strong> 20001008<br><strong>Materiale:</strong> Oxideret sterlingsølv<br><strong>Kollektion:</strong> Moonlight Grapes</p>"
-        }
-      ]
+      "id": "gallery_text",
+      "label": "Gallery Sub-text",
+      "default": "Vi har genfortolket elementer fra klassiske Georg Jensen-designs med smukke resultater."
     }
   ],
   "presets": [
     {
-      "name": "Georg Main Product",
-      "blocks": [
-        {
-          "type": "accordion",
-          "settings": {
-            "heading": "PRODUKTDETALJER",
-            "content": "<p><strong>Varenummer:</strong> 20001008<br><strong>Materiale:</strong> Oxideret sterlingsølv<br><strong>Kollektion:</strong> Moonlight Grapes</p>"
-          }
-        },
-        {
-          "type": "accordion",
-          "settings": {
-            "heading": "LEVERING OG RETUR",
-            "content": "<p>Gratis fragt på alle ordrer. 30 dages fuld returret.</p>"
-          }
-        }
-      ]
+      "name": "Georg Jensen Product"
     }
   ]
 }
