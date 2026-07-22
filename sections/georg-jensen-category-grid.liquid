@@ -1,0 +1,388 @@
+{% comment %}
+  Georg Jensen 4-Column Category Card Grid with Subcategory Links (1-to-1 Match)
+{% endcomment %}
+
+<div class="georg-category-grid-section" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="georg-container">
+    {%- if section.settings.title != blank -%}
+      <h2 class="georg-section-title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    <div class="georg-category-grid">
+      {%- for block in section.blocks -%}
+        <div class="georg-category-card-col" {{ block.shopify_attributes }}>
+          <!-- Image Card with Text & Arrow Overlay -->
+          <a href="{{ block.settings.card_link | default: '#' }}" class="georg-category-card-image-wrap">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title | escape }}" class="georg-category-img" loading="lazy">
+            {%- else -%}
+              {%- assign fallback_img = 'downloaded_image_11.jpg' -%}
+              {%- if forloop.index == 2 -%}
+                {%- assign fallback_img = 'downloaded_image_12.jpg' -%}
+              {%- elsif forloop.index == 3 -%}
+                {%- assign fallback_img = 'downloaded_image_13.jpg' -%}
+              {%- elsif forloop.index == 4 -%}
+                {%- assign fallback_img = 'downloaded_image_14.jpg' -%}
+              {%- endif -%}
+              <img src="{{ fallback_img | asset_url }}" alt="{{ block.settings.title }}" class="georg-category-img" loading="lazy">
+            {%- endif -%}
+
+            <div class="georg-category-overlay">
+              <h3 class="georg-category-title">{{ block.settings.title }}</h3>
+              <span class="georg-category-arrow-btn" aria-label="Se mere">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+              </span>
+            </div>
+          </a>
+
+          <!-- Subcategory Links List Below Card -->
+          <div class="georg-category-links-wrap">
+            {%- assign menu = linklists[block.settings.menu] -%}
+            {%- if menu != blank and menu.links.size > 0 -%}
+              <ul class="georg-subcat-list">
+                {%- for link in menu.links -%}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- else -%}
+              <ul class="georg-subcat-list">
+                {%- if block.settings.link_1_text != blank -%}
+                  <li><a href="{{ block.settings.link_1_url | default: '#' }}">{{ block.settings.link_1_text }}</a></li>
+                {%- endif -%}
+                {%- if block.settings.link_2_text != blank -%}
+                  <li><a href="{{ block.settings.link_2_url | default: '#' }}">{{ block.settings.link_2_text }}</a></li>
+                {%- endif -%}
+                {%- if block.settings.link_3_text != blank -%}
+                  <li><a href="{{ block.settings.link_3_url | default: '#' }}">{{ block.settings.link_3_text }}</a></li>
+                {%- endif -%}
+                {%- if block.settings.link_4_text != blank -%}
+                  <li><a href="{{ block.settings.link_4_url | default: '#' }}">{{ block.settings.link_4_text }}</a></li>
+                {%- endif -%}
+                {%- if block.settings.link_5_text != blank -%}
+                  <li><a href="{{ block.settings.link_5_url | default: '#' }}">{{ block.settings.link_5_text }}</a></li>
+                {%- endif -%}
+              </ul>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  .georg-category-grid-section {
+    background-color: #f9f9f9;
+    font-family: var(--georg-font-sans);
+  }
+
+  .georg-category-grid-section .georg-container {
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .georg-section-title {
+    text-align: center;
+    font-family: var(--georg-font-serif);
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #111;
+  }
+
+  .georg-category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .georg-category-card-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .georg-category-card-image-wrap {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    text-decoration: none;
+  }
+
+  .georg-category-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .georg-category-card-image-wrap:hover .georg-category-img {
+    transform: scale(1.04);
+  }
+
+  .georg-category-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: background 0.3s ease;
+  }
+
+  .georg-category-card-image-wrap:hover .georg-category-overlay {
+    background: rgba(0, 0, 0, 0.25);
+  }
+
+  .georg-category-title {
+    font-family: var(--georg-font-sans);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 16px 0;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+
+  .georg-category-arrow-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    color: #111111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .georg-category-card-image-wrap:hover .georg-category-arrow-btn {
+    transform: scale(1.1);
+    background-color: #f0f0f0;
+  }
+
+  .georg-category-links-wrap {
+    margin-top: 18px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .georg-subcat-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .georg-subcat-list a {
+    font-size: 13px;
+    color: #222222;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+  }
+
+  .georg-subcat-list a:hover {
+    color: #666666;
+  }
+
+  @media screen and (max-width: 989px) {
+    .georg-category-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+
+  @media screen and (max-width: 540px) {
+    .georg-category-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Georg Jensen Category Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Heading (Optional)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "unit": "px",
+      "label": "Padding Top"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "unit": "px",
+      "label": "Padding Bottom"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_card",
+      "name": "Category Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Title Overlay",
+          "default": "GULDSMYKKER"
+        },
+        {
+          "type": "url",
+          "id": "card_link",
+          "label": "Image Card Link"
+        },
+        {
+          "type": "header",
+          "content": "Subcategory Links (Option 1: Select Linklist)"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Select Menu Linklist"
+        },
+        {
+          "type": "header",
+          "content": "Subcategory Links (Option 2: Individual Links)"
+        },
+        {
+          "type": "text",
+          "id": "link_1_text",
+          "label": "Link 1 Text",
+          "default": "Alle guldsmykker"
+        },
+        {
+          "type": "url",
+          "id": "link_1_url",
+          "label": "Link 1 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_2_text",
+          "label": "Link 2 Text",
+          "default": "Guld øreringe"
+        },
+        {
+          "type": "url",
+          "id": "link_2_url",
+          "label": "Link 2 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_3_text",
+          "label": "Link 3 Text",
+          "default": "Guld halskæder"
+        },
+        {
+          "type": "url",
+          "id": "link_3_url",
+          "label": "Link 3 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_4_text",
+          "label": "Link 4 Text",
+          "default": "Guld armbånd"
+        },
+        {
+          "type": "url",
+          "id": "link_4_url",
+          "label": "Link 4 URL"
+        },
+        {
+          "type": "text",
+          "id": "link_5_text",
+          "label": "Link 5 Text",
+          "default": "Guld ringe"
+        },
+        {
+          "type": "url",
+          "id": "link_5_url",
+          "label": "Link 5 URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Georg Jensen Category Grid",
+      "blocks": [
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "GULDSMYKKER",
+            "link_1_text": "Alle guldsmykker",
+            "link_2_text": "Guld øreringe",
+            "link_3_text": "Guld halskæder",
+            "link_4_text": "Guld armbånd",
+            "link_5_text": "Guld ringe"
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "SØLVSMYKKER",
+            "link_1_text": "Alle sølvsmykker",
+            "link_2_text": "Sølv øreringe",
+            "link_3_text": "Sølv halskæder",
+            "link_4_text": "Sølv armbånd",
+            "link_5_text": "Sølv ringe"
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "TIL BORDET",
+            "link_1_text": "Nyheder",
+            "link_2_text": "Bartilbehør",
+            "link_3_text": "Kaffe og te",
+            "link_4_text": "Kander og karafler",
+            "link_5_text": "Bestik"
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "SØLVHÅNDVÆRK",
+            "link_1_text": "Sølvbestik",
+            "link_2_text": "Sølv lysestager",
+            "link_3_text": "Sølv vaser",
+            "link_4_text": "Sølv kander og karafler",
+            "link_5_text": "Sølv bartilbehør"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
