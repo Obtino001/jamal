@@ -1,0 +1,188 @@
+{% comment %}
+  Georg Jensen Contact Us Section - 1-to-1 Replica
+{% endcomment %}
+
+<div class="georg-contact-section">
+  <div class="georg-container">
+    <div class="georg-contact-header">
+      <span class="georg-story-tag">KUNDESERVICE</span>
+      <h1 class="georg-contact-title georg-serif">Kontakt Georg Jensen</h1>
+      <p class="georg-contact-subtitle georg-sans">
+        Vi sidder klar til at hjælpe dig med spørgsmål om ordrer, produkter eller gaveindpakning.
+      </p>
+    </div>
+
+    <div class="georg-contact-grid">
+      <!-- Direct Info Column -->
+      <div class="georg-contact-info-card">
+        <h3 class="georg-serif">Kundeservice Åbningstider</h3>
+        <div class="georg-info-row">
+          <strong>Telefon:</strong>
+          <span>+45 38 14 98 98</span>
+        </div>
+        <div class="georg-info-row">
+          <strong>Mandag - Torsdag:</strong>
+          <span>09.00 - 16.00</span>
+        </div>
+        <div class="georg-info-row">
+          <strong>Fredag:</strong>
+          <span>09.00 - 15.30</span>
+        </div>
+        <div class="georg-info-row">
+          <strong>E-mail:</strong>
+          <span>kundeservice@georgjensen.com</span>
+        </div>
+
+        <div class="georg-store-locator-box">
+          <h4 class="georg-serif">Besøg vores butikker</h4>
+          <p class="georg-sans">Find din nærmeste Georg Jensen flagskibsbutik eller forhandler.</p>
+          <a href="#" class="button-georg-black">FIND BUTIK</a>
+        </div>
+      </div>
+
+      <!-- Form Column -->
+      <div class="georg-contact-form-card">
+        <h3 class="georg-serif">Send en besked</h3>
+        {%- form 'contact', id: 'GeorgContactForm' -%}
+          <div class="georg-field">
+            <label for="ContactName" class="georg-label">Navn *</label>
+            <input type="text" id="ContactName" name="contact[name]" class="georg-input" required>
+          </div>
+
+          <div class="georg-field">
+            <label for="ContactEmail" class="georg-label">E-mail *</label>
+            <input type="email" id="ContactEmail" name="contact[email]" class="georg-input" required>
+          </div>
+
+          <div class="georg-field">
+            <label for="ContactOrder" class="georg-label">Ordrenummer (valgfrit)</label>
+            <input type="text" id="ContactOrder" name="contact[order_number]" class="georg-input">
+          </div>
+
+          <div class="georg-field">
+            <label for="ContactMessage" class="georg-label">Din besked *</label>
+            <textarea id="ContactMessage" name="contact[body]" rows="5" class="georg-input" required></textarea>
+          </div>
+
+          <button type="submit" class="button-georg-black">SEND BESKED</button>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .georg-contact-section {
+    padding: 70px 0 90px 0;
+    background-color: #ffffff;
+    font-family: var(--georg-font-sans);
+  }
+
+  .georg-contact-header {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 50px auto;
+  }
+
+  .georg-contact-title {
+    font-size: 40px;
+    font-weight: 400;
+    color: #111111;
+    margin: 10px 0 16px 0;
+  }
+
+  .georg-contact-subtitle {
+    font-size: 15px;
+    color: #555555;
+    line-height: 1.6;
+  }
+
+  .georg-contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+  }
+
+  .georg-contact-info-card, .georg-contact-form-card {
+    background: #fbfbfb;
+    border: 1px solid #eeeeee;
+    padding: 40px;
+  }
+
+  .georg-contact-info-card h3, .georg-contact-form-card h3 {
+    font-size: 26px;
+    font-weight: 400;
+    margin: 0 0 24px 0;
+    color: #111111;
+  }
+
+  .georg-info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #eeeeee;
+    font-size: 13px;
+  }
+
+  .georg-store-locator-box {
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e5e5;
+  }
+
+  .georg-store-locator-box h4 {
+    font-size: 20px;
+    margin: 0 0 8px 0;
+  }
+
+  .georg-store-locator-box p {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  .georg-field {
+    margin-bottom: 20px;
+  }
+
+  .georg-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #222;
+  }
+
+  .georg-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #cccccc;
+    outline: none;
+    font-size: 13px;
+    background: #ffffff;
+    border-radius: 0;
+  }
+
+  .georg-input:focus {
+    border-color: #000000;
+  }
+
+  @media screen and (max-width: 749px) {
+    .georg-contact-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Georg Jensen Contact",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Georg Jensen Contact"
+    }
+  ]
+}
+{% endschema %}

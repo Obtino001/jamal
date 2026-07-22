@@ -29,6 +29,11 @@
   {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
 {%- endunless -%}
 {%- if card_product and card_product != empty -%}
+  {% render 'georg-jensen-card-product', product: card_product %}
+{%- elsif product != blank -%}
+  {% render 'georg-jensen-card-product', product: product %}
+{%- else -%}
+
   {%- liquid
     assign ratio = 1
     if card_product.featured_media and media_aspect_ratio == 'portrait'

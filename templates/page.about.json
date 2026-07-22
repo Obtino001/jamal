@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "georg_about": {
+      "type": "georg-jensen-about",
+      "settings": {}
+    }
+  },
+  "order": [
+    "georg_about"
+  ]
+}

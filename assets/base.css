@@ -3610,3 +3610,158 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+
+/* ==========================================================================
+   GEORG JENSEN LUXURY DESIGN SYSTEM UTILITIES
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+
+:root {
+  --georg-font-serif: 'Cormorant Garamond', 'Georgia', serif;
+  --georg-font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  --georg-black: #000000;
+  --georg-white: #ffffff;
+  --georg-navy: #1b263b;
+  --georg-grey-bg: #f8f8f8;
+  --georg-grey-border: #e5e5e5;
+  --georg-text-dark: #1c1c1c;
+  --georg-text-muted: #666666;
+}
+
+.georg-serif {
+  font-family: var(--georg-font-serif) !important;
+}
+
+.georg-sans {
+  font-family: var(--georg-font-sans) !important;
+}
+
+/* Georg Jensen Button Styles */
+.button-georg-black {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--georg-black);
+  color: var(--georg-white);
+  padding: 1.2rem 2.8rem;
+  font-family: var(--georg-font-sans);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--georg-black);
+  border-radius: 0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.button-georg-black:hover {
+  background-color: #222222;
+  color: var(--georg-white);
+  border-color: #222222;
+}
+
+.button-georg-blue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--georg-navy);
+  color: var(--georg-white);
+  padding: 1.2rem 2.8rem;
+  font-family: var(--georg-font-sans);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--georg-navy);
+  border-radius: 0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.button-georg-blue:hover {
+  background-color: #0f172a;
+  color: var(--georg-white);
+  border-color: #0f172a;
+}
+
+.georg-link-underline {
+  font-family: var(--georg-font-sans);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--georg-black);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
+  transition: opacity 0.2s ease;
+}
+
+.georg-link-underline:hover {
+  opacity: 0.7;
+}
+
+.georg-section-heading {
+  font-family: var(--georg-font-serif);
+  font-size: 3.2rem;
+  font-weight: 400;
+  color: var(--georg-text-dark);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+@media screen and (max-width: 749px) {
+  .georg-section-heading {
+    font-size: 2.4rem;
+  }
+}
+
+/* Georg Jensen Product Detail Page (PDP) Styles */
+.product__title h1, .product__title h2 {
+  font-family: var(--georg-font-serif) !important;
+  font-size: 3.4rem !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em !important;
+  color: #111111 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.product__text {
+  font-family: var(--georg-font-sans) !important;
+  font-size: 1.1rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: #666666 !important;
+}
+
+.price {
+  font-family: var(--georg-font-sans) !important;
+  font-size: 1.8rem !important;
+  font-weight: 600 !important;
+  color: #111111 !important;
+}
+
+.product-form__submit {
+  border-radius: 0 !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  font-family: var(--georg-font-sans) !important;
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  padding: 1.4rem 2rem !important;
+  border: 1px solid #000000 !important;
+  transition: all 0.3s ease !important;
+}
+
+.product-form__submit:hover {
+  background-color: #222222 !important;
+  border-color: #222222 !important;
+}
+
+

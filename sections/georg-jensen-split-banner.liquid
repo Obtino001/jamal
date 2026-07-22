@@ -1,0 +1,177 @@
+{% comment %}
+  Georg Jensen Split Banner Section (2-Column Banners) - 1-to-1 Replica
+{% endcomment %}
+
+<div class="georg-split-banner-section">
+  <div class="georg-container">
+    <div class="georg-split-grid">
+      {%- for block in section.blocks -%}
+        <div class="georg-split-col" {{ block.shopify_attributes }}>
+          <div class="georg-split-media">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 1000 }}" alt="{{ block.settings.title | escape }}" class="georg-split-img">
+            {%- else -%}
+              <div class="georg-split-placeholder">
+                <svg viewBox="0 0 650 450" width="100%" height="100%">
+                  <rect width="100%" height="100%" fill="#232b38"/>
+                  <circle cx="325" cy="225" r="120" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+                  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Cormorant Garamond" font-size="24" fill="#ffffff" letter-spacing="3">GEORG JENSEN</text>
+                </svg>
+              </div>
+            {%- endif -%}
+          </div>
+
+          <div class="georg-split-content">
+            <h3 class="georg-split-title georg-serif">{{ block.settings.title | default: 'Gaveidéer' }}</h3>
+            {%- if block.settings.text != blank -%}
+              <p class="georg-split-desc georg-sans">{{ block.settings.text }}</p>
+            {%- endif -%}
+            <div class="georg-split-cta">
+              <a href="{{ block.settings.button_link | default: '#' }}" class="button-georg-blue">
+                {{ block.settings.button_label | default: 'Udforsk gaveidéer' }}
+              </a>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  .georg-split-banner-section {
+    padding: 70px 0;
+    background-color: #ffffff;
+  }
+
+  .georg-split-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  .georg-split-col {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .georg-split-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background-color: #1b263b;
+  }
+
+  .georg-split-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .georg-split-col:hover .georg-split-img {
+    transform: scale(1.03);
+  }
+
+  .georg-split-content {
+    padding: 28px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .georg-split-title {
+    font-size: 26px;
+    font-weight: 400;
+    color: #111111;
+    margin: 0 0 10px 0;
+    line-height: 1.25;
+  }
+
+  .georg-split-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #555555;
+    margin: 0 0 20px 0;
+    max-width: 90%;
+  }
+
+  .georg-split-cta {
+    margin-top: 5px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .georg-split-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Georg Jensen Split Banner",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner Column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Banner Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Gaveidéer"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description Text",
+          "default": "Find den perfekte gave til en du holder af iblandt vores udvalg af tidløst skandinavisk design."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Udforsk gaveidéer"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Georg Jensen Split Banner",
+      "blocks": [
+        {
+          "type": "banner",
+          "settings": {
+            "title": "Gaveidéer",
+            "text": "Find den perfekte gave til enhver anledning iblandt klassisk dansk design.",
+            "button_label": "UDFORSK GAVEIDÉER"
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+            "title": "Sølvbestik",
+            "text": "Se vores smukke sølvbestikserier skabt med fokus på håndværk og elegance.",
+            "button_label": "UDFORSK SØLVBESTIK"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

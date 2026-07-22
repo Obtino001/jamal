@@ -1,75 +1,92 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "georg_hero": {
+      "type": "georg-jensen-hero",
+      "settings": {
+        "heading": "Weft kollektionen",
+        "subheading": "Oplev den nyeste kollektion af tidsløse smykker og skandinavisk elegance.",
+        "button_label": "Udforsk weft",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "georg_story_grid": {
+      "type": "georg-jensen-story-grid",
+      "settings": {
+        "section_title": "Bliv inspireret"
+      },
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "story_1": {
+          "type": "story_card",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "category_tag": "DESIGNIKONER",
+            "title": "Georg Jensens designikoner",
+            "text": "Udforsk vores mest elskede og ikoniske kollektioner skabt af anerkendte designere.",
+            "link_label": "UDFORSK DESIGNIKONER"
           }
         },
-        "button": {
-          "type": "buttons",
+        "story_2": {
+          "type": "story_card",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "category_tag": "SOMMER 2026",
+            "title": "Nye kollektioner",
+            "text": "Oplev sæsonens nyeste smykke- og boligdesign fremstillet i ædle metaller.",
+            "link_label": "SE NYHEDER"
+          }
+        },
+        "story_3": {
+          "type": "story_card",
+          "settings": {
+            "category_tag": "SØLVHÅNDVÆRK",
+            "title": "Tidsløst håndværk",
+            "text": "Enestående håndlavede sølvarbejder skabt af mestersølvsmede i København.",
+            "link_label": "UDFORSK SØLVHÅNDVÆRK"
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
-      ],
+        "story_1",
+        "story_2",
+        "story_3"
+      ]
+    },
+    "georg_carousel": {
+      "type": "georg-jensen-product-carousel",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "heading": "Populære produkter",
+        "collection": "all",
+        "products_to_show": 8
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
-      }
+    "georg_split_banner": {
+      "type": "georg-jensen-split-banner",
+      "blocks": {
+        "banner_1": {
+          "type": "banner",
+          "settings": {
+            "title": "Gaveidéer",
+            "text": "Find den perfekte gave til enhver anledning iblandt klassisk dansk design.",
+            "button_label": "UDFORSK GAVEIDÉER"
+          }
+        },
+        "banner_2": {
+          "type": "banner",
+          "settings": {
+            "title": "Sølvbestik",
+            "text": "Se vores smukke sølvbestikserier skabt med fokus på håndværk og elegance.",
+            "button_label": "UDFORSK SØLVBESTIK"
+          }
+        }
+      },
+      "block_order": [
+        "banner_1",
+        "banner_2"
+      ]
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "georg_hero",
+    "georg_story_grid",
+    "georg_carousel",
+    "georg_split_banner"
   ]
 }
