@@ -1,50 +1,61 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
     "footer": {
       "type": "footer",
-      "blocks": {
-        "menu_1": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Online Shopping",
-            "menu": "footer"
-          }
-        },
-        "menu_2": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Mere fra Georg Jensen",
-            "menu": "footer"
-          }
-        },
-        "menu_3": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Firmainfo",
-            "menu": "footer"
-          }
-        }
-      },
-      "block_order": [
-        "menu_1",
-        "menu_2",
-        "menu_3"
-      ],
       "settings": {
-        "color_scheme": "scheme-1",
-        "newsletter_enable": true,
-        "newsletter_heading": "Bliv medlem af Georg Jensen",
-        "enable_follow_on_shop": true,
-        "show_social": true,
-        "enable_country_selector": true,
-        "enable_language_selector": true,
-        "payment_enable": true,
-        "show_policy": true,
-        "margin_top": 0,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "show_member_banner": true,
+        "banner_bg": "#1b2430",
+        "banner_text_color": "#ffffff",
+        "member_heading": "Bliv medlem af Georg Jensen",
+        "register_button_text": "Tilmeld",
+        "register_url": "",
+        "login_prompt_text": "Har du allerede en konto?",
+        "login_link_text": "Log ind",
+        "login_url": "",
+        "benefits_heading": "Få eksklusive medlemsfordele allerede i dag",
+        "usp_1_text": "Fri fragt på alle ordrer",
+        "usp_2_text": "10% på din første ordre",
+        "usp_3_text": "Nyheder og eksklusive tilbud",
+        "disclaimer_text": "*Rabatkoden kan ikke bruges på gavekort, sølvhåndværk, produktsæt, custom smykker samt kombineres med øvrige rabatter og kampagner. Koden er gyldig i 30 dage.",
+        "footer_bg": "#161e27",
+        "footer_text_color": "#ffffff",
+        "show_country_selector": true,
+        "default_country": "Denmark",
+        "support_heading": "Kundeservice",
+        "phone_number": "+45 38 14 90 44",
+        "opening_hours": "Mandag, tirsdag, torsdag og fredag: 10.00–12.00",
+        "support_email": "onlinestore@georgjensen.com",
+        "withdraw_heading": "Fortrydelsesret",
+        "withdraw_label": "Fortryd aftale",
+        "withdraw_url": "",
+        "menu_1_heading": "Online Shopping",
+        "menu_1": "main-menu",
+        "menu_2_heading": "Mere fra Georg Jensen",
+        "menu_2": "main-menu",
+        "menu_3_heading": "Firmainfo",
+        "menu_3": "main-menu",
+        "show_payment_badges": true,
+        "show_social_icons": true,
+        "facebook_link": "",
+        "instagram_link": "",
+        "twitter_link": "",
+        "pinterest_link": "",
+        "copyright_text": "Copyright © Georg Jensen.",
+        "crest_line_1": "BY APPOINTMENT TO",
+        "crest_line_2": "HER MAJESTY THE QUEEN OF DENMARK",
+        "crest_brand": "GEORG JENSEN",
+        "crest_sub": "ESTABLISHED 1904"
       }
     }
   },

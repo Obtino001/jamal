@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "georg_hero": {
@@ -11,9 +20,6 @@
     },
     "georg_story_grid": {
       "type": "georg-jensen-story-grid",
-      "settings": {
-        "section_title": "Bliv inspireret"
-      },
       "blocks": {
         "story_1": {
           "type": "story_card",
@@ -47,62 +53,10 @@
         "story_1",
         "story_2",
         "story_3"
-      ]
-    },
-    "georg_category_grid": {
-      "type": "georg-jensen-category-grid",
-      "blocks": {
-        "cat_1": {
-          "type": "category_card",
-          "settings": {
-            "title": "GULDSMYKKER",
-            "link_1_text": "Alle guldsmykker",
-            "link_2_text": "Guld øreringe",
-            "link_3_text": "Guld halskæder",
-            "link_4_text": "Guld armbånd",
-            "link_5_text": "Guld ringe"
-          }
-        },
-        "cat_2": {
-          "type": "category_card",
-          "settings": {
-            "title": "SØLVSMYKKER",
-            "link_1_text": "Alle sølvsmykker",
-            "link_2_text": "Sølv øreringe",
-            "link_3_text": "Sølv halskæder",
-            "link_4_text": "Sølv armbånd",
-            "link_5_text": "Sølv ringe"
-          }
-        },
-        "cat_3": {
-          "type": "category_card",
-          "settings": {
-            "title": "TIL BORDET",
-            "link_1_text": "Nyheder",
-            "link_2_text": "Bartilbehør",
-            "link_3_text": "Kaffe og te",
-            "link_4_text": "Kander og karafler",
-            "link_5_text": "Bestik"
-          }
-        },
-        "cat_4": {
-          "type": "category_card",
-          "settings": {
-            "title": "SØLVHÅNDVÆRK",
-            "link_1_text": "Sølvbestik",
-            "link_2_text": "Sølv lysestager",
-            "link_3_text": "Sølv vaser",
-            "link_4_text": "Sølv kander og karafler",
-            "link_5_text": "Sølv bartilbehør"
-          }
-        }
-      },
-      "block_order": [
-        "cat_1",
-        "cat_2",
-        "cat_3",
-        "cat_4"
-      ]
+      ],
+      "settings": {
+        "section_title": "Bliv inspireret"
+      }
     },
     "georg_carousel": {
       "type": "georg-jensen-product-carousel",
@@ -135,13 +89,13 @@
       "block_order": [
         "banner_1",
         "banner_2"
-      ]
+      ],
+      "settings": {}
     }
   },
   "order": [
     "georg_hero",
     "georg_story_grid",
-    "georg_category_grid",
     "georg_carousel",
     "georg_split_banner"
   ]
