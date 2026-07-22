@@ -8,25 +8,18 @@
         "menu_1": {
           "type": "link_list",
           "settings": {
-            "heading": "Kundeservice",
-            "menu": "main-menu"
-          }
-        },
-        "menu_2": {
-          "type": "link_list",
-          "settings": {
             "heading": "Online Shopping",
             "menu": "footer"
           }
         },
-        "menu_3": {
+        "menu_2": {
           "type": "link_list",
           "settings": {
             "heading": "Mere fra Georg Jensen",
             "menu": "footer"
           }
         },
-        "menu_4": {
+        "menu_3": {
           "type": "link_list",
           "settings": {
             "heading": "Firmainfo",
@@ -37,8 +30,7 @@
       "block_order": [
         "menu_1",
         "menu_2",
-        "menu_3",
-        "menu_4"
+        "menu_3"
       ],
       "settings": {
         "color_scheme": "scheme-1",

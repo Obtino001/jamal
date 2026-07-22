@@ -11,18 +11,10 @@
             "text": "Medlemmer får altid gratis fragt",
             "link": ""
           }
-        },
-        "announcement-2": {
-          "type": "announcement",
-          "settings": {
-            "text": "Tilmeld dig vores nyhedsbrev og få 10%",
-            "link": ""
-          }
         }
       },
       "block_order": [
-        "announcement-1",
-        "announcement-2"
+        "announcement-1"
       ],
       "settings": {
         "auto_rotate": false,

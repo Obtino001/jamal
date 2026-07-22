@@ -1,21 +1,27 @@
 {% comment %}
-  Georg Jensen Header Section - Fully Theme Customizer Editable
+  Georg Jensen Header Section - Fully Theme Customizer Editable with 1-to-1 Announcement Bar
 {% endcomment %}
 
 <div class="georg-header-wrapper">
   <!-- Announcement Bar -->
   {%- if section.settings.show_announcement -%}
-    <div class="georg-announcement-bar" style="background-color: {{ section.settings.announcement_bg }}; color: {{ section.settings.announcement_text_color }};">
+    <div class="georg-announcement-bar" style="background-color: {{ section.settings.announcement_bg | default: '#1b2430' }}; color: {{ section.settings.announcement_text_color | default: '#ffffff' }};">
       <div class="georg-container georg-announcement-inner">
-        <div class="georg-announcement-left">
-          <a href="{{ section.settings.announcement_left_link | default: '#' }}" class="georg-announcement-link" style="color: {{ section.settings.announcement_text_color }};">
-            {{ section.settings.announcement_left_text }}
-          </a>
-        </div>
-        <div class="georg-announcement-right">
-          <a href="{{ section.settings.announcement_right_link | default: '#' }}" class="georg-announcement-link" style="color: {{ section.settings.announcement_text_color }};">
-            {{ section.settings.announcement_right_text }}
-          </a>
+        <div class="georg-announcement-left-blank"></div>
+        <div class="georg-announcement-messages">
+          {%- if section.settings.announcement_left_text != blank -%}
+            <a href="{{ section.settings.announcement_left_link | default: '#' }}" class="georg-announcement-link" style="color: {{ section.settings.announcement_text_color | default: '#ffffff' }};">
+              {{ section.settings.announcement_left_text }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.announcement_left_text != blank and section.settings.announcement_right_text != blank -%}
+            <span class="announcement-divider">|</span>
+          {%- endif -%}
+          {%- if section.settings.announcement_right_text != blank -%}
+            <a href="{{ section.settings.announcement_right_link | default: '#' }}" class="georg-announcement-link" style="color: {{ section.settings.announcement_text_color | default: '#ffffff' }};">
+              {{ section.settings.announcement_right_text }}
+            </a>
+          {%- endif -%}
         </div>
       </div>
     </div>
@@ -98,8 +104,10 @@
           <li class="georg-nav-item"><a href="#" class="georg-nav-link">BOLIG</a></li>
           <li class="georg-nav-item"><a href="#" class="georg-nav-link">TIL BORD & BAR</a></li>
           <li class="georg-nav-item"><a href="#" class="georg-nav-link">SØLVHÅNDVÆRK</a></li>
+          <li class="georg-nav-item"><a href="#" class="georg-nav-link">URE & ACCESSOIRES</a></li>
           <li class="georg-nav-item"><a href="#" class="georg-nav-link">GAVER</a></li>
-          <li class="georg-nav-item"><a href="#" class="georg-nav-link">BRAND</a></li>
+          <li class="georg-nav-item"><a href="#" class="georg-nav-link">UDFORSK</a></li>
+          <li class="georg-nav-item"><a href="#" class="georg-nav-link">SALE</a></li>
         {%- endif -%}
       </ul>
     </div>
@@ -108,10 +116,8 @@
 
 <style>
   .georg-header-wrapper {
-    width: 100%;
     font-family: var(--georg-font-sans);
-    background: #ffffff;
-    border-bottom: 1px solid var(--georg-grey-border);
+    background-color: #ffffff;
   }
 
   .georg-container {
@@ -121,10 +127,9 @@
   }
 
   .georg-announcement-bar {
-    border-bottom: 1px solid #eaeaea;
-    padding: 8px 0;
+    padding: 7px 0;
     font-size: 11px;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
   }
 
   .georg-announcement-inner {
@@ -133,13 +138,25 @@
     align-items: center;
   }
 
+  .georg-announcement-messages {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: auto;
+  }
+
+  .announcement-divider {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 10px;
+  }
+
   .georg-announcement-link {
     text-decoration: none;
     transition: opacity 0.2s;
   }
 
   .georg-announcement-link:hover {
-    opacity: 0.7;
+    opacity: 0.8;
   }
 
   .georg-main-header {
@@ -218,19 +235,17 @@
     position: relative;
     display: inline-flex;
     align-items: center;
-    text-decoration: none;
   }
 
   .georg-badge {
     position: absolute;
     top: -6px;
     right: -8px;
-    background: #000000;
-    color: #ffffff;
+    background: #111;
+    color: #fff;
     font-size: 9px;
-    font-weight: 600;
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -238,39 +253,45 @@
   }
 
   .georg-nav-bar {
-    border-top: 1px solid #eeeeee;
-    padding: 14px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
   }
 
   .georg-nav-menu {
     list-style: none;
-    margin: 0;
     padding: 0;
+    margin: 0;
     display: flex;
     justify-content: center;
-    gap: 40px;
+    align-items: center;
+    gap: 32px;
   }
 
   .georg-nav-link {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.14em;
-    color: #1c1c1c;
+    color: #111111;
     text-decoration: none;
     transition: color 0.2s;
   }
 
   .georg-nav-link:hover {
-    color: #666666;
+    color: #777777;
   }
 
-  @media screen and (max-width: 989px) {
+  @media screen and (max-width: 768px) {
     .georg-header-left {
       display: none;
     }
+    .georg-search-input {
+      width: 90px;
+    }
     .georg-nav-menu {
-      gap: 20px;
+      gap: 16px;
       overflow-x: auto;
+      justify-content: flex-start;
       white-space: nowrap;
     }
   }
@@ -281,91 +302,100 @@
   "name": "Georg Jensen Header",
   "settings": [
     {
+      "type": "header",
+      "content": "Announcement Bar Settings"
+    },
+    {
       "type": "checkbox",
       "id": "show_announcement",
       "label": "Show Announcement Bar",
       "default": true
     },
     {
-      "type": "text",
-      "id": "announcement_left_text",
-      "label": "Announcement Left Text",
-      "default": "Medlemmer får altid gratis fragt"
-    },
-    {
-      "type": "url",
-      "id": "announcement_left_link",
-      "label": "Announcement Left Link"
-    },
-    {
-      "type": "text",
-      "id": "announcement_right_text",
-      "label": "Announcement Right Text",
-      "default": "Tilmeld dig vores nyhedsbrev og få 10%"
-    },
-    {
-      "type": "url",
-      "id": "announcement_right_link",
-      "label": "Announcement Right Link"
-    },
-    {
       "type": "color",
       "id": "announcement_bg",
       "label": "Announcement Background",
-      "default": "#f7f7f7"
+      "default": "#1b2430"
     },
     {
       "type": "color",
       "id": "announcement_text_color",
       "label": "Announcement Text Color",
-      "default": "#444444"
+      "default": "#ffffff"
     },
     {
       "type": "text",
-      "id": "store_locator_label",
-      "label": "Store Locator Link Label",
-      "default": "Find butik"
+      "id": "announcement_left_text",
+      "label": "Left Message",
+      "default": "Medlemmer får altid gratis fragt"
     },
     {
       "type": "url",
-      "id": "store_locator_link",
-      "label": "Store Locator URL"
+      "id": "announcement_left_link",
+      "label": "Left Message Link"
     },
     {
       "type": "text",
-      "id": "support_label",
-      "label": "Customer Support Label",
-      "default": "Kundeservice"
+      "id": "announcement_right_text",
+      "label": "Right Message",
+      "default": "Tilmeld dig vores nyhedsbrev og få 10%"
     },
     {
       "type": "url",
-      "id": "support_link",
-      "label": "Customer Support URL"
+      "id": "announcement_right_link",
+      "label": "Right Message Link"
+    },
+    {
+      "type": "header",
+      "content": "Header Navigation & Logo"
     },
     {
       "type": "image_picker",
       "id": "logo",
-      "label": "Brand Logo"
+      "label": "Custom Logo Image"
     },
     {
       "type": "range",
       "id": "logo_width",
       "min": 100,
-      "max": 350,
-      "step": 5,
-      "default": 220,
-      "label": "Logo Width (px)"
+      "max": 300,
+      "step": 10,
+      "default": 180,
+      "unit": "px",
+      "label": "Logo Width"
     },
     {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Navigation Menu Linklist"
+      "type": "text",
+      "id": "store_locator_label",
+      "label": "Store Locator Label",
+      "default": "Find butik"
+    },
+    {
+      "type": "url",
+      "id": "store_locator_link",
+      "label": "Store Locator Link"
+    },
+    {
+      "type": "text",
+      "id": "support_label",
+      "label": "Support Label",
+      "default": "Kundeservice"
+    },
+    {
+      "type": "url",
+      "id": "support_link",
+      "label": "Support Link"
     },
     {
       "type": "text",
       "id": "search_placeholder",
       "label": "Search Placeholder",
       "default": "Søg..."
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu (Linklist)"
     }
   ],
   "blocks": [
@@ -376,8 +406,8 @@
         {
           "type": "text",
           "id": "title",
-          "label": "Menu Item Title",
-          "default": "KOLLEKTION"
+          "label": "Menu Item Label",
+          "default": "SMYKKER"
         },
         {
           "type": "url",
@@ -389,7 +419,13 @@
   ],
   "presets": [
     {
-      "name": "Georg Jensen Header"
+      "name": "Georg Jensen Header",
+      "blocks": [
+        { "type": "menu_item", "settings": { "title": "SMYKKER" } },
+        { "type": "menu_item", "settings": { "title": "BOLIG" } },
+        { "type": "menu_item", "settings": { "title": "TIL BORD & BAR" } },
+        { "type": "menu_item", "settings": { "title": "SØLVHÅNDVÆRK" } }
+      ]
     }
   ]
 }
