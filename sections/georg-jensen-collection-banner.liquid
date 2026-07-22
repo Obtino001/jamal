@@ -1,0 +1,122 @@
+{% comment %}
+  Georg Jensen Collection Banner ("Designikoner") - 1-to-1 Replica
+{% endcomment %}
+
+<div class="georg-collection-banner-section">
+  <div class="georg-container">
+    <div class="georg-collection-banner-inner">
+      <div class="georg-collection-banner-content">
+        <h1 class="georg-collection-title georg-serif">
+          {{ collection.title | default: section.settings.title | default: 'Designikoner' }}
+        </h1>
+        <p class="georg-collection-subtitle georg-sans">
+          {{ collection.description | default: section.settings.description | default: 'Opdag de Georg Jensen-design, der har skabt historie.' }}
+        </p>
+      </div>
+
+      <div class="georg-collection-banner-media">
+        {%- if collection.image != blank -%}
+          <img src="{{ collection.image | image_url: width: 1200 }}" alt="{{ collection.title | escape }}" class="georg-collection-img">
+        {%- elsif section.settings.image != blank -%}
+          <img src="{{ section.settings.image | image_url: width: 1200 }}" alt="{{ collection.title | escape }}" class="georg-collection-img">
+        {%- else -%}
+          <img src="{{ 'SS26_Home_ecom_Frontpage_story_tile_410x410_Koppel1600.jpg' | asset_url }}" alt="Designikoner" class="georg-collection-img">
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .georg-collection-banner-section {
+    width: 100%;
+    background-color: #f7f6f4;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .georg-collection-banner-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 380px;
+  }
+
+  .georg-collection-banner-content {
+    flex: 0 0 45%;
+    padding: 40px 60px 40px 0;
+  }
+
+  .georg-collection-title {
+    font-size: 46px;
+    font-weight: 400;
+    color: #111111;
+    margin: 0 0 16px 0;
+    line-height: 1.15;
+  }
+
+  .georg-collection-subtitle {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #555555;
+    margin: 0;
+    max-width: 440px;
+  }
+
+  .georg-collection-banner-media {
+    flex: 0 0 55%;
+    height: 380px;
+  }
+
+  .georg-collection-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 890px) {
+    .georg-collection-banner-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .georg-collection-banner-content {
+      padding: 30px 20px;
+      flex: 0 0 100%;
+    }
+    .georg-collection-banner-media {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 260px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Georg Collection Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Designikoner"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Opdag de Georg Jensen-design, der har skabt historie."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Georg Collection Banner"
+    }
+  ]
+}
+{% endschema %}

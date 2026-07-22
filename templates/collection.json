@@ -1,14 +1,17 @@
 {
   "sections": {
-    "banner": {
-      "type": "main-collection-banner",
+    "georg_collection_banner": {
+      "type": "georg-jensen-collection-banner",
       "settings": {
-        "show_collection_description": true,
-        "show_collection_image": false,
-        "color_scheme": "scheme-1"
+        "title": "Designikoner",
+        "description": "Opdag de Georg Jensen-design, der har skabt historie."
       }
     },
-    "product-grid": {
+    "georg_filter_bar": {
+      "type": "georg-jensen-collection-filter-bar",
+      "settings": {}
+    },
+    "product_grid": {
       "type": "main-collection-product-grid",
       "settings": {
         "products_per_page": 16,
@@ -16,8 +19,8 @@
         "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
+        "show_secondary_image": true,
+        "show_vendor": true,
         "show_rating": false,
         "quick_add": "none",
         "enable_filtering": true,
@@ -30,7 +33,8 @@
     }
   },
   "order": [
-    "banner",
-    "product-grid"
+    "georg_collection_banner",
+    "georg_filter_bar",
+    "product_grid"
   ]
 }

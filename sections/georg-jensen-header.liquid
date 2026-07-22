@@ -39,13 +39,11 @@
           {%- if section.settings.logo != blank -%}
             <img src="{{ section.settings.logo | image_url: width: 300 }}" alt="{{ shop.name }}" class="georg-logo-img">
           {%- else -%}
-            <div class="georg-logo-text-wrap">
-              <span class="georg-logo-text">GEORG JENSEN</span>
-              <span class="georg-logo-sub">EST. 1904</span>
-            </div>
+            <img src="{{ 'logo.svg' | asset_url }}" alt="GEORG JENSEN" class="georg-logo-img" width="220" height="30">
           {%- endif -%}
         </a>
       </div>
+
 
       <!-- Right Utility Actions -->
       <div class="georg-header-right">

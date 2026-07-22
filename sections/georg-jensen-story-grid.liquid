@@ -16,16 +16,15 @@
           <div class="georg-story-media-wrap">
             {%- if block.settings.image != blank -%}
               <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.title | escape }}" class="georg-story-img">
+            {%- elsif forloop.index == 1 -%}
+              <img src="{{ 'GJ_SS26_Seasonal_JW_eCOM_storytile_410x410_131600.jpg' | asset_url }}" alt="{{ block.settings.title | escape }}" class="georg-story-img">
+            {%- elsif forloop.index == 2 -%}
+              <img src="{{ 'GJ_SS26_Seasonal_JW_eCOM_storytile_410x410_61600.jpg' | asset_url }}" alt="{{ block.settings.title | escape }}" class="georg-story-img">
             {%- else -%}
-              <div class="georg-story-img-placeholder">
-                <svg viewBox="0 0 450 450" width="100%" height="100%">
-                  <rect width="100%" height="100%" fill="#f4f4f4"/>
-                  <circle cx="225" cy="225" r="100" fill="none" stroke="#d5d5d5" stroke-width="1.5"/>
-                  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Montserrat" font-size="12" fill="#888" letter-spacing="2">GEORG JENSEN</text>
-                </svg>
-              </div>
+              <img src="{{ 'Menu_Tile_SS26_Home4190_190_190.jpg' | asset_url }}" alt="{{ block.settings.title | escape }}" class="georg-story-img">
             {%- endif -%}
           </div>
+
 
           <div class="georg-story-content">
             {%- if block.settings.category_tag != blank -%}

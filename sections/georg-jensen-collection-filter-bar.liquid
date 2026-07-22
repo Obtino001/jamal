@@ -1,0 +1,119 @@
+{% comment %}
+  Georg Jensen Collection Filter & Sort Bar - 1-to-1 Replica
+{% endcomment %}
+
+<div class="georg-filter-bar-section">
+  <div class="georg-container">
+    <div class="georg-filter-bar-inner">
+      <!-- Left Filters -->
+      <div class="georg-filter-group-left">
+        <div class="georg-filter-item">
+          <button class="georg-filter-btn" type="button">
+            PRIS <span class="georg-caret">▾</span>
+          </button>
+        </div>
+        <div class="georg-filter-item">
+          <button class="georg-filter-btn" type="button">
+            PRODUKTTYPE <span class="georg-caret">▾</span>
+          </button>
+        </div>
+        <div class="georg-filter-item">
+          <button class="georg-filter-btn" type="button">
+            KOLLEKTION <span class="georg-caret">▾</span>
+          </button>
+        </div>
+        <div class="georg-filter-item">
+          <button class="georg-filter-btn" type="button">
+            MATERIALE <span class="georg-caret">▾</span>
+          </button>
+        </div>
+        <div class="georg-filter-item">
+          <button class="georg-filter-btn" type="button">
+            MERE <span class="georg-caret">▾</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Sort -->
+      <div class="georg-filter-group-right">
+        <div class="georg-filter-item">
+          <button class="georg-filter-btn georg-sort-btn" type="button">
+            SORTER EFTER <span class="georg-caret">▾</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .georg-filter-bar-section {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 16px 0;
+    font-family: var(--georg-font-sans);
+  }
+
+  .georg-filter-bar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .georg-filter-group-left {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .georg-filter-group-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .georg-filter-btn {
+    border: none;
+    background: transparent;
+    font-family: var(--georg-font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #111111;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 0;
+    transition: opacity 0.2s;
+  }
+
+  .georg-filter-btn:hover {
+    opacity: 0.6;
+  }
+
+  .georg-caret {
+    font-size: 10px;
+    color: #444444;
+  }
+
+  @media screen and (max-width: 890px) {
+    .georg-filter-group-left {
+      gap: 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Georg Filter Bar",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Georg Filter Bar"
+    }
+  ]
+}
+{% endschema %}

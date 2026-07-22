@@ -26,35 +26,34 @@
             </div>
           {%- endfor -%}
         {%- else -%}
-          <!-- Demo Fallback Products -->
-          {%- for i in (1..4) -%}
+          <!-- Demo Fallback Products using downloaded assets -->
+          {%- for i in (1..8) -%}
+            {%- assign img_index = i | plus: 9 -%}
+            {%- assign img_filename = 'downloaded_image_' | append: img_index | append: '.jpg' -%}
             <div class="georg-product-card-slide">
               <div class="georg-card-product">
                 <div class="georg-card-media-wrap">
                   <span class="georg-wishlist-toggle" aria-label="Tilføj til ønskeliste">
                     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                   </span>
-                  <div class="georg-card-img-placeholder">
-                    <svg viewBox="0 0 300 350" width="100%" height="100%">
-                      <rect width="100%" height="100%" fill="#fafafa"/>
-                      <circle cx="150" cy="160" r="60" fill="none" stroke="#e0e0e0" stroke-width="1.5"/>
-                      <circle cx="150" cy="160" r="30" fill="none" stroke="#cccccc" stroke-width="1"/>
-                    </svg>
-                  </div>
+                  <a href="#" class="georg-card-image-link">
+                    <img src="{{ img_filename | asset_url }}" alt="Georg Jensen Product" class="georg-card-main-img" loading="lazy">
+                  </a>
                 </div>
                 <div class="georg-card-info">
                   <div class="georg-card-title-wrap">
-                    <span class="georg-card-brand-caps">MOONLIGHT GRAPES</span>
-                    <span class="georg-card-prod-type">halskæde</span>
+                    <span class="georg-card-brand-caps">KOPPEL / BERNADOTTE</span>
+                    <span class="georg-card-prod-type">skål / kande</span>
                   </div>
-                  <div class="georg-card-material">Oxideret sterlingsølv</div>
+                  <div class="georg-card-material">Blankt rustfrit stål</div>
                   <div class="georg-card-variation">Flere variationer</div>
-                  <div class="georg-card-price">DKK 9.750,00</div>
+                  <div class="georg-card-price">DKK 2.450,00</div>
                 </div>
               </div>
             </div>
           {%- endfor -%}
         {%- endif -%}
+
       </div>
     </div>
   </div>
