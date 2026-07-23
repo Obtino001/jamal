@@ -19,7 +19,7 @@
 >
   {%- if section.settings.show_member_banner -%}
     <section class="gj-footer__member" aria-label="{{ section.settings.member_heading | escape }}">
-      <div class="gj-footer__inner">
+      <div class="page-width">
         <div class="gj-footer__member-row">
           <div>
             <h2 class="gj-footer__member-title">{{ section.settings.member_heading }}</h2>
@@ -83,7 +83,7 @@
   {%- endif -%}
 
   <footer class="gj-footer__main">
-    <div class="gj-footer__inner">
+    <div class="page-width">
       <div class="gj-footer__grid">
         <div>
           {%- if section.settings.show_country_selector -%}

@@ -18,11 +18,7 @@
   text-decoration: none;
 }
 
-.gj-footer__inner {
-  max-width: var(--gj-f-max);
-  margin: 0 auto;
-  padding: 0 40px;
-}
+
 
 /* —— Membership banner —— */
 .gj-footer__member {
