@@ -274,7 +274,7 @@
   position: relative;
 }
 
-.georg-pdp-section .gj-size-picker + .gj-size-picker {
+.georg-pdp-section .gj-size-picker+.gj-size-picker {
   border-top: 1px solid #e5e5e5;
 }
 
@@ -544,6 +544,7 @@
 
 .georg-pdp-section .product-info_content_item p {
   margin: 0;
+  font-family: 'Futura';
 }
 
 .georg-pdp-section .product-info_content_item.is-collapsed {
