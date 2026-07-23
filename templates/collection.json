@@ -1,18 +1,18 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "georg_jensen_collection": {
       "type": "georg-jensen-collection-1-to-1",
       "settings": {
-        "products_per_page": 12
+        "show_hero": true,
+        "hero_title": "",
+        "hero_description": "<p>Discover all of our superb jewellery designs matched by expert craftsmanship that offers countless <a href=\"/collections/all\">earrings</a>, <a href=\"/collections/all\">bracelets</a>, <a href=\"/collections/all\">pendants</a> and <a href=\"/collections/all\">rings</a> in <a href=\"/collections/all\">sterling silver</a>, <a href=\"/collections/all\">18 karat gold</a> and <a href=\"/collections/all\">diamonds</a>.</p>",
+        "enable_filtering": true,
+        "enable_sorting": true,
+        "products_per_page": 36,
+        "show_new_badge": true,
+        "show_stock": true,
+        "low_stock_threshold": 1,
+        "material_fallback": "Sterling Silver"
       }
     }
   },
