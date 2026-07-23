@@ -29,11 +29,8 @@
         "disclaimer_text": "*The voucher code cannot be used on gift cards, silver craftsmanship, product sets, custom jewellery or combined with other discounts and campaigns. The code is valid for 30 days.",
         "footer_bg": "#1a2533",
         "footer_text_color": "#ffffff",
-        "heading_color": "#9fd6f5",
-        "accent_color": "#b6e3ff",
         "show_country_selector": true,
         "default_country": "Other countries",
-        "country_options": "Denmark, Sweden, Norway, Germany, United Kingdom, USA & Canada, Australia",
         "support_heading": "Customer Service",
         "phone_number": "+45 38 14 90 44",
         "opening_hours": "Monday, Tuesday, Thursday and Friday: 10:00–15:00 CET",
@@ -45,7 +42,6 @@
         "menu_3_heading": "Corporate info",
         "menu_3": "",
         "show_payment_badges": true,
-        "payment_icons": "mastercard,maestro,visa,amex,paypal,google-pay,apple-pay,shop-pay",
         "show_social_icons": true,
         "facebook_link": "https://www.facebook.com/georgjensen",
         "instagram_link": "https://www.instagram.com/georgjensen/",
@@ -55,9 +51,7 @@
         "crest_line_1": "BY APPOINTMENT TO",
         "crest_line_2": "HER MAJESTY THE QUEEN OF DENMARK",
         "crest_brand": "GEORG JENSEN",
-        "crest_sub": "ESTABLISHED 1904",
-        "show_back_to_top": true,
-        "back_to_top_label": "Back to top"
+        "crest_sub": "ESTABLISHED 1904"
       }
     }
   },

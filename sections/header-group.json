@@ -35,9 +35,9 @@
       ],
       "name": "Custom Announcement",
       "settings": {
-        "bg_color": "#2D3542",
-        "text_color": "#FFFFFF",
-        "alignment": "flex-end"
+        "bg_color": "#2d3542",
+        "text_color": "#ffffff",
+        "alignment": "center"
       }
     },
     "georg_jensen_header": {
