@@ -38,8 +38,45 @@
         "show_mobile_sticky_bar": true
       }
     },
+    "product-tabs-swiper": {
+      "type": "georg-jensen-product-tabs-swiper",
+      "blocks": {
+        "tab_also_viewed": {
+          "type": "tab",
+          "settings": {
+            "title": "People who viewed this item also viewed"
+          }
+        },
+        "tab_combine": {
+          "type": "tab",
+          "settings": {
+            "title": "Combine it with"
+          }
+        }
+      },
+      "block_order": [
+        "tab_also_viewed",
+        "tab_combine"
+      ],
+      "settings": {
+        "tabs_aria_label": "Product recommendations",
+        "products_to_show": 8,
+        "desktop_columns": 4,
+        "space_between": 24,
+        "show_arrows": true,
+        "prev_label": "Previous",
+        "next_label": "Next",
+        "show_stock": true,
+        "low_stock_threshold": 1,
+        "material_fallback": "Sterling Silver",
+        "background_color": "#ffffff",
+        "padding_top": 48,
+        "padding_bottom": 64
+      }
+    },
     "related-products": {
       "type": "related-products",
+      "disabled": true,
       "settings": {
         "heading": "You may also like",
         "heading_size": "h2",
@@ -59,6 +96,7 @@
   },
   "order": [
     "main",
+    "product-tabs-swiper",
     "related-products"
   ]
 }

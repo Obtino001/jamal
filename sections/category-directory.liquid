@@ -1,0 +1,284 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .category-directory__grid {
+    column-gap: var(--grid-desktop-horizontal-spacing);
+    row-gap: 4rem;
+  }
+
+  .category-directory__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .category-directory__image-link {
+    display: block;
+    width: 100%;
+    position: relative;
+    padding-bottom: 100%; /* 1:1 Square aspect ratio */
+    overflow: hidden;
+    text-decoration: none;
+    background-color: rgba(var(--color-foreground), 0.05);
+  }
+
+  .category-directory__image-link img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform var(--duration-default) ease;
+  }
+
+  .category-directory__image-link:hover img {
+    transform: scale(1.03);
+  }
+
+  .category-directory__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.15) 100%);
+    z-index: 2;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .category-directory__title {
+    color: #ffffff;
+    font-family: var(--font-heading-family);
+    font-size: calc(var(--font-heading-scale) * 1.8rem);
+    font-weight: 700;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    margin: 0 0 1.5rem 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  .category-directory__icon {
+    width: 32px;
+    height: 32px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+  }
+
+  .category-directory__image-link:hover .category-directory__icon {
+    transform: translateX(3px);
+  }
+
+  .category-directory__icon svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    /* Optical alignment for standard chevron */
+    margin-left: 2px; 
+  }
+
+  .category-directory__links {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .category-directory__links li {
+    margin-bottom: 0.8rem;
+  }
+
+  .category-directory__links li:last-child {
+    margin-bottom: 0;
+  }
+
+  .category-directory__links a {
+    color: rgb(var(--color-foreground));
+    font-size: 1.3rem;
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+    text-decoration-thickness: 0.1rem;
+    text-decoration-color: rgba(var(--color-foreground), 0.3);
+    transition: text-decoration-color 0.2s ease, opacity 0.2s ease;
+  }
+
+  .category-directory__links a:hover {
+    text-decoration-color: rgb(var(--color-foreground));
+    opacity: 0.7;
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.section_color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="grid grid--1-col grid--2-col-tablet grid--4-col-desktop category-directory__grid">
+      
+      {%- for block in section.blocks -%}
+        <div class="grid__item category-directory__item" {{ block.shopify_attributes }}>
+          
+          <a {% if block.settings.main_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.main_link }}"{% endif %} class="category-directory__image-link global-media-settings">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 600 | image_tag:
+                loading: 'lazy',
+                sizes: '(min-width: 990px) 25vw, (min-width: 750px) 50vw, 100vw',
+                widths: '275, 400, 600',
+                alt: block.settings.image.alt | escape
+              }}
+            {%- else -%}
+              {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+            
+            <div class="category-directory__overlay">
+              {%- if block.settings.title != blank -%}
+                <h3 class="category-directory__title">{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+              <div class="category-directory__icon">
+                <svg viewBox="0 0 14 14" aria-hidden="true" focusable="false">
+                  <path d="M5 2L10 7L5 12" />
+                </svg>
+              </div>
+            </div>
+          </a>
+
+          {%- if block.settings.menu != blank -%}
+            <ul class="category-directory__links">
+              {%- for link in block.settings.menu.links -%}
+                <li>
+                  <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+
+        </div>
+      {%- endfor -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Category Directory",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "label": "Section color scheme",
+      "default": "background-2",
+      "info": "Use an off-white background to match the reference."
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Category Name",
+          "label": "Image Overlay Title"
+        },
+        {
+          "type": "url",
+          "id": "main_link",
+          "label": "Image Link"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Sub-category Links",
+          "info": "Select a navigation menu to display the list of links below the image."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category Directory",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "title": "GOLD JEWELLERY"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "SILVER JEWELLERY"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "DINING"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "FINE SILVER"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

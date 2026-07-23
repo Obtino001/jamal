@@ -1,0 +1,241 @@
+{{ 'georg-jensen-tabs-swiper.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'georg-jensen-tabs-swiper.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign exclude_id = product.id
+  if request.page_type != 'product'
+    assign exclude_id = blank
+  endif
+-%}
+
+<section
+  class="gj-tabs-swiper section-{{ section.id }}"
+  data-gj-tabs-swiper
+  data-columns="{{ section.settings.desktop_columns }}"
+  data-space="{{ section.settings.space_between }}"
+  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; background: {{ section.settings.background_color }};"
+>
+  <div class="gj-tabs-swiper__inner">
+    {%- if section.blocks.size > 0 -%}
+      <div class="gj-tabs-swiper__header">
+        <div class="gj-tabs-swiper__tabs" role="tablist" aria-label="{{ section.settings.tabs_aria_label | escape }}">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'tab' -%}
+              <button
+                type="button"
+                class="gj-tabs-swiper__tab{% if forloop.first %} is-active{% endif %}"
+                role="tab"
+                id="Tab-{{ section.id }}-{{ block.id }}"
+                data-gj-tab="{{ block.id }}"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                aria-controls="Panel-{{ section.id }}-{{ block.id }}"
+                tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.title }}
+              </button>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.show_arrows -%}
+          <div class="gj-tabs-swiper__nav">
+            <button type="button" class="gj-tabs-swiper__arrow" data-gj-swiper-prev aria-label="{{ section.settings.prev_label | escape }}">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M15 18l-6-6 6-6"/>
+              </svg>
+            </button>
+            <button type="button" class="gj-tabs-swiper__arrow" data-gj-swiper-next aria-label="{{ section.settings.next_label | escape }}">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="gj-tabs-swiper__panels">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'tab' -%}
+            <div
+              class="gj-tabs-swiper__panel{% if forloop.first %} is-active{% endif %}"
+              id="Panel-{{ section.id }}-{{ block.id }}"
+              role="tabpanel"
+              data-gj-tab-panel="{{ block.id }}"
+              aria-labelledby="Tab-{{ section.id }}-{{ block.id }}"
+              {% unless forloop.first %}hidden{% endunless %}
+            >
+              {% render 'georg-jensen-swiper-slider',
+                slider_id: block.id,
+                collection: block.settings.collection,
+                limit: section.settings.products_to_show,
+                exclude_product_id: exclude_id,
+                low_stock_threshold: section.settings.low_stock_threshold,
+                show_stock: section.settings.show_stock,
+                material_fallback: section.settings.material_fallback
+              %}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="gj-tabs-swiper__header">
+        <div class="gj-tabs-swiper__tabs">
+          <span class="gj-tabs-swiper__tab is-active">Add tabs in theme editor</span>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "GJ Tabs Swiper",
+  "tag": "section",
+  "class": "section-georg-jensen-tabs-swiper",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Reusable tabs + Swiper. Each tab block selects a collection. Safe to reuse on product, collection, and homepage."
+    },
+    {
+      "type": "text",
+      "id": "tabs_aria_label",
+      "label": "Tabs accessibility label",
+      "default": "Product recommendations"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "default": 8,
+      "label": "Products per tab"
+    },
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "Desktop slides visible"
+    },
+    {
+      "type": "range",
+      "id": "space_between",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "default": 24,
+      "label": "Slide gap (px)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrow navigation",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "prev_label",
+      "label": "Previous arrow label",
+      "default": "Previous"
+    },
+    {
+      "type": "text",
+      "id": "next_label",
+      "label": "Next arrow label",
+      "default": "Next"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stock",
+      "label": "Show low stock text",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 1,
+      "label": "Low stock threshold"
+    },
+    {
+      "type": "text",
+      "id": "material_fallback",
+      "label": "Material fallback",
+      "default": "Sterling Silver",
+      "info": "Used when product metafield custom.material is empty"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab + Collection",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab title",
+          "default": "People who viewed this item also viewed"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection for this tab"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GJ Tabs Swiper",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "title": "People who viewed this item also viewed"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "title": "Combine it with"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
