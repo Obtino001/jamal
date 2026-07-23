@@ -1,0 +1,225 @@
+/* Style it with — Georg Jensen 1:1 */
+.gj-siw {
+  width: 100%;
+}
+
+.gj-siw__inner {
+  max-width: var(--page-width, 120rem);
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 990px) {
+  .gj-siw__inner {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+.gj-siw__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px 32px;
+  margin: 0 0 28px;
+}
+
+.gj-siw__title {
+  margin: 0;
+  font-family: var(--georg-font-serif, 'freight-display-pro-semibold', Georgia, serif);
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0;
+  color: #1a1a1a;
+}
+
+.gj-siw__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  margin: 0;
+  font-family: var(--georg-font-futura, Futura, sans-serif);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--siw-link, #6b8cae);
+  line-height: 1.3;
+  transition: opacity 0.2s ease;
+}
+
+.gj-siw__link:hover {
+  opacity: 0.7;
+}
+
+.gj-siw__link-arrow {
+  font-size: 12px;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.gj-siw__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: stretch;
+}
+
+@media screen and (min-width: 990px) {
+  .gj-siw__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 40px;
+  }
+
+  .gj-siw__layout--image-first {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  }
+
+  .gj-siw__layout--image-first .gj-siw__feature {
+    order: -1;
+  }
+}
+
+.gj-siw__products {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  min-width: 0;
+}
+
+@media screen and (min-width: 990px) {
+  .gj-siw__products {
+    gap: 36px;
+    min-height: 100%;
+  }
+}
+
+.gj-siw__product {
+  display: grid;
+  grid-template-columns: minmax(120px, 42%) minmax(0, 1fr);
+  gap: 18px 28px;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .gj-siw__product {
+    grid-template-columns: minmax(160px, 46%) minmax(0, 1fr);
+    gap: 24px 40px;
+  }
+}
+
+.gj-siw__product-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: var(--siw-media, #f3f2f0);
+  overflow: hidden;
+}
+
+.gj-siw__product-img,
+.gj-siw__product-media .gj-siw__placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.gj-siw__product:hover .gj-siw__product-img {
+  transform: scale(1.03);
+}
+
+.gj-siw__product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.gj-siw__product-title {
+  margin: 0;
+  font-family: var(--georg-font-serif, 'freight-display-pro-semibold', Georgia, serif);
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #1a1a1a;
+}
+
+.gj-siw__product-price {
+  margin: 0;
+  font-family: var(--georg-font-sans-bold, 'SourceSansPro-Bold', 'Source Sans Pro', sans-serif);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #000;
+}
+
+.gj-siw__feature {
+  min-width: 0;
+}
+
+.gj-siw__feature-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--siw-media, #f3f2f0);
+}
+
+@media screen and (min-width: 990px) {
+  .gj-siw__feature-media {
+    height: 100%;
+    min-height: 520px;
+    aspect-ratio: auto;
+  }
+}
+
+.gj-siw__feature-img,
+.gj-siw__placeholder--feature {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media screen and (max-width: 749px) {
+  .gj-siw__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .gj-siw__title {
+    font-size: 28px;
+  }
+
+  .gj-siw__products {
+    gap: 22px;
+  }
+
+  .gj-siw__product {
+    gap: 14px 16px;
+  }
+
+  .gj-siw__product-title {
+    font-size: 20px;
+  }
+
+  .gj-siw__product-price {
+    font-size: 14px;
+  }
+}
