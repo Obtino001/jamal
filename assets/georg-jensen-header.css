@@ -242,40 +242,59 @@
 .gj-header__wishlist-link .gj-header__badge,
 .gj-header__badge {
   position: absolute;
-  top: -6px;
-  right: -8px;
-  min-width: 15px;
-  height: 15px;
-  padding: 0 3px;
+  top: -2px;
+  right: -2px;
+  bottom: auto;
+  left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
   background: var(--gj-h-badge, #b6e3ff);
   color: #fff;
   font-family: var(--georg-font-futura);
   font-size: 9px;
   font-weight: 400;
-  line-height: 15px;
+  line-height: 1;
   text-align: center;
   border-radius: 50%;
   box-sizing: border-box;
+  z-index: 2;
+  pointer-events: none;
 }
 
-/* Cart count bubble — Dawn-compatible, GJ light-blue style */
+.gj-header__badge:empty {
+  display: none;
+}
+
+/* Cart count bubble — override Dawn bottom/left so it sits on the icon */
 .gj-header__cart-link .cart-count-bubble,
 .gj-header #cart-icon-bubble .cart-count-bubble {
-  position: absolute;
-  top: -6px;
-  right: -8px;
-  min-width: 15px;
-  height: 15px;
-  padding: 0 3px;
-  background: var(--gj-h-badge, #b6e3ff);
-  color: #fff;
+  position: absolute !important;
+  top: -2px !important;
+  right: -2px !important;
+  bottom: auto !important;
+  left: auto !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px !important;
+  width: auto !important;
+  height: 16px !important;
+  padding: 0 4px !important;
+  background: var(--gj-h-badge, #b6e3ff) !important;
+  color: #fff !important;
   font-family: var(--georg-font-futura);
-  font-size: 9px;
+  font-size: 9px !important;
   font-weight: 400;
-  line-height: 15px;
+  line-height: 1 !important;
   text-align: center;
-  border-radius: 50%;
+  border-radius: 50% !important;
   box-sizing: border-box;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .gj-header__cart-link .cart-count-bubble span[aria-hidden='true'],
@@ -442,6 +461,20 @@
   .gj-header__right .gj-header__icon-btn svg {
     width: 20px;
     height: 20px;
+  }
+
+  /* Mobile: pin count bubbles to icon top-right (not floating between icons) */
+  .gj-header__wishlist-link .gj-header__badge,
+  .gj-header__badge,
+  .gj-header__cart-link .cart-count-bubble,
+  .gj-header #cart-icon-bubble .cart-count-bubble {
+    top: 4px !important;
+    right: 4px !important;
+    bottom: auto !important;
+    left: auto !important;
+    min-width: 15px !important;
+    height: 15px !important;
+    font-size: 8px !important;
   }
 
   .gj-header__nav {
