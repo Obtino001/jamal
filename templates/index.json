@@ -117,33 +117,37 @@
         "category_dLJtfM": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/GJ_SS26_Seasonal_JW_eCOM_featured_img_frontpage_2_410x4101600_dc573c98-8687-4362-ba52-d2991fbd8782.jpg",
             "title": "GOLD JEWELLERY",
             "main_link": "",
-            "menu": ""
+            "menu": "main-menu"
           }
         },
         "category_FRhpHW": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/hf_20260503_170415_64bbaabc-9409-40fe-8d74-ab27f979e945.jpg",
             "title": "SILVER JEWELLERY",
             "main_link": "",
-            "menu": ""
+            "menu": "main-menu"
           }
         },
         "category_VLjbPB": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/hf_20260403_140114_91c1ca6b-d797-4023-96d5-c820b431e0ca.jpg",
             "title": "DINING",
             "main_link": "",
-            "menu": ""
+            "menu": "main-menu"
           }
         },
         "category_FNYMwL": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/hf_20260503_173558_a155fe5c-2243-4215-8383-3263dd3cf071.jpg",
             "title": "FINE SILVER",
             "main_link": "",
-            "menu": ""
+            "menu": "customer-account-main-menu"
           }
         }
       },
