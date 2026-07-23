@@ -1,211 +1,260 @@
-{% comment %}
-  Georg Jensen Split Banner Section (2-Column Banners) - Fully Theme Customizer Editable
-{% endcomment %}
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
 
-<div class="georg-split-banner-section section-{{ section.id }}">
-  <div class="georg-container">
-    <div class="georg-split-grid" style="grid-template-columns: repeat({{ section.blocks.size | default: 2 }}, 1fr);">
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .promo-cards__grid {
+    column-gap: var(--grid-desktop-horizontal-spacing);
+    row-gap: var(--grid-desktop-vertical-spacing);
+  }
+
+  .promo-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* Override global border radius if needed to match the sharp edges in the reference */
+    border-radius: 0; 
+    overflow: hidden;
+  }
+
+  .promo-card__image-wrapper {
+    position: relative;
+    width: 100%;
+    /* 1:1 Square aspect ratio matching the reference */
+    padding-bottom: 100%; 
+    background-color: rgb(var(--color-background));
+  }
+
+  .promo-card__image-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .promo-card__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    flex-grow: 1;
+  }
+
+  .promo-card__heading {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-heading-family);
+    font-size: calc(var(--font-heading-scale) * 2.4rem);
+    font-weight: 400;
+  }
+
+  .promo-card__text {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: rgba(var(--color-foreground), 0.75);
+    margin-bottom: 3.5rem;
+    max-width: 400px;
+  }
+
+  .promo-card__text p {
+    margin: 0;
+  }
+
+  .promo-card__button {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.2rem 3rem;
+    border: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    margin-top: auto;
+  }
+
+  .promo-card__button:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.section_color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="grid grid--1-col grid--2-col-desktop promo-cards__grid">
+      
       {%- for block in section.blocks -%}
-        <div class="georg-split-col" {{ block.shopify_attributes }}>
-          <div class="georg-split-media">
-            {%- if block.settings.image != blank -%}
-              <img src="{{ block.settings.image | image_url: width: 1000 }}" alt="{{ block.settings.title | escape }}" class="georg-split-img">
-            {%- elsif forloop.index == 1 -%}
-              <img src="{{ 'GJ_AW25_ALL_SEASON_GIFTING_200x200190_190_190.jpg' | asset_url }}" alt="{{ block.settings.title | escape }}" class="georg-split-img">
-            {%- else -%}
-              <img src="{{ 'GJ_SS26_HOME_SEASONAL_BERNADOTTE_COLLECTION_200x200190_190_190.jpg' | asset_url }}" alt="{{ block.settings.title | escape }}" class="georg-split-img">
-            {%- endif -%}
-          </div>
+        <div class="grid__item" {{ block.shopify_attributes }}>
+          <div class="promo-card color-{{ block.settings.card_color_scheme }}">
+            
+            <div class="promo-card__image-wrapper global-media-settings">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 1000 | image_tag:
+                  loading: 'lazy',
+                  sizes: '(min-width: 750px) 50vw, 100vw',
+                  widths: '375, 550, 750, 1000',
+                  alt: block.settings.image.alt | escape
+                }}
+              {%- else -%}
+                {{ 'image_d16962.jpg' | asset_url | img_tag: 'Placeholder', 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
 
-          <div class="georg-split-content">
-            {%- if block.settings.title != blank -%}
-              <h3 class="georg-split-title georg-serif">{{ block.settings.title }}</h3>
-            {%- endif -%}
+            <div class="promo-card__content">
+              {%- if block.settings.heading != blank -%}
+                <h3 class="promo-card__heading">{{ block.settings.heading | escape }}</h3>
+              {%- endif -%}
 
-            {%- if block.settings.text != blank -%}
-              <p class="georg-split-desc georg-sans">{{ block.settings.text }}</p>
-            {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <div class="promo-card__text rte">
+                  {{ block.settings.text }}
+                </div>
+              {%- endif -%}
 
-            {%- if block.settings.button_label != blank -%}
-              <div class="georg-split-cta">
-                <a href="{{ block.settings.button_link | default: '#' }}" class="{% if block.settings.button_style == 'black' %}button-georg-black{% else %}button-georg-blue{% endif %}">
-                  {{ block.settings.button_label }}
+              {%- if block.settings.button_label != blank -%}
+                <a {% if block.settings.button_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.button_link }}"{% endif %} 
+                   class="promo-card__button"
+                   style="background-color: {{ block.settings.button_bg_color }}; color: {{ block.settings.button_text_color }};">
+                  {{ block.settings.button_label | escape }}
                 </a>
-              </div>
-            {%- endif -%}
+              {%- endif -%}
+            </div>
+
           </div>
         </div>
       {%- endfor -%}
+
     </div>
   </div>
 </div>
 
-<style>
-  .georg-split-banner-section {
-    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 0;
-    background-color: {{ section.settings.bg_color }};
-  }
-
-  .georg-split-grid {
-    display: grid;
-    gap: 32px;
-  }
-
-  .georg-split-col {
-    display: flex;
-    flex-direction: column;
-    background: #ffffff;
-  }
-
-  .georg-split-media {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    background-color: #1b263b;
-  }
-
-  .georg-split-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-
-  .georg-split-col:hover .georg-split-img {
-    transform: scale(1.03);
-  }
-
-  .georg-split-content {
-    padding: 28px 0 0 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .georg-split-title {
-    font-size: 26px;
-    font-weight: 400;
-    color: #111111;
-    margin: 0 0 10px 0;
-    line-height: 1.25;
-  }
-
-  .georg-split-desc {
-    font-size: 13px;
-    line-height: 1.6;
-    color: #555555;
-    margin: 0 0 20px 0;
-    max-width: 90%;
-  }
-
-  .georg-split-cta {
-    margin-top: 5px;
-  }
-
-  @media screen and (max-width: 749px) {
-    .georg-split-grid {
-      grid-template-columns: 1fr !important;
-      gap: 40px;
-    }
-  }
-</style>
-
 {% schema %}
 {
-  "name": "Georg Split Banner",
+  "name": "Promo Cards",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 4,
   "settings": [
     {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Background Color",
-      "default": "#ffffff"
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "label": "Section background color scheme",
+      "default": "background-2",
+      "info": "Set to a slightly off-white color to make the white cards pop, as seen in the reference."
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
     },
     {
       "type": "range",
       "id": "padding_top",
-      "min": 20,
+      "min": 0,
       "max": 100,
-      "step": 5,
-      "default": 70,
-      "label": "Padding Top (px)"
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 48
     },
     {
       "type": "range",
       "id": "padding_bottom",
-      "min": 20,
+      "min": 0,
       "max": 100,
-      "step": 5,
-      "default": 70,
-      "label": "Padding Bottom (px)"
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 48
     }
   ],
   "blocks": [
     {
-      "type": "banner",
-      "name": "Banner Column",
+      "type": "card",
+      "name": "Card",
       "settings": [
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Banner Image"
+          "label": "Image"
+        },
+        {
+          "type": "color_scheme",
+          "id": "card_color_scheme",
+          "label": "Card color scheme",
+          "default": "background-1",
+          "info": "Use a white background to match the reference."
         },
         {
           "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "Gaveidéer"
+          "id": "heading",
+          "default": "Gift Ideas",
+          "label": "Heading"
         },
         {
-          "type": "textarea",
+          "type": "richtext",
           "id": "text",
-          "label": "Description Text",
-          "default": "Find den perfekte gave til en du holder af iblandt vores udvalg af tidløst skandinavisk design."
+          "default": "<p>Gifting is one of life's great pleasures. Explore our world of unique Scandinavian gift ideas and find the perfect gift whether celebrating a special occasion or simply saying I love you.</p>",
+          "label": "Description"
+        },
+        {
+          "type": "header",
+          "content": "Button"
         },
         {
           "type": "text",
           "id": "button_label",
-          "label": "Button Label",
-          "default": "Udforsk gaveidéer"
+          "default": "Explore Gift Ideas",
+          "label": "Button label"
         },
         {
           "type": "url",
           "id": "button_link",
-          "label": "Button Link"
+          "label": "Button link"
         },
         {
-          "type": "select",
-          "id": "button_style",
-          "label": "Button Style",
-          "options": [
-            { "value": "blue", "label": "Navy Blue Solid" },
-            { "value": "black", "label": "Black Solid" }
-          ],
-          "default": "blue"
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button background color",
+          "default": "#A8DDF7"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button text color",
+          "default": "#000000"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Georg Split Banner",
+      "name": "Promo Cards",
       "blocks": [
         {
-          "type": "banner",
+          "type": "card",
           "settings": {
-            "title": "Gaveidéer",
-            "text": "Find den perfekte gave til enhver anledning iblandt klassisk dansk design.",
-            "button_label": "UDFORSK GAVEIDÉER",
-            "button_style": "blue"
+            "heading": "Gift Ideas",
+            "button_label": "EXPLORE GIFT IDEAS"
           }
         },
         {
-          "type": "banner",
+          "type": "card",
           "settings": {
-            "title": "Sølvbestik",
-            "text": "Se vores smukke sølvbestikserier skabt med fokus på håndværk og elegance.",
-            "button_label": "UDFORSK SØLVBESTIK",
-            "button_style": "black"
+            "heading": "Silver Cutlery",
+            "text": "<p>Sets of silver knives, forks, spoons, napkin rings and chopsticks make every meal a celebration.</p>",
+            "button_label": "EXPLORE NOW"
           }
         }
       ]

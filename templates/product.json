@@ -1,83 +1,41 @@
 {
   "sections": {
     "main": {
-      "type": "main-product",
-      "blocks": {
-        "vendor": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
-          }
-        },
-        "title": {
-          "type": "title",
-          "settings": {}
-        },
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "swatch_shape": "circle"
-          }
-        },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "buy_buttons": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true
-          }
-        },
-        "description": {
-          "type": "description",
-          "settings": {}
-        },
-        "share": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
-          }
-        }
-      },
-      "block_order": [
-        "vendor",
-        "title",
-        "price",
-        "variant_picker",
-        "quantity_selector",
-        "buy_buttons",
-        "description",
-        "share"
-      ],
+      "type": "georg-jensen-main-product",
       "settings": {
-        "enable_sticky_info": true,
-        "color_scheme": "scheme-1",
-        "media_size": "large",
-        "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
-        "media_position": "left",
-        "image_zoom": "lightbox",
-        "hide_variants": true,
-        "enable_video_looping": false,
-        "padding_top": 36,
-        "padding_bottom": 12
-      }
-    },
-    "disclosures": {
-      "type": "disclosures",
-      "settings": {
-        "padding_top": 36,
-        "padding_bottom": 0
+        "show_breadcrumbs": true,
+        "breadcrumb_home": "Home",
+        "breadcrumb_parent_label": "Jewellery",
+        "collection_suffix": "Collection",
+        "material_fallback": "Sterling Silver",
+        "add_to_cart_label": "Add to basket",
+        "sold_out_label": "Sold out",
+        "unavailable_label": "Unavailable",
+        "show_wishlist": true,
+        "wishlist_label": "Add to Wishlist",
+        "wishlist_remove_label": "Remove from Wishlist",
+        "read_more_label": "Read more",
+        "read_less_label": "Read less",
+        "show_gift_wrapping": true,
+        "gift_wrapping_text": "Complimentary gift wrapping",
+        "gallery_extension_text": "Weft draws on the structures of weaving, translating them into sterling silver jewellery defined by a sense of movement.",
+        "details_heading": "Product details",
+        "item_number_label": "Item number:",
+        "materials_label": "Materials:",
+        "measurements_label": "Measurements:",
+        "measurements_fallback": "W: 8 mm. L: 42 mm.",
+        "design_year_label": "Design year:",
+        "design_year_fallback": "2026",
+        "collection_meta_label": "Collection:",
+        "explore_label": "Explore:",
+        "explore_text": "Earrings",
+        "show_shipping_accordion": true,
+        "shipping_heading": "Shipping and returns",
+        "shipping_content": "<ul><li>Free gift wrapping on full priced items</li><li>Shipping by UPS</li><li>Easy exchanges and returns</li></ul>",
+        "show_phone": true,
+        "phone_label": "Call",
+        "phone_number": "+45 38 14 90 44",
+        "show_mobile_sticky_bar": true
       }
     },
     "related-products": {
@@ -101,7 +59,6 @@
   },
   "order": [
     "main",
-    "disclosures",
     "related-products"
   ]
 }

@@ -1,107 +1,259 @@
-{% comment %}
-  Georg Jensen 1-to-1 Main Product Detail Page (Exact HTML & Styling Match)
-{% endcomment %}
+{{ 'georg-jensen-pdp.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'georg-jensen-pdp.js' | asset_url }}" defer="defer"></script>
 
-<div id="main" role="main" class="full-width clearfix georg-pdp-section section-{{ section.id }}">
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_form_id = 'gj-product-form-' | append: section.id
+  assign collection_title = section.settings.collection_label
+  if collection_title == blank and product.collections.size > 0
+    assign collection_title = product.collections.first.title
+  endif
+  if collection_title == blank
+    assign collection_title = product.vendor
+  endif
+  assign collection_url = section.settings.collection_link
+  if collection_url == blank and product.collections.size > 0
+    assign collection_url = product.collections.first.url
+  endif
+  if collection_url == blank
+    assign collection_url = routes.all_products_collection_url
+  endif
+
+  assign material = product.metafields.custom.material.value | default: product.metafields.custom.material
+  if material == blank
+    assign material = section.settings.material_fallback
+  endif
+
+  assign design_year = product.metafields.custom.design_year.value | default: product.metafields.custom.design_year
+  if design_year == blank
+    assign design_year = section.settings.design_year_fallback
+  endif
+
+  assign measurements = product.metafields.custom.measurements.value | default: product.metafields.custom.measurements
+  if measurements == blank
+    assign measurements = section.settings.measurements_fallback
+  endif
+
+  assign gallery_text = product.metafields.custom.gallery_extension_text.value | default: product.metafields.custom.gallery_extension_text
+  if gallery_text == blank
+    assign gallery_text = section.settings.gallery_extension_text
+  endif
+
+  assign gallery_image = section.settings.gallery_extension_image
+  if product.metafields.custom.gallery_extension_image.value != blank
+    assign gallery_image = product.metafields.custom.gallery_extension_image.value
+  endif
+
+  assign gift_text = section.settings.gift_wrapping_text
+  assign gift_image = section.settings.gift_wrapping_image
+  assign phone = section.settings.phone_number
+  assign phone_label = section.settings.phone_label
+  assign atc_label = section.settings.add_to_cart_label
+  assign wishlist_label = section.settings.wishlist_label
+  assign wishlist_remove_label = section.settings.wishlist_remove_label
+  assign read_more_label = section.settings.read_more_label
+  assign read_less_label = section.settings.read_less_label
+  assign details_heading = section.settings.details_heading
+  assign shipping_heading = section.settings.shipping_heading
+  assign shipping_content = section.settings.shipping_content
+  assign item_number_label = section.settings.item_number_label
+  assign materials_label = section.settings.materials_label
+  assign measurements_label = section.settings.measurements_label
+  assign design_year_label = section.settings.design_year_label
+  assign collection_meta_label = section.settings.collection_meta_label
+  assign explore_label = section.settings.explore_label
+-%}
+
+<div
+  id="main"
+  role="main"
+  class="full-width clearfix georg-pdp-section section-{{ section.id }}"
+  data-gj-pdp
+  data-product-id="{{ product.id }}"
+  data-money-format="{{ shop.money_format | escape }}"
+>
   <div class="georg-container">
-    <!-- Breadcrumbs -->
-    <ul class="breadcrumbs">
-      <li class="d-none">
-        <span><a class="breadcrumb-element" href="{{ routes.root_url }}"><span>Hjem</span></a></span>
-      </li>
-      <li>
-        <span><a class="breadcrumb-element" href="/collections/all"><span>Smykker</span></a></span>
-      </li>
-      <li>
-        <span><a class="breadcrumb-element" href="{{ collection.url | default: '/collections/all' }}"><span>Halskæder</span></a></span>
-      </li>
-      <li class="d-none">
-        <span><span class="breadcrumb-element">{{ product.title }}</span></span>
-      </li>
-    </ul>
+    {%- if section.settings.show_breadcrumbs -%}
+      <nav aria-label="Breadcrumb">
+        <ul class="breadcrumbs">
+          <li class="d-none">
+            <span><a class="breadcrumb-element" href="{{ routes.root_url }}"><span>{{ section.settings.breadcrumb_home | default: 'Home' }}</span></a></span>
+          </li>
+          {%- if section.settings.breadcrumb_parent_label != blank -%}
+            <li>
+              <span>
+                <a class="breadcrumb-element" href="{{ section.settings.breadcrumb_parent_link | default: routes.all_products_collection_url }}">
+                  <span>{{ section.settings.breadcrumb_parent_label }}</span>
+                </a>
+              </span>
+            </li>
+          {%- endif -%}
+          {%- if collection != blank -%}
+            <li>
+              <span>
+                <a class="breadcrumb-element" href="{{ collection.url }}">
+                  <span>{{ collection.title }}</span>
+                </a>
+              </span>
+            </li>
+          {%- elsif product.collections.size > 0 -%}
+            <li>
+              <span>
+                <a class="breadcrumb-element" href="{{ product.collections.first.url }}">
+                  <span>{{ product.collections.first.title }}</span>
+                </a>
+              </span>
+            </li>
+          {%- endif -%}
+          <li class="d-none">
+            <span><span class="breadcrumb-element">{{ product.title }}</span></span>
+          </li>
+        </ul>
+      </nav>
+    {%- endif -%}
 
     <div id="primary" class="primary-content">
       <div id="pdpMain" class="pdp-main">
-        
-        <!-- Left Column: Images -->
-        <div class="product-col-1">
+        <div class="product-col-1" style="position: relative;">
           <div class="pdp-sticky-left product-image-container">
             <div class="product-primary-image">
-              <div class="product-image-carousel">
+              <div class="product-image-carousel owl-carousel owl-theme" data-slider-id="productImageCarousel">
                 {%- if product.media.size > 0 -%}
                   {%- for media in product.media -%}
-                    <a class="product-image main-image {% if forloop.first %}active{% endif %}" href="{{ media | image_url: width: 1200 }}" title="{{ product.title }}">
-                      <img src="{{ media | image_url: width: 600 }}" alt="{{ product.title | escape }} {{ forloop.index }}" class="cld-responsive primary-image product-image" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
-                    </a>
+                    {%- if media.media_type == 'image' -%}
+                      {%- liquid
+                        if forloop.first
+                          assign img_loading = 'eager'
+                          assign img_fetch = 'high'
+                        else
+                          assign img_loading = 'lazy'
+                          assign img_fetch = 'auto'
+                        endif
+                      -%}
+                      <a
+                        class="product-image main-image{% if forloop.first %} is-active{% endif %}"
+                        data-gallery="gallery-{{ section.id }}"
+                        href="{{ media | image_url: width: 1600 }}"
+                        title="{{ product.title | escape }}"
+                      >
+                        {%- if forloop.first -%}
+                          <link rel="preload" as="image" href="{{ media | image_url: width: 900 }}">
+                        {%- endif -%}
+                        {{
+                          media
+                          | image_url: width: 900
+                          | image_tag:
+                            loading: img_loading,
+                            fetchpriority: img_fetch,
+                            class: 'cld-responsive primary-image product-image',
+                            widths: '400, 600, 700, 900, 1200',
+                            sizes: '(min-width: 990px) 33vw, 100vw',
+                            alt: product.title
+                        }}
+                      </a>
+                    {%- endif -%}
                   {%- endfor -%}
                 {%- else -%}
-                  <a class="product-image main-image active" href="#" title="MOONLIGHT GRAPES halskæde">
-                    <img src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,dpr_2/w_500,c_scale/products/images/hi-res/GJ_SS25_ECOM_SHOOT_MOONLIGHT_GRAPES_NECKLACE_20001008?_i=AG" alt="MOONLIGHT GRAPES halskæde" class="cld-responsive primary-image product-image">
-                  </a>
-                  <a class="product-image main-image" href="#" title="MOONLIGHT GRAPES halskæde">
-                    <img src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,dpr_2/w_500,c_scale/products/images/hi-res/GJ_SS25_ECOM_SHOOT_MOONLIGHT_GRAPES_NECKLACE_20001008_?_i=AG" alt="MOONLIGHT GRAPES halskæde" class="cld-responsive primary-image product-image">
-                  </a>
-                  <a class="product-image main-image" href="#" title="MOONLIGHT GRAPES halskæde">
-                    <img src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,dpr_2/w_500,c_scale/products/images/hi-res/20001008_GRAPE_NECKLACE_551I_SILVER?_i=AG" alt="MOONLIGHT GRAPES halskæde" class="cld-responsive primary-image product-image">
-                  </a>
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                 {%- endif -%}
               </div>
 
-              <!-- Thumbnails -->
               <div id="thumbnails" class="product-thumbnails not-show-desktop">
-                <div class="owl-thumbs">
-                  {%- if product.media.size > 0 -%}
-                    {%- for media in product.media -%}
-                      <button class="thumb {% if forloop.first %}selected{% endif %}" aria-label="change current image">
+                <div class="owl-thumbs" data-slider-id="productImageCarousel">
+                  {%- for media in product.media -%}
+                    {%- if media.media_type == 'image' -%}
+                      <button
+                        type="button"
+                        class="thumb owl-thumb-item{% if forloop.first %} selected{% endif %}"
+                        aria-label="{{ 'products.product.media.gallery_viewer' | t | default: 'Change current image' }}"
+                      >
                         <div class="thumbnail-link">
-                          <img src="{{ media | image_url: width: 100 }}" alt="" class="cld-responsive productthumbnail">
+                          {{
+                            media
+                            | image_url: width: 140
+                            | image_tag:
+                              loading: 'lazy',
+                              class: 'cld-responsive productthumbnail',
+                              alt: '',
+                              widths: '70, 140'
+                          }}
                         </div>
                       </button>
-                    {%- endfor -%}
-                  {%- else -%}
-                    <button class="thumb selected"><div class="thumbnail-link"><img src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,dpr_2/w_100,c_scale/products/images/hi-res/GJ_SS25_ECOM_SHOOT_MOONLIGHT_GRAPES_NECKLACE_20001008?_i=AG" class="cld-responsive productthumbnail"></div></button>
-                    <button class="thumb"><div class="thumbnail-link"><img src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,dpr_2/w_100,c_scale/products/images/hi-res/GJ_SS25_ECOM_SHOOT_MOONLIGHT_GRAPES_NECKLACE_20001008_?_i=AG" class="cld-responsive productthumbnail"></div></button>
-                    <button class="thumb"><div class="thumbnail-link"><img src="https://res.cloudinary.com/georgjensen/image/upload/f_auto,dpr_2/w_100,c_scale/products/images/hi-res/20001008_GRAPE_NECKLACE_551I_SILVER?_i=AG" class="cld-responsive productthumbnail"></div></button>
-                  {%- endif -%}
+                    {%- endif -%}
+                  {%- endfor -%}
                 </div>
               </div>
             </div>
 
-            <!-- Gallery Extension Top -->
-            <div class="gallery-extension-top">
-              <span class="gallery-extension-text">{{ section.settings.gallery_text | default: 'Vi har genfortolket elementer fra klassiske Georg Jensen-designs med smukke resultater. Lige fra det underspillede og sofistikerede til det dristige og personlighedsskabende.' }}</span>
-            </div>
+            {%- if gallery_text != blank or gallery_image != blank -%}
+              <div class="gallery-extension-top gallery-extension-top--desktop-only">
+                {%- if gallery_text != blank -%}
+                  <span class="gallery-extension-text">{{ gallery_text }}</span>
+                {%- endif -%}
+                {%- if gallery_image != blank -%}
+                  <div class="gallery-extension-image">
+                    {{
+                      gallery_image
+                      | image_url: width: 1400
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'cld-responsive',
+                        widths: '600, 900, 1200, 1400',
+                        sizes: '(min-width: 990px) 60vw, 100vw',
+                        alt: product.title
+                    }}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
           </div>
         </div>
 
-        <!-- Right Column: Product Detail -->
         <div class="product-col-2 product-detail pdp-sticky-right">
           <div id="product-content">
-            <!-- Collection Name -->
-            <a class="product-collection" href="/collections/all">{{ product.vendor | default: 'Moonlight Grapes' }} Kollektion</a>
-            
-            <!-- Title -->
-            <h1 class="product-name">{{ product.title }}</h1>
-            
-            <!-- Material Info -->
-            <div class="product-material pdpMaterial">
-              <div class="">{{ product.metafields.custom.material | default: 'Oxideret sterlingsølv' }}</div>
-            </div>
+            {%- if collection_title != blank -%}
+              <a class="product-collection" href="{{ collection_url }}">
+                {{ collection_title }}
+                {%- unless collection_title contains 'Collection' or collection_title contains 'collection' or collection_title contains 'Kollektion' -%}
+                  {{ ' ' }}{{ section.settings.collection_suffix | default: 'Collection' }}
+                {%- endunless -%}
+              </a>
+            {%- endif -%}
 
-            <!-- Variations / Sizes -->
-            {%- unless product.has_only_default_variant -%}
-              <div class="product-variations-container">
+            <h1 class="product-name">{{ product.title }}</h1>
+
+            {%- if material != blank -%}
+              <div class="product-material pdpMaterial">
+                <div>{{ material }}</div>
+              </div>
+            {%- endif -%}
+
+            <span class="visually-hidden">{{ product.vendor }}</span>
+            <span class="visually-hidden">{{ current_variant.sku }}</span>
+            <span class="visually-hidden">{{ shop.url }}{{ product.url }}</span>
+
+            <div class="product-variations-container{% if product.has_only_default_variant %} empty-vairation{% endif %}">
+              {%- unless product.has_only_default_variant -%}
                 <div class="product-variations">
-                  <h2 class="visually-hidden">Variations</h2>
                   <ul>
                     {%- for option in product.options_with_values -%}
                       <li class="attribute variation-dropdown">
                         <div class="value">
-                          <label for="Option-{{ option.name }}" class="d-none">Vælg {{ option.name | downcase }}</label>
-                          <select id="Option-{{ option.name }}" class="variation-select" name="options[{{ option.name | escape }}]">
-                            <option value="">Vælg {{ option.name | downcase }}</option>
+                          <label class="visually-hidden" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+                            {{ option.name }}
+                          </label>
+                          <select
+                            id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                            class="variation-select"
+                            name="options[{{ option.name | escape }}]"
+                            form="{{ product_form_id }}"
+                          >
                             {%- for value in option.values -%}
-                              <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
+                              <option
+                                value="{{ value | escape }}"
+                                {% if option.selected_value == value %}selected{% endif %}
+                              >
                                 {{ value }}
                               </option>
                             {%- endfor -%}
@@ -111,67 +263,201 @@
                     {%- endfor -%}
                   </ul>
                 </div>
-              </div>
-            {%- endunless -%}
-
-            <!-- Price -->
-            <div class="product-price pdpPrice">
-              <span class="price-sales effectiveprice">{{ product.price | money }}</span>
+                <script type="application/json" data-gj-variants>
+                  [
+                    {%- for variant in product.variants -%}
+                      {
+                        "id": {{ variant.id | json }},
+                        "available": {{ variant.available | json }},
+                        "price": {{ variant.price | json }},
+                        "price_formatted": {{ variant.price | money | json }},
+                        "compare_at_price": {{ variant.compare_at_price | json }},
+                        "compare_at_price_formatted": {% if variant.compare_at_price %}{{ variant.compare_at_price | money | json }}{% else %}null{% endif %},
+                        "options": {{ variant.options | json }},
+                        "sku": {{ variant.sku | json }}
+                      }{% unless forloop.last %},{% endunless %}
+                    {%- endfor -%}
+                  ]
+                </script>
+              {%- endunless -%}
             </div>
 
-            <!-- Add to Cart Form -->
+            <div class="product-price pdpPrice">
+              <span class="price-sales effectiveprice" data-gj-price>
+                {{ current_variant.price | money }}
+              </span>
+              {%- if current_variant.compare_at_price > current_variant.price -%}
+                <span class="price-compare" data-gj-compare>{{ current_variant.compare_at_price | money }}</span>
+              {%- else -%}
+                <span class="price-compare" data-gj-compare hidden></span>
+              {%- endif -%}
+            </div>
+
             <div class="mobile-sticky-container">
               <div class="cta">
-                <form method="post" action="/cart/add" id="add-to-cart-form" class="pdpForm">
-                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                  <fieldset>
-                    <legend style="display:none;">Læg i kurv Felter</legend>
-                    <div class="product-add-to-cart">
-                      <button id="add-to-cart" type="submit" class="button-fancy-large add-to-cart {% unless product.available %}disabled{% endunless %}" {% unless product.available %}disabled{% endunless %}>
-                        {% if product.available %}Læg i kurv{% else %}Udsolgt{% endif %}
-                      </button>
-                    </div>
-                  </fieldset>
-                </form>
+                <product-form class="product-form" data-hide-errors="false" data-section-id="{{ section.id }}">
+                  <div class="product-form__error-message-wrapper" role="alert" hidden>
+                    <span class="product-form__error-message"></span>
+                  </div>
 
-                <!-- Wishlist -->
-                <div class="add-remove-wishlist add" tabindex="0">Tilføj ønskeliste</div>
+                  {%- form 'product', product, id: product_form_id, class: 'pdpForm form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                    <input
+                      type="hidden"
+                      name="id"
+                      value="{{ current_variant.id }}"
+                      class="product-variant-id"
+                      {% if current_variant.available == false %}disabled{% endif %}
+                    >
+                    <input type="hidden" name="quantity" value="1">
+                    <fieldset>
+                      <legend>Add to basket Fields</legend>
+                      <div class="product-add-to-cart">
+                        <button
+                          id="add-to-cart"
+                          type="submit"
+                          name="add"
+                          class="button-fancy-large add-to-cart product-form__submit"
+                          data-gj-atc
+                          data-available-label="{{ atc_label | escape }}"
+                          data-soldout-label="{{ section.settings.sold_out_label | escape }}"
+                          data-unavailable-label="{{ section.settings.unavailable_label | escape }}"
+                          {% if current_variant.available == false %}disabled aria-disabled="true"{% endif %}
+                        >
+                          <span data-gj-atc-label>
+                            {%- if current_variant.available -%}
+                              {{ atc_label }}
+                            {%- else -%}
+                              {{ section.settings.sold_out_label }}
+                            {%- endif -%}
+                          </span>
+                          {%- render 'loading-spinner' -%}
+                        </button>
+                      </div>
+                    </fieldset>
+                  {%- endform -%}
+                </product-form>
+
+                {%- if section.settings.show_wishlist -%}
+                  <div
+                    aria-label="{{ wishlist_label | escape }}"
+                    class="add-remove-wishlist add"
+                    tabindex="0"
+                    role="button"
+                  >
+                    {{ wishlist_label }}
+                  </div>
+                  <div
+                    aria-label="{{ wishlist_remove_label | escape }}"
+                    class="add-remove-wishlist remove"
+                    tabindex="0"
+                    role="button"
+                    style="display:none"
+                  >
+                    {{ wishlist_remove_label }}
+                  </div>
+                {%- endif -%}
               </div>
             </div>
 
-            <!-- Gift Wrapping Banner -->
             {%- if section.settings.show_gift_wrapping -%}
               <div class="giftwrapping">
-                <span class="giftwrapping-text">Gratis gaveindpakning</span>
-                <img class="giftwrapping-image" src="https://www.georgjensen.com/on/demandware.static/-/Sites/default/dwd8cb5458/gift-wrap-banner@2x.jpg" alt="Gratis gaveindpakning" loading="eager">
+                <span class="giftwrapping-text">{{ gift_text }}</span>
+                {%- if gift_image != blank -%}
+                  {{
+                    gift_image
+                    | image_url: width: 200
+                    | image_tag:
+                      class: 'giftwrapping-image',
+                      loading: 'lazy',
+                      alt: gift_text
+                  }}
+                {%- else -%}
+                  <img
+                    class="giftwrapping-image"
+                    src="https://www.georgjensen.com/on/demandware.static/-/Sites/default/dwd8cb5458/gift-wrap-banner@2x.jpg"
+                    alt="{{ gift_text | escape }}"
+                    loading="lazy"
+                    width="144"
+                    height="72"
+                  >
+                {%- endif -%}
               </div>
             {%- endif -%}
 
-            <!-- Product Info Description -->
-            <div class="product-info_content_item active">
-              <p>{{ product.description | strip_html | truncatewords: 40 | default: 'Moonlight Grapes halskæden i sterlingsølv bærer de elegante druer i en abstrakt fortolkning og er inspireret af Georg Jensens tidlige værker.' }}</p>
-            </div>
-            <div class="product-info_content_item-read-more">Læs mere</div>
+            {%- if product.description != blank -%}
+              <div
+                class="product-info_content_item active is-collapsed"
+                data-full-text="{{ product.description | strip_html | escape }}"
+              >
+                <p>{{ product.description | strip_html | newline_to_br }}</p>
+              </div>
+              <div
+                class="product-info_content_item-read-more"
+                role="button"
+                tabindex="0"
+                data-more-label="{{ read_more_label | escape }}"
+                data-less-label="{{ read_less_label | escape }}"
+              >
+                {{ read_more_label }}
+              </div>
+            {%- endif -%}
 
-            <!-- Accordions -->
-            <div class="product-accordion">
-              <!-- Details Accordion -->
-              <h2 class="accordion-head accordion-1"><span></span>Produktdetaljer</h2>
-              <div class="accordion-body accordion-1">
+            <div class="product-accordion" role="tablist">
+              <h2 class="accordion-head accordion-1" role="tab" tabindex="0" aria-expanded="false">
+                {{ details_heading }}
+              </h2>
+              <div class="accordion-body accordion-1" role="tabpanel">
                 <section class="product-info">
                   <div class="product-info_details">
                     <div class="product-info_content">
                       <div class="product-info_content_item_list">
                         <ul>
-                          <li><span class="product-info_content_item_detail">Varenummer:</span> {{ product.selected_or_first_available_variant.sku | default: '20001008' }}</li>
-                          <li><span class="product-info_content_item_detail">Materialer:</span> {{ product.metafields.custom.material | default: 'Oxideret sterlingsølv' }}</li>
-                          <li><span class="product-info_content_item_detail">Mål:</span> B: 12 mm. L: 425 mm.</li>
-                          <li><span class="product-info_content_item_detail">Omkreds:</span> S: 405 mm, M: 440 mm, L: 470 mm</li>
-                          <li><span class="product-info_content_item_detail">Designår:</span> {{ product.metafields.custom.design_year | default: '2021' }}</li>
                           <li>
-                            <span class="product-info_content_item_detail meta-collection">Kollektion: </span>
-                            <a href="/collections/all">{{ product.vendor | default: 'Moonlight Grapes' }}</a>
+                            <span class="product-info_content_item_detail">{{ item_number_label }}</span>
+                            {{ current_variant.sku | default: product.id }}
                           </li>
+                          {%- if material != blank -%}
+                            <li>
+                              <span class="product-info_content_item_detail">{{ materials_label }}</span>
+                              {{ material }}
+                            </li>
+                          {%- endif -%}
+                          {%- if measurements != blank -%}
+                            <li>
+                              <span class="product-info_content_item_detail">{{ measurements_label }}</span>
+                              {{ measurements }}
+                            </li>
+                          {%- endif -%}
+                          {%- if design_year != blank -%}
+                            <li>
+                              <span class="product-info_content_item_detail">{{ design_year_label }}</span>
+                              {{ design_year }}
+                            </li>
+                          {%- endif -%}
+                          {%- if collection_title != blank -%}
+                            <li>
+                              <span class="product-info_content_item_detail meta-collection">{{ collection_meta_label }}</span>
+                              <a href="{{ collection_url }}">{{ collection_title }}</a>
+                            </li>
+                          {%- endif -%}
+                          {%- if section.settings.explore_text != blank -%}
+                            <li>
+                              <span class="product-info_content_item_detail">{{ explore_label }}</span>
+                              <a class="product-info_content_item_explore" href="{{ section.settings.explore_link | default: routes.all_products_collection_url }}">
+                                {{ section.settings.explore_text }}
+                              </a>
+                            </li>
+                          {%- endif -%}
+                          {%- for block in section.blocks -%}
+                            {%- if block.type == 'detail_row' and block.settings.value != blank -%}
+                              <li {{ block.shopify_attributes }}>
+                                {%- if block.settings.label != blank -%}
+                                  <span class="product-info_content_item_detail">{{ block.settings.label }}</span>
+                                {%- endif -%}
+                                {{ block.settings.value }}
+                              </li>
+                            {%- endif -%}
+                          {%- endfor -%}
                         </ul>
                       </div>
                     </div>
@@ -179,354 +465,368 @@
                 </section>
               </div>
 
-              <!-- Shipping & Returns Accordion -->
-              <h2 class="accordion-head accordion-2"><span></span>Forsendelse og returnering</h2>
-              <div class="accordion-body accordion-2">
-                <ul>
-                  <li>Gratis gaveindpakning undtagen på nedsatte varer</li>
-                  <li>Fri fragt på alle ordrer over 800 kr.</li>
-                  <li>Nem ombytning og returnering</li>
-                </ul>
-              </div>
+              {%- if section.settings.show_shipping_accordion -%}
+                <h2 class="accordion-head accordion-2" role="tab" tabindex="0" aria-expanded="false">
+                  {{ shipping_heading }}
+                </h2>
+                <div class="accordion-body accordion-2" role="tabpanel">
+                  {{ shipping_content }}
+                </div>
+              {%- endif -%}
             </div>
 
-            <!-- Contact USP Items -->
-            <div class="product-usp-items-container">
-              <div class="product-usp-item book-appointment">
-                <a href="/pages/contact">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                  Book en aftale
-                </a>
+            {%- if section.settings.show_phone and phone != blank -%}
+              <div class="product-usp-items-container">
+                <div class="product-usp-item call-customer-service">
+                  <a href="tel:{{ phone | replace: ' ', '' }}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    {{ phone_label }} {{ phone }}
+                  </a>
+                </div>
               </div>
-              <div class="product-usp-item call-customer-service">
-                <a href="tel: +45 38 14 90 44">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                  Ring +45 38 14 90 44
-                </a>
+            {%- endif -%}
+
+            {%- if gallery_text != blank or gallery_image != blank -%}
+              <div class="gallery-extension-top gallery-extension-top--mobile-only">
+                {%- if gallery_text != blank -%}
+                  <span class="gallery-extension-text">{{ gallery_text }}</span>
+                {%- endif -%}
+                {%- if gallery_image != blank -%}
+                  <div class="gallery-extension-image">
+                    {{
+                      gallery_image
+                      | image_url: width: 900
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'cld-responsive',
+                        alt: product.title
+                    }}
+                  </div>
+                {%- endif -%}
               </div>
-            </div>
+            {%- endif -%}
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  {%- if section.settings.show_mobile_sticky_bar -%}
+    <div class="gj-mobile-atc-bar" aria-hidden="false">
+      <span class="price-sales" data-gj-mobile-price>{{ current_variant.price | money }}</span>
+      <button
+        type="button"
+        class="button-fancy-large add-to-cart"
+        data-gj-mobile-atc
+        data-gj-atc
+        {% if current_variant.available == false %}disabled{% endif %}
+      >
+        <span data-gj-atc-label>
+          {%- if current_variant.available -%}{{ atc_label }}{%- else -%}{{ section.settings.sold_out_label }}{%- endif -%}
+        </span>
+      </button>
+    </div>
+  {%- endif -%}
 </div>
-
-<style>
-  .georg-pdp-section {
-    font-family: var(--georg-font-sans);
-    color: #111111;
-  }
-  .georg-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-  
-  /* Breadcrumbs */
-  .breadcrumbs {
-    list-style: none;
-    padding: 24px 0 16px;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-  .breadcrumbs li:not(:last-child)::after {
-    content: "/";
-    color: #777;
-    margin-left: 8px;
-  }
-  .breadcrumb-element {
-    color: #555;
-    text-decoration: none;
-  }
-  .breadcrumb-element:hover {
-    color: #111;
-  }
-
-  /* Main PDP Layout */
-  .pdp-main {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    margin-top: 10px;
-    margin-bottom: 80px;
-  }
-  
-  .product-col-1 {
-    flex: 1 1 55%;
-    min-width: 300px;
-  }
-  .product-col-2 {
-    flex: 1 1 35%;
-    max-width: 450px;
-  }
-
-  /* Left Image Gallery */
-  .product-image-carousel {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .product-image {
-    display: block;
-    width: 100%;
-    background: #f7f7f7;
-  }
-  .product-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  .gallery-extension-top {
-    margin-top: 40px;
-    font-size: 14px;
-    line-height: 1.6;
-    color: #444;
-  }
-
-  /* Right Details Panel */
-  .pdp-sticky-right {
-    position: sticky;
-    top: 100px;
-  }
-  
-  .product-collection {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: #555;
-    text-decoration: none;
-    margin-bottom: 12px;
-    display: block;
-  }
-  
-  .product-name {
-    font-size: 28px;
-    font-weight: 400;
-    margin: 0 0 8px 0;
-    line-height: 1.2;
-    color: #111;
-  }
-
-  .product-material {
-    font-size: 13px;
-    color: #555;
-    margin-bottom: 24px;
-  }
-
-  .variation-select {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid #ccc;
-    background: #fff;
-    font-size: 13px;
-    border-radius: 0;
-    appearance: none;
-    margin-bottom: 24px;
-  }
-
-  .product-price {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 30px;
-  }
-
-  /* Buttons */
-  .cta {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-  .button-fancy-large {
-    width: 100%;
-    padding: 16px;
-    background: #111;
-    color: #fff;
-    border: none;
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  .button-fancy-large:hover {
-    background: #333;
-  }
-  
-  .add-remove-wishlist {
-    text-align: center;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    cursor: pointer;
-    text-decoration: underline;
-    color: #555;
-  }
-  .add-remove-wishlist:hover {
-    color: #111;
-  }
-
-  .giftwrapping {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 40px;
-    background: #fdfdfd;
-    padding: 16px;
-    border: 1px solid #eaeaea;
-  }
-  .giftwrapping-text {
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .giftwrapping-image {
-    width: 100%;
-    height: auto;
-  }
-
-  .product-info_content_item {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #444;
-    margin-bottom: 12px;
-  }
-  .product-info_content_item-read-more {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    text-decoration: underline;
-    cursor: pointer;
-    margin-bottom: 40px;
-  }
-
-  /* Accordion */
-  .product-accordion {
-    border-top: 1px solid #eaeaea;
-  }
-  .accordion-head {
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 20px 0;
-    border-bottom: 1px solid #eaeaea;
-    margin: 0;
-    cursor: pointer;
-    position: relative;
-  }
-  .accordion-head::after {
-    content: "+";
-    position: absolute;
-    right: 0;
-    font-size: 18px;
-  }
-  .accordion-body {
-    padding: 20px 0;
-    border-bottom: 1px solid #eaeaea;
-    font-size: 13px;
-    line-height: 1.6;
-    color: #555;
-  }
-  .accordion-body ul {
-    padding-left: 20px;
-    margin: 0;
-  }
-  .product-info_content_item_list ul {
-    list-style: none;
-    padding: 0;
-  }
-  .product-info_content_item_detail {
-    font-weight: 600;
-    margin-right: 4px;
-  }
-
-  /* USP Contact Items */
-  .product-usp-items-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 40px;
-  }
-  .product-usp-item a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #111;
-    text-decoration: none;
-    padding: 16px;
-    border: 1px solid #eaeaea;
-    transition: background 0.3s;
-  }
-  .product-usp-item a:hover {
-    background: #f7f7f7;
-  }
-
-  @media screen and (max-width: 890px) {
-    .pdp-main {
-      flex-direction: column;
-    }
-    .product-col-2 {
-      max-width: 100%;
-    }
-  }
-</style>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Simple Accordion Toggle Script
-    var accHeads = document.querySelectorAll(".accordion-head");
-    accHeads.forEach(function(head) {
-      head.addEventListener("click", function() {
-        var body = this.nextElementSibling;
-        if (body.style.display === "none") {
-          body.style.display = "block";
-          this.style.borderBottom = "none";
-          this.innerHTML = this.innerHTML.replace("+", "-"); // quick indicator hack
-        } else {
-          body.style.display = "none";
-          this.style.borderBottom = "1px solid #eaeaea";
-          this.innerHTML = this.innerHTML.replace("-", "+");
-        }
-      });
-      // Hide initially
-      head.nextElementSibling.style.display = "none";
-    });
-  });
-</script>
 
 {% schema %}
 {
-  "name": "Georg Jensen Product",
+  "name": "GJ Main Product",
+  "tag": "section",
+  "class": "section-georg-jensen-main-product",
   "settings": [
     {
+      "type": "header",
+      "content": "Breadcrumbs"
+    },
+    {
       "type": "checkbox",
-      "id": "show_gift_wrapping",
-      "label": "Show Gift Wrapping Banner",
+      "id": "show_breadcrumbs",
+      "label": "Show breadcrumbs",
       "default": true
     },
     {
       "type": "text",
-      "id": "gallery_text",
-      "label": "Gallery Sub-text",
-      "default": "Vi har genfortolket elementer fra klassiske Georg Jensen-designs med smukke resultater."
+      "id": "breadcrumb_home",
+      "label": "Home label",
+      "default": "Home"
+    },
+    {
+      "type": "text",
+      "id": "breadcrumb_parent_label",
+      "label": "Parent crumb label",
+      "default": "Jewellery"
+    },
+    {
+      "type": "url",
+      "id": "breadcrumb_parent_link",
+      "label": "Parent crumb link"
+    },
+    {
+      "type": "header",
+      "content": "Product labels"
+    },
+    {
+      "type": "text",
+      "id": "collection_label",
+      "label": "Collection label override",
+      "info": "Leave blank to use product collection / vendor"
+    },
+    {
+      "type": "url",
+      "id": "collection_link",
+      "label": "Collection link override"
+    },
+    {
+      "type": "text",
+      "id": "collection_suffix",
+      "label": "Collection suffix",
+      "default": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "material_fallback",
+      "label": "Material fallback",
+      "default": "Sterling Silver",
+      "info": "Uses metafield custom.material when set"
+    },
+    {
+      "type": "text",
+      "id": "add_to_cart_label",
+      "label": "Add to basket label",
+      "default": "Add to basket"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_label",
+      "label": "Sold out label",
+      "default": "Sold out"
+    },
+    {
+      "type": "text",
+      "id": "unavailable_label",
+      "label": "Unavailable label",
+      "default": "Unavailable"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist",
+      "label": "Show wishlist",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "wishlist_label",
+      "label": "Wishlist label",
+      "default": "Add to Wishlist"
+    },
+    {
+      "type": "text",
+      "id": "wishlist_remove_label",
+      "label": "Remove wishlist label",
+      "default": "Remove from Wishlist"
+    },
+    {
+      "type": "text",
+      "id": "read_more_label",
+      "label": "Read more label",
+      "default": "Read more"
+    },
+    {
+      "type": "text",
+      "id": "read_less_label",
+      "label": "Read less label",
+      "default": "Read less"
+    },
+    {
+      "type": "header",
+      "content": "Gift wrapping"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gift_wrapping",
+      "label": "Show gift wrapping banner",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "gift_wrapping_text",
+      "label": "Gift wrapping text",
+      "default": "Complimentary gift wrapping"
+    },
+    {
+      "type": "image_picker",
+      "id": "gift_wrapping_image",
+      "label": "Gift wrapping image"
+    },
+    {
+      "type": "header",
+      "content": "Gallery extension"
+    },
+    {
+      "type": "textarea",
+      "id": "gallery_extension_text",
+      "label": "Gallery extension text",
+      "default": "Weft draws on the structures of weaving, translating them into sterling silver jewellery defined by a sense of movement.",
+      "info": "Override with metafield custom.gallery_extension_text"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_extension_image",
+      "label": "Gallery extension image",
+      "info": "Override with metafield custom.gallery_extension_image"
+    },
+    {
+      "type": "header",
+      "content": "Product details accordion"
+    },
+    {
+      "type": "text",
+      "id": "details_heading",
+      "label": "Details heading",
+      "default": "Product details"
+    },
+    {
+      "type": "text",
+      "id": "item_number_label",
+      "label": "Item number label",
+      "default": "Item number:"
+    },
+    {
+      "type": "text",
+      "id": "materials_label",
+      "label": "Materials label",
+      "default": "Materials:"
+    },
+    {
+      "type": "text",
+      "id": "measurements_label",
+      "label": "Measurements label",
+      "default": "Measurements:"
+    },
+    {
+      "type": "text",
+      "id": "measurements_fallback",
+      "label": "Measurements fallback",
+      "default": "W: 8 mm. L: 42 mm.",
+      "info": "Uses metafield custom.measurements when set"
+    },
+    {
+      "type": "text",
+      "id": "design_year_label",
+      "label": "Design year label",
+      "default": "Design year:"
+    },
+    {
+      "type": "text",
+      "id": "design_year_fallback",
+      "label": "Design year fallback",
+      "default": "2026",
+      "info": "Uses metafield custom.design_year when set"
+    },
+    {
+      "type": "text",
+      "id": "collection_meta_label",
+      "label": "Collection detail label",
+      "default": "Collection:"
+    },
+    {
+      "type": "text",
+      "id": "explore_label",
+      "label": "Explore label",
+      "default": "Explore:"
+    },
+    {
+      "type": "text",
+      "id": "explore_text",
+      "label": "Explore link text",
+      "default": "Earrings"
+    },
+    {
+      "type": "url",
+      "id": "explore_link",
+      "label": "Explore link"
+    },
+    {
+      "type": "header",
+      "content": "Shipping accordion"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shipping_accordion",
+      "label": "Show shipping accordion",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shipping_heading",
+      "label": "Shipping heading",
+      "default": "Shipping and returns"
+    },
+    {
+      "type": "richtext",
+      "id": "shipping_content",
+      "label": "Shipping content",
+      "default": "<ul><li>Free gift wrapping on full priced items</li><li>Shipping by UPS</li><li>Easy exchanges and returns</li></ul>"
+    },
+    {
+      "type": "header",
+      "content": "Customer service"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "label": "Show call link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Call label",
+      "default": "Call"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone number",
+      "default": "+45 38 14 90 44"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mobile_sticky_bar",
+      "label": "Show sticky mobile ATC bar",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "detail_row",
+      "name": "Detail row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Detail:"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "Value"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Georg Jensen Product"
+      "name": "GJ Main Product"
     }
   ]
 }

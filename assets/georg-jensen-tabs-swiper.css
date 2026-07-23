@@ -1,0 +1,236 @@
+/* Georg Jensen Tabs + Swiper recommendations */
+.gj-tabs-swiper {
+  --gj-ts-text: #1a1a1a;
+  --gj-ts-muted: #777;
+  --gj-ts-media: #f4f4f4;
+  --gj-ts-border: #1a1a1a;
+  font-family: var(--georg-font-sans, 'SourceSansPro-Light', Helvetica, Arial, sans-serif);
+  color: var(--gj-ts-text);
+  background: #fff;
+}
+
+.gj-tabs-swiper__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.gj-tabs-swiper__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid transparent;
+}
+
+.gj-tabs-swiper__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  align-items: flex-end;
+  min-width: 0;
+}
+
+.gj-tabs-swiper__tab {
+  appearance: none;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  padding: 0 0 10px;
+  margin: 0;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gj-ts-muted);
+  cursor: pointer;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.gj-tabs-swiper__tab:hover {
+  color: var(--gj-ts-text);
+}
+
+.gj-tabs-swiper__tab.is-active {
+  color: var(--gj-ts-text);
+  border-bottom-color: var(--gj-ts-border);
+}
+
+.gj-tabs-swiper__nav {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+  padding-bottom: 4px;
+}
+
+.gj-tabs-swiper__arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #222;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #222;
+  padding: 0;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.gj-tabs-swiper__arrow:hover {
+  background: #f7f7f7;
+}
+
+.gj-tabs-swiper__arrow.swiper-button-disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.gj-tabs-swiper__panel {
+  display: none;
+}
+
+.gj-tabs-swiper__panel.is-active {
+  display: block;
+}
+
+.gj-tabs-swiper .gj-swiper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.gj-tabs-swiper .swiper-slide {
+  height: auto;
+}
+
+.gj-tabs-swiper__empty {
+  margin: 40px 0;
+  font-size: 14px;
+  color: var(--gj-ts-muted);
+}
+
+/* Product card */
+.gj-reco-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.gj-reco-card__media {
+  display: block;
+  aspect-ratio: 1 / 1;
+  background: var(--gj-ts-media);
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.gj-reco-card__img,
+.gj-reco-card__placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.gj-reco-card__info {
+  padding-top: 14px;
+}
+
+.gj-reco-card__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.gj-reco-card__title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--gj-ts-text);
+  text-decoration: none;
+  flex: 1;
+  min-width: 0;
+}
+
+.gj-reco-card__title:hover {
+  text-decoration: underline;
+}
+
+.gj-reco-card__wishlist {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  margin: -4px -4px 0 0;
+  border: 0;
+  background: transparent;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--gj-ts-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gj-reco-card__wishlist.is-active svg {
+  fill: currentColor;
+}
+
+.gj-reco-card__material {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: #444;
+  font-weight: 400;
+}
+
+.gj-reco-card__price {
+  margin: 10px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gj-ts-text);
+}
+
+.gj-reco-card__stock {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--gj-ts-muted);
+}
+
+@media screen and (max-width: 749px) {
+  .gj-tabs-swiper__header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .gj-tabs-swiper__tabs {
+    gap: 18px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+
+  .gj-tabs-swiper__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gj-tabs-swiper__nav {
+    align-self: flex-end;
+  }
+
+  .gj-tabs-swiper__tab {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .gj-tabs-swiper__inner {
+    padding: 0 32px;
+  }
+}

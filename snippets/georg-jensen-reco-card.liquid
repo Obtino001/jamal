@@ -1,0 +1,68 @@
+{% comment %}
+  Georg Jensen recommendation card (tabs swiper style)
+  Accepts:
+  - product: {Object}
+  - low_stock_threshold: {Number} optional, default 1
+  - show_stock: {Boolean} optional
+  - material_fallback: {String} optional
+{% endcomment %}
+
+{%- liquid
+  assign threshold = low_stock_threshold | default: 1
+  assign show_stock_status = show_stock
+  if show_stock_status == nil
+    assign show_stock_status = true
+  endif
+  assign material = product.metafields.custom.material.value | default: product.metafields.custom.material
+  if material == blank
+    assign material = material_fallback | default: product.type
+  endif
+  assign inventory_qty = product.selected_or_first_available_variant.inventory_quantity
+  assign manage_stock = product.selected_or_first_available_variant.inventory_management
+-%}
+
+<article class="gj-reco-card" data-product-id="{{ product.id }}">
+  <a href="{{ product.url }}" class="gj-reco-card__media">
+    {%- if product.featured_media != blank -%}
+      {{
+        product.featured_media
+        | image_url: width: 800
+        | image_tag:
+          loading: 'lazy',
+          class: 'gj-reco-card__img',
+          widths: '300, 400, 600, 800',
+          sizes: '(min-width: 990px) 22vw, 45vw',
+          alt: product.title
+      }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'gj-reco-card__placeholder' }}
+    {%- endif -%}
+  </a>
+
+  <div class="gj-reco-card__info">
+    <div class="gj-reco-card__title-row">
+      <a href="{{ product.url }}" class="gj-reco-card__title">{{ product.title }}</a>
+      <button
+        type="button"
+        class="gj-reco-card__wishlist"
+        aria-label="Add to wishlist"
+        data-gj-wishlist-toggle
+        data-product-id="{{ product.id }}"
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      </button>
+    </div>
+
+    {%- if material != blank -%}
+      <p class="gj-reco-card__material">{{ material }}</p>
+    {%- endif -%}
+
+    <p class="gj-reco-card__price">{{ product.price_min | money }}</p>
+
+    {%- if show_stock_status and manage_stock and product.available and inventory_qty > 0 and inventory_qty <= threshold -%}
+      <p class="gj-reco-card__stock">Only {{ inventory_qty }} left</p>
+    {%- endif -%}
+  </div>
+</article>
