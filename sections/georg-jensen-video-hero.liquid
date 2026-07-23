@@ -1,40 +1,94 @@
 {% comment %}
   Georg Jensen 1-to-1 Video Hero Banner
+  Supports Shopify-hosted video upload + external URL fallback
 {% endcomment %}
 
-<div class="georg-video-hero section-{{ section.id }}">
+{%- liquid
+  assign desktop_shopify = section.settings.video
+  assign mobile_shopify = section.settings.video_mobile
+  assign desktop_url = section.settings.video_url
+  assign mobile_url = section.settings.video_url_mobile | default: section.settings.video_url
+  assign desktop_src = desktop_url
+  assign mobile_src = mobile_url
+
+  if desktop_shopify != blank
+    assign desktop_src = desktop_shopify.sources.first.url
+  endif
+
+  if mobile_shopify != blank
+    assign mobile_src = mobile_shopify.sources.first.url
+  elsif desktop_shopify != blank
+    assign mobile_src = desktop_shopify.sources.first.url
+  endif
+
+  assign poster = section.settings.poster_image
+  if poster == blank and desktop_shopify != blank
+    assign poster = desktop_shopify.preview_image
+  endif
+-%}
+
+<div class="georg-video-hero section-{{ section.id }}" data-gj-video-hero>
   <div class="herobanner_poster" data-ga-id="hero-banner-video" data-ga-creative="category">
     <div class="herobanner_poster_image">
-      <div class="herobanner_poster_overlay" data-height="{{ section.settings.desktop_height }}px" style="height: {{ section.settings.desktop_height }}px;">
+      <div
+        class="herobanner_poster_overlay"
+        data-height="{{ section.settings.desktop_height }}px"
+        style="height: {{ section.settings.desktop_height }}px;"
+      >
         <div class="site-core-video" style="background: transparent; position: absolute;">
-          <div id="video-{{ section.id }}" class="cld-video-player cld-fluid video-js vjs-controls-disabled vjs-workinghover vjs-v7 vjs-fluid cld-video-player-skin-dark vjs-contextmenu vjs-playing vjs-has-started" style="height: auto; position: absolute; font-family: 'Fira Sans';">
-            <video 
-              data-url="{{ section.settings.video_url }}" 
-              data-url-mobile="{{ section.settings.video_url_mobile | default: section.settings.video_url }}" 
-              autoplay loop muted playsinline 
-              class="vjs-tech pauseFirstClick" 
-              style="height: auto; position: absolute; font-family: 'Fira Sans'; width: 100%; object-fit: cover;" 
-              poster="{{ section.settings.poster_image | image_url: width: 1920 }}" 
-              src="{{ section.settings.video_url }}">
-            </video>
+          <div
+            id="video-{{ section.id }}"
+            class="cld-video-player cld-fluid video-js vjs-controls-disabled vjs-workinghover vjs-v7 vjs-fluid cld-video-player-skin-dark vjs-contextmenu vjs-playing vjs-has-started"
+            style="height: auto; position: absolute;"
+          >
+            {%- if desktop_src != blank or mobile_src != blank -%}
+              <video
+                data-url="{{ desktop_src }}"
+                data-url-mobile="{{ mobile_src }}"
+                autoplay
+                loop
+                muted
+                playsinline
+                class="vjs-tech pauseFirstClick"
+                style="height: auto; position: absolute; width: 100%; object-fit: cover;"
+                {% if poster != blank %}
+                  poster="{{ poster | image_url: width: 1920 }}"
+                {% endif %}
+                src="{{ desktop_src }}"
+              >
+              </video>
+            {%- elsif poster != blank -%}
+              {{
+                poster
+                | image_url: width: 1920
+                | image_tag:
+                  class: 'georg-video-hero__poster-only',
+                  loading: 'eager',
+                  widths: '750, 1100, 1500, 1920',
+                  sizes: '100vw',
+                  alt: section.settings.heading | default: 'Hero'
+              }}
+            {%- endif -%}
           </div>
         </div>
       </div>
     </div>
-    
+
     <div class="herobanner_poster_content placementCenterLeft alignmentLeft">
       <div class="herobanner_poster_content_subheadline">
         {{ section.settings.subheading }}
       </div>
       <div class="herobanner_poster_content_headline">
-        <div class="">{{ section.settings.heading }}</div>
+        <div>{{ section.settings.heading }}</div>
       </div>
       <div class="herobanner_poster_content_body">
         {{ section.settings.text }}
       </div>
       <div class="herobanner_poster_content_button">
         {%- if section.settings.button_label != blank -%}
-          <a class="button black-solid" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_label }}</a>
+          <a class="button black-solid" href="{{ section.settings.button_link | default: '#' }}">
+            {{- section.settings.button_label -}}
+          </a>
         {%- endif -%}
       </div>
     </div>
@@ -72,7 +126,13 @@
     top: 0;
     left: 0;
   }
-  
+  .georg-video-hero__poster-only {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
   .herobanner_poster_content {
     position: absolute;
     top: 50%;
@@ -101,7 +161,7 @@
     line-height: 1.6;
     margin-bottom: 24px;
   }
-  
+
   .button.black-solid {
     display: inline-block;
     padding: 16px 32px;
@@ -120,7 +180,7 @@
 
   @media screen and (max-width: 1023px) {
     .georg-video-hero {
-      overflow: visible; /* Allow button to overflow */
+      overflow: visible;
     }
     .herobanner_poster_content {
       position: absolute;
@@ -134,46 +194,66 @@
       width: 100%;
       z-index: 10;
     }
-    /* Hide text on mobile as per design reference */
     .herobanner_poster_content_headline,
     .herobanner_poster_content_subheadline,
     .herobanner_poster_content_body {
-      display: none; 
+      display: none;
     }
   }
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var heroBannerResizeVideoToScreen = function () {
-      var videoParent = document.querySelector(".herobanner_poster_overlay video").parentElement;
-      var video = document.querySelector(".herobanner_poster_overlay video");
-      var overlay = document.querySelector(".herobanner_poster_overlay");
-      var siteCoreVideo = document.querySelector(".herobanner_poster_overlay .site-core-video");
+  document.addEventListener('DOMContentLoaded', function () {
+    var root = document.querySelector('.georg-video-hero.section-{{ section.id }}');
+    if (!root) return;
 
-      if (videoParent) videoParent.style.background = "transparent";
+    var video = root.querySelector('.herobanner_poster_overlay video');
+    var overlay = root.querySelector('.herobanner_poster_overlay');
+    var siteCoreVideo = root.querySelector('.herobanner_poster_overlay .site-core-video');
+    var videoParent = video && video.parentElement;
+
+    function applyVideoSource() {
+      if (!video) return;
+      var desktop = video.getAttribute('data-url') || '';
+      var mobile = video.getAttribute('data-url-mobile') || desktop;
+      var next = window.innerWidth <= 1023 ? mobile : desktop;
+      if (!next) return;
+      var current = video.currentSrc || video.src || '';
+      if (current.indexOf(next) === -1 && video.getAttribute('src') !== next) {
+        video.setAttribute('src', next);
+        video.load();
+        var playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(function () {});
+        }
+      }
+    }
+
+    var heroBannerResizeVideoToScreen = function () {
+      applyVideoSource();
+
+      if (videoParent) videoParent.style.background = 'transparent';
 
       if (window.innerWidth > 1023) {
         if (video) {
-          video.style.height = "auto";
-          video.style.position = "absolute";
+          video.style.height = 'auto';
+          video.style.position = 'absolute';
         }
-        if (videoParent) videoParent.style.position = "absolute";
-        if (siteCoreVideo) siteCoreVideo.style.position = "absolute";
+        if (videoParent) videoParent.style.position = 'absolute';
+        if (siteCoreVideo) siteCoreVideo.style.position = 'absolute';
         if (overlay) overlay.style.height = overlay.dataset.height;
       } else {
         if (overlay) overlay.style = null;
         if (video) {
-          video.style.height = "100%";
-          video.style.position = "inherit";
+          video.style.height = '100%';
+          video.style.position = 'inherit';
         }
-        if (videoParent) videoParent.style.position = "inherit";
-        if (siteCoreVideo) siteCoreVideo.style.position = "inherit";
+        if (videoParent) videoParent.style.position = 'inherit';
+        if (siteCoreVideo) siteCoreVideo.style.position = 'inherit';
       }
     };
-    
-    window.addEventListener("resize", heroBannerResizeVideoToScreen);
-    // Initial call
+
+    window.addEventListener('resize', heroBannerResizeVideoToScreen);
     setTimeout(heroBannerResizeVideoToScreen, 100);
   });
 </script>
@@ -183,10 +263,31 @@
   "name": "Georg Jensen Video Hero",
   "settings": [
     {
+      "type": "header",
+      "content": "Shopify hosted video"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video (Desktop / Default)",
+      "info": "Upload or select a video from Shopify Files. Takes priority over Video URL."
+    },
+    {
+      "type": "video",
+      "id": "video_mobile",
+      "label": "Video (Mobile)",
+      "info": "Optional. Falls back to desktop Shopify video, then URL."
+    },
+    {
+      "type": "header",
+      "content": "External video URL"
+    },
+    {
       "type": "text",
       "id": "video_url",
-      "label": "Video URL (Desktop/Default)",
-      "default": "https://res.cloudinary.com/georgjensen/video/upload/f_auto,q_auto:good,w_1920/v1782976215/videos/Jewellery%20Videos/Campaign%20Videos/GJ_SS26_WEFT_20002032_20002034_CLEAN_16X9.mp4"
+      "label": "Video URL (Desktop / Default)",
+      "default": "https://res.cloudinary.com/georgjensen/video/upload/f_auto,q_auto:good,w_1920/v1782976215/videos/Jewellery%20Videos/Campaign%20Videos/GJ_SS26_WEFT_20002032_20002034_CLEAN_16X9.mp4",
+      "info": "Used when no Shopify video is selected."
     },
     {
       "type": "text",
@@ -205,7 +306,8 @@
       "max": 1000,
       "step": 50,
       "default": 800,
-      "label": "Desktop Height (px)"
+      "unit": "px",
+      "label": "Desktop Height"
     },
     {
       "type": "text",
