@@ -60,12 +60,15 @@
         "disclaimer_text": "*Rabatkoden kan ikke bruges på gavekort, sølvhåndværk, produktsæt, custom smykker samt kombineres med øvrige rabatter og kampagner. Koden er gyldig i 30 dage.",
         "footer_bg": "#161e27",
         "footer_text_color": "#ffffff",
+        "heading_color": "#9fd6f5",
+        "accent_color": "#b6e3ff",
         "show_country_selector": true,
         "default_country": "Denmark",
+        "country_options": "Denmark, Sweden, Norway, Germany, United Kingdom, USA & Canada, Australia",
         "support_heading": "Kundeservice",
         "phone_number": "+45 38 14 90 44",
         "opening_hours": "Mandag, tirsdag, torsdag og fredag: 10.00–12.00",
-        "support_email": "onlinestore@georgjensen.com",
+        "support_email": "hej@fjeldfund.dk",
         "menu_1_heading": "Online Shopping",
         "menu_1": "",
         "menu_2_heading": "Mere fra Georg Jensen",
@@ -73,6 +76,7 @@
         "menu_3_heading": "Firmainfo",
         "menu_3": "",
         "show_payment_badges": true,
+        "payment_icons": "mastercard,maestro,visa,amex,paypal,google-pay,apple-pay,shop-pay",
         "show_social_icons": true,
         "facebook_link": "",
         "instagram_link": "",
@@ -82,7 +86,9 @@
         "crest_line_1": "BY APPOINTMENT TO",
         "crest_line_2": "HER MAJESTY THE QUEEN OF DENMARK",
         "crest_brand": "GEORG JENSEN",
-        "crest_sub": "ESTABLISHED 1904"
+        "crest_sub": "ESTABLISHED 1904",
+        "show_back_to_top": true,
+        "back_to_top_label": "Back to top"
       }
     }
   },
