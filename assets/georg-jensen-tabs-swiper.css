@@ -9,11 +9,7 @@
   background: #fff;
 }
 
-.gj-tabs-swiper__inner {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+
 
 .gj-tabs-swiper__header {
   display: flex;
