@@ -840,8 +840,11 @@
 }
 
 @media screen and (min-width: 990px) {
+  /* Keep gallery flush to left edge — no container side padding on desktop */
+  .georg-pdp-section .georg-containers,
   .georg-pdp-section .georg-container {
-    padding: 0 32px;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .georg-pdp-section .gallery-extension-top--mobile-only {
