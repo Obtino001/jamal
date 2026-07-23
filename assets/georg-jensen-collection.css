@@ -328,6 +328,7 @@
   font-size: 11px !important;
   font-weight: 400 !important;
   font-style: normal !important;
+  font-synthesis: none;
   line-height: 1.2 !important;
   letter-spacing: 0.14em !important;
   text-transform: uppercase !important;
