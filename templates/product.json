@@ -89,6 +89,39 @@
         "padding_bottom": 64
       }
     },
+    "style_it_with_yWgcgt": {
+      "type": "style-it-with",
+      "blocks": {
+        "product_xPTKUW": {
+          "type": "product",
+          "settings": {
+            "product": "after-storm"
+          }
+        },
+        "product_RdTNid": {
+          "type": "product",
+          "settings": {
+            "product": "driftwood"
+          }
+        }
+      },
+      "block_order": [
+        "product_xPTKUW",
+        "product_RdTNid"
+      ],
+      "name": "Style It With",
+      "settings": {
+        "heading": "Style it with",
+        "heading_size": "h1",
+        "link_text": "Explore the collection",
+        "link_url": "",
+        "main_image": "shopify://shop_images/hf_20260503_170758_8dfd8e5f-6b8c-4f7b-955b-281ef03083ff.jpg",
+        "layout": "text_first",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "related-products": {
       "type": "related-products",
       "disabled": true,
@@ -157,6 +190,7 @@
   "order": [
     "main",
     "product-tabs-swiper",
+    "style_it_with_yWgcgt",
     "related-products",
     "designer_spotlight_fwfGgf"
   ]
