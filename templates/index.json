@@ -29,6 +29,7 @@
         "card_d6DnN9": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/hf_20260506_163811_77451a5e-01bd-40f8-b168-3a8578e280aa.jpg",
             "tag": "ICONS",
             "tag_color": "#2c6e91",
             "title": "The House Icons",
@@ -42,6 +43,7 @@
         "card_q9qW7F": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/hf_20260403_154128_eb251e1c-4e16-4fc0-bfba-8018c7ad4645_3.jpg",
             "tag": "DISCOVER",
             "tag_color": "#2c6e91",
             "title": "Bracelets and bangles",
@@ -55,6 +57,7 @@
         "card_yUrkyj": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/hf_20260403_140114_91c1ca6b-d797-4023-96d5-c820b431e0ca.jpg",
             "tag": "DISCOVER",
             "tag_color": "#2c6e91",
             "title": "Silver Stacking",
