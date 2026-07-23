@@ -482,7 +482,7 @@
 
 .gj-coll-card__media-wrap {
   position: relative;
-  background: var(--gj-c-media);
+  /* background: var(--gj-c-media); */
   aspect-ratio: 1 / 1.05;
   overflow: hidden;
 }
