@@ -20,11 +20,11 @@
 .georg-pdp-section .georg-containers,
 .georg-pdp-section .georg-container,
 .georg-pdp-section .page-width {
-  max-width: 1600px;
+  max-width: none;
   width: 100%;
-  margin: 0 auto;
-  padding-left: clamp(16px, 3vw, 40px);
-  padding-right: clamp(16px, 3vw, 40px);
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
   box-sizing: border-box;
   background: transparent;
 }
@@ -46,7 +46,7 @@
 .georg-pdp-section .breadcrumbs {
   list-style: none;
   margin: 0;
-  padding: 20px 0 12px;
+  padding: 20px clamp(16px, 3vw, 40px) 12px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -78,24 +78,31 @@
   color: var(--gj-pdp-text);
 }
 
-/* Main two-column layout */
+/* Main two-column — images flush left edge, sticky info on right */
 .georg-pdp-section .pdp-main {
   display: flex;
   align-items: flex-start;
-  gap: clamp(28px, 4vw, 56px);
+  gap: clamp(24px, 3vw, 48px);
   margin: 0 0 80px;
+  width: 100%;
+  max-width: 100%;
+  padding-right: clamp(20px, 3.5vw, 48px);
+  box-sizing: border-box;
 }
 
 .georg-pdp-section .product-col-1 {
-  flex: 1 1 62%;
+  flex: 1 1 64%;
   min-width: 0;
-  width: 62%;
+  width: 64%;
+  margin: 0;
+  padding: 0;
 }
 
 .georg-pdp-section .product-col-2 {
-  flex: 0 0 38%;
-  width: 38%;
-  max-width: 440px;
+  flex: 0 0 36%;
+  width: 36%;
+  max-width: 420px;
+  padding-top: 4px;
 }
 
 .georg-pdp-section .pdp-sticky-right {
@@ -113,11 +120,11 @@
   width: 100%;
 }
 
-/* Desktop image grid — 2 columns like GJ */
+/* Desktop image grid — 2 columns, edge-to-edge left */
 .georg-pdp-section .product-image-carousel {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: 6px;
 }
 
 .georg-pdp-section .product-image.main-image {
@@ -754,6 +761,8 @@
   .georg-pdp-section .pdp-main {
     flex-direction: column;
     gap: 28px;
+    padding-left: clamp(16px, 4vw, 24px);
+    padding-right: clamp(16px, 4vw, 24px);
   }
 
   .georg-pdp-section .product-col-1,
@@ -765,6 +774,8 @@
 
   .georg-pdp-section .pdp-sticky-right {
     position: static;
+    max-height: none;
+    overflow: visible;
   }
 
   .georg-pdp-section .product-image-carousel {
