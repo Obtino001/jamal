@@ -15,6 +15,11 @@
   background-color: var(--gj-pdp-bg);
   width: 100%;
   max-width: 100%;
+  overflow-x: clip;
+}
+
+body:has(.georg-pdp-section) {
+  overflow-x: clip;
 }
 
 .georg-pdp-section .georg-containers,
@@ -78,11 +83,13 @@
   color: var(--gj-pdp-text);
 }
 
-/* Main two-column — images flush left edge, sticky info on right */
+/* Main two-column — images flush left edge, sticky info on right.
+   Grid (not % flex + gap) so columns never exceed 100% and cause a horizontal scrollbar. */
 .georg-pdp-section .pdp-main {
-  display: flex;
-  align-items: flex-start;
-  gap: clamp(24px, 3vw, 48px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 400px);
+  align-items: start;
+  column-gap: clamp(24px, 3vw, 48px);
   margin: 0 0 80px;
   width: 100%;
   max-width: 100%;
@@ -91,17 +98,17 @@
 }
 
 .georg-pdp-section .product-col-1 {
-  flex: 1 1 64%;
   min-width: 0;
-  width: 64%;
+  width: auto;
+  max-width: none;
   margin: 0;
   padding: 0;
 }
 
 .georg-pdp-section .product-col-2 {
-  flex: 0 0 36%;
-  width: 36%;
-  max-width: 420px;
+  width: auto;
+  max-width: none;
+  min-width: 0;
   padding-top: 4px;
 }
 
@@ -759,17 +766,27 @@
 /* Responsive */
 @media screen and (max-width: 989px) {
   .georg-pdp-section .pdp-main {
+    display: flex;
     flex-direction: column;
     gap: 28px;
-    padding-left: clamp(16px, 4vw, 24px);
-    padding-right: clamp(16px, 4vw, 24px);
+    /* Gallery bleeds edge-to-edge; info column pads itself */
+    padding-left: 0;
+    padding-right: 0;
   }
 
-  .georg-pdp-section .product-col-1,
+  .georg-pdp-section .product-col-1 {
+    width: 100%;
+    max-width: 100%;
+    flex: 1 1 auto;
+  }
+
   .georg-pdp-section .product-col-2 {
     width: 100%;
     max-width: 100%;
-    flex: 1 1 100%;
+    flex: 1 1 auto;
+    padding-left: clamp(16px, 4vw, 24px);
+    padding-right: clamp(16px, 4vw, 24px);
+    box-sizing: border-box;
   }
 
   .georg-pdp-section .pdp-sticky-right {

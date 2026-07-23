@@ -416,3 +416,22 @@
     bottom: 16px;
   }
 }
+
+/* Custom Payment Icons */
+.payment-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.payment-icons img {
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 2px 4px;
+}
