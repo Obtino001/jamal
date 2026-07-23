@@ -250,12 +250,17 @@ if (!customElements.get('wishlist-page')) {
                         });
 
                         if (resp.ok) {
-                            btn.textContent = 'Added!';
-                            // Trigger Prestige's cart refresh
+                            const addedLabel = btn.getAttribute('data-added-label') || 'Added';
+                            btn.textContent = addedLabel;
                             document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
-                            // Open cart drawer if present
-                            const cartDrawer = document.getElementById('cart-drawer');
-                            if (cartDrawer) cartDrawer.show();
+                            const cartDrawer =
+                              document.querySelector('wi-cartdrawer') ||
+                              document.getElementById('cart-drawer');
+                            if (cartDrawer) {
+                              if (typeof cartDrawer.open === 'function') cartDrawer.open();
+                              else if (typeof cartDrawer.show === 'function') cartDrawer.show();
+                              else cartDrawer.classList.add('active');
+                            }
                             setTimeout(() => {
                                 btn.textContent = originalText;
                                 btn.disabled = false;
@@ -279,20 +284,28 @@ if (!customElements.get('wishlist-page')) {
                 ? this._formatMoney(variant.compare_at_price)
                 : null;
 
+            const addLabel = this.getAttribute('data-add-label') || 'Add to basket';
+            const soldLabel = this.getAttribute('data-soldout-label') || 'Sold out';
+            const addedLabel = this.getAttribute('data-added-label') || 'Added';
+
             const image = product.images[0]
                 ? `<img src="${product.images[0]}" alt="${this._escape(product.title)}" class="wishlist-card__image" loading="lazy" width="400" height="400">`
                 : `<div class="wishlist-card__image-placeholder"></div>`;
 
             const badge = !product.available
-                ? `<span class="wishlist-card__badge">Slutsåld</span>`
+                ? `<span class="wishlist-card__badge">${this._escape(soldLabel)}</span>`
                 : '';
 
             const addBtn = product.available
                 ? `<form class="wishlist-card__form">
             <input type="hidden" name="id" value="${variant.id}">
-            <button type="submit" class="wishlist-card__add-btn button button--subdued">Lägg i varukorgen</button>
+            <button type="submit" class="wishlist-card__add-btn" data-added-label="${this._escape(addedLabel)}">${this._escape(addLabel)}</button>
            </form>`
-                : `<button class="wishlist-card__add-btn button button--subdued" disabled>Slutsåld</button>`;
+                : `<button class="wishlist-card__add-btn" disabled>${this._escape(soldLabel)}</button>`;
+
+            const vendor = product.vendor && String(product.vendor).trim()
+                ? `<p class="wishlist-card__vendor">${this._escape(product.vendor)}</p>`
+                : '';
 
             return `
         <article class="wishlist-card" role="listitem">
@@ -308,11 +321,11 @@ if (!customElements.get('wishlist-page')) {
             </button>
           </div>
           <div class="wishlist-card__info">
-            ${product.vendor ? `<p class="wishlist-card__vendor smallcaps">${this._escape(product.vendor)}</p>` : ''}
+            ${vendor}
             <a href="/products/${product.handle}" class="wishlist-card__title">${this._escape(product.title)}</a>
             <div class="wishlist-card__price">
               <span class="wishlist-card__price-current ${comparePrice ? 'price--on-sale' : ''}">${price}</span>
-              ${comparePrice ? `<s class="wishlist-card__price-compare price--compare">${comparePrice}</s>` : ''}
+              ${comparePrice ? `<s class="wishlist-card__price-compare">${comparePrice}</s>` : ''}
             </div>
             ${addBtn}
           </div>

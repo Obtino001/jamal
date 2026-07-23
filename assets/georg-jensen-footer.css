@@ -57,6 +57,10 @@
   justify-content: center;
   min-height: 44px;
   padding: 12px 36px;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
   background: var(--gj-f-accent);
   color: #1a2533 !important;
   font-family: var(--georg-font-futura, Futura, sans-serif);
@@ -64,6 +68,7 @@
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  text-decoration: none !important;
   transition: background 0.2s ease, transform 0.2s ease;
 }
 

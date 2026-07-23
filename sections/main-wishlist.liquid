@@ -1,30 +1,30 @@
 {%- comment -%}
-----------------------------------------------------------------------------------------------------------------------
-MAIN WISHLIST
-----------------------------------------------------------------------------------------------------------------------
-Renders the client-side wishlist page powered by the WishlistPage custom web component.
-Product data is fetched via AJAX using handles stored in localStorage.
+  MAIN WISHLIST — Georg Jensen clean layout
 {%- endcomment -%}
 
-<div class="container section-spacing">
-  {%- if section.settings.heading != blank -%}
-    <div class="wishlist-page-heading {% if section.settings.heading_alignment == 'center' %}text-center{% endif %}">
-      {{ section.settings.heading }}
-    </div>
-  {%- endif -%}
+<section class="gj-wishlist-section section-{{ section.id }}">
+  <div class="page-width gj-wishlist-section__inner">
+    {%- if section.settings.heading != blank -%}
+      <h1 class="gj-wishlist-section__heading {% if section.settings.heading_alignment == 'center' %}is-center{% endif %}">
+        {{ section.settings.heading }}
+      </h1>
+    {%- endif -%}
 
-
-
-  <wishlist-page
-    data-empty-text="{{ section.settings.empty_text | escape }}"
-    style="display:block; margin-block-start: 2rem;"
-  ></wishlist-page>
-</div>
+    <wishlist-page
+      class="gj-wishlist-page-host"
+      data-empty-text="{{ section.settings.empty_text | escape }}"
+      data-add-label="{{ section.settings.add_to_cart_label | escape }}"
+      data-soldout-label="{{ section.settings.sold_out_label | escape }}"
+      data-added-label="{{ section.settings.added_label | escape }}"
+    ></wishlist-page>
+  </div>
+</section>
 
 {% schema %}
 {
   "name": "Wishlist",
   "tag": "section",
+  "class": "section-main-wishlist",
   "settings": [
     {
       "type": "text",
@@ -47,6 +47,24 @@ Product data is fetched via AJAX using handles stored in localStorage.
       "id": "empty_text",
       "label": "Empty wishlist message",
       "default": "You haven't saved any products yet."
+    },
+    {
+      "type": "text",
+      "id": "add_to_cart_label",
+      "label": "Add to basket label",
+      "default": "Add to basket"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_label",
+      "label": "Sold out label",
+      "default": "Sold out"
+    },
+    {
+      "type": "text",
+      "id": "added_label",
+      "label": "Added label",
+      "default": "Added"
     }
   ],
   "presets": [
