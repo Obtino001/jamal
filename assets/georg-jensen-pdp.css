@@ -120,11 +120,11 @@
   width: 100%;
 }
 
-/* Desktop image grid — 2 columns, edge-to-edge left */
+/* Desktop image grid — 2 columns, clear gap between images */
 .georg-pdp-section .product-image-carousel {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  gap: 16px;
 }
 
 .georg-pdp-section .product-image.main-image {
