@@ -1,480 +1,389 @@
-{% comment %}
-  Georg Jensen Footer Section - 100% Customizer Editable with Linklist Menus
-{% endcomment %}
+{{ 'georg-jensen-footer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'georg-jensen-footer.js' | asset_url }}" defer="defer"></script>
 
-<!-- Top Signup Banner -->
-{%- if section.settings.show_member_banner -%}
-  <div class="sitecore-signup-footer" style="background-color: {{ section.settings.banner_bg }}; color: {{ section.settings.banner_text_color }};">
-    <div class="sitecore-signup-footer-container">
-      <div class="sitecore-signup-footer-row">
-        <div class="footer-signup-left-pane">
-          <h2 class="georg-serif">{{ section.settings.member_heading }}</h2>
-          <div class="user-cta-footer">
-            <a class="button-georg-signup" id="footer-cta-register-link" href="{{ section.settings.register_url | default: '#' }}" title="{{ section.settings.register_button_text }}">
-              {{ section.settings.register_button_text }}
-            </a>
-            <span class="login-prompt-span">
-              {{ section.settings.login_prompt_text }} 
-              <a href="{{ section.settings.login_url | default: routes.account_login_url }}" class="footer-login-inline-link">{{ section.settings.login_link_text }}</a>
-            </span>
+{%- liquid
+  assign menu_1 = linklists[section.settings.menu_1]
+  assign menu_2 = linklists[section.settings.menu_2]
+  assign menu_3 = linklists[section.settings.menu_3]
+-%}
+
+<div
+  class="gj-footer"
+  style="
+    --gj-f-bg: {{ section.settings.footer_bg }};
+    --gj-f-banner: {{ section.settings.banner_bg }};
+    --gj-f-text: {{ section.settings.footer_text_color }};
+    --gj-f-heading: {{ section.settings.heading_color }};
+    --gj-f-accent: {{ section.settings.accent_color }};
+  "
+>
+  {%- if section.settings.show_member_banner -%}
+    <section class="gj-footer__member" aria-label="{{ section.settings.member_heading | escape }}">
+      <div class="gj-footer__inner">
+        <div class="gj-footer__member-row">
+          <div>
+            <h2 class="gj-footer__member-title">{{ section.settings.member_heading }}</h2>
+            <div class="gj-footer__member-cta">
+              <a
+                class="gj-footer__signup"
+                href="{{ section.settings.register_url | default: routes.account_register_url }}"
+              >
+                {{ section.settings.register_button_text }}
+              </a>
+              <span class="gj-footer__login-prompt">
+                {{ section.settings.login_prompt_text }}
+                <a href="{{ section.settings.login_url | default: routes.account_login_url }}">
+                  {{- section.settings.login_link_text -}}
+                </a>
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="gj-footer__benefits-title">{{ section.settings.benefits_heading }}</h3>
+            <ul class="gj-footer__usps">
+              {%- if section.settings.usp_1_text != blank -%}
+                <li class="gj-footer__usp">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M1 7h11v8H1z"/>
+                    <path d="M12 10h4l3 3v2h-7V10z"/>
+                    <circle cx="5.5" cy="17.5" r="1.8"/>
+                    <circle cx="16.5" cy="17.5" r="1.8"/>
+                  </svg>
+                  <span>{{ section.settings.usp_1_text }}</span>
+                </li>
+              {%- endif -%}
+              {%- if section.settings.usp_2_text != blank -%}
+                <li class="gj-footer__usp">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.6 13.4 12 22l-8.6-8.6A4 4 0 0 1 9 6.2L12 9l3-2.8a4 4 0 0 1 5.6 7.2z"/>
+                    <circle cx="8.2" cy="8.2" r="1"/>
+                  </svg>
+                  <span>{{ section.settings.usp_2_text }}</span>
+                </li>
+              {%- endif -%}
+              {%- if section.settings.usp_3_text != blank -%}
+                <li class="gj-footer__usp">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 11v5"/>
+                    <circle cx="12" cy="8" r="0.8" fill="currentColor" stroke="none"/>
+                  </svg>
+                  <span>{{ section.settings.usp_3_text }}</span>
+                </li>
+              {%- endif -%}
+            </ul>
+            {%- if section.settings.disclaimer_text != blank -%}
+              <span class="gj-footer__disclaimer">{{ section.settings.disclaimer_text }}</span>
+            {%- endif -%}
           </div>
         </div>
+      </div>
+    </section>
+  {%- endif -%}
 
-        <div class="footer-signup-right-pane">
-          <h2 class="georg-sans-title">{{ section.settings.benefits_heading }}</h2> 
-          <ul class="usp">
-            {%- if section.settings.usp_1_text != blank -%}
-              <li>
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#8ed0f8" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-                <span>{{ section.settings.usp_1_text }}</span>
-              </li>
-            {%- endif -%}
-            {%- if section.settings.usp_2_text != blank -%}
-              <li>
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#8ed0f8" stroke-width="1.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-                <span>{{ section.settings.usp_2_text }}</span>
-              </li>
-            {%- endif -%}
-            {%- if section.settings.usp_3_text != blank -%}
-              <li>
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#8ed0f8" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                <span>{{ section.settings.usp_3_text }}</span>
-              </li>
-            {%- endif -%}
-          </ul>
-          {%- if section.settings.disclaimer_text != blank -%}
-            <span class="usp-disclaimer">{{ section.settings.disclaimer_text }}</span>
+  <footer class="gj-footer__main">
+    <div class="gj-footer__inner">
+      <div class="gj-footer__grid">
+        <div>
+          {%- if section.settings.show_country_selector -%}
+            <label class="visually-hidden" for="gj-footer-country">Country</label>
+            <select id="gj-footer-country" class="gj-footer__country" name="gj-footer-country">
+              <option selected>{{ section.settings.default_country }}</option>
+              {%- if section.settings.country_options != blank -%}
+                {%- assign countries = section.settings.country_options | split: ',' -%}
+                {%- for country in countries -%}
+                  {%- assign c = country | strip -%}
+                  {%- if c != blank and c != section.settings.default_country -%}
+                    <option>{{ c }}</option>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+            </select>
+          {%- endif -%}
+
+          <p class="gj-footer__service-label">{{ section.settings.support_heading }}</p>
+          {%- if section.settings.phone_number != blank -%}
+            <p class="gj-footer__phone">
+              <a href="tel:{{ section.settings.phone_number | replace: ' ', '' | replace: '–', '' }}">
+                {{ section.settings.phone_number }}
+              </a>
+            </p>
+          {%- endif -%}
+          {%- if section.settings.opening_hours != blank -%}
+            <p class="gj-footer__hours">{{ section.settings.opening_hours }}</p>
+          {%- endif -%}
+          {%- if section.settings.support_email != blank -%}
+            <a class="gj-footer__email" href="mailto:{{ section.settings.support_email }}">
+              {{ section.settings.support_email }}
+            </a>
           {%- endif -%}
         </div>
-      </div>
-    </div>
-  </div>
-{%- endif -%}
 
-<!-- Main Footer Container -->
-<footer class="footer-container-wrap" style="background-color: {{ section.settings.footer_bg }}; color: {{ section.settings.footer_text_color }};">
-  <div class="footer-container">
-    <!-- Col 1: Customer Service & Country -->
-    <div class="footer-col1">
-      {%- if section.settings.show_country_selector -%}
-        <div class="language ui-front">
-          <select name="countries" id="countryselector" class="georg-country-dropdown">
-            <option value="DK" selected>{{ section.settings.default_country | default: 'Denmark' }}</option>
-          </select>
-        </div>
-      {%- endif -%}
-
-      <div class="footer-item contact-info">
-        <h3>{{ section.settings.support_heading }}</h3>
-        {%- if section.settings.phone_number != blank -%}
-          <h3 class="phone"><a href="tel:{{ section.settings.phone_number | remove: ' ' }}">{{ section.settings.phone_number }}</a></h3>
-        {%- endif -%}
-        {%- if section.settings.opening_hours != blank -%}
-          <p class="hours">{{ section.settings.opening_hours }}</p>
-        {%- endif -%}
-        {%- if section.settings.support_email != blank -%}
-          <a class="email" href="mailto:{{ section.settings.support_email }}">{{ section.settings.support_email }}</a>
-        {%- endif -%}
-      </div>
-
-      {%- if section.settings.withdraw_label != blank -%}
-        <div class="footer-item contact-info" style="margin-top: 24px;">
-          <h3>{{ section.settings.withdraw_heading | default: 'Fortrydelsesret' }}</h3>
-          <p class="hours"><a class="email" href="{{ section.settings.withdraw_url | default: '#' }}">{{ section.settings.withdraw_label }}</a></p>
-        </div>
-      {%- endif -%}
-    </div>
-
-    <!-- Col 2: Navigation Links from Linklist Menus or Blocks -->
-    <div class="footer-col2">
-      {%- if section.blocks.size > 0 -%}
-        {%- for block in section.blocks -%}
-          <div class="footer-item" {{ block.shopify_attributes }}>
-            {%- if block.settings.heading != blank -%}
-              <h4 class="custom-tab">{{ block.settings.heading }}</h4>
-            {%- endif -%}
-            {%- assign menu = linklists[block.settings.menu] -%}
-            {%- if menu != blank and menu.links.size > 0 -%}
-              <ul class="menu-footer menu pipe">
-                {%- for link in menu.links -%}
-                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-                {%- endfor -%}
+        <div class="gj-footer__menus">
+          {%- if section.blocks.size > 0 -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'menu' -%}
+                <div {{ block.shopify_attributes }}>
+                  {%- if block.settings.heading != blank -%}
+                    <h4 class="gj-footer__menu-title">{{ block.settings.heading }}</h4>
+                  {%- endif -%}
+                  {%- assign block_menu = linklists[block.settings.menu] -%}
+                  <ul class="gj-footer__menu">
+                    {%- if block_menu != blank and block_menu.links.size > 0 -%}
+                      {%- for link in block_menu.links -%}
+                        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                      {%- endfor -%}
+                    {%- elsif block.settings.fallback_links != blank -%}
+                      {%- assign lines = block.settings.fallback_links | newline_to_br | split: '<br />' -%}
+                      {%- for line in lines -%}
+                        {%- assign clean = line | strip -%}
+                        {%- if clean != blank -%}
+                          {%- assign parts = clean | split: '|' -%}
+                          <li>
+                            <a href="{{ parts[1] | default: '#' | strip }}">{{ parts[0] | strip }}</a>
+                          </li>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- endif -%}
+                  </ul>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+            <div>
+              <h4 class="gj-footer__menu-title">{{ section.settings.menu_1_heading }}</h4>
+              <ul class="gj-footer__menu">
+                {%- if menu_1 != blank and menu_1.links.size > 0 -%}
+                  {%- for link in menu_1.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                {%- else -%}
+                  <li><a href="/pages/contact">Contact Us</a></li>
+                  <li><a href="/pages/terms-and-conditions">Terms and Conditions</a></li>
+                  <li><a href="/pages/shipping">Shipping</a></li>
+                  <li><a href="/pages/exchanges-and-returns">Exchanges and Returns</a></li>
+                  <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
+                  <li><a href="/policies/privacy-policy">Cookie Policy</a></li>
+                  <li><a href="/pages/terms-of-membership">Terms of Membership</a></li>
+                  <li><a href="/pages/faq">Frequently Asked Questions</a></li>
+                  <li><a href="/products/gift-card">Gift Card</a></li>
+                {%- endif -%}
               </ul>
-            {%- elsif block.settings.custom_richtext != blank -%}
-              <div class="footer-richtext">
-                {{ block.settings.custom_richtext }}
-              </div>
+            </div>
+
+            <div>
+              <h4 class="gj-footer__menu-title">{{ section.settings.menu_2_heading }}</h4>
+              <ul class="gj-footer__menu">
+                {%- if menu_2 != blank and menu_2.links.size > 0 -%}
+                  {%- for link in menu_2.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                {%- else -%}
+                  <li><a href="{{ routes.account_url }}">My Georg Jensen</a></li>
+                  <li><a href="/pages/store-locator">Find Store</a></li>
+                  <li><a href="/pages/food-safety">Food Safety Declaration</a></li>
+                  <li><a href="/pages/product-care-jewellery">Product Care Jewellery</a></li>
+                  <li><a href="/pages/product-care-home">Product Care Home</a></li>
+                  <li><a href="/pages/breakage-warranty">Breakage Warranty</a></li>
+                  <li><a href="/pages/diamonds-and-materials">Diamonds and Materials</a></li>
+                  <li><a href="/pages/repairs">Jewellery and Watch Repairs</a></li>
+                {%- endif -%}
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="gj-footer__menu-title">{{ section.settings.menu_3_heading }}</h4>
+              <ul class="gj-footer__menu">
+                {%- if menu_3 != blank and menu_3.links.size > 0 -%}
+                  {%- for link in menu_3.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                {%- else -%}
+                  <li><a href="/pages/about">About Georg Jensen</a></li>
+                  <li><a href="/pages/careers">Careers</a></li>
+                  <li><a href="/pages/sustainability">Sustainability</a></li>
+                  <li><a href="/pages/csr">Corporate Social Responsibility</a></li>
+                  <li><a href="/pages/press">Press</a></li>
+                  <li><a href="/pages/investor-relations">Investor Relations</a></li>
+                {%- endif -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div>
+          {%- if section.settings.show_payment_badges -%}
+            <div class="gj-footer__payments" aria-label="Payment methods">
+              {%- liquid
+                assign pay_icons = 'mastercard,maestro,visa,amex,paypal,google-pay,apple-pay,shop-pay' | split: ','
+                if section.settings.payment_icons != blank
+                  assign pay_icons = section.settings.payment_icons | split: ','
+                endif
+              -%}
+              {%- for key in pay_icons -%}
+                {%- assign icon_key = key | strip | downcase -%}
+                {%- if icon_key == blank -%}
+                  {%- continue -%}
+                {%- endif -%}
+
+                {%- liquid
+                  assign custom_img = blank
+                  assign asset_file = blank
+                  if icon_key == 'mastercard'
+                    assign custom_img = section.settings.pay_mastercard
+                    assign asset_file = 'gj-pay-mastercard.svg'
+                    assign label = 'Mastercard'
+                  elsif icon_key == 'maestro'
+                    assign custom_img = section.settings.pay_maestro
+                    assign asset_file = 'gj-pay-maestro.svg'
+                    assign label = 'Maestro'
+                  elsif icon_key == 'visa'
+                    assign custom_img = section.settings.pay_visa
+                    assign asset_file = 'gj-pay-visa.svg'
+                    assign label = 'Visa'
+                  elsif icon_key == 'amex' or icon_key == 'american-express'
+                    assign custom_img = section.settings.pay_amex
+                    assign asset_file = 'gj-pay-amex.svg'
+                    assign label = 'American Express'
+                  elsif icon_key == 'paypal'
+                    assign custom_img = section.settings.pay_paypal
+                    assign asset_file = 'gj-pay-paypal.svg'
+                    assign label = 'PayPal'
+                  elsif icon_key == 'google-pay' or icon_key == 'googlepay'
+                    assign custom_img = section.settings.pay_google_pay
+                    assign asset_file = 'gj-pay-google-pay.svg'
+                    assign label = 'Google Pay'
+                  elsif icon_key == 'apple-pay' or icon_key == 'applepay'
+                    assign custom_img = section.settings.pay_apple_pay
+                    assign asset_file = 'gj-pay-apple-pay.svg'
+                    assign label = 'Apple Pay'
+                  elsif icon_key == 'shop-pay' or icon_key == 'shoppay'
+                    assign custom_img = section.settings.pay_shop_pay
+                    assign asset_file = 'gj-pay-shop-pay.svg'
+                    assign label = 'Shop Pay'
+                  else
+                    assign asset_file = blank
+                    assign label = icon_key
+                  endif
+                -%}
+
+                {%- if custom_img != blank -%}
+                  <span class="gj-footer__pay-icon">
+                    {{
+                      custom_img
+                      | image_url: width: 96
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '48, 96',
+                        width: 48,
+                        height: 32,
+                        alt: label
+                    }}
+                  </span>
+                {%- elsif asset_file != blank -%}
+                  <span class="gj-footer__pay-icon">
+                    <img
+                      src="{{ asset_file | asset_url }}"
+                      alt="{{ label | escape }}"
+                      width="48"
+                      height="32"
+                      loading="lazy"
+                    >
+                  </span>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.show_social_icons -%}
+            <ul class="gj-footer__social">
+              {%- if section.settings.facebook_link != blank -%}
+                <li>
+                  <a href="{{ section.settings.facebook_link }}" aria-label="Facebook" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.5C10 7.01 11.49 5.6 13.78 5.6c1.1 0 2.25.2 2.25.2v2.47h-1.27c-1.23 0-1.62.77-1.62 1.56V12h2.78l-.44 3h-2.34v6.8c4.56-.93 8-4.96 8-9.8z"/></svg>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if section.settings.instagram_link != blank -%}
+                <li>
+                  <a href="{{ section.settings.instagram_link }}" aria-label="Instagram" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.9c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.9-.1c-3.2-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9C2.4 3.9 4 2.3 7.2 2.2 8.4 2.2 8.8 2.2 12 2.2m0-2.2C8.7 0 8.3 0 7 .1 2.7.3.3 2.7.1 7 0 8.3 0 8.7 0 12s0 3.7.1 5c.2 4.3 2.6 6.7 6.9 6.9 1.3.1 1.7.1 5 .1s3.7 0 5-.1c4.3-.2 6.7-2.6 6.9-6.9.1-1.3.1-1.7.1-5s0-3.7-.1-5C23.7 2.7 21.3.3 17 .1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-10.4a1.4 1.4 0 1 1-2.9 0 1.4 1.4 0 0 1 2.9 0z"/></svg>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if section.settings.twitter_link != blank -%}
+                <li>
+                  <a href="{{ section.settings.twitter_link }}" aria-label="X / Twitter" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.2 2H21l-6.6 7.5L22 22h-6.2l-4.9-6.4L5.3 22H2.5l7-8L2 2h6.4l4.4 5.8L18.2 2zm-1.1 18h1.7L7 3.9H5.2L17.1 20z"/></svg>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if section.settings.pinterest_link != blank -%}
+                <li>
+                  <a href="{{ section.settings.pinterest_link }}" aria-label="Pinterest" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12c0 5.1 3.2 9.4 7.6 11.2-.1-.9-.2-2.4 0-3.4.2-.9 1.4-6 1.4-6s-.4-.7-.4-1.8c0-1.7 1-3 2.2-3 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.1 0 3.8-2.2 3.8-5.5 0-2.9-2.1-4.9-5-4.9-3.4 0-5.4 2.6-5.4 5.2 0 1 .4 2.1.9 2.7.1.1.1.2.1.3l-.3 1.4c-.1.2-.2.3-.4.2-1.5-.7-2.4-2.9-2.4-4.6 0-3.8 2.8-7.3 7.9-7.3 4.2 0 7.4 3 7.4 6.9 0 4.1-2.6 7.5-6.2 7.5-1.2 0-2.4-.6-2.8-1.4l-.7 2.9c-.3 1-1 2.4-1.5 3.1C9.6 23.8 10.8 24 12 24c6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+                  </a>
+                </li>
+              {%- endif -%}
+            </ul>
+          {%- endif -%}
+
+          <p class="gj-footer__copy">{{ section.settings.copyright_text }}</p>
+
+          <div class="gj-footer__crest">
+            {%- if section.settings.crest_image != blank -%}
+              {{
+                section.settings.crest_image
+                | image_url: width: 240
+                | image_tag:
+                  class: 'gj-footer__crest-img',
+                  loading: 'lazy',
+                  widths: '110, 160, 220',
+                  width: 110,
+                  alt: shop.name
+              }}
+            {%- else -%}
+              <img
+                class="gj-footer__crest-svg"
+                src="{{ 'gj-crest.svg' | asset_url }}"
+                alt="{{ shop.name | escape }}"
+                width="110"
+                height="82"
+                loading="lazy"
+              >
+            {%- endif -%}
+            {%- if section.settings.crest_line_1 != blank -%}
+              <span class="gj-footer__crest-line">{{ section.settings.crest_line_1 }}</span>
+            {%- endif -%}
+            {%- if section.settings.crest_line_2 != blank -%}
+              <span class="gj-footer__crest-line">{{ section.settings.crest_line_2 }}</span>
+            {%- endif -%}
+            {%- if section.settings.crest_brand != blank -%}
+              <span class="gj-footer__crest-brand">{{ section.settings.crest_brand }}</span>
+            {%- endif -%}
+            {%- if section.settings.crest_sub != blank -%}
+              <span class="gj-footer__crest-sub">{{ section.settings.crest_sub }}</span>
             {%- endif -%}
           </div>
-        {%- endfor -%}
-      {%- else -%}
-        <!-- Linklists from section settings -->
-        {%- assign menu1 = linklists[section.settings.menu_1] -%}
-        <div class="footer-item">
-          <h4 class="custom-tab">{{ section.settings.menu_1_heading | default: 'Online Shopping' }}</h4>
-          <ul class="menu-footer menu pipe">
-            {%- if menu1 != blank and menu1.links.size > 0 -%}
-              {%- for link in menu1.links -%}
-                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-              {%- endfor -%}
-            {%- else -%}
-              <li><a href="#">Kontakt os</a></li>
-              <li><a href="#">Handelsbetingelser</a></li>
-              <li><a href="#">Forsendelse og levering</a></li>
-              <li><a href="#">Fortrydelse og ombytning</a></li>
-              <li><a href="#">Persondatapolitik</a></li>
-              <li><a href="#">Cookiepolitik</a></li>
-              <li><a href="#">Medlemsbetingelser</a></li>
-              <li><a href="#">Ofte stillede spørgsmål</a></li>
-              <li><a href="#">Gavekort</a></li>
-            {%- endif -%}
-          </ul>
         </div>
-
-        {%- assign menu2 = linklists[section.settings.menu_2] -%}
-        <div class="footer-item">
-          <h4 class="custom-tab">{{ section.settings.menu_2_heading | default: 'Mere fra Georg Jensen' }}</h4>
-          <ul class="menu-footer menu pipe">
-            {%- if menu2 != blank and menu2.links.size > 0 -%}
-              {%- for link in menu2.links -%}
-                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-              {%- endfor -%}
-            {%- else -%}
-              <li><a href="#">Mit Georg Jensen</a></li>
-              <li><a href="#">Firmagaver</a></li>
-              <li><a href="#">Find butik</a></li>
-              <li><a href="#">Fødevarestyrelsens kontrolrapporter</a></li>
-              <li><a href="#">Overensstemmelseserklæring</a></li>
-              <li><a href="#">Forhandlersite (kræver login)</a></li>
-              <li><a href="#">Brudgaranti</a></li>
-              <li><a href="#">Produktpleje smykker</a></li>
-              <li><a href="#">Produktpleje bolig</a></li>
-              <li><a href="#">Diamanter og materialer</a></li>
-              <li><a href="#">Smykke- og ur reparationer</a></li>
-            {%- endif -%}
-          </ul>
-        </div>
-
-        {%- assign menu3 = linklists[section.settings.menu_3] -%}
-        <div class="footer-item">
-          <h4 class="custom-tab">{{ section.settings.menu_3_heading | default: 'Firmainfo' }}</h4>
-          <ul class="menu-footer menu pipe">
-            {%- if menu3 != blank and menu3.links.size > 0 -%}
-              {%- for link in menu3.links -%}
-                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-              {%- endfor -%}
-            {%- else -%}
-              <li><a href="/pages/about">Om Georg Jensen</a></li>
-              <li><a href="#">Karriere</a></li>
-              <li><a href="#">Bæredygtighed</a></li>
-              <li><a href="#">Corporate Social Responsibility</a></li>
-              <li><a href="#">Presse</a></li>
-              <li><a href="#">Investor relations</a></li>
-            {%- endif -%}
-          </ul>
-        </div>
-      {%- endif -%}
-    </div>
-
-    <!-- Col 3: Payment Icons, Socials, Copyright, Crest Logo -->
-    <div class="footer-col3">
-      {%- if section.settings.show_payment_badges -%}
-        <div class="payment-icons">
-          <span class="payment-badge">VISA</span>
-          <span class="payment-badge">MAESTRO</span>
-          <span class="payment-badge">MASTERCARD</span>
-          <span class="payment-badge">AMEX</span>
-          <span class="payment-badge">KLARNA</span>
-          <span class="payment-badge">MOBILEPAY</span>
-          <span class="payment-badge">PAYPAL</span>
-          <span class="payment-badge">G PAY</span>
-          <span class="payment-badge">APPLE PAY</span>
-        </div>
-      {%- endif -%}
-
-      {%- if section.settings.show_social_icons -%}
-        <div class="footer-item social-links">
-          <ul class="social-links-list">
-            {%- if section.settings.facebook_link != blank -%}<li><a href="{{ section.settings.facebook_link }}" aria-label="Facebook"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.5C10 7.01 11.49 5.6 13.78 5.6c1.1 0 2.25.2 2.25.2v2.47h-1.27c-1.23 0-1.62.77-1.62 1.56V12h2.78l-.44 3h-2.34v6.8c4.56-.93 8-4.96 8-9.8z"/></svg></a></li>{%- endif -%}
-            {%- if section.settings.instagram_link != blank -%}<li><a href="{{ section.settings.instagram_link }}" aria-label="Instagram"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a></li>{%- endif -%}
-            {%- if section.settings.twitter_link != blank -%}<li><a href="{{ section.settings.twitter_link }}" aria-label="Twitter"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.936 9.936 0 0024 4.59z"/></svg></a></li>{%- endif -%}
-            {%- if section.settings.pinterest_link != blank -%}<li><a href="{{ section.settings.pinterest_link }}" aria-label="Pinterest"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg></a></li>{%- endif -%}
-          </ul>
-        </div>
-      {%- endif -%}
-
-      <div class="copyright">{{ section.settings.copyright_text }}</div>
-
-      <div class="footer-logo-crest">
-        <div class="crest-text-small">{{ section.settings.crest_line_1 | default: 'BY APPOINTMENT TO' }}</div>
-        <div class="crest-text-small">{{ section.settings.crest_line_2 | default: 'HER MAJESTY THE QUEEN OF DENMARK' }}</div>
-        <div class="crest-brand-name">{{ section.settings.crest_brand | default: 'GEORG JENSEN' }}</div>
-        <div class="crest-sub font-small">{{ section.settings.crest_sub | default: 'ESTABLISHED 1904' }}</div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
-<style>
-  .sitecore-signup-footer {
-    padding: 50px 0;
-    font-family: var(--georg-font-sans);
-  }
-
-  .sitecore-signup-footer-container {
-    max-width: 1380px;
-    margin: 0 auto;
-    padding: 0 30px;
-  }
-
-  .sitecore-signup-footer-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 60px;
-  }
-
-  .footer-signup-left-pane {
-    flex: 0 0 42%;
-  }
-
-  .footer-signup-left-pane h2 {
-    font-size: 34px;
-    font-weight: 400;
-    margin: 0 0 24px 0;
-    color: inherit;
-  }
-
-  .user-cta-footer {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .button-georg-signup {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #8ed0f8;
-    color: #111111;
-    padding: 12px 32px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 0;
-    transition: background 0.2s;
-  }
-
-  .button-georg-signup:hover {
-    background-color: #79c4f0;
-  }
-
-  .login-prompt-span {
-    font-size: 13px;
-    color: #cccccc;
-  }
-
-  .footer-login-inline-link {
-    color: #ffffff;
-    text-decoration: underline;
-    margin-left: 4px;
-  }
-
-  .footer-signup-right-pane {
-    flex: 0 0 52%;
-  }
-
-  .footer-signup-right-pane h2 {
-    font-size: 20px;
-    font-weight: 400;
-    margin: 0 0 20px 0;
-    color: inherit;
-  }
-
-  .usp {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 16px 0;
-    display: flex;
-    gap: 24px;
-  }
-
-  .usp li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    color: #dddddd;
-  }
-
-  .usp-disclaimer {
-    display: block;
-    font-size: 10px;
-    line-height: 1.5;
-    color: #999999;
-  }
-
-  .footer-container-wrap {
-    padding: 60px 0 40px 0;
-    font-family: var(--georg-font-sans);
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .footer-container {
-    max-width: 1380px;
-    margin: 0 auto;
-    padding: 0 30px;
-    display: grid;
-    grid-template-columns: 1fr 2.4fr 1.2fr;
-    gap: 50px;
-  }
-
-  .georg-country-dropdown {
-    background: #111720;
-    color: #ffffff;
-    border: 1px solid #333333;
-    padding: 8px 14px;
-    font-size: 12px;
-    width: 160px;
-    margin-bottom: 30px;
-    outline: none;
-  }
-
-  .footer-item h3, .footer-item h4 {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: #ffffff;
-    margin: 0 0 14px 0;
-  }
-
-  .footer-item .phone a {
-    font-size: 22px;
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 300;
-  }
-
-  .footer-item .hours {
-    font-size: 11px;
-    color: #aaaaaa;
-    margin: 6px 0;
-  }
-
-  .footer-item .email {
-    font-size: 12px;
-    color: #ffffff;
-    text-decoration: underline;
-  }
-
-  .footer-col2 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-  }
-
-  .menu-footer {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .menu-footer a {
-    font-size: 12px;
-    color: #bbbbbb;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .menu-footer a:hover {
-    color: #ffffff;
-  }
-
-  .payment-icons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 24px;
-  }
-
-  .payment-badge {
-    background: #ffffff;
-    color: #111111;
-    font-size: 9px;
-    font-weight: 700;
-    padding: 4px 6px;
-    border-radius: 2px;
-  }
-
-  .social-links-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 20px 0;
-    display: flex;
-    gap: 16px;
-  }
-
-  .social-links-list a {
-    color: #ffffff;
-    transition: opacity 0.2s;
-  }
-
-  .social-links-list a:hover {
-    opacity: 0.7;
-  }
-
-  .copyright {
-    font-size: 11px;
-    color: #888888;
-    margin-bottom: 30px;
-  }
-
-  .footer-logo-crest {
-    text-align: right;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 20px;
-  }
-
-  .crest-text-small {
-    font-size: 8px;
-    letter-spacing: 0.2em;
-    color: #888888;
-  }
-
-  .crest-brand-name {
-    font-family: var(--georg-font-serif);
-    font-size: 18px;
-    letter-spacing: 0.25em;
-    color: #ffffff;
-    margin-top: 4px;
-  }
-
-  .crest-sub {
-    font-size: 8px;
-    letter-spacing: 0.3em;
-    color: #888888;
-  }
-
-  @media screen and (max-width: 989px) {
-    .sitecore-signup-footer-row {
-      flex-direction: column;
-    }
-    .footer-container {
-      grid-template-columns: 1fr;
-    }
-    .footer-col2 {
-      grid-template-columns: 1fr;
-    }
-    .footer-logo-crest {
-      text-align: left;
-    }
-  }
-</style>
+  {%- if section.settings.show_back_to_top -%}
+    <button
+      type="button"
+      class="gj-footer__top"
+      data-gj-back-top
+      aria-label="{{ section.settings.back_to_top_label | escape }}"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 14l6-6 6 6"/>
+      </svg>
+    </button>
+  {%- endif -%}
+</div>
 
 {% schema %}
 {
@@ -482,54 +391,48 @@
   "settings": [
     {
       "type": "header",
-      "content": "Member Signup Banner"
+      "content": "Member banner"
     },
     {
       "type": "checkbox",
       "id": "show_member_banner",
-      "label": "Show Member Banner",
+      "label": "Show member banner",
       "default": true
     },
     {
       "type": "color",
       "id": "banner_bg",
-      "label": "Member Banner Background",
-      "default": "#1b2430"
-    },
-    {
-      "type": "color",
-      "id": "banner_text_color",
-      "label": "Member Banner Text Color",
-      "default": "#ffffff"
+      "label": "Banner background",
+      "default": "#1a2533"
     },
     {
       "type": "text",
       "id": "member_heading",
-      "label": "Member Heading",
-      "default": "Bliv medlem af Georg Jensen"
+      "label": "Member heading",
+      "default": "Become a Georg Jensen member"
     },
     {
       "type": "text",
       "id": "register_button_text",
-      "label": "Register Button Text",
-      "default": "Tilmeld"
+      "label": "Sign up button",
+      "default": "SIGN UP"
     },
     {
       "type": "url",
       "id": "register_url",
-      "label": "Register URL"
+      "label": "Sign up URL"
     },
     {
       "type": "text",
       "id": "login_prompt_text",
-      "label": "Login Prompt Text",
-      "default": "Har du allerede en konto?"
+      "label": "Login prompt",
+      "default": "Already have an account?"
     },
     {
       "type": "text",
       "id": "login_link_text",
-      "label": "Login Link Text",
-      "default": "Log ind"
+      "label": "Login link text",
+      "default": "Login"
     },
     {
       "type": "url",
@@ -539,238 +442,311 @@
     {
       "type": "text",
       "id": "benefits_heading",
-      "label": "Benefits Heading",
-      "default": "Få eksklusive medlemsfordele allerede i dag"
+      "label": "Benefits heading",
+      "default": "Join us and discover a world of exclusive benefits today"
     },
     {
       "type": "text",
       "id": "usp_1_text",
-      "label": "USP 1 Text",
-      "default": "Fri fragt på alle ordrer"
+      "label": "Benefit 1",
+      "default": "Save shipping information"
     },
     {
       "type": "text",
       "id": "usp_2_text",
-      "label": "USP 2 Text",
-      "default": "10% på din første ordre"
+      "label": "Benefit 2",
+      "default": "10% discount on first order"
     },
     {
       "type": "text",
       "id": "usp_3_text",
-      "label": "USP 3 Text",
-      "default": "Nyheder og eksklusive tilbud"
+      "label": "Benefit 3",
+      "default": "News and exclusive offers"
     },
     {
       "type": "textarea",
       "id": "disclaimer_text",
-      "label": "Disclaimer Text",
-      "default": "*Rabatkoden kan ikke bruges på gavekort, sølvhåndværk, produktsæt, custom smykker samt kombineres med øvrige rabatter og kampagner. Koden er gyldig i 30 dage."
+      "label": "Disclaimer",
+      "default": "*The voucher code cannot be used on gift cards, silver craftsmanship, product sets, custom jewellery or combined with other discounts and campaigns. The code is valid for 30 days."
     },
     {
       "type": "header",
-      "content": "Footer Main & Customer Service"
+      "content": "Colors"
     },
     {
       "type": "color",
       "id": "footer_bg",
-      "label": "Footer Background",
-      "default": "#161e27"
+      "label": "Footer background",
+      "default": "#1a2533"
     },
     {
       "type": "color",
       "id": "footer_text_color",
-      "label": "Footer Text Color",
+      "label": "Text color",
       "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Column heading color",
+      "default": "#9fd6f5"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Sign up button color",
+      "default": "#b6e3ff"
+    },
+    {
+      "type": "header",
+      "content": "Customer service"
     },
     {
       "type": "checkbox",
       "id": "show_country_selector",
-      "label": "Show Country Selector",
+      "label": "Show country selector",
       "default": true
     },
     {
       "type": "text",
       "id": "default_country",
-      "label": "Default Country Label",
-      "default": "Denmark"
+      "label": "Default country label",
+      "default": "Other countries"
+    },
+    {
+      "type": "text",
+      "id": "country_options",
+      "label": "Extra countries (comma-separated)",
+      "default": "Denmark, Sweden, Norway, Germany, United Kingdom, USA & Canada, Australia"
     },
     {
       "type": "text",
       "id": "support_heading",
-      "label": "Support Heading",
-      "default": "Kundeservice"
+      "label": "Support heading",
+      "default": "Customer Service"
     },
     {
       "type": "text",
       "id": "phone_number",
-      "label": "Phone Number",
+      "label": "Phone",
       "default": "+45 38 14 90 44"
     },
     {
       "type": "text",
       "id": "opening_hours",
-      "label": "Opening Hours",
-      "default": "Mandag, tirsdag, torsdag og fredag: 10.00–12.00"
+      "label": "Opening hours",
+      "default": "Monday, Tuesday, Thursday and Friday: 10:00–15:00 CET"
     },
     {
       "type": "text",
       "id": "support_email",
-      "label": "Support Email",
+      "label": "Email",
       "default": "onlinestore@georgjensen.com"
     },
     {
-      "type": "text",
-      "id": "withdraw_heading",
-      "label": "Withdraw Heading",
-      "default": "Fortrydelsesret"
-    },
-    {
-      "type": "text",
-      "id": "withdraw_label",
-      "label": "Withdraw Link Text",
-      "default": "Fortryd aftale"
-    },
-    {
-      "type": "url",
-      "id": "withdraw_url",
-      "label": "Withdraw Link URL"
-    },
-    {
       "type": "header",
-      "content": "Footer Navigation Linklists"
+      "content": "Menus"
     },
     {
       "type": "text",
       "id": "menu_1_heading",
-      "label": "Menu 1 Heading",
+      "label": "Menu 1 heading",
       "default": "Online Shopping"
     },
     {
       "type": "link_list",
       "id": "menu_1",
-      "label": "Menu 1 Linklist"
+      "label": "Menu 1"
     },
     {
       "type": "text",
       "id": "menu_2_heading",
-      "label": "Menu 2 Heading",
-      "default": "Mere fra Georg Jensen"
+      "label": "Menu 2 heading",
+      "default": "More from Georg Jensen"
     },
     {
       "type": "link_list",
       "id": "menu_2",
-      "label": "Menu 2 Linklist"
+      "label": "Menu 2"
     },
     {
       "type": "text",
       "id": "menu_3_heading",
-      "label": "Menu 3 Heading",
-      "default": "Firmainfo"
+      "label": "Menu 3 heading",
+      "default": "Corporate info"
     },
     {
       "type": "link_list",
       "id": "menu_3",
-      "label": "Menu 3 Linklist"
+      "label": "Menu 3"
     },
     {
       "type": "header",
-      "content": "Badges, Socials & Royal Crest"
+      "content": "Payment logos"
     },
     {
       "type": "checkbox",
       "id": "show_payment_badges",
-      "label": "Show Payment Badges",
+      "label": "Show payment logos",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "payment_icons",
+      "label": "Payment icons order",
+      "info": "Comma-separated: mastercard, maestro, visa, amex, paypal, google-pay, apple-pay, shop-pay",
+      "default": "mastercard,maestro,visa,amex,paypal,google-pay,apple-pay,shop-pay"
+    },
+    {
+      "type": "image_picker",
+      "id": "pay_mastercard",
+      "label": "Mastercard logo (optional upload)"
+    },
+    {
+      "type": "image_picker",
+      "id": "pay_maestro",
+      "label": "Maestro logo (optional upload)"
+    },
+    {
+      "type": "image_picker",
+      "id": "pay_visa",
+      "label": "Visa logo (optional upload)"
+    },
+    {
+      "type": "image_picker",
+      "id": "pay_amex",
+      "label": "Amex logo (optional upload)"
+    },
+    {
+      "type": "image_picker",
+      "id": "pay_paypal",
+      "label": "PayPal logo (optional upload)"
+    },
+    {
+      "type": "image_picker",
+      "id": "pay_google_pay",
+      "label": "Google Pay logo (optional upload)"
+    },
+    {
+      "type": "image_picker",
+      "id": "pay_apple_pay",
+      "label": "Apple Pay logo (optional upload)"
+    },
+    {
+      "type": "image_picker",
+      "id": "pay_shop_pay",
+      "label": "Shop Pay logo (optional upload)"
+    },
+    {
+      "type": "header",
+      "content": "Social & brand"
     },
     {
       "type": "checkbox",
       "id": "show_social_icons",
-      "label": "Show Social Icons",
+      "label": "Show social icons",
       "default": true
     },
     {
       "type": "url",
       "id": "facebook_link",
-      "label": "Facebook URL"
+      "label": "Facebook"
     },
     {
       "type": "url",
       "id": "instagram_link",
-      "label": "Instagram URL"
+      "label": "Instagram"
     },
     {
       "type": "url",
       "id": "twitter_link",
-      "label": "Twitter URL"
+      "label": "X / Twitter"
     },
     {
       "type": "url",
       "id": "pinterest_link",
-      "label": "Pinterest URL"
+      "label": "Pinterest"
     },
     {
       "type": "text",
       "id": "copyright_text",
-      "label": "Copyright Text",
+      "label": "Copyright",
       "default": "Copyright © Georg Jensen."
+    },
+    {
+      "type": "image_picker",
+      "id": "crest_image",
+      "label": "Crest / logo image"
     },
     {
       "type": "text",
       "id": "crest_line_1",
-      "label": "Crest Line 1",
+      "label": "Crest line 1",
       "default": "BY APPOINTMENT TO"
     },
     {
       "type": "text",
       "id": "crest_line_2",
-      "label": "Crest Line 2",
+      "label": "Crest line 2",
       "default": "HER MAJESTY THE QUEEN OF DENMARK"
     },
     {
       "type": "text",
       "id": "crest_brand",
-      "label": "Crest Brand Title",
+      "label": "Crest brand",
       "default": "GEORG JENSEN"
     },
     {
       "type": "text",
       "id": "crest_sub",
-      "label": "Crest Subtitle",
+      "label": "Crest subline",
       "default": "ESTABLISHED 1904"
+    },
+    {
+      "type": "header",
+      "content": "Back to top"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_back_to_top",
+      "label": "Show back to top button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "back_to_top_label",
+      "label": "Back to top label",
+      "default": "Back to top"
     }
   ],
   "blocks": [
     {
-      "type": "menu_column",
-      "name": "Linklist Menu Column",
+      "type": "menu",
+      "name": "Menu column",
       "settings": [
         {
           "type": "text",
           "id": "heading",
-          "label": "Column Heading",
+          "label": "Heading",
           "default": "Online Shopping"
         },
         {
           "type": "link_list",
           "id": "menu",
-          "label": "Select Linklist Menu"
+          "label": "Menu"
         },
         {
-          "type": "richtext",
-          "id": "custom_richtext",
-          "label": "Custom Text / Address"
+          "type": "textarea",
+          "id": "fallback_links",
+          "label": "Fallback links",
+          "info": "One per line: Label|/path (used if no menu selected)"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Georg Jensen Footer",
-      "blocks": [
-        { "type": "menu_column", "settings": { "heading": "Online Shopping" } },
-        { "type": "menu_column", "settings": { "heading": "Mere fra Georg Jensen" } },
-        { "type": "menu_column", "settings": { "heading": "Firmainfo" } }
-      ]
+      "name": "Georg Jensen Footer"
     }
   ]
 }
