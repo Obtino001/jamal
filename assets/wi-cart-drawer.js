@@ -145,6 +145,17 @@ class WIcartDrawer extends HTMLElement {
   // =========================================================
   // ✅ ADD THIS METHOD HERE TO FIX THE ERROR
   // =========================================================
+  getSectionsToRender() {
+    return [
+      { id: 'cart-drawer' },
+      { id: 'cart-icon-bubble' },
+    ];
+  }
+
+  setActiveElement() {
+    // Used by Dawn product-form; no-op for WI drawer
+  }
+
   renderContents(parsedState) {
     this.openCart();
     this.setGlobalLoading(true);

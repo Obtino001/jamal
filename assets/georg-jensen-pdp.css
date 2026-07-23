@@ -1,22 +1,32 @@
 /* Georg Jensen PDP — 1:1 layout (Dawn-compatible) */
 .georg-pdp-section {
+  --gj-pdp-bg: #f7f7f5;
   --gj-pdp-accent: #b6e3ff;
   --gj-pdp-text: #1a1a1a;
-  --gj-pdp-muted: #6b6b6b;
-  --gj-pdp-border: #e8e8e8;
-  --gj-pdp-gray: #f3f3f3;
+  --gj-pdp-muted: #8a8a8a;
+  --gj-pdp-border: #e0dedb;
+  --gj-pdp-gray: #efeeed;
   --gj-pdp-futura: var(--georg-font-futura, 'Futura', 'FuturaCyrillicBook', sans-serif);
   --gj-pdp-sans: var(--georg-font-sans, 'Source Sans Pro', 'SourceSansPro-Light', sans-serif);
   --gj-pdp-serif: var(--georg-font-serif, var(--gj-pdp-futura));
+  --gj-pdp-sticky-top: 110px;
   color: var(--gj-pdp-text);
   font-family: var(--gj-pdp-sans);
-  background: #fff;
+  background-color: var(--gj-pdp-bg);
+  width: 100%;
+  max-width: 100%;
 }
 
-.georg-pdp-section .georg-container {
-  max-width: 1440px;
+.georg-pdp-section .georg-containers,
+.georg-pdp-section .georg-container,
+.georg-pdp-section .page-width {
+  max-width: 1600px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 20px;
+  padding-left: clamp(16px, 3vw, 40px);
+  padding-right: clamp(16px, 3vw, 40px);
+  box-sizing: border-box;
+  background: transparent;
 }
 
 .georg-pdp-section .visually-hidden,
@@ -72,26 +82,31 @@
 .georg-pdp-section .pdp-main {
   display: flex;
   align-items: flex-start;
-  gap: 40px;
-  margin: 0 0 64px;
+  gap: clamp(28px, 4vw, 56px);
+  margin: 0 0 80px;
 }
 
 .georg-pdp-section .product-col-1 {
-  flex: 1 1 66%;
+  flex: 1 1 62%;
   min-width: 0;
-  width: 66%;
+  width: 62%;
 }
 
 .georg-pdp-section .product-col-2 {
-  flex: 0 0 34%;
-  width: 34%;
-  max-width: 420px;
+  flex: 0 0 38%;
+  width: 38%;
+  max-width: 440px;
 }
 
 .georg-pdp-section .pdp-sticky-right {
   position: sticky;
-  top: 24px;
+  top: var(--gj-pdp-sticky-top);
   align-self: flex-start;
+  max-height: calc(100vh - var(--gj-pdp-sticky-top) - 24px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  padding-bottom: 24px;
 }
 
 .georg-pdp-section .product-image-container {
@@ -102,13 +117,13 @@
 .georg-pdp-section .product-image-carousel {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2px;
+  gap: 8px;
 }
 
 .georg-pdp-section .product-image.main-image {
   display: block;
   margin: 0;
-  background: #f5f5f5;
+  background: #ebeae8;
   overflow: hidden;
   text-decoration: none;
   cursor: zoom-in;
@@ -212,28 +227,29 @@
 }
 
 .georg-pdp-section .product-name {
-  font-family: var(--gj-pdp-futura);
-  font-size: clamp(28px, 3vw, 36px);
+  font-family: var(--gj-pdp-serif);
+  font-size: clamp(26px, 2.6vw, 34px);
   font-weight: 400;
-  line-height: 1.15;
-  margin: 0 0 10px;
+  line-height: 1.2;
+  margin: 0 0 14px;
   color: var(--gj-pdp-text);
+  letter-spacing: 0.01em;
 }
 
 .georg-pdp-section .product-material {
   font-family: var(--gj-pdp-futura);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #1a1a1a;
+  color: var(--gj-pdp-muted);
   margin: 0;
-  padding: 0 0 16px;
+  padding: 0 0 14px;
 }
 
 .georg-pdp-section .product-variations-container {
-  margin: 0 0 20px;
-  border-top: 1px solid #e5e5e5;
+  margin: 0 0 18px;
+  border-top: 1px solid var(--gj-pdp-border);
 }
 
 .georg-pdp-section .product-variations-container.empty-vairation {
@@ -242,14 +258,14 @@
 
 .georg-pdp-section .gj-delivery-note {
   margin: 0;
-  padding: 16px 0;
-  border-bottom: 1px solid #e5e5e5;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 15px;
-  font-weight: 400;
-  font-style: italic;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--gj-pdp-border);
+  font-family: var(--gj-pdp-sans);
+  font-size: 13px;
+  font-weight: 300;
+  font-style: normal;
   line-height: 1.45;
-  color: #1a1a1a;
+  color: #555;
 }
 
 .georg-pdp-section .gj-delivery-note[hidden] {
@@ -740,7 +756,7 @@
     right: 0;
     bottom: 0;
     z-index: 20;
-    background: #fff;
+    background: #f7f7f5;
     border-top: 1px solid var(--gj-pdp-border);
     padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
     gap: 12px;

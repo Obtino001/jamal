@@ -1,0 +1,58 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+MAIN WISHLIST
+----------------------------------------------------------------------------------------------------------------------
+Renders the client-side wishlist page powered by the WishlistPage custom web component.
+Product data is fetched via AJAX using handles stored in localStorage.
+{%- endcomment -%}
+
+<div class="container section-spacing">
+  {%- if section.settings.heading != blank -%}
+    <div class="wishlist-page-heading {% if section.settings.heading_alignment == 'center' %}text-center{% endif %}">
+      {{ section.settings.heading }}
+    </div>
+  {%- endif -%}
+
+
+
+  <wishlist-page
+    data-empty-text="{{ section.settings.empty_text | escape }}"
+    style="display:block; margin-block-start: 2rem;"
+  ></wishlist-page>
+</div>
+
+{% schema %}
+{
+  "name": "Wishlist",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "My Wishlist"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "start", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "start"
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Empty wishlist message",
+      "default": "You haven't saved any products yet."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wishlist"
+    }
+  ]
+}
+{% endschema %}

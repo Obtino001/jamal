@@ -1,3 +1,8 @@
-.georg-containers {
-  background: #ffffff;
+/* Full-width PDP background — Georg Jensen */
+body:has(.georg-pdp-section),
+body:has(.georg-pdp-section) #MainContent,
+.georg-containers,
+.georg-pdp-section {
+  background-color: #f7f7f5 !important;
+  background-image: none !important;
 }
