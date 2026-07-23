@@ -138,6 +138,34 @@
         font-style: normal;
         font-display: swap;
       }
+      @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('https://cdn.jsdelivr.net/gh/adobe-fonts/source-sans@release/TTF/SourceSans3-Regular.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('https://cdn.jsdelivr.net/gh/adobe-fonts/source-sans@release/TTF/SourceSans3-Semibold.ttf') format('truetype');
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'SourceSansPro-Bold';
+        src: url('https://cdn.jsdelivr.net/gh/adobe-fonts/source-sans@release/TTF/SourceSans3-Bold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('https://cdn.jsdelivr.net/gh/adobe-fonts/source-sans@release/TTF/SourceSans3-Bold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
 
       /* Futura — nav / headings / logo / display */
       @font-face {
@@ -155,12 +183,31 @@
         font-display: swap;
       }
 
+      /* Freight Display Pro Semibold — product titles (Georg Jensen) */
+      @font-face {
+        font-family: 'freight-display-pro-semibold';
+        src: url('https://db.onlinewebfonts.com/t/b91a326c620f71397bb2e5b437e7f392.woff2') format('woff2'),
+          url('https://db.onlinewebfonts.com/t/b91a326c620f71397bb2e5b437e7f392.woff') format('woff');
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Freight Display Pro';
+        src: url('https://db.onlinewebfonts.com/t/b91a326c620f71397bb2e5b437e7f392.woff2') format('woff2'),
+          url('https://db.onlinewebfonts.com/t/b91a326c620f71397bb2e5b437e7f392.woff') format('woff');
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+      }
+
       :root {
         /* Source Sans Pro → body + UI */
         --font-body-family: 'Source Sans Pro', 'SourceSansPro-Light', Helvetica, Arial, sans-serif;
         --font-body-style: normal;
         --font-body-weight: 300;
-        --font-body-weight-bold: 600;
+        --font-body-weight-bold: 700;
+        --georg-font-sans-bold: 'SourceSansPro-Bold', 'Source Sans Pro', Helvetica, Arial, sans-serif;
 
         /* Futura → headings + nav + brand display */
         --font-heading-family: 'Futura', 'FuturaCyrillicBook', Helvetica, Arial, sans-serif;
@@ -169,8 +216,8 @@
 
         --georg-font-sans: 'Source Sans Pro', 'SourceSansPro-Light', Helvetica, Arial, sans-serif;
         --georg-font-futura: 'Futura', 'FuturaCyrillicBook', Helvetica, Arial, sans-serif;
-        /* .georg-serif used for display/titles across theme → Futura */
-        --georg-font-serif: var(--georg-font-futura);
+        /* Product titles / display serif — Freight Display Pro Semibold (GJ) */
+        --georg-font-serif: 'freight-display-pro-semibold', 'Freight Display Pro', Georgia, 'Times New Roman', serif;
 
         --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
         --font-heading-scale: {{ settings.heading_scale | times: 1.0 | divided_by: settings.body_scale }};

@@ -6,3 +6,14 @@ body:has(.georg-pdp-section) #MainContent,
   background-color: #f7f7f5 !important;
   background-image: none !important;
 }
+
+body:has(.georg-pdp-section) {
+  overflow-x: clip;
+}
+
+.shopify-section:has(.georg-pdp-section) {
+  max-width: 100%;
+  overflow-x: clip;
+  padding: 0 !important;
+  margin: 0 !important;
+}

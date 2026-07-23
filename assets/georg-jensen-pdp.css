@@ -1,7 +1,7 @@
 /* Georg Jensen PDP — 1:1 layout (Dawn-compatible) */
 .georg-pdp-section {
   --gj-pdp-bg: #f7f7f5;
-  --gj-pdp-accent: #aee1fc;
+  --gj-pdp-accent: #a1deff;
   --gj-pdp-text: #1a1a1a;
   --gj-pdp-muted: #8a8a8a;
   --gj-pdp-border: #e0dedb;
@@ -10,11 +10,17 @@
   --gj-pdp-sans: var(--georg-font-sans, 'Source Sans Pro', 'SourceSansPro-Light', sans-serif);
   --gj-pdp-serif: var(--georg-font-serif, var(--gj-pdp-futura));
   --gj-pdp-sticky-top: 110px;
+  --gj-pdp-sidebar-width: clamp(340px, 32vw, 420px);
   color: var(--gj-pdp-text);
   font-family: var(--gj-pdp-sans);
   background-color: var(--gj-pdp-bg);
   width: 100%;
   max-width: 100%;
+  overflow-x: clip;
+}
+
+body:has(.georg-pdp-section) {
+  overflow-x: clip;
 }
 
 .georg-pdp-section .georg-containers,
@@ -42,18 +48,20 @@
   white-space: nowrap;
 }
 
-/* Breadcrumbs */
+/* Breadcrumbs — centered above both columns */
 .georg-pdp-section .breadcrumbs {
   list-style: none;
   margin: 0;
-  padding: 20px clamp(16px, 3vw, 40px) 12px;
+  padding: 18px clamp(16px, 3vw, 40px) 14px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 0;
+  font-family: var(--gj-pdp-sans);
   font-size: 11px;
-  letter-spacing: 0.08em;
+  font-weight: 300;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--gj-pdp-muted);
 }
@@ -78,62 +86,80 @@
   color: var(--gj-pdp-text);
 }
 
-/* Main two-column — images flush left edge, sticky info on right */
+/*
+  Main layout (matches Georg Jensen):
+  - Gallery flush to left viewport edge
+  - ~2/3 images + ~1/3 sticky sidebar
+  - Sidebar padding creates the gutter (no flex % + gap overflow)
+*/
 .georg-pdp-section .pdp-main {
-  display: flex;
-  align-items: flex-start;
-  gap: clamp(24px, 3vw, 48px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--gj-pdp-sidebar-width);
+  align-items: start;
+  column-gap: 0;
   margin: 0 0 80px;
   width: 100%;
   max-width: 100%;
-  padding-right: clamp(20px, 3.5vw, 48px);
+  padding: 0;
   box-sizing: border-box;
 }
 
 .georg-pdp-section .product-col-1 {
-  flex: 1 1 64%;
   min-width: 0;
-  width: 64%;
+  width: auto;
+  max-width: none;
   margin: 0;
   padding: 0;
 }
 
 .georg-pdp-section .product-col-2 {
-  flex: 0 0 36%;
-  width: 36%;
-  max-width: 420px;
-  padding-top: 4px;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  box-sizing: border-box;
+  /* Left pad = gutter from images; right pad = viewport edge */
+  padding: 0 clamp(28px, 3.2vw, 52px) 0 clamp(28px, 2.8vw, 44px);
 }
 
+/* Dawn-style sticky info: pin sidebar, no inner scroll / no scrollbar */
 .georg-pdp-section .pdp-sticky-right {
   position: sticky;
   top: var(--gj-pdp-sticky-top);
   align-self: flex-start;
-  max-height: calc(100vh - var(--gj-pdp-sticky-top) - 24px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: thin;
-  padding-bottom: 24px;
+  z-index: 2;
+  max-height: none;
+  overflow: visible;
+  padding-bottom: 32px;
 }
 
-.georg-pdp-section .product-image-container {
+.georg-pdp-section .pdp-sticky-left,
+.georg-pdp-section .product-image-container,
+.georg-pdp-section .product-primary-image {
+  /* Images stay in normal document flow (scroll with page) like Dawn media column */
+  position: relative;
   width: 100%;
 }
 
-/* Desktop image grid — 2 columns, clear gap between images */
+/* Desktop image grid — flush tiles like GJ (no gap) */
 .georg-pdp-section .product-image-carousel {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
 }
 
 .georg-pdp-section .product-image.main-image {
   display: block;
   margin: 0;
+  padding: 0;
   background: #ebeae8;
   overflow: hidden;
   text-decoration: none;
   cursor: zoom-in;
+  line-height: 0;
+  font-size: 0;
 }
 
 .georg-pdp-section .product-image.main-image img,
@@ -142,7 +168,24 @@
   height: auto;
   display: block;
   object-fit: cover;
-  vertical-align: middle;
+  vertical-align: top;
+}
+
+/* Kill any leftover carousel spacing */
+.georg-pdp-section .product-image-carousel.owl-carousel,
+.georg-pdp-section .product-image-carousel.owl-theme {
+  display: grid;
+  width: 100%;
+}
+
+.georg-pdp-section .product-image-carousel .owl-stage-outer,
+.georg-pdp-section .product-image-carousel .owl-stage,
+.georg-pdp-section .product-image-carousel .owl-item {
+  display: contents;
+  width: auto !important;
+  transform: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* Mobile thumbnails (hidden on desktop) */
@@ -215,7 +258,7 @@
 
 /* Product info column */
 .georg-pdp-section #product-content {
-  padding-top: 8px;
+  padding-top: 0;
 }
 
 .georg-pdp-section .product-collection {
@@ -226,7 +269,7 @@
   text-transform: uppercase;
   color: var(--gj-pdp-muted);
   text-decoration: none;
-  margin-bottom: 14px;
+  margin: 0 0 12px;
 }
 
 .georg-pdp-section .product-collection:hover {
@@ -235,12 +278,12 @@
 
 .georg-pdp-section .product-name {
   font-family: var(--gj-pdp-serif);
-  font-size: clamp(26px, 2.6vw, 34px);
-  font-weight: 400;
+  font-size: clamp(24px, 2.2vw, 28px);
+  font-weight: 600;
   line-height: 1.2;
-  margin: 0 0 14px;
-  color: var(--gj-pdp-text);
-  letter-spacing: 0.01em;
+  margin: 0 0 12px;
+  color: #000;
+  letter-spacing: 0;
 }
 
 .georg-pdp-section .product-material {
@@ -250,8 +293,8 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--gj-pdp-muted);
-  margin: 0;
-  padding: 0 0 14px;
+  margin: 0 0 18px;
+  padding: 0;
 }
 
 .georg-pdp-section .product-variations-container {
@@ -260,7 +303,10 @@
 }
 
 .georg-pdp-section .product-variations-container.empty-vairation {
-  display: none;
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
 }
 
 .georg-pdp-section .gj-delivery-note {
@@ -398,12 +444,13 @@
 }
 
 .georg-pdp-section .product-price {
-  margin: 0 0 16px;
+  margin: 0 0 0;
+  padding: 0 0 18px;
 }
 
 .georg-pdp-section .price-sales {
   font-family: var(--gj-pdp-sans);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   letter-spacing: 0.01em;
   line-height: 1.2;
@@ -418,15 +465,17 @@
   font-weight: 400;
 }
 
-/* CTA */
+/* CTA — line above ATC like GJ */
 .georg-pdp-section .mobile-sticky-container {
   margin-bottom: 0;
+  border-top: 1px solid var(--gj-pdp-border);
+  padding-top: 18px;
 }
 
 .georg-pdp-section .cta {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
   margin-bottom: 22px;
 }
 
@@ -447,31 +496,31 @@
 
 .georg-pdp-section .button-fancy-large.add-to-cart,
 .georg-pdp-section .product-form__submit.button-fancy-large {
+  display: block;
   width: 100%;
-  min-height: 52px;
-  padding: 16px 18px;
-  border: 0;
+  min-height: 0;
+  padding: 20px 14px;
+  border: 1px solid #7bd1ff;
   border-radius: 0;
-  background: #aee1fc;
-  color: #1a1a1a;
+  background: linear-gradient(0deg, #a1deff, #b1e5ff);
+  color: #263040;
   font-family: var(--gj-pdp-futura);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 1.71px;
   text-transform: uppercase;
   cursor: pointer;
   box-shadow: none;
-  transition: background 0.2s ease, opacity 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  transition: background 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
+  text-align: center;
   position: relative;
 }
 
 .georg-pdp-section .button-fancy-large.add-to-cart:hover,
 .georg-pdp-section .product-form__submit.button-fancy-large:hover {
-  background: #9ad6f5;
+  background: linear-gradient(0deg, #8fd4f8, #a1deff);
+  border-color: #6ac6f5;
+  color: #263040;
 }
 
 .georg-pdp-section .button-fancy-large:disabled,
@@ -759,21 +808,28 @@
 /* Responsive */
 @media screen and (max-width: 989px) {
   .georg-pdp-section .pdp-main {
+    display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 24px;
+    padding: 0;
+  }
+
+  .georg-pdp-section .product-col-1 {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .georg-pdp-section .product-col-2 {
+    width: 100%;
+    max-width: 100%;
     padding-left: clamp(16px, 4vw, 24px);
     padding-right: clamp(16px, 4vw, 24px);
   }
 
-  .georg-pdp-section .product-col-1,
-  .georg-pdp-section .product-col-2 {
-    width: 100%;
-    max-width: 100%;
-    flex: 1 1 100%;
-  }
-
   .georg-pdp-section .pdp-sticky-right {
     position: static;
+    top: auto;
+    z-index: auto;
     max-height: none;
     overflow: visible;
   }
@@ -793,6 +849,7 @@
 
   .georg-pdp-section .product-thumbnails.not-show-desktop {
     display: block;
+    padding: 0 clamp(16px, 4vw, 24px);
   }
 
   .georg-pdp-section .gallery-extension-top {
