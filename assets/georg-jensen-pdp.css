@@ -1,7 +1,7 @@
 /* Georg Jensen PDP — 1:1 layout (Dawn-compatible) */
 .georg-pdp-section {
   --gj-pdp-bg: #f7f7f5;
-  --gj-pdp-accent: #b6e3ff;
+  --gj-pdp-accent: #aee1fc;
   --gj-pdp-text: #1a1a1a;
   --gj-pdp-muted: #8a8a8a;
   --gj-pdp-border: #e0dedb;
@@ -391,19 +391,21 @@
 }
 
 .georg-pdp-section .product-price {
-  margin-bottom: 24px;
+  margin: 0 0 16px;
 }
 
 .georg-pdp-section .price-sales {
-  font-size: 18px;
+  font-family: var(--gj-pdp-sans);
+  font-size: 20px;
   font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--gj-pdp-text);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  color: #1a1a1a;
 }
 
 .georg-pdp-section .price-compare {
   margin-left: 10px;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--gj-pdp-muted);
   text-decoration: line-through;
   font-weight: 400;
@@ -411,13 +413,14 @@
 
 /* CTA */
 .georg-pdp-section .mobile-sticky-container {
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .georg-pdp-section .cta {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 18px;
+  margin-bottom: 22px;
 }
 
 .georg-pdp-section .pdpForm fieldset {
@@ -438,16 +441,16 @@
 .georg-pdp-section .button-fancy-large.add-to-cart,
 .georg-pdp-section .product-form__submit.button-fancy-large {
   width: 100%;
-  min-height: 48px;
-  padding: 14px 16px;
+  min-height: 52px;
+  padding: 16px 18px;
   border: 0;
   border-radius: 0;
-  background: var(--gj-pdp-accent);
-  color: var(--gj-pdp-text);
+  background: #aee1fc;
+  color: #1a1a1a;
   font-family: var(--gj-pdp-futura);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.12em;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
   box-shadow: none;
@@ -461,7 +464,7 @@
 
 .georg-pdp-section .button-fancy-large.add-to-cart:hover,
 .georg-pdp-section .product-form__submit.button-fancy-large:hover {
-  background: #9fd6f7;
+  background: #9ad6f5;
 }
 
 .georg-pdp-section .button-fancy-large:disabled,
@@ -503,69 +506,100 @@
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 8px;
-  font-size: 11px;
-  letter-spacing: 0.12em;
+  gap: 10px;
+  font-family: var(--gj-pdp-futura);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gj-pdp-text);
+  color: #1a1a1a;
   cursor: pointer;
   user-select: none;
   width: fit-content;
+  line-height: 1.2;
 }
 
 .georg-pdp-section .add-remove-wishlist::before {
   content: '';
-  width: 16px;
-  height: 16px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='1.5'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") center / contain no-repeat;
+  width: 18px;
+  height: 18px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='1.4'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
 .georg-pdp-section .add-remove-wishlist.is-active::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231a1a1a' stroke='%231a1a1a' stroke-width='1.5'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231a1a1a' stroke='%231a1a1a' stroke-width='1.4'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
 }
 
-/* Gift wrapping */
+/* Gift wrapping banner — text left, photo right */
 .georg-pdp-section .giftwrapping {
+  position: relative;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
-  gap: 16px;
-  background: var(--gj-pdp-gray);
-  padding: 10px 14px;
-  margin: 8px 0 28px;
-  min-height: 56px;
+  width: 100%;
+  min-height: 88px;
+  margin: 0 0 28px;
+  padding: 0;
+  overflow: hidden;
+  background: #efeeed;
 }
 
 .georg-pdp-section .giftwrapping-text {
-  font-size: 11px;
-  letter-spacing: 0.1em;
+  position: relative;
+  z-index: 2;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  width: auto;
+  max-width: 58%;
+  margin: 0;
+  padding: 18px 20px;
+  font-family: var(--gj-pdp-futura);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1.45;
   text-transform: uppercase;
-  color: var(--gj-pdp-text);
+  color: #4a4743;
+  background: transparent;
 }
 
 .georg-pdp-section .giftwrapping-image {
-  height: auto;
-  object-fit: contain;
-  flex-shrink: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: auto;
+  width: 52%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: right center;
+  z-index: 1;
 }
 
 /* Description + read more */
 .georg-pdp-section .product-info_content_item {
   font-family: var(--gj-pdp-sans);
   font-size: 14px;
-  line-height: 1.55;
-  color: #333;
-  margin-bottom: 10px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: #2a2a2a;
+  margin: 0 0 12px;
 }
 
 .georg-pdp-section .product-info_content_item p {
   margin: 0;
-  font-family: 'Futura';
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
 }
 
 .georg-pdp-section .product-info_content_item.is-collapsed {
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -577,12 +611,13 @@
 .georg-pdp-section .product-info_content_item-read-more {
   display: inline-block;
   font-family: var(--gj-pdp-sans);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--gj-pdp-text);
+  color: #1a1a1a;
   cursor: pointer;
-  margin-bottom: 28px;
+  margin: 0 0 28px;
   text-decoration: none;
+  letter-spacing: 0;
 }
 
 .georg-pdp-section .product-info_content_item-read-more:hover {
@@ -595,23 +630,25 @@
 
 /* Accordions — + on the left like GJ */
 .georg-pdp-section .product-accordion {
-  border-top: 1px solid var(--gj-pdp-border);
+  border-top: 0;
+  margin: 0 0 8px;
 }
 
 .georg-pdp-section .accordion-head {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   margin: 0;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--gj-pdp-border);
+  padding: 18px 0;
+  border: 0;
+  border-bottom: 0;
   font-family: var(--gj-pdp-futura);
-  font-size: 11px;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
-  color: var(--gj-pdp-text);
+  color: #1a1a1a;
   background: transparent;
   width: 100%;
   text-align: left;
@@ -620,15 +657,16 @@
 .georg-pdp-section .accordion-head .ui-accordion-header-icon,
 .georg-pdp-section .accordion-head::before {
   content: '+';
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1;
   width: 14px;
   flex-shrink: 0;
+  color: #1a1a1a;
 }
 
 .georg-pdp-section .accordion-head.is-open::before {
-  content: '−';
+  content: '\2212';
 }
 
 .georg-pdp-section .accordion-head .ui-accordion-header-icon {
@@ -637,11 +675,13 @@
 
 .georg-pdp-section .accordion-body {
   display: none;
-  padding: 0 0 18px;
-  border-bottom: 1px solid var(--gj-pdp-border);
+  padding: 0 0 18px 26px;
+  border-bottom: 0;
+  font-family: var(--gj-pdp-sans);
   font-size: 13px;
-  line-height: 1.6;
-  color: #444;
+  font-weight: 300;
+  line-height: 1.65;
+  color: #333;
 }
 
 .georg-pdp-section .accordion-body.is-open {
@@ -650,21 +690,21 @@
 
 .georg-pdp-section .product-info_content_item_list ul {
   list-style: none;
-  margin: 12px 0 0;
+  margin: 0;
   padding: 0;
 }
 
 .georg-pdp-section .product-info_content_item_list li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .georg-pdp-section .product-info_content_item_detail {
   font-weight: 600;
-  margin-right: 4px;
+  margin-right: 6px;
 }
 
 .georg-pdp-section .accordion-body ul {
-  margin: 12px 0 0;
+  margin: 0;
   padding-left: 18px;
 }
 
@@ -674,17 +714,22 @@
 
 /* Call USP */
 .georg-pdp-section .product-usp-items-container {
-  margin-top: 28px;
+  margin-top: 8px;
+  padding: 18px 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
 .georg-pdp-section .product-usp-item a {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-size: 11px;
+  gap: 12px;
+  font-family: var(--gj-pdp-futura);
+  font-size: 12px;
+  font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--gj-pdp-text);
+  color: #1a1a1a;
   text-decoration: none;
 }
 
@@ -694,8 +739,8 @@
 
 .georg-pdp-section .product-usp-item img,
 .georg-pdp-section .product-usp-item svg {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
 }
 
