@@ -701,7 +701,7 @@
 
   {%- if section.settings.show_mobile_sticky_bar -%}
     <div class="gj-mobile-atc-bar" aria-hidden="true">
-      <span class="price-sales" data-gj-mobile-price>{{ current_variant.price | money_without_trailing_zeros }}</span>
+      {% comment %} <span class="price-sales" data-gj-mobile-price>{{ current_variant.price | money_without_trailing_zeros }}</span> {% endcomment %}
       <button
         type="button"
         class="button-fancy-large add-to-cart"
