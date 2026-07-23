@@ -10,7 +10,7 @@
   --gj-pdp-sans: var(--georg-font-sans, 'Source Sans Pro', 'SourceSansPro-Light', sans-serif);
   --gj-pdp-serif: var(--georg-font-serif, var(--gj-pdp-futura));
   --gj-pdp-sticky-top: 110px;
-  --gj-pdp-sidebar-width: clamp(340px, 32vw, 520px);
+  --gj-pdp-sidebar-width: clamp(340px, 32vw, 820px);
   color: var(--gj-pdp-text);
   font-family: var(--gj-pdp-sans);
   background-color: var(--gj-pdp-bg);
@@ -117,8 +117,7 @@ body:has(.georg-pdp-section) {
   max-width: none;
   min-width: 0;
   box-sizing: border-box;
-  /* Left pad = gutter from images; right pad = viewport edge */
-  padding: 0 clamp(28px, 3.2vw, 52px) 0 clamp(28px, 2.8vw, 44px);
+  padding: 40px 200px 40px 50px;
 }
 
 /* Dawn-style sticky info: pin sidebar, no inner scroll / no scrollbar */
@@ -180,11 +179,11 @@ body:has(.georg-pdp-section) {
   display: block;
 }
 
-/* Desktop image grid — flush tiles like GJ (no gap) */
+/* Desktop image grid — 10px gutter between tiles */
 .georg-pdp-section .product-image-carousel {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
+  gap: 10px;
   margin: 0;
   padding: 0;
   line-height: 0;
