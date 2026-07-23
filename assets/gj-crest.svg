@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 90" width="120" height="90" role="img" aria-label="Georg Jensen">
+  <g fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M60 8c2 4 4 7 8 9-4 1-6 4-8 8-2-4-4-7-8-8 4-2 6-5 8-9z"/>
+    <path d="M48 22h24"/>
+    <path d="M52 22c0 8-2 14-8 18"/>
+    <path d="M68 22c0 8 2 14 8 18"/>
+    <path d="M44 40c6 2 10 6 16 6s10-4 16-6"/>
+    <path d="M50 48c4 6 8 10 10 14 2-4 6-8 10-14"/>
+  </g>
+  <text x="60" y="76" text-anchor="middle" fill="#fff" font-family="Georgia, 'Times New Roman', serif" font-size="9" letter-spacing="2.5">GEORG JENSEN</text>
+</svg>

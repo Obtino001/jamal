@@ -1,0 +1,422 @@
+/* Georg Jensen Footer — 1:1 layout */
+
+.gj-footer {
+  --gj-f-bg: #1a2533;
+  --gj-f-banner: #1a2533;
+  --gj-f-text: #ffffff;
+  --gj-f-muted: #c8cdd3;
+  --gj-f-heading: #9fd6f5;
+  --gj-f-accent: #b6e3ff;
+  --gj-f-line: rgba(255, 255, 255, 0.12);
+  --gj-f-max: 1380px;
+  color: var(--gj-f-text);
+  font-family: var(--georg-font-sans, 'Source Sans Pro', sans-serif);
+}
+
+.gj-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.gj-footer__inner {
+  max-width: var(--gj-f-max);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* —— Membership banner —— */
+.gj-footer__member {
+  background: var(--gj-f-banner);
+  padding: 56px 0 48px;
+  border-bottom: 1px solid var(--gj-f-line);
+}
+
+.gj-footer__member-row {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1.2fr);
+  gap: 48px 64px;
+  align-items: start;
+}
+
+.gj-footer__member-title {
+  margin: 0 0 28px;
+  font-family: var(--georg-font-futura, Futura, sans-serif);
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: #fff;
+}
+
+.gj-footer__member-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 22px;
+}
+
+.gj-footer__signup {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 36px;
+  background: var(--gj-f-accent);
+  color: #1a2533 !important;
+  font-family: var(--georg-font-futura, Futura, sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.gj-footer__signup:hover {
+  background: #9fd6f5;
+}
+
+.gj-footer__login-prompt {
+  font-size: 14px;
+  color: #e8eaed;
+}
+
+.gj-footer__login-prompt a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.gj-footer__benefits-title {
+  margin: 0 0 22px;
+  font-family: var(--georg-font-futura, Futura, sans-serif);
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 400;
+  line-height: 1.35;
+  color: #fff;
+}
+
+.gj-footer__usps {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px 20px;
+}
+
+.gj-footer__usp {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.35;
+  color: #e4e7eb;
+}
+
+.gj-footer__usp svg {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 1.4;
+}
+
+.gj-footer__disclaimer {
+  display: block;
+  max-width: 640px;
+  font-size: 10px;
+  line-height: 1.55;
+  color: #9aa3ad;
+}
+
+/* —— Main footer —— */
+.gj-footer__main {
+  background: var(--gj-f-bg);
+  padding: 56px 0 48px;
+}
+
+.gj-footer__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 2.2fr 1.15fr;
+  gap: 40px 48px;
+}
+
+.gj-footer__country {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 160px;
+  margin-bottom: 28px;
+  padding: 10px 14px;
+  background: #121a24;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='1.4' d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+.gj-footer__service-label {
+  margin: 0 0 10px;
+  font-family: var(--georg-font-futura, Futura, sans-serif);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--gj-f-heading);
+}
+
+.gj-footer__phone {
+  margin: 0 0 8px;
+  font-family: var(--georg-font-futura, Futura, sans-serif);
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.gj-footer__phone a {
+  color: #fff;
+}
+
+.gj-footer__hours {
+  margin: 0 0 10px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--gj-f-muted);
+}
+
+.gj-footer__email {
+  font-size: 13px;
+  color: #fff;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+.gj-footer__menus {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px 32px;
+}
+
+.gj-footer__menu-title {
+  margin: 0 0 16px;
+  font-family: var(--georg-font-futura, Futura, sans-serif);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--gj-f-heading);
+}
+
+.gj-footer__menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.gj-footer__menu a {
+  font-size: 13px;
+  line-height: 1.35;
+  color: #e8eaed;
+  transition: color 0.15s ease;
+}
+
+.gj-footer__menu a:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* —— Payments / social / crest —— */
+.gj-footer__payments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 22px;
+}
+
+.gj-footer__pay-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 32px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.gj-footer__pay-icon img,
+.gj-footer__pay-icon svg {
+  display: block;
+  width: 48px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.gj-footer__social {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  display: flex;
+  gap: 14px;
+}
+
+.gj-footer__social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  transition: opacity 0.15s ease, border-color 0.15s ease;
+}
+
+.gj-footer__social a:hover {
+  opacity: 0.75;
+  border-color: #fff;
+}
+
+.gj-footer__social svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.gj-footer__copy {
+  margin: 0 0 28px;
+  font-size: 12px;
+  color: #a7b0ba;
+}
+
+.gj-footer__crest {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  gap: 4px;
+}
+
+.gj-footer__crest img,
+.gj-footer__crest-svg {
+  width: 110px;
+  height: auto;
+  margin-bottom: 4px;
+}
+
+.gj-footer__crest-line {
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8b949e;
+}
+
+.gj-footer__crest-brand {
+  margin-top: 2px;
+  font-family: var(--georg-font-futura, Futura, sans-serif);
+  font-size: 16px;
+  letter-spacing: 0.22em;
+  color: #fff;
+}
+
+.gj-footer__crest-sub {
+  font-size: 8px;
+  letter-spacing: 0.28em;
+  color: #8b949e;
+}
+
+/* —— Back to top —— */
+.gj-footer__top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: #2b6ea8;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.gj-footer__top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.gj-footer__top:hover {
+  transform: translateY(-2px);
+}
+
+.gj-footer__top svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+}
+
+@media screen and (max-width: 989px) {
+  .gj-footer__inner {
+    padding: 0 24px;
+  }
+
+  .gj-footer__member-row,
+  .gj-footer__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gj-footer__menus {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .gj-footer__usps {
+    grid-template-columns: 1fr;
+  }
+
+  .gj-footer__crest {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .gj-footer__member {
+    padding: 40px 0 36px;
+  }
+
+  .gj-footer__main {
+    padding: 40px 0 36px;
+  }
+
+  .gj-footer__menus {
+    grid-template-columns: 1fr;
+  }
+
+  .gj-footer__top {
+    right: 16px;
+    bottom: 16px;
+  }
+}
