@@ -123,6 +123,7 @@
         background-color: rgb(var(--color-background));
       }
 
+      /* Source Sans Pro — body / UI / announcement */
       @font-face {
         font-family: 'SourceSansPro-Light';
         src: url('https://cdn.shopify.com/s/files/1/1019/4269/0175/files/SourceSansPro-Light.otf?v=1784734811') format('opentype');
@@ -130,7 +131,15 @@
         font-style: normal;
         font-display: swap;
       }
+      @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('https://cdn.shopify.com/s/files/1/1019/4269/0175/files/SourceSansPro-Light.otf?v=1784734811') format('opentype');
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+      }
 
+      /* Futura — nav / headings / logo / display */
       @font-face {
         font-family: 'FuturaCyrillicBook';
         src: url('https://cdn.shopify.com/s/files/1/1019/4269/0175/files/FuturaCyrillicBook.ttf?v=1784734810') format('truetype');
@@ -138,19 +147,30 @@
         font-style: normal;
         font-display: swap;
       }
+      @font-face {
+        font-family: 'Futura';
+        src: url('https://cdn.shopify.com/s/files/1/1019/4269/0175/files/FuturaCyrillicBook.ttf?v=1784734810') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
 
       :root {
-        --font-body-family: 'SourceSansPro-Light', sans-serif;
+        /* Source Sans Pro → body + UI */
+        --font-body-family: 'Source Sans Pro', 'SourceSansPro-Light', Helvetica, Arial, sans-serif;
         --font-body-style: normal;
         --font-body-weight: 300;
         --font-body-weight-bold: 600;
 
-        --font-heading-family: 'FuturaCyrillicBook', sans-serif;
+        /* Futura → headings + nav + brand display */
+        --font-heading-family: 'Futura', 'FuturaCyrillicBook', Helvetica, Arial, sans-serif;
         --font-heading-style: normal;
         --font-heading-weight: 400;
-        
-        --georg-font-sans: 'SourceSansPro-Light', sans-serif;
-        --georg-font-serif: 'FuturaCyrillicBook', sans-serif;
+
+        --georg-font-sans: 'Source Sans Pro', 'SourceSansPro-Light', Helvetica, Arial, sans-serif;
+        --georg-font-futura: 'Futura', 'FuturaCyrillicBook', Helvetica, Arial, sans-serif;
+        /* .georg-serif used for display/titles across theme → Futura */
+        --georg-font-serif: var(--georg-font-futura);
 
         --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
         --font-heading-scale: {{ settings.heading_scale | times: 1.0 | divided_by: settings.body_scale }};
@@ -298,6 +318,20 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    <link
+      rel="preload"
+      as="font"
+      href="https://cdn.shopify.com/s/files/1/1019/4269/0175/files/SourceSansPro-Light.otf?v=1784734811"
+      type="font/otf"
+      crossorigin
+    >
+    <link
+      rel="preload"
+      as="font"
+      href="https://cdn.shopify.com/s/files/1/1019/4269/0175/files/FuturaCyrillicBook.ttf?v=1784734810"
+      type="font/ttf"
+      crossorigin
+    >
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}

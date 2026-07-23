@@ -4,14 +4,13 @@
   --gj-h-muted: #666;
   --gj-h-border: #e8e8e8;
   --gj-h-badge: #b6e3ff;
-  --gj-h-announcement: #1b2430;
+  --gj-h-announcement: #1a1e26;
   width: 100%;
   background: #fff;
-  font-family: var(--georg-font-sans, 'SourceSansPro-Light', Helvetica, Arial, sans-serif);
+  font-family: var(--georg-font-sans);
   color: var(--gj-h-text);
   position: relative;
   z-index: 40;
-  border-top: 1px solid #1a1a1a;
 }
 
 .gj-header__container {
@@ -20,29 +19,41 @@
   padding: 0 24px;
 }
 
-/* Announcement */
+/* Announcement — Source Sans, dark navy, split messages */
 .gj-header__announcement {
   background: var(--gj-h-announcement);
   color: #fff;
+  font-family: var(--georg-font-sans);
   font-size: 11px;
-  letter-spacing: 0.04em;
-  padding: 8px 0;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  padding: 10px 0;
 }
 
 .gj-header__announcement-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
+}
+
+.gj-header__announcement-inner > div {
+  min-width: 0;
+}
+
+.gj-header__announcement-inner > div:last-child {
+  text-align: right;
 }
 
 .gj-header__announcement a {
   color: inherit;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .gj-header__announcement a:hover {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 /* Top row */
@@ -106,7 +117,7 @@
 }
 
 .gj-header__logo-text {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: var(--georg-font-futura);
   font-size: clamp(18px, 2.2vw, 26px);
   font-weight: 400;
   letter-spacing: 0.22em;
@@ -231,18 +242,19 @@
 /* Badges — light blue */
 .gj-header__badge {
   position: absolute;
-  top: -7px;
-  right: -9px;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 4px;
+  top: -6px;
+  right: -8px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
   background: var(--gj-h-badge);
-  color: #1a1a1a;
+  color: #fff;
+  font-family: var(--georg-font-futura);
   font-size: 9px;
-  font-weight: 700;
-  line-height: 16px;
+  font-weight: 400;
+  line-height: 15px;
   text-align: center;
-  border-radius: 2px;
+  border-radius: 50%;
   box-sizing: border-box;
 }
 
@@ -262,8 +274,9 @@
 }
 
 .gj-header__nav-link {
+  font-family: var(--georg-font-futura);
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--gj-h-text);
@@ -272,9 +285,12 @@
   display: inline-block;
 }
 
-.gj-header__nav-link:hover,
+.gj-header__nav-link:hover {
+  color: #5a8fa8;
+}
+
 .gj-header__nav-link.is-active {
-  opacity: 0.65;
+  color: #5a8fa8;
 }
 
 /* Mobile */
@@ -349,6 +365,7 @@
   .gj-header__mobile-nav a {
     display: block;
     padding: 14px 24px;
+    font-family: var(--georg-font-futura);
     font-size: 12px;
     letter-spacing: 0.14em;
     text-transform: uppercase;

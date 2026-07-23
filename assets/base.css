@@ -3640,6 +3640,17 @@ details-disclosure>details {
   font-family: var(--georg-font-sans) !important;
 }
 
+.georg-futura {
+  font-family: var(--georg-font-futura) !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h0, .h1, .h2, .h3, .h4, .h5 {
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+}
+
 /* Georg Jensen Button Styles */
 .button-georg-black {
   display: inline-flex;

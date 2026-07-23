@@ -5,8 +5,9 @@
   --gj-pdp-muted: #6b6b6b;
   --gj-pdp-border: #e8e8e8;
   --gj-pdp-gray: #f3f3f3;
-  --gj-pdp-serif: Georgia, 'Times New Roman', Times, serif;
-  --gj-pdp-sans: var(--georg-font-sans, 'SourceSansPro-Light', Helvetica, Arial, sans-serif);
+  --gj-pdp-futura: var(--georg-font-futura, 'Futura', 'FuturaCyrillicBook', sans-serif);
+  --gj-pdp-sans: var(--georg-font-sans, 'Source Sans Pro', 'SourceSansPro-Light', sans-serif);
+  --gj-pdp-serif: var(--georg-font-serif, var(--gj-pdp-futura));
   color: var(--gj-pdp-text);
   font-family: var(--gj-pdp-sans);
   background: #fff;
@@ -171,7 +172,7 @@
 
 .georg-pdp-section .gallery-extension-text {
   display: block;
-  font-family: var(--gj-pdp-serif);
+  font-family: var(--gj-pdp-futura);
   font-size: clamp(18px, 2.2vw, 26px);
   line-height: 1.45;
   font-weight: 400;
@@ -197,6 +198,7 @@
 
 .georg-pdp-section .product-collection {
   display: inline-block;
+  font-family: var(--gj-pdp-futura);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -210,7 +212,7 @@
 }
 
 .georg-pdp-section .product-name {
-  font-family: var(--gj-pdp-serif);
+  font-family: var(--gj-pdp-futura);
   font-size: clamp(28px, 3vw, 36px);
   font-weight: 400;
   line-height: 1.15;
@@ -303,9 +305,9 @@
   border-radius: 0;
   background: var(--gj-pdp-accent);
   color: var(--gj-pdp-text);
-  font-family: inherit;
+  font-family: var(--gj-pdp-futura);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
@@ -412,7 +414,7 @@
 
 /* Description + read more */
 .georg-pdp-section .product-info_content_item {
-  font-family: var(--gj-pdp-serif);
+  font-family: var(--gj-pdp-sans);
   font-size: 14px;
   line-height: 1.55;
   color: #333;
@@ -465,9 +467,9 @@
   margin: 0;
   padding: 16px 0;
   border-bottom: 1px solid var(--gj-pdp-border);
-  font-family: var(--gj-pdp-sans);
+  font-family: var(--gj-pdp-futura);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;

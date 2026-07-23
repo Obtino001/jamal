@@ -4,7 +4,7 @@
   --gj-ts-muted: #777;
   --gj-ts-media: #f4f4f4;
   --gj-ts-border: #1a1a1a;
-  font-family: var(--georg-font-sans, 'SourceSansPro-Light', Helvetica, Arial, sans-serif);
+  font-family: var(--georg-font-sans);
   color: var(--gj-ts-text);
   background: #fff;
 }
@@ -39,9 +39,9 @@
   border-bottom: 1px solid transparent;
   padding: 0 0 10px;
   margin: 0;
-  font: inherit;
+  font-family: var(--georg-font-futura);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gj-ts-muted);
@@ -148,8 +148,9 @@
 }
 
 .gj-reco-card__title {
+  font-family: var(--georg-font-futura);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.3;
   color: var(--gj-ts-text);
   text-decoration: none;
