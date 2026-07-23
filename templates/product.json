@@ -15,6 +15,9 @@
         "show_breadcrumbs": true,
         "breadcrumb_home": "Home",
         "breadcrumb_parent_label": "Jewellery",
+        "breadcrumb_parent_link": "",
+        "collection_label": "",
+        "collection_link": "",
         "collection_suffix": "Collection",
         "material_fallback": "Sterling Silver",
         "add_to_cart_label": "Add to basket",
@@ -38,6 +41,7 @@
         "collection_meta_label": "Collection:",
         "explore_label": "Explore:",
         "explore_text": "Earrings",
+        "explore_link": "",
         "show_shipping_accordion": true,
         "shipping_heading": "Shipping and returns",
         "shipping_content": "<ul><li>Free gift wrapping on full priced items</li><li>Shipping by UPS</li><li>Easy exchanges and returns</li></ul>",
@@ -53,13 +57,15 @@
         "tab_also_viewed": {
           "type": "tab",
           "settings": {
-            "title": "People who viewed this item also viewed"
+            "title": "People who viewed this item also viewed",
+            "collection": ""
           }
         },
         "tab_combine": {
           "type": "tab",
           "settings": {
-            "title": "Combine it with"
+            "title": "Combine it with",
+            "collection": ""
           }
         }
       },
@@ -101,11 +107,57 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "designer_spotlight_fwfGgf": {
+      "type": "designer-spotlight",
+      "blocks": {
+        "caption_URBijB": {
+          "type": "caption",
+          "settings": {
+            "text": "Meet the designer"
+          }
+        },
+        "heading_kYDJY6": {
+          "type": "heading",
+          "settings": {
+            "heading": "Georg Jensen Design Studio"
+          }
+        },
+        "text_3D4daT": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Rooted in the house's century-long heritage, the Georg Jensen Design Studio upholds the superior craftsmanship and innovation that have defined Georg Jensen since its foundation in 1904.</p>"
+          }
+        },
+        "link_AAYDgX": {
+          "type": "link",
+          "settings": {
+            "link_label": "Find out more",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "caption_URBijB",
+        "heading_kYDJY6",
+        "text_3D4daT",
+        "link_AAYDgX"
+      ],
+      "name": "Designer Spotlight",
+      "settings": {
+        "image": "shopify://shop_images/hf_20260503_170415_64bbaabc-9409-40fe-8d74-ab27f979e945.jpg",
+        "layout": "image_first",
+        "full_width": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main",
     "product-tabs-swiper",
-    "related-products"
+    "related-products",
+    "designer_spotlight_fwfGgf"
   ]
 }
