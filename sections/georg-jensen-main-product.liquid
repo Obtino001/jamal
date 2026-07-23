@@ -477,21 +477,32 @@
   </div>
 {%- endif -%}
 
-            {%- if product.description != blank -%}
-              <div
-                class="product-info_content_item active is-collapsed"
-                data-full-text="{{ product.description | strip_html | escape }}"
-              >
-                <p>{{ product.description | strip_html | newline_to_br }}</p>
-              </div>
-              <div
-                class="product-info_content_item-read-more"
-                role="button"
-                tabindex="0"
-                data-more-label="{{ read_more_label | escape }}"
-                data-less-label="{{ read_less_label | escape }}"
-              >
-                {{ read_more_label }}
+            {%- liquid
+              assign desc_plain = product.description | strip_html | strip | replace: '&nbsp;', '' | strip
+              assign show_description = false
+              if desc_plain != blank and desc_plain != '.' and desc_plain != '-' and desc_plain.size > 2
+                assign show_description = true
+              endif
+            -%}
+            {%- if show_description -%}
+              <div class="gj-pdp-description">
+                <div
+                  class="product-info_content_item active is-collapsed"
+                  data-full-text="{{ desc_plain | escape }}"
+                >
+                  <p>{{ desc_plain | newline_to_br }}</p>
+                </div>
+                {%- if desc_plain.size > 180 -%}
+                  <div
+                    class="product-info_content_item-read-more"
+                    role="button"
+                    tabindex="0"
+                    data-more-label="{{ read_more_label | escape }}"
+                    data-less-label="{{ read_less_label | escape }}"
+                  >
+                    {{ read_more_label }}
+                  </div>
+                {%- endif -%}
               </div>
             {%- endif -%}
 

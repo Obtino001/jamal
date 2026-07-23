@@ -24,35 +24,39 @@
       });
     });
 
-    // Read more
-    var desc = root.querySelector('.product-info_content_item');
-    var readMore = root.querySelector('.product-info_content_item-read-more');
-    if (desc && readMore) {
-      var fullText = desc.getAttribute('data-full-text') || desc.textContent.trim();
-      var collapsed = true;
-      desc.classList.add('is-collapsed');
+    // Read more (only real description block)
+    var descWrap = root.querySelector('.gj-pdp-description');
+    var desc = descWrap && descWrap.querySelector('.product-info_content_item');
+    var readMore = descWrap && descWrap.querySelector('.product-info_content_item-read-more');
+    if (descWrap && desc) {
+      var fullText = (desc.getAttribute('data-full-text') || desc.textContent || '').trim();
+      if (!fullText || fullText === '.' || fullText.length < 3) {
+        descWrap.style.display = 'none';
+      } else if (readMore) {
+        var collapsed = true;
+        desc.classList.add('is-collapsed');
 
-      // Hide toggle if short
-      requestAnimationFrame(function () {
-        if (desc.scrollHeight <= desc.clientHeight + 4) {
-          readMore.hidden = true;
-          desc.classList.remove('is-collapsed');
-        }
-      });
+        requestAnimationFrame(function () {
+          if (desc.scrollHeight <= desc.clientHeight + 4) {
+            readMore.hidden = true;
+            desc.classList.remove('is-collapsed');
+          }
+        });
 
-      readMore.addEventListener('click', function () {
-        collapsed = !collapsed;
-        desc.classList.toggle('is-collapsed', collapsed);
-        readMore.textContent = collapsed
-          ? readMore.getAttribute('data-more-label') || 'Read more'
-          : readMore.getAttribute('data-less-label') || 'Read less';
-      });
-      readMore.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          readMore.click();
-        }
-      });
+        readMore.addEventListener('click', function () {
+          collapsed = !collapsed;
+          desc.classList.toggle('is-collapsed', collapsed);
+          readMore.textContent = collapsed
+            ? readMore.getAttribute('data-more-label') || 'Read more'
+            : readMore.getAttribute('data-less-label') || 'Read less';
+        });
+        readMore.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            readMore.click();
+          }
+        });
+      }
     }
 
     // Mobile image gallery — thumbs + optional arrows

@@ -53,3 +53,23 @@ s.price-item {
   font-weight: 400 !important;
   color: #8a8a8a !important;
 }
+
+/* Clean ATC — no black Dawn border (match GJ image 1) */
+.georg-pdp-section .product-form__submit,
+.georg-pdp-section .button-fancy-large.add-to-cart,
+.georg-pdp-section .gj-mobile-atc-bar .button-fancy-large {
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: linear-gradient(0deg, #a1deff, #b1e5ff) !important;
+  background-color: #aee1fc !important;
+  color: #263040 !important;
+}
+
+.georg-pdp-section .product-form__submit::before,
+.georg-pdp-section .product-form__submit::after,
+.georg-pdp-section .button-fancy-large::before,
+.georg-pdp-section .button-fancy-large::after {
+  display: none !important;
+  content: none !important;
+}
