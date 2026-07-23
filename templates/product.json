@@ -60,14 +60,14 @@
           "type": "tab",
           "settings": {
             "title": "People who viewed this item also viewed",
-            "collection": ""
+            "collection": "frontpage"
           }
         },
         "tab_combine": {
           "type": "tab",
           "settings": {
             "title": "Combine it with",
-            "collection": ""
+            "collection": "frontpage"
           }
         }
       },
