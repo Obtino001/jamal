@@ -23,6 +23,94 @@
         "button_link": ""
       }
     },
+    "georg_jensen_story_grid_BYpmJh": {
+      "type": "georg-jensen-story-grid",
+      "blocks": {
+        "card_d6DnN9": {
+          "type": "card",
+          "settings": {
+            "tag": "ICONS",
+            "tag_color": "#2c6e91",
+            "title": "The House Icons",
+            "text": "<p>Boasting a 120-year history of collaborations with great designers, Georg Jensen is behind some of the most iconic designs of the past century.</p>",
+            "button_label": "DISCOVER THE ICONS",
+            "button_link": "",
+            "button_bg_color": "#aee1fd",
+            "button_text_color": "#1a1a1a"
+          }
+        },
+        "card_q9qW7F": {
+          "type": "card",
+          "settings": {
+            "tag": "DISCOVER",
+            "tag_color": "#2c6e91",
+            "title": "Bracelets and bangles",
+            "text": "<p>A selection of timeless designs created in collaboration with leading designers.</p>",
+            "button_label": "EXPLORE",
+            "button_link": "",
+            "button_bg_color": "#aee1fd",
+            "button_text_color": "#1a1a1a"
+          }
+        },
+        "card_yUrkyj": {
+          "type": "card",
+          "settings": {
+            "tag": "DISCOVER",
+            "tag_color": "#2c6e91",
+            "title": "Silver Stacking",
+            "text": "<p>It's layering season. Discover our wide-ranging designs in sterling silver, designed to stand out alone and be stacked as you wish.</p>",
+            "button_label": "SHOP SILVER",
+            "button_link": "",
+            "button_bg_color": "#6bc6fa",
+            "button_text_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "card_d6DnN9",
+        "card_q9qW7F",
+        "card_yUrkyj"
+      ],
+      "name": "Be Inspired Grid",
+      "settings": {
+        "heading": "BE INSPIRED",
+        "section_color_scheme": "",
+        "card_color_scheme": "",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "georg_jensen_product_tabs_swiper_9nB6KL": {
+      "type": "georg-jensen-product-tabs-swiper",
+      "blocks": {
+        "tab_Y6UyCK": {
+          "type": "tab",
+          "settings": {
+            "title": "People who viewed this item also viewed",
+            "collection": "frontpage"
+          }
+        }
+      },
+      "block_order": [
+        "tab_Y6UyCK"
+      ],
+      "name": "GJ Tabs Swiper",
+      "settings": {
+        "tabs_aria_label": "Product recommendations",
+        "products_to_show": 8,
+        "desktop_columns": 4,
+        "space_between": 24,
+        "show_arrows": true,
+        "prev_label": "Previous",
+        "next_label": "Next",
+        "show_stock": true,
+        "low_stock_threshold": 1,
+        "material_fallback": "Sterling Silver",
+        "background_color": "#ffffff",
+        "padding_top": 48,
+        "padding_bottom": 64
+      }
+    },
     "category_directory_Qgyt8q": {
       "type": "category-directory",
       "blocks": {
@@ -75,6 +163,8 @@
   },
   "order": [
     "georg_jensen_video_hero_bzg4jN",
+    "georg_jensen_story_grid_BYpmJh",
+    "georg_jensen_product_tabs_swiper_9nB6KL",
     "category_directory_Qgyt8q"
   ]
 }
