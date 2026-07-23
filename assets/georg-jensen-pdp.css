@@ -983,7 +983,7 @@ body:has(.georg-pdp-section) {
   .georg-pdp-section .pdp-main {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 0px;
     padding: 0;
   }
 
