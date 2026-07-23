@@ -3755,10 +3755,10 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .price {
-  font-family: var(--georg-font-sans) !important;
+  font-family: var(--georg-font-sans-bold, 'SourceSansPro-Bold', 'Source Sans Pro', sans-serif) !important;
   font-size: 1.8rem !important;
-  font-weight: 600 !important;
-  color: #111111 !important;
+  font-weight: 700 !important;
+  color: #000000 !important;
 }
 
 .product-form__submit {

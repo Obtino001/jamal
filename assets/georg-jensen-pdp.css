@@ -449,12 +449,12 @@ body:has(.georg-pdp-section) {
 }
 
 .georg-pdp-section .price-sales {
-  font-family: var(--gj-pdp-sans);
+  font-family: var(--georg-font-sans-bold, 'SourceSansPro-Bold', 'Source Sans Pro', sans-serif);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 1.2;
-  color: #1a1a1a;
+  color: #000;
 }
 
 .georg-pdp-section .price-compare {

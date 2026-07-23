@@ -17,3 +17,39 @@ body:has(.georg-pdp-section) {
   padding: 0 !important;
   margin: 0 !important;
 }
+
+/* Prices bold everywhere (Georg Jensen — Source Sans Pro Bold) */
+.price,
+.price .price-item,
+.price-item,
+.price-item--regular,
+.price-item--sale,
+.price-sales,
+.product-price,
+.gj-coll-card__price,
+.gj-reco-card__price,
+.georg-card-price,
+.WI_cartDrawer_item_price,
+.WI_also_like_item_price,
+.WI_complete_look_price,
+.WI_cartDrawer_total_price,
+.wishlist-card__price-current,
+.style-it-with__product-price,
+.card-information .price,
+.predictive-search__item .price,
+.cart-item__price-wrapper .price,
+.totals__total-value {
+  font-family: var(--georg-font-sans-bold, 'SourceSansPro-Bold', 'Source Sans Pro', sans-serif) !important;
+  font-weight: 700 !important;
+  color: #000 !important;
+}
+
+.price-compare,
+.compare-price,
+.price--compare,
+.wishlist-card__price-compare,
+.price-item--regular s,
+s.price-item {
+  font-weight: 400 !important;
+  color: #8a8a8a !important;
+}
