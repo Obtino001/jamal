@@ -35,11 +35,11 @@ wishlist-button {
 } */
 
 .wishlist-button__icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   display: block;
   transition: opacity 0.15s, transform 0.2s;
-  color: white;
+  color: #1a1a1a;
 }
 
 /* Outline icon visible by default */
@@ -182,8 +182,8 @@ wishlist-page {
   display: block;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: min(var(--rounded, 0px), 4px);
-  background-color: rgb(var(--border-color) / 0.15);
+  border-radius: 0;
+  background-color: #efeeed;
 }
 
 .wishlist-card__image {
