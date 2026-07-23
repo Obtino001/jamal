@@ -74,6 +74,82 @@
   height: auto;
 }
 
+/*
+  Fallback grid before Swiper init — stops full-width “big” flash on reload.
+  Swiper adds .swiper-initialized and takes over.
+*/
+.gj-tabs-swiper .gj-swiper:not(.swiper-initialized) .swiper-wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  width: 100% !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+.gj-tabs-swiper .gj-swiper:not(.swiper-initialized) .swiper-slide {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  flex-shrink: 1 !important;
+}
+
+/* Keep one row only in fallback (matches swiper viewport) */
+.gj-tabs-swiper .gj-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n + 3) {
+  display: none !important;
+}
+
+.gj-tabs-swiper .gj-swiper:not(.swiper-initialized) .gj-swiper__progress,
+.gj-tabs-swiper .gj-swiper:not(.swiper-initialized) .swiper-scrollbar {
+  visibility: hidden;
+}
+
+@media screen and (min-width: 550px) {
+  .gj-tabs-swiper .gj-swiper:not(.swiper-initialized) .swiper-wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .gj-tabs-swiper .gj-swiper:not(.swiper-initialized) .swiper-wrapper {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .gj-tabs-swiper .gj-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n + 3) {
+    display: block !important;
+  }
+
+  .gj-tabs-swiper .gj-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n + 4) {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .gj-tabs-swiper .gj-swiper:not(.swiper-initialized) .swiper-wrapper {
+    grid-template-columns: repeat(var(--gj-ts-columns, 4), minmax(0, 1fr));
+    gap: var(--gj-ts-space, 24px);
+  }
+
+  .gj-tabs-swiper .gj-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n + 4) {
+    display: block !important;
+  }
+
+  .gj-tabs-swiper[data-columns='3'] .gj-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n + 4) {
+    display: none !important;
+  }
+
+  .gj-tabs-swiper[data-columns='4'] .gj-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n + 5),
+  .gj-tabs-swiper:not([data-columns]) .gj-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n + 5) {
+    display: none !important;
+  }
+
+  .gj-tabs-swiper[data-columns='5'] .gj-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n + 6) {
+    display: none !important;
+  }
+}
+
 /* Clean progress bar (GJ style) */
 .gj-tabs-swiper .gj-swiper__progress,
 .gj-tabs-swiper .swiper-scrollbar {

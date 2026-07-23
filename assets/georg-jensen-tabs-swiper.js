@@ -123,6 +123,8 @@
     }
 
     var swiper = new Swiper(el, options);
+    el.classList.add('is-ready');
+    root.classList.add('is-swiper-ready');
     return swiper;
   }
 

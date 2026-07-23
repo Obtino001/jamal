@@ -9,9 +9,9 @@
   if show_stock_status == nil
     assign show_stock_status = true
   endif
-  assign material = product.metafields.custom.material.value | default: product.metafields.custom.material
-  if material == blank
-    assign material = material_fallback | default: product.type
+  assign subtitle = product.vendor
+  if subtitle == blank and product.tags.size > 0
+    assign subtitle = product.tags | join: ', '
   endif
   assign inventory_qty = product.selected_or_first_available_variant.inventory_quantity
   assign manage_stock = product.selected_or_first_available_variant.inventory_management
@@ -65,8 +65,8 @@
       </button>
     </div>
 
-    {%- if material != blank -%}
-      <p class="gj-coll-card__material">{{ material }}</p>
+    {%- if subtitle != blank -%}
+      <p class="gj-coll-card__material">{{ subtitle }}</p>
     {%- endif -%}
 
     {%- unless product.has_only_default_variant -%}

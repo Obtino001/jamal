@@ -102,7 +102,6 @@
                     lazy_load: forloop.index0 > 3,
                     low_stock_threshold: section.settings.low_stock_threshold,
                     show_stock: section.settings.show_stock,
-                    material_fallback: section.settings.material_fallback,
                     show_new_badge: section.settings.show_new_badge
                   %}
                 </li>
@@ -216,11 +215,8 @@
       "label": "Low stock threshold"
     },
     {
-      "type": "text",
-      "id": "material_fallback",
-      "label": "Material fallback",
-      "default": "Sterling Silver",
-      "info": "Uses metafield custom.material when set"
+      "type": "paragraph",
+      "content": "Card subtitle shows product vendor. If vendor is empty, product tags are used."
     }
   ],
   "presets": [

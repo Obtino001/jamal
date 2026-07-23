@@ -14,7 +14,13 @@
   data-columns="{{ section.settings.desktop_columns }}"
   data-space="{{ section.settings.space_between }}"
   data-show-progress="{% if section.settings.show_progress %}true{% else %}false{% endif %}"
-  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; background: {{ section.settings.background_color }};"
+  style="
+    --gj-ts-columns: {{ section.settings.desktop_columns | default: 4 }};
+    --gj-ts-space: {{ section.settings.space_between | default: 24 }}px;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.background_color }};
+  "
 >
   <div class="page-width">
     {%- if section.blocks.size > 0 -%}
@@ -72,8 +78,7 @@
                 limit: section.settings.products_to_show,
                 exclude_product_id: exclude_id,
                 low_stock_threshold: section.settings.low_stock_threshold,
-                show_stock: section.settings.show_stock,
-                material_fallback: section.settings.material_fallback
+                show_stock: section.settings.show_stock
               %}
             </div>
           {%- endif -%}
@@ -172,11 +177,8 @@
       "label": "Low stock threshold"
     },
     {
-      "type": "text",
-      "id": "material_fallback",
-      "label": "Material fallback",
-      "default": "Sterling Silver",
-      "info": "Used when product metafield custom.material is empty"
+      "type": "paragraph",
+      "content": "Card subtitle shows product vendor. If vendor is empty, product tags are used."
     },
     {
       "type": "color",
