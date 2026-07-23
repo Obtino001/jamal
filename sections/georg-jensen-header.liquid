@@ -17,7 +17,7 @@
 >
   {%- if section.settings.show_announcement -%}
     <div class="gj-header__announcement" style="color: {{ section.settings.announcement_text_color }};">
-      <div class="gj-header__container gj-header__announcement-inner">
+      <div class="page-width gj-header__announcement-inner">
         <div>
           {%- if section.settings.announcement_left_text != blank -%}
             <a href="{{ section.settings.announcement_left_link | default: '#' }}">
@@ -37,7 +37,7 @@
   {%- endif -%}
 
   <header class="gj-header__top">
-    <div class="gj-header__container gj-header__top-inner">
+    <div class="page-width gj-header__top-inner">
       <div class="gj-header__left">
         <button
           type="button"
@@ -190,7 +190,7 @@
   </header>
 
   <nav class="gj-header__nav" aria-label="Primary">
-    <div class="gj-header__container">
+    <div class="page-width">
       <ul class="gj-header__nav-list">
         {%- if menu != blank and menu.links.size > 0 -%}
           {%- for link in menu.links -%}

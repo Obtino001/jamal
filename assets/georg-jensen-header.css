@@ -19,11 +19,11 @@
   padding: 0 24px;
 }
 
-/* Announcement — Source Sans, dark navy, split messages */
+/* Announcement — Futura, dark navy, split messages */
 .gj-header__announcement {
   background: var(--gj-h-announcement);
   color: #fff;
-  font-family: var(--georg-font-sans);
+  font-family: var(--georg-font-futura);
   font-size: 11px;
   font-weight: 300;
   letter-spacing: 0.02em;

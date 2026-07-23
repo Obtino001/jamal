@@ -131,14 +131,15 @@
     }
     syncWishlistUI();
 
-    // Variant select → update id + price + ATC state
+    // Variant picker (CHOOSE SIZE) → update id + price + ATC state
     var form = root.querySelector('form[data-type="add-to-cart-form"]');
     var variantInput = form && form.querySelector('input[name="id"]');
     var priceEl = root.querySelector('[data-gj-price]');
     var compareEl = root.querySelector('[data-gj-compare]');
     var atcBtns = root.querySelectorAll('[data-gj-atc]');
     var variantDataEl = root.querySelector('[data-gj-variants]');
-    var selects = root.querySelectorAll('.variation-select');
+    var selects = root.querySelectorAll('.variation-select, [data-gj-variation-select]');
+    var pickers = root.querySelectorAll('[data-gj-size-picker]');
 
     if (variantDataEl && variantInput && selects.length) {
       var variants = [];
@@ -167,7 +168,6 @@
           var format = (window.theme && theme.moneyFormat) || '{{amount}}';
           return Shopify.formatMoney(cents, format);
         }
-        // Fallback: use data-money-format from root
         var fmt = root.getAttribute('data-money-format') || '{{amount}}';
         var amount = (cents / 100).toFixed(2).replace('.', ',');
         return fmt.replace(/\{\{\s*amount\s*\}\}/, amount).replace(/\{\{\s*amount_with_comma_separator\s*\}\}/, amount);
@@ -207,6 +207,60 @@
         var mobilePrice = root.querySelector('[data-gj-mobile-price]');
         if (mobilePrice) mobilePrice.textContent = variant.price_formatted || formatMoney(variant.price);
       }
+
+      function closePicker(picker) {
+        picker.classList.remove('is-open');
+        var trigger = picker.querySelector('[data-gj-size-trigger]');
+        var panel = picker.querySelector('[data-gj-size-panel]');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        if (panel) panel.hidden = true;
+      }
+
+      function openPicker(picker) {
+        pickers.forEach(function (p) {
+          if (p !== picker) closePicker(p);
+        });
+        picker.classList.add('is-open');
+        var trigger = picker.querySelector('[data-gj-size-trigger]');
+        var panel = picker.querySelector('[data-gj-size-panel]');
+        if (trigger) trigger.setAttribute('aria-expanded', 'true');
+        if (panel) panel.hidden = false;
+      }
+
+      pickers.forEach(function (picker) {
+        var trigger = picker.querySelector('[data-gj-size-trigger]');
+        var select = picker.querySelector('[data-gj-variation-select], .variation-select');
+        var options = picker.querySelectorAll('[data-gj-size-option]');
+
+        if (trigger) {
+          trigger.addEventListener('click', function () {
+            if (picker.classList.contains('is-open')) closePicker(picker);
+            else openPicker(picker);
+          });
+        }
+
+        options.forEach(function (optBtn) {
+          optBtn.addEventListener('click', function () {
+            var value = optBtn.getAttribute('data-value');
+            if (select) {
+              select.value = value;
+              select.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+            options.forEach(function (o) {
+              var on = o === optBtn;
+              o.classList.toggle('is-selected', on);
+              o.setAttribute('aria-selected', on ? 'true' : 'false');
+            });
+            closePicker(picker);
+          });
+        });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!root.contains(e.target)) return;
+        if (e.target.closest('[data-gj-size-picker]')) return;
+        pickers.forEach(closePicker);
+      });
 
       selects.forEach(function (select) {
         select.addEventListener('change', function () {

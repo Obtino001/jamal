@@ -73,7 +73,7 @@
   data-product-id="{{ product.id }}"
   data-money-format="{{ shop.money_format | escape }}"
 >
-  <div class="georg-containers">
+  <div class="page-width">
     {%- if section.settings.show_breadcrumbs -%}
       <nav aria-label="Breadcrumb">
         <ul class="breadcrumbs">
@@ -235,33 +235,76 @@
 
             <div class="product-variations-container{% if product.has_only_default_variant %} empty-vairation{% endif %}">
               {%- unless product.has_only_default_variant -%}
-                <div class="product-variations">
-                  <ul>
-                    {%- for option in product.options_with_values -%}
-                      <li class="attribute variation-dropdown">
-                        <div class="value">
-                          <label class="visually-hidden" for="Option-{{ section.id }}-{{ forloop.index0 }}">
-                            {{ option.name }}
-                          </label>
-                          <select
-                            id="Option-{{ section.id }}-{{ forloop.index0 }}"
-                            class="variation-select"
-                            name="options[{{ option.name | escape }}]"
-                            form="{{ product_form_id }}"
+                <div class="product-variations" data-gj-variations>
+                  {%- for option in product.options_with_values -%}
+                    {%- liquid
+                      assign option_label = section.settings.choose_option_label | default: 'Choose size'
+                      if product.options.size > 1
+                        assign option_label = 'Choose ' | append: option.name
+                      endif
+                    -%}
+                    <div
+                      class="gj-size-picker"
+                      data-gj-size-picker
+                      data-option-index="{{ forloop.index0 }}"
+                    >
+                      <button
+                        type="button"
+                        class="gj-size-picker__trigger"
+                        data-gj-size-trigger
+                        aria-expanded="false"
+                        aria-controls="GjSizePanel-{{ section.id }}-{{ forloop.index0 }}"
+                        id="GjSizeTrigger-{{ section.id }}-{{ forloop.index0 }}"
+                      >
+                        <span data-gj-size-trigger-label>{{ option_label }}</span>
+                        <span class="gj-size-picker__caret" aria-hidden="true"></span>
+                      </button>
+
+                      <div
+                        class="gj-size-picker__panel"
+                        id="GjSizePanel-{{ section.id }}-{{ forloop.index0 }}"
+                        data-gj-size-panel
+                        hidden
+                        role="listbox"
+                        aria-labelledby="GjSizeTrigger-{{ section.id }}-{{ forloop.index0 }}"
+                      >
+                        {%- for value in option.values -%}
+                          <button
+                            type="button"
+                            class="gj-size-picker__option{% if option.selected_value == value %} is-selected{% endif %}"
+                            role="option"
+                            data-gj-size-option
+                            data-value="{{ value | escape }}"
+                            aria-selected="{% if option.selected_value == value %}true{% else %}false{% endif %}"
                           >
-                            {%- for value in option.values -%}
-                              <option
-                                value="{{ value | escape }}"
-                                {% if option.selected_value == value %}selected{% endif %}
-                              >
-                                {{ value }}
-                              </option>
-                            {%- endfor -%}
-                          </select>
-                        </div>
-                      </li>
-                    {%- endfor -%}
-                  </ul>
+                            {{ value }}
+                          </button>
+                        {%- endfor -%}
+                      </div>
+
+                      <label class="visually-hidden" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+                        {{ option.name }}
+                      </label>
+                      <select
+                        id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                        class="variation-select visually-hidden"
+                        name="options[{{ option.name | escape }}]"
+                        form="{{ product_form_id }}"
+                        data-gj-variation-select
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        {%- for value in option.values -%}
+                          <option
+                            value="{{ value | escape }}"
+                            {% if option.selected_value == value %}selected{% endif %}
+                          >
+                            {{ value }}
+                          </option>
+                        {%- endfor -%}
+                      </select>
+                    </div>
+                  {%- endfor -%}
                 </div>
                 <script type="application/json" data-gj-variants>
                   [
@@ -629,6 +672,12 @@
       "label": "Material fallback",
       "default": "Sterling Silver",
       "info": "Uses metafield custom.material when set"
+    },
+    {
+      "type": "text",
+      "id": "choose_option_label",
+      "label": "Choose option label",
+      "default": "Choose size"
     },
     {
       "type": "text",
