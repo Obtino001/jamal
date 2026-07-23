@@ -16,14 +16,6 @@
   assign inventory_qty = product.selected_or_first_available_variant.inventory_quantity
   assign manage_stock = product.selected_or_first_available_variant.inventory_management
   assign is_new = false
-  if show_new_badge
-    assign now_s = 'now' | date: '%s'
-    assign pub_s = product.created_at | date: '%s'
-    assign age_days = now_s | minus: pub_s | divided_by: 86400
-    if age_days < 60
-      assign is_new = true
-    endif
-  endif
   if product.tags contains 'new' or product.tags contains 'New' or product.tags contains 'NEW'
     assign is_new = true
   endif
