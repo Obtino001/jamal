@@ -235,6 +235,16 @@
 
             <div class="product-variations-container{% if product.has_only_default_variant %} empty-vairation{% endif %}">
               {%- unless product.has_only_default_variant -%}
+                {%- if section.settings.show_delivery_note -%}
+                  <p
+                    class="gj-delivery-note"
+                    data-gj-delivery-note
+                    hidden
+                  >
+                    {{ section.settings.delivery_note_text }}
+                  </p>
+                {%- endif -%}
+
                 <div class="product-variations" data-gj-variations>
                   {%- for option in product.options_with_values -%}
                     {%- liquid
@@ -247,6 +257,7 @@
                       class="gj-size-picker"
                       data-gj-size-picker
                       data-option-index="{{ forloop.index0 }}"
+                      data-placeholder="{{ option_label | escape }}"
                     >
                       <button
                         type="button"
@@ -256,7 +267,7 @@
                         aria-controls="GjSizePanel-{{ section.id }}-{{ forloop.index0 }}"
                         id="GjSizeTrigger-{{ section.id }}-{{ forloop.index0 }}"
                       >
-                        <span data-gj-size-trigger-label>{{ option_label }}</span>
+                        <span class="gj-size-picker__label" data-gj-size-trigger-label>{{ option_label }}</span>
                         <span class="gj-size-picker__caret" aria-hidden="true"></span>
                       </button>
 
@@ -271,11 +282,11 @@
                         {%- for value in option.values -%}
                           <button
                             type="button"
-                            class="gj-size-picker__option{% if option.selected_value == value %} is-selected{% endif %}"
+                            class="gj-size-picker__option"
                             role="option"
                             data-gj-size-option
                             data-value="{{ value | escape }}"
-                            aria-selected="{% if option.selected_value == value %}true{% else %}false{% endif %}"
+                            aria-selected="false"
                           >
                             {{ value }}
                           </button>
@@ -294,13 +305,9 @@
                         tabindex="-1"
                         aria-hidden="true"
                       >
+                        <option value="" selected disabled>{{ option_label }}</option>
                         {%- for value in option.values -%}
-                          <option
-                            value="{{ value | escape }}"
-                            {% if option.selected_value == value %}selected{% endif %}
-                          >
-                            {{ value }}
-                          </option>
+                          <option value="{{ value | escape }}">{{ value }}</option>
                         {%- endfor -%}
                       </select>
                     </div>
@@ -678,6 +685,18 @@
       "id": "choose_option_label",
       "label": "Choose option label",
       "default": "Choose size"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_delivery_note",
+      "label": "Show delivery note after size selected",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "delivery_note_text",
+      "label": "Delivery note text",
+      "default": "The product has extended delivery time of 2-4 weeks."
     },
     {
       "type": "text",

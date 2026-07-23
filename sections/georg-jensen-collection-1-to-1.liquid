@@ -18,7 +18,7 @@
 <div class="gj-collection section-{{ section.id }}" data-gj-collection>
   {%- if section.settings.show_hero -%}
     <div class="gj-collection__hero">
-      <div class="gj-collection__hero-inner">
+      <div class="page-width gj-collection__hero-inner">
         <div class="gj-collection__hero-content">
           <h1 class="gj-collection__hero-title">{{ hero_title }}</h1>
           {%- if hero_desc != blank -%}
@@ -51,7 +51,7 @@
   >
     {%- paginate collection.products by section.settings.products_per_page -%}
       <div class="gj-collection__filters">
-        <div class="gj-collection__container">
+        <div class="page-width">
           {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
             <aside
               aria-labelledby="verticalTitle"
@@ -72,7 +72,7 @@
       </div>
 
       <div
-        class="gj-collection__grid-wrap gj-collection__container"
+        class="gj-collection__grid-wrap page-width"
         id="ProductGridContainer"
       >
         {%- if collection.products.size == 0 -%}

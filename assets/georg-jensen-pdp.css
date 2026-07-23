@@ -230,16 +230,32 @@
 .georg-pdp-section .product-variations-container {
   margin: 0 0 20px;
   border-top: 1px solid #e5e5e5;
-  border-bottom: 1px solid #e5e5e5;
 }
 
 .georg-pdp-section .product-variations-container.empty-vairation {
   display: none;
 }
 
+.georg-pdp-section .gj-delivery-note {
+  margin: 0;
+  padding: 16px 0;
+  border-bottom: 1px solid #e5e5e5;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 15px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.45;
+  color: #1a1a1a;
+}
+
+.georg-pdp-section .gj-delivery-note[hidden] {
+  display: none !important;
+}
+
 .georg-pdp-section .product-variations {
   margin: 0;
   padding: 0;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .georg-pdp-section .product-variations ul,
@@ -254,15 +270,16 @@
   position: relative;
 }
 
-.georg-pdp-section .gj-size-picker+.gj-size-picker {
+.georg-pdp-section .gj-size-picker + .gj-size-picker {
   border-top: 1px solid #e5e5e5;
 }
 
 .georg-pdp-section .gj-size-picker__trigger {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  gap: 8px;
+  width: auto;
+  max-width: 100%;
   margin: 0;
   padding: 16px 0;
   border: 0;
@@ -277,11 +294,22 @@
   text-align: left;
 }
 
+.georg-pdp-section .gj-size-picker.is-selected .gj-size-picker__trigger {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.georg-pdp-section .gj-size-picker__label {
+  display: inline-block;
+}
+
 .georg-pdp-section .gj-size-picker__caret {
   display: inline-block;
   width: 0;
   height: 0;
-  margin-left: 10px;
+  margin-left: 2px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 6px solid #1a1a1a;

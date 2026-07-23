@@ -155,10 +155,17 @@
         });
       }
 
+      function allOptionsChosen() {
+        return selectedOptions().every(function (v) {
+          return v != null && String(v).length > 0;
+        });
+      }
+
       function findVariant(opts) {
+        if (!opts.length || opts.some(function (o) { return !o; })) return null;
         return variants.find(function (v) {
           return opts.every(function (opt, i) {
-            return !opt || v.options[i] === opt;
+            return v.options[i] === opt;
           });
         });
       }
@@ -173,14 +180,39 @@
         return fmt.replace(/\{\{\s*amount\s*\}\}/, amount).replace(/\{\{\s*amount_with_comma_separator\s*\}\}/, amount);
       }
 
+      function syncDeliveryNote() {
+        var note = root.querySelector('[data-gj-delivery-note]');
+        if (!note) return;
+        if (allOptionsChosen()) note.removeAttribute('hidden');
+        else note.setAttribute('hidden', '');
+      }
+
+      function setPickerSelected(picker, value) {
+        var label = picker.querySelector('[data-gj-size-trigger-label]');
+        var placeholder = picker.getAttribute('data-placeholder') || 'Choose size';
+        if (value) {
+          picker.classList.add('is-selected');
+          if (label) label.textContent = value;
+        } else {
+          picker.classList.remove('is-selected');
+          if (label) label.textContent = placeholder;
+        }
+      }
+
       function applyVariant(variant) {
         if (!variant) {
           atcBtns.forEach(function (btn) {
             btn.disabled = true;
             btn.setAttribute('aria-disabled', 'true');
             var label = btn.querySelector('[data-gj-atc-label]');
-            if (label) label.textContent = btn.getAttribute('data-unavailable-label') || 'Unavailable';
+            if (label) {
+              label.textContent = allOptionsChosen()
+                ? btn.getAttribute('data-unavailable-label') || 'Unavailable'
+                : btn.getAttribute('data-available-label') || 'Add to basket';
+            }
           });
+          if (variantInput) variantInput.disabled = true;
+          syncDeliveryNote();
           return;
         }
         variantInput.value = variant.id;
@@ -206,6 +238,7 @@
         });
         var mobilePrice = root.querySelector('[data-gj-mobile-price]');
         if (mobilePrice) mobilePrice.textContent = variant.price_formatted || formatMoney(variant.price);
+        syncDeliveryNote();
       }
 
       function closePicker(picker) {
@@ -226,6 +259,13 @@
         if (trigger) trigger.setAttribute('aria-expanded', 'true');
         if (panel) panel.hidden = false;
       }
+
+      // Start with no size chosen (GJ: CHOOSE SIZE first)
+      atcBtns.forEach(function (btn) {
+        btn.disabled = true;
+        btn.setAttribute('aria-disabled', 'true');
+      });
+      if (variantInput) variantInput.disabled = true;
 
       pickers.forEach(function (picker) {
         var trigger = picker.querySelector('[data-gj-size-trigger]');
@@ -251,6 +291,7 @@
               o.classList.toggle('is-selected', on);
               o.setAttribute('aria-selected', on ? 'true' : 'false');
             });
+            setPickerSelected(picker, value);
             closePicker(picker);
           });
         });
