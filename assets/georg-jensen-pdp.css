@@ -133,11 +133,51 @@ body:has(.georg-pdp-section) {
 }
 
 .georg-pdp-section .pdp-sticky-left,
-.georg-pdp-section .product-image-container,
-.georg-pdp-section .product-primary-image {
-  /* Images stay in normal document flow (scroll with page) like Dawn media column */
+.georg-pdp-section .product-image-container {
   position: relative;
   width: 100%;
+}
+
+.georg-pdp-section .product-primary-image {
+  position: relative;
+  width: 100%;
+}
+
+.georg-pdp-section .gj-gallery-arrows {
+  display: none;
+}
+
+.georg-pdp-section .gj-gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  color: #2a2a2a;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.georg-pdp-section .gj-gallery-arrow--prev {
+  left: 4px;
+}
+
+.georg-pdp-section .gj-gallery-arrow--next {
+  right: 4px;
+}
+
+.georg-pdp-section .gj-gallery-arrow:hover {
+  opacity: 0.65;
+}
+
+.georg-pdp-section .gj-gallery-arrow svg {
+  display: block;
 }
 
 /* Desktop image grid — flush tiles like GJ (no gap) */
@@ -525,7 +565,7 @@ body:has(.georg-pdp-section) {
   width: 100%;
   min-height: 0;
   padding: 20px 14px;
-  border: 1px solid #7bd1ff;
+  border: 1px solid #7bd1ff !important;
   border-radius: 0;
   background: linear-gradient(0deg, #a1deff, #b1e5ff);
   color: #263040;
@@ -872,6 +912,15 @@ body:has(.georg-pdp-section) {
     display: block;
   }
 
+  .georg-pdp-section .product-primary-image.has-gallery-arrows .gj-gallery-arrows {
+    display: block;
+  }
+
+  .georg-pdp-section .product-primary-image.hide-mobile-thumbs .product-thumbnails,
+  .georg-pdp-section .product-primary-image.hide-mobile-thumbs .owl-thumbs {
+    display: none !important;
+  }
+
   .georg-pdp-section .product-thumbnails.not-show-desktop {
     display: block;
     padding: 0 clamp(16px, 4vw, 24px);
@@ -934,6 +983,7 @@ body:has(.georg-pdp-section) {
 }
 
 @media screen and (min-width: 990px) {
+
   /* Keep gallery flush to left edge — no container side padding on desktop */
   .georg-pdp-section .georg-containers,
   .georg-pdp-section .georg-container {

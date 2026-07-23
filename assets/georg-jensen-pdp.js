@@ -55,23 +55,79 @@
       });
     }
 
-    // Mobile image thumbs
-    var slides = Array.prototype.slice.call(root.querySelectorAll('.product-image-carousel .product-image.main-image'));
+    // Mobile image gallery — thumbs + optional arrows
+    var slides = Array.prototype.slice.call(
+      root.querySelectorAll('.product-image-carousel .product-image.main-image, [data-gj-gallery-slide]')
+    );
     var thumbs = Array.prototype.slice.call(root.querySelectorAll('.owl-thumbs .thumb'));
+    var galleryIndex = 0;
+
+    function setGalleryIndex(index) {
+      if (!slides.length) return;
+      galleryIndex = ((index % slides.length) + slides.length) % slides.length;
+      slides.forEach(function (s, i) {
+        s.classList.toggle('is-active', i === galleryIndex);
+      });
+      thumbs.forEach(function (t, i) {
+        t.classList.toggle('selected', i === galleryIndex);
+      });
+    }
+
     if (slides.length) {
-      slides[0].classList.add('is-active');
+      setGalleryIndex(0);
+
       thumbs.forEach(function (thumb, index) {
         thumb.addEventListener('click', function () {
-          slides.forEach(function (s) {
-            s.classList.remove('is-active');
-          });
-          thumbs.forEach(function (t) {
-            t.classList.remove('selected');
-          });
-          if (slides[index]) slides[index].classList.add('is-active');
-          thumb.classList.add('selected');
+          setGalleryIndex(index);
         });
       });
+
+      var prevBtn = root.querySelector('[data-gj-gallery-prev]');
+      var nextBtn = root.querySelector('[data-gj-gallery-next]');
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          setGalleryIndex(galleryIndex - 1);
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          setGalleryIndex(galleryIndex + 1);
+        });
+      }
+
+      // Simple swipe on mobile gallery
+      var track = root.querySelector('[data-gj-gallery-track]');
+      if (track && slides.length > 1) {
+        var touchStartX = 0;
+        var touchDeltaX = 0;
+        track.addEventListener(
+          'touchstart',
+          function (e) {
+            if (!e.touches || !e.touches[0]) return;
+            touchStartX = e.touches[0].clientX;
+            touchDeltaX = 0;
+          },
+          { passive: true }
+        );
+        track.addEventListener(
+          'touchmove',
+          function (e) {
+            if (!e.touches || !e.touches[0]) return;
+            touchDeltaX = e.touches[0].clientX - touchStartX;
+          },
+          { passive: true }
+        );
+        track.addEventListener('touchend', function () {
+          if (Math.abs(touchDeltaX) < 40) return;
+          if (touchDeltaX < 0) setGalleryIndex(galleryIndex + 1);
+          else setGalleryIndex(galleryIndex - 1);
+          touchDeltaX = 0;
+        });
+      }
     }
 
     // Wishlist — shared window.Wishlist (handles)
