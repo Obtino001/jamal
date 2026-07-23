@@ -393,6 +393,8 @@
                     class="add-remove-wishlist add"
                     tabindex="0"
                     role="button"
+                    data-gj-wishlist-add
+                    data-product-handle="{{ product.handle }}"
                   >
                     {{ wishlist_label }}
                   </div>
@@ -401,6 +403,8 @@
                     class="add-remove-wishlist remove"
                     tabindex="0"
                     role="button"
+                    data-gj-wishlist-remove
+                    data-product-handle="{{ product.handle }}"
                     style="display:none"
                   >
                     {{ wishlist_remove_label }}

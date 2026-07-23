@@ -47,23 +47,10 @@
     return loadingPromise;
   }
 
-  function getWishlist() {
-    try {
-      return JSON.parse(localStorage.getItem('gj-wishlist') || '[]');
-    } catch (e) {
-      return [];
-    }
-  }
-
-  function setWishlist(ids) {
-    localStorage.setItem('gj-wishlist', JSON.stringify(ids));
-  }
-
   function syncWishlistButtons(root) {
-    var ids = getWishlist();
     root.querySelectorAll('[data-gj-wishlist-toggle]').forEach(function (btn) {
-      var id = String(btn.getAttribute('data-product-id') || '');
-      var active = ids.indexOf(id) !== -1;
+      var handle = btn.getAttribute('data-product-handle') || '';
+      var active = window.Wishlist ? Wishlist.has(handle) : false;
       btn.classList.toggle('is-active', active);
       btn.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
@@ -74,17 +61,16 @@
       var btn = e.target.closest('[data-gj-wishlist-toggle]');
       if (!btn || !root.contains(btn)) return;
       e.preventDefault();
-      var id = String(btn.getAttribute('data-product-id') || '');
-      if (!id) return;
-      var ids = getWishlist();
-      var idx = ids.indexOf(id);
-      if (idx === -1) ids.push(id);
-      else ids.splice(idx, 1);
-      setWishlist(ids);
+      e.stopPropagation();
+      var handle = btn.getAttribute('data-product-handle') || '';
+      if (!handle || !window.Wishlist) return;
+      Wishlist.toggle(handle);
       syncWishlistButtons(root);
-      document.dispatchEvent(new CustomEvent('gj:wishlist-updated'));
     });
     syncWishlistButtons(root);
+    document.addEventListener('wishlist:updated', function () {
+      syncWishlistButtons(root);
+    });
   }
 
   function updateArrowState(root, swiper) {

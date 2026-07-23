@@ -91,7 +91,7 @@
         "show_search_links": true,
         "show_wishlist": true,
         "wishlist_label": "Wishlist",
-        "wishlist_link": "",
+        "wishlist_link": "/pages/wishlist",
         "badge_color": "#b6e3ff",
         "menu": "main-menu",
         "menu_open_label": "Menu",

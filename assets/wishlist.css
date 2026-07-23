@@ -18,14 +18,15 @@ wishlist-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgb(var(--background) / 0.85);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(4px);
   border-radius: 50%;
   border: none;
   cursor: pointer;
   transition: background 0.15s, transform 0.15s;
-  color: rgb(var(--text-color));
+  color: #1a1a1a;
   padding: 0;
+  position: relative;
 }
 /* 
 .wishlist-button:hover {
@@ -70,19 +71,61 @@ wishlist-button {
 
 wishlist-count {
   position: absolute;
-  inset-block-start: -0.4rem;
-  inset-inline-end: -0.5rem;
-  min-width: 1rem;
-  height: 1rem;
-  background: rgb(var(--text-color));
+  top: -6px;
+  right: -8px;
+  min-width: 15px;
+  height: 15px;
+  background: var(--gj-h-badge, #b6e3ff);
   color: #fff;
-  font-size: 0.55rem;
-  font-weight: 700;
-  line-height: 1rem;
+  font-family: var(--georg-font-futura, Futura, sans-serif);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 15px;
   text-align: center;
-  border-radius: 999px;
-  padding-inline: 0.2rem;
+  border-radius: 50%;
+  padding: 0 3px;
   display: block;
+  box-sizing: border-box;
+}
+
+wishlist-count[hidden],
+wishlist-count[data-empty] {
+  display: none !important;
+}
+
+.gj-wishlist-page {
+  padding: 48px 20px 80px;
+}
+
+.gj-wishlist-page__heading {
+  margin: 0 0 8px;
+  font-family: var(--georg-font-futura, Futura, sans-serif);
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 400;
+}
+
+.wishlist-page__empty-text {
+  font-size: 1.125rem;
+  color: #666;
+}
+
+.wishlist-card__add-btn {
+  margin-block-start: 0.375rem;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 12px 14px;
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  background: #aee1fc;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+.wishlist-card__add-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 /* ── Wishlist page grid ──────────────────────────────────── */

@@ -55,17 +55,24 @@
 
     function syncWishlist() {
       if (!wishlistBadge) return;
-      try {
-        var ids = JSON.parse(localStorage.getItem('gj-wishlist') || '[]');
-        wishlistBadge.textContent = String(ids.length);
-      } catch (err) {
-        wishlistBadge.textContent = '0';
+      var count = 0;
+      if (window.Wishlist && typeof window.Wishlist.count === 'function') {
+        count = window.Wishlist.count();
+      } else {
+        try {
+          count = JSON.parse(localStorage.getItem('gj-wishlist') || '[]').length;
+        } catch (err) {
+          count = 0;
+        }
       }
+      wishlistBadge.textContent = String(count);
+      wishlistBadge.hidden = count === 0;
     }
 
     syncWishlist();
     window.addEventListener('storage', syncWishlist);
     document.addEventListener('gj:wishlist-updated', syncWishlist);
+    document.addEventListener('wishlist:updated', syncWishlist);
   }
 
   function boot() {

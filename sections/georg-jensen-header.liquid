@@ -155,14 +155,14 @@
 
         {%- if section.settings.show_wishlist -%}
           <a
-            href="{{ section.settings.wishlist_link | default: '#' }}"
-            class="gj-header__icon-btn"
+            href="{{ section.settings.wishlist_link | default: '/pages/wishlist' }}"
+            class="gj-header__icon-btn gj-header__wishlist-link"
             aria-label="{{ section.settings.wishlist_label | escape }}"
           >
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 20.4l-1.3-1.2C5.9 14.6 3 12 3 8.8 3 6.2 5.1 4 7.8 4c1.5 0 3 .7 3.9 1.9C12.6 4.7 14.1 4 15.6 4 18.3 4 20.4 6.2 20.4 8.8c0 3.2-2.9 5.8-7.7 10.4L12 20.4z"/>
             </svg>
-            <span class="gj-header__badge" data-gj-wishlist-count>0</span>
+            <wishlist-count class="gj-header__badge" data-gj-wishlist-count></wishlist-count>
           </a>
         {%- endif -%}
 
@@ -387,7 +387,8 @@
     {
       "type": "url",
       "id": "wishlist_link",
-      "label": "Wishlist URL"
+      "label": "Wishlist URL",
+      "info": "Create Online Store → Pages → Add page, set template to wishlist (URL e.g. /pages/wishlist)"
     },
     {
       "type": "color",

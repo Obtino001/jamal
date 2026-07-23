@@ -1,15 +1,12 @@
 /**
- * Georg Jensen collection — wishlist toggles on cards
+ * Georg Jensen collection — wishlist toggles on cards (handles)
  */
 (function () {
   function sync(root) {
-    var ids = [];
-    try {
-      ids = JSON.parse(localStorage.getItem('gj-wishlist') || '[]');
-    } catch (e) {}
+    if (!window.Wishlist) return;
     root.querySelectorAll('[data-gj-wishlist-toggle]').forEach(function (btn) {
-      var id = String(btn.getAttribute('data-product-id') || '');
-      btn.classList.toggle('is-active', ids.indexOf(id) !== -1);
+      var handle = btn.getAttribute('data-product-handle') || '';
+      btn.classList.toggle('is-active', Wishlist.has(handle));
     });
   }
 
@@ -21,27 +18,23 @@
       var btn = e.target.closest('[data-gj-wishlist-toggle]');
       if (!btn || !root.contains(btn)) return;
       e.preventDefault();
-      var id = String(btn.getAttribute('data-product-id') || '');
-      if (!id) return;
-      var ids = [];
-      try {
-        ids = JSON.parse(localStorage.getItem('gj-wishlist') || '[]');
-      } catch (err) {}
-      var idx = ids.indexOf(id);
-      if (idx === -1) ids.push(id);
-      else ids.splice(idx, 1);
-      localStorage.setItem('gj-wishlist', JSON.stringify(ids));
+      e.stopPropagation();
+      var handle = btn.getAttribute('data-product-handle') || '';
+      if (!handle || !window.Wishlist) return;
+      Wishlist.toggle(handle);
       sync(root);
-      document.dispatchEvent(new CustomEvent('gj:wishlist-updated'));
     });
 
     sync(root);
+    document.addEventListener('wishlist:updated', function () {
+      sync(root);
+    });
 
     var grid = root.querySelector('#ProductGridContainer');
     if (grid && window.MutationObserver) {
       new MutationObserver(function () {
         sync(root);
-      }).observe(grid, { childList: true, subtree: false });
+      }).observe(grid, { childList: true, subtree: true });
     }
   }
 
