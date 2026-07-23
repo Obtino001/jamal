@@ -13,22 +13,57 @@
   "sections": {
     "georg_jensen_header": {
       "type": "georg-jensen-header",
+      "blocks": {
+        "search_link_1": {
+          "type": "search_link",
+          "settings": {
+            "title": "Find Stores"
+          }
+        },
+        "search_link_2": {
+          "type": "search_link",
+          "settings": {
+            "title": "Exchange and returns"
+          }
+        },
+        "search_link_3": {
+          "type": "search_link",
+          "settings": {
+            "title": "Customer service"
+          }
+        }
+      },
+      "block_order": [
+        "search_link_1",
+        "search_link_2",
+        "search_link_3"
+      ],
       "settings": {
         "show_announcement": true,
-        "announcement_left_text": "Medlemmer får altid gratis fragt",
+        "announcement_left_text": "Service",
         "announcement_left_link": "",
-        "announcement_right_text": "Tilmeld dig vores nyhedsbrev og få 10%",
+        "announcement_right_text": "Welcome, signup and get 10%",
         "announcement_right_link": "",
         "announcement_bg": "#1b2430",
         "announcement_text_color": "#ffffff",
-        "store_locator_label": "Find butik",
+        "use_text_logo": true,
+        "logo_text": "Georg Jensen",
+        "logo_width": 200,
+        "show_store_icon": true,
+        "store_locator_label": "Find Stores",
         "store_locator_link": "",
-        "support_label": "Kundeservice",
+        "show_phone_icon": true,
+        "support_label": "Customer service",
         "support_link": "",
-        "logo": "shopify://shop_images/nike-logo-png_seeklogo-99478.png",
-        "logo_width": 350,
+        "search_placeholder": "Search",
+        "show_search_links": true,
+        "show_wishlist": true,
+        "wishlist_label": "Wishlist",
+        "wishlist_link": "",
+        "badge_color": "#b6e3ff",
         "menu": "main-menu",
-        "search_placeholder": "Søg"
+        "menu_open_label": "Menu",
+        "enable_sticky": true
       }
     }
   },

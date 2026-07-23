@@ -110,6 +110,7 @@
       if (!add && idx !== -1) ids.splice(idx, 1);
       setWishlist(ids);
       syncWishlistUI();
+      document.dispatchEvent(new CustomEvent('gj:wishlist-updated'));
     }
 
     if (wishAdd) {

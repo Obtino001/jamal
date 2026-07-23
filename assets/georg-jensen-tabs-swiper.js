@@ -1,6 +1,6 @@
 /**
  * Reusable Georg Jensen Tabs + Swiper controller
- * Works with any [data-gj-tabs-swiper] root on the page.
+ * Root: [data-gj-tabs-swiper]
  */
 (function () {
   var SWIPER_CSS = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
@@ -9,6 +9,14 @@
 
   function loadAsset(tag, attrs) {
     return new Promise(function (resolve, reject) {
+      if (tag === 'link' && document.querySelector('link[data-gj-swiper-css]')) {
+        resolve();
+        return;
+      }
+      if (tag === 'script' && window.Swiper) {
+        resolve();
+        return;
+      }
       var el = document.createElement(tag);
       Object.keys(attrs).forEach(function (key) {
         el.setAttribute(key, attrs[key]);
@@ -23,13 +31,11 @@
     if (window.Swiper) return Promise.resolve(window.Swiper);
     if (loadingPromise) return loadingPromise;
 
-    if (!document.querySelector('link[data-gj-swiper-css]')) {
-      loadAsset('link', {
-        rel: 'stylesheet',
-        href: SWIPER_CSS,
-        'data-gj-swiper-css': 'true',
-      });
-    }
+    loadAsset('link', {
+      rel: 'stylesheet',
+      href: SWIPER_CSS,
+      'data-gj-swiper-css': 'true',
+    });
 
     loadingPromise = loadAsset('script', {
       src: SWIPER_JS,
@@ -76,34 +82,57 @@
       else ids.splice(idx, 1);
       setWishlist(ids);
       syncWishlistButtons(root);
+      document.dispatchEvent(new CustomEvent('gj:wishlist-updated'));
     });
     syncWishlistButtons(root);
   }
 
-  function buildSwiper(Swiper, root, panelId) {
+  function updateArrowState(root, swiper) {
+    var nextEl = root.querySelector('[data-gj-swiper-next]');
+    var prevEl = root.querySelector('[data-gj-swiper-prev]');
+    if (!swiper || !nextEl || !prevEl) return;
+    prevEl.classList.toggle('swiper-button-disabled', swiper.isBeginning);
+    nextEl.classList.toggle('swiper-button-disabled', swiper.isEnd);
+    prevEl.disabled = swiper.isBeginning;
+    nextEl.disabled = swiper.isEnd;
+  }
+
+  function createSwiper(Swiper, root, panelId) {
     var el = root.querySelector('[data-gj-swiper="' + panelId + '"]');
-    if (!el || el.swiper) return el && el.swiper;
+    if (!el) return null;
+    if (el.swiper) {
+      el.swiper.update();
+      updateArrowState(root, el.swiper);
+      return el.swiper;
+    }
 
     var columns = parseInt(root.getAttribute('data-columns') || '4', 10);
     var space = parseInt(root.getAttribute('data-space') || '24', 10);
-    var nextEl = root.querySelector('[data-gj-swiper-next]');
-    var prevEl = root.querySelector('[data-gj-swiper-prev]');
 
-    return new Swiper(el, {
+    var swiper = new Swiper(el, {
       slidesPerView: 1.15,
       spaceBetween: 16,
       grabCursor: true,
       watchOverflow: true,
-      navigation: {
-        nextEl: nextEl,
-        prevEl: prevEl,
-      },
       breakpoints: {
         550: { slidesPerView: 2, spaceBetween: 18 },
         750: { slidesPerView: 3, spaceBetween: space },
         1100: { slidesPerView: columns, spaceBetween: space },
       },
+      on: {
+        init: function () {
+          updateArrowState(root, this);
+        },
+        slideChange: function () {
+          updateArrowState(root, this);
+        },
+        resize: function () {
+          updateArrowState(root, this);
+        },
+      },
     });
+
+    return swiper;
   }
 
   function activateTab(root, tabId, Swiper) {
@@ -124,18 +153,38 @@
       else panel.setAttribute('hidden', '');
     });
 
-    var swiper = buildSwiper(Swiper, root, tabId);
+    root.dataset.activeTab = tabId;
+    var swiper = createSwiper(Swiper, root, tabId);
     if (swiper) {
-      swiper.update();
-      swiper.slideTo(0, 0);
-      // Rebind nav to shared arrows for active instance
-      if (swiper.params.navigation) {
-        swiper.navigation.destroy();
-        swiper.params.navigation.nextEl = root.querySelector('[data-gj-swiper-next]');
-        swiper.params.navigation.prevEl = root.querySelector('[data-gj-swiper-prev]');
-        swiper.navigation.init();
-        swiper.navigation.update();
-      }
+      requestAnimationFrame(function () {
+        swiper.update();
+        swiper.slideTo(0, 0);
+        updateArrowState(root, swiper);
+      });
+    }
+  }
+
+  function bindArrows(root) {
+    var nextEl = root.querySelector('[data-gj-swiper-next]');
+    var prevEl = root.querySelector('[data-gj-swiper-prev]');
+
+    function activeSwiper() {
+      var tabId = root.dataset.activeTab;
+      var el = root.querySelector('[data-gj-swiper="' + tabId + '"]');
+      return el && el.swiper;
+    }
+
+    if (nextEl) {
+      nextEl.addEventListener('click', function () {
+        var swiper = activeSwiper();
+        if (swiper) swiper.slideNext();
+      });
+    }
+    if (prevEl) {
+      prevEl.addEventListener('click', function () {
+        var swiper = activeSwiper();
+        if (swiper) swiper.slidePrev();
+      });
     }
   }
 
@@ -144,6 +193,9 @@
     root.dataset.gjTabsInit = 'true';
 
     ensureSwiper().then(function (Swiper) {
+      bindArrows(root);
+      bindWishlist(root);
+
       var firstTab = root.querySelector('[data-gj-tab].is-active') || root.querySelector('[data-gj-tab]');
       if (!firstTab) return;
 
@@ -169,8 +221,6 @@
           }
         });
       });
-
-      bindWishlist(root);
     });
   }
 
@@ -186,14 +236,15 @@
 
   document.addEventListener('shopify:section:load', function (e) {
     if (!e.target) return;
-    var root = e.target.querySelector('[data-gj-tabs-swiper]') || (e.target.matches('[data-gj-tabs-swiper]') ? e.target : null);
+    var root =
+      e.target.querySelector('[data-gj-tabs-swiper]') ||
+      (e.target.matches('[data-gj-tabs-swiper]') ? e.target : null);
     if (root) {
       root.dataset.gjTabsInit = '';
       initRoot(root);
     }
   });
 
-  // Expose for reuse from other sections
   window.GeorgJensenTabsSwiper = {
     init: initRoot,
     ensureSwiper: ensureSwiper,
