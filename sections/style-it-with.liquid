@@ -1,120 +1,243 @@
-{% comment %}
-  Style it with — Georg Jensen 1:1
-{% endcomment %}
+{{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
-  .section-{{ section.id }} {
-    --siw-bg: {{ section.settings.background_color }};
-    --siw-text: #1a1a1a;
-    --siw-muted: #444;
-    --siw-link: {{ section.settings.link_color }};
-    --siw-media: #f3f2f0;
+  .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-    background: var(--siw-bg);
-    color: var(--siw-text);
   }
 
   @media screen and (min-width: 750px) {
-    .section-{{ section.id }} {
+    .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .style-it-with__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .style-it-with__title {
+    margin: 0;
+  }
+
+  .style-it-with__link {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(var(--color-link));
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: opacity 0.2s ease;
+  }
+  
+  .style-it-with__link:hover {
+    opacity: 0.7;
+  }
+
+  .style-it-with__link svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .style-it-with__grid {
+    align-items: stretch;
+  }
+
+  .style-it-with__products-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  .style-it-with__product-card {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    text-decoration: none;
+    color: rgb(var(--color-foreground));
+    group: transition;
+  }
+
+  .style-it-with__product-image-wrap {
+    width: 45%;
+    max-width: 240px;
+    position: relative;
+    background-color: #f6f5f3; /* Matches the soft background in your reference */
+    border-radius: var(--media-radius);
+    overflow: hidden;
+  }
+
+  .style-it-with__product-image-wrap::before {
+    content: "";
+    display: block;
+    padding-bottom: 125%; /* Portrait aspect ratio for product images */
+  }
+
+  .style-it-with__product-image-wrap img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration-default) ease;
+  }
+
+  .style-it-with__product-card:hover .style-it-with__product-image-wrap img {
+    transform: scale(1.05);
+  }
+
+  .style-it-with__product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 55%;
+  }
+
+  .style-it-with__product-title {
+    font-family: 'freight-display-pro-semibold';
+    font-size: 2.6rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.3;
+    color: #000;
+  }
+
+  .style-it-with__product-price {
+    font-family: var(--georg-font-sans-bold, 'SourceSansPro-Bold', 'Source Sans Pro', sans-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: 0;
+  }
+
+  .style-it-with__main-image-wrap {
+    height: 100%;
+    min-height: 400px;
+    position: relative;
+    border-radius: var(--media-radius);
+    overflow: hidden;
+  }
+
+  .style-it-with__main-image-wrap img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 749px) {
+    .style-it-with__header {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+    .style-it-with__product-image-wrap {
+      width: 50%;
+    }
+    .style-it-with__main-image-wrap {
+      min-height: 350px;
+      margin-top: 3rem;
+    }
+  }
 {%- endstyle -%}
 
-{{ 'georg-jensen-style-it-with.css' | asset_url | stylesheet_tag }}
-
-<section class="gj-siw section-{{ section.id }}" data-gj-siw>
-  <div class="page-width gj-siw__inner">
-    <div class="gj-siw__header">
+<div class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    
+    <div class="style-it-with__header">
       {%- if section.settings.heading != blank -%}
-        <h2 class="gj-siw__title">{{ section.settings.heading | escape }}</h2>
+        <h2 class="style-it-with__title {{ section.settings.heading_size }}">
+          {{ section.settings.heading | escape }}
+        </h2>
       {%- endif -%}
 
-      {%- if section.settings.link_text != blank -%}
-        <a
-          href="{{ section.settings.link_url | default: '#' }}"
-          class="gj-siw__link"
-        >
-          <span>{{ section.settings.link_text | escape }}</span>
-          <span class="gj-siw__link-arrow" aria-hidden="true">&gt;</span>
+      {%- if section.settings.link_text != blank and section.settings.link_url != blank -%}
+        <a href="{{ section.settings.link_url }}" class="style-it-with__link">
+          {{ section.settings.link_text | escape }}
+          <svg viewBox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" class="icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor"></path>
+          </svg>
         </a>
       {%- endif -%}
     </div>
 
-    <div class="gj-siw__layout{% if section.settings.layout == 'image_first' %} gj-siw__layout--image-first{% endif %}">
-      <div class="gj-siw__products">
+    <div class="grid grid--1-col grid--2-col-desktop style-it-with__grid {% if section.settings.layout == 'image_first' %} grid--reverse {% endif %}">
+      
+      <!-- Products Column -->
+      <div class="grid__item style-it-with__products-col">
         {%- for block in section.blocks -%}
           {%- assign product = block.settings.product -%}
           {%- if product != blank -%}
-            <a
-              href="{{ product.url }}"
-              class="gj-siw__product"
-              {{ block.shopify_attributes }}
-            >
-              <div class="gj-siw__product-media">
-                {%- if product.featured_media != blank -%}
-                  {{
-                    product.featured_media
-                    | image_url: width: 700
-                    | image_tag:
-                      loading: 'lazy',
-                      class: 'gj-siw__product-img',
-                      widths: '280, 400, 560, 700',
-                      sizes: '(min-width: 990px) 18vw, 42vw',
-                      alt: product.title
+            <a href="{{ product.url }}" class="style-it-with__product-card" {{ block.shopify_attributes }}>
+              <div class="style-it-with__product-image-wrap global-media-settings">
+                {%- if product.featured_image != blank -%}
+                  {{ product.featured_image | image_url: width: 600 | image_tag: 
+                    loading: 'lazy', 
+                    sizes: '(min-width: 750px) 240px, 50vw',
+                    widths: '165, 360, 535, 750'
                   }}
                 {%- else -%}
-                  {{ 'product-1' | placeholder_svg_tag: 'gj-siw__placeholder' }}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                 {%- endif -%}
               </div>
-              <div class="gj-siw__product-info">
-                <h3 class="gj-siw__product-title">{{ product.title | escape }}</h3>
-                <p class="gj-siw__product-price">{{ product.price | money_without_trailing_zeros }}</p>
+              <div class="style-it-with__product-info">
+                <h3 class="style-it-with__product-title">{{ product.title | escape }}</h3>
+                <span class="style-it-with__product-price">{{ product.price | money_without_trailing_zeros }}</span>
               </div>
             </a>
           {%- else -%}
-            <div class="gj-siw__product" {{ block.shopify_attributes }}>
-              <div class="gj-siw__product-media">
-                {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'gj-siw__placeholder' }}
+            <!-- Placeholder state -->
+            <div class="style-it-with__product-card" {{ block.shopify_attributes }}>
+              <div class="style-it-with__product-image-wrap global-media-settings">
+                {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
               </div>
-              <div class="gj-siw__product-info">
-                <h3 class="gj-siw__product-title">Weft Earrings</h3>
-                <p class="gj-siw__product-price">{{ 39200 | money_without_trailing_zeros }}</p>
+              <div class="style-it-with__product-info">
+                <h3 class="style-it-with__product-title">Example Product</h3>
+                <span class="style-it-with__product-price">{{ 1999 | money_without_trailing_zeros }}</span>
               </div>
             </div>
           {%- endif -%}
         {%- endfor -%}
       </div>
 
-      <div class="gj-siw__feature">
-        <div class="gj-siw__feature-media">
+      <!-- Main Image Column -->
+      <div class="grid__item">
+        <div class="style-it-with__main-image-wrap global-media-settings">
           {%- if section.settings.main_image != blank -%}
-            {{
-              section.settings.main_image
-              | image_url: width: 1600
-              | image_tag:
-                loading: 'lazy',
-                class: 'gj-siw__feature-img',
-                widths: '600, 900, 1200, 1600',
-                sizes: '(min-width: 990px) 48vw, 100vw',
-                alt: section.settings.heading | default: 'Style it with'
+            {{ section.settings.main_image | image_url: width: 1500 | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 750px) 50vw, 100vw',
+              widths: '375, 550, 750, 1100, 1500',
+              style: section.settings.image_focal_point
             }}
           {%- else -%}
-            {{ 'lifestyle-1' | placeholder_svg_tag: 'gj-siw__placeholder gj-siw__placeholder--feature' }}
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
           {%- endif -%}
         </div>
       </div>
+
     </div>
   </div>
-</section>
+</div>
 
 {% schema %}
 {
   "name": "Style It With",
   "tag": "section",
-  "class": "section-style-it-with",
+  "class": "section",
   "settings": [
     {
       "type": "text",
@@ -123,10 +246,30 @@
       "label": "Heading"
     },
     {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading Size"
+    },
+    {
       "type": "text",
       "id": "link_text",
       "default": "Explore the collection",
-      "label": "Link text"
+      "label": "Link Text"
     },
     {
       "type": "url",
@@ -134,51 +277,60 @@
       "label": "Link URL"
     },
     {
-      "type": "color",
-      "id": "link_color",
-      "label": "Link color",
-      "default": "#6b8cae"
+      "type": "header",
+      "content": "Main Image"
     },
     {
       "type": "image_picker",
       "id": "main_image",
-      "label": "Lifestyle image"
+      "label": "Image"
     },
     {
       "type": "select",
       "id": "layout",
-      "label": "Desktop layout",
       "options": [
-        { "value": "text_first", "label": "Products left / Image right" },
-        { "value": "image_first", "label": "Image left / Products right" }
+        {
+          "value": "image_first",
+          "label": "Image First"
+        },
+        {
+          "value": "text_first",
+          "label": "Image Second"
+        }
       ],
-      "default": "text_first"
+      "default": "text_first",
+      "label": "Desktop Layout",
+      "info": "Image is shown second by default on desktop to match the reference."
     },
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background",
-      "default": "#ffffff"
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "background-1"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
     },
     {
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 120,
+      "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Top padding",
-      "default": 56
+      "label": "Top Padding",
+      "default": 36
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 120,
+      "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Bottom padding",
-      "default": 56
+      "label": "Bottom Padding",
+      "default": 36
     }
   ],
   "blocks": [
@@ -190,7 +342,7 @@
         {
           "type": "product",
           "id": "product",
-          "label": "Product"
+          "label": "Selected Product"
         }
       ]
     }
@@ -199,8 +351,12 @@
     {
       "name": "Style It With",
       "blocks": [
-        { "type": "product" },
-        { "type": "product" }
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        }
       ]
     }
   ]
