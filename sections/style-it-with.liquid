@@ -195,7 +195,7 @@
               </div>
               <div class="style-it-with__product-info">
                 <h3 class="style-it-with__product-title">{{ product.title | escape }}</h3>
-                <span class="style-it-with__product-price">{{ product.price | money }}</span>
+                <span class="style-it-with__product-price">{{ product.price | money_without_trailing_zeros }}</span>
               </div>
             </a>
           {%- else -%}
@@ -206,7 +206,7 @@
               </div>
               <div class="style-it-with__product-info">
                 <h3 class="style-it-with__product-title">Example Product</h3>
-                <span class="style-it-with__product-price">{{ 1999 | money }}</span>
+                <span class="style-it-with__product-price">{{ 1999 | money_without_trailing_zeros }}</span>
               </div>
             </div>
           {%- endif -%}

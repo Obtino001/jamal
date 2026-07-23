@@ -1,5 +1,13 @@
 {{ 'georg-jensen-pdp.css' | asset_url | stylesheet_tag }}
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css"
+>
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.js"
+  defer
+></script>
 <script src="{{ 'georg-jensen-pdp.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
@@ -122,10 +130,11 @@
             <div class="product-primary-image{% if section.settings.show_gallery_arrows %} has-gallery-arrows{% endif %}{% if section.settings.hide_mobile_thumbnails %} hide-mobile-thumbs{% endif %}">
               <div class="product-image-carousel owl-carousel owl-theme" data-slider-id="productImageCarousel" data-gj-gallery-track>
                 {%- if product.media.size > 0 -%}
+                  {%- assign gj_slide_index = 0 -%}
                   {%- for media in product.media -%}
                     {%- if media.media_type == 'image' -%}
                       {%- liquid
-                        if forloop.first
+                        if gj_slide_index == 0
                           assign img_loading = 'eager'
                           assign img_fetch = 'high'
                         else
@@ -134,13 +143,15 @@
                         endif
                       -%}
                       <a
-                        class="product-image main-image{% if forloop.first %} is-active{% endif %}"
+                        class="product-image main-image{% if gj_slide_index == 0 %} is-active{% endif %}"
                         data-gallery="gallery-{{ section.id }}"
                         data-gj-gallery-slide
-                        href="{{ media | image_url: width: 1600 }}"
+                        data-fancybox="gj-gallery-{{ section.id }}"
+                        data-caption="{{ product.title | escape }}"
+                        href="{{ media | image_url: width: 2400 }}"
                         title="{{ product.title | escape }}"
                       >
-                        {%- if forloop.first -%}
+                        {%- if gj_slide_index == 0 -%}
                           <link rel="preload" as="image" href="{{ media | image_url: width: 900 }}">
                         {%- endif -%}
                         {{
@@ -155,6 +166,62 @@
                             alt: product.title
                         }}
                       </a>
+                      {%- assign gj_slide_index = gj_slide_index | plus: 1 -%}
+
+                    {%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}
+                      {%- liquid
+                        assign video_href = blank
+                        assign video_type = 'html5video'
+                        if media.media_type == 'video'
+                          assign video_href = media.sources.first.url
+                          assign video_type = 'html5video'
+                        elsif media.host == 'youtube'
+                          assign video_href = 'https://www.youtube.com/watch?v=' | append: media.external_id
+                          assign video_type = 'youtube'
+                        elsif media.host == 'vimeo'
+                          assign video_href = 'https://vimeo.com/' | append: media.external_id
+                          assign video_type = 'vimeo'
+                        else
+                          assign video_href = media | external_video_url
+                          assign video_type = 'iframe'
+                        endif
+                      -%}
+                      <a
+                        class="product-image main-image product-image--video{% if gj_slide_index == 0 %} is-active{% endif %}"
+                        data-gallery="gallery-{{ section.id }}"
+                        data-gj-gallery-slide
+                        data-fancybox="gj-gallery-{{ section.id }}"
+                        data-type="{{ video_type }}"
+                        {% if video_type == 'html5video' %}
+                          data-width="1280"
+                          data-height="720"
+                        {% endif %}
+                        data-caption="{{ product.title | escape }}"
+                        href="{{ video_href }}"
+                        title="{{ product.title | escape }} — video"
+                      >
+                        {%- if media.preview_image -%}
+                          {{
+                            media.preview_image
+                            | image_url: width: 900
+                            | image_tag:
+                              loading: 'lazy',
+                              class: 'cld-responsive primary-image product-image',
+                              widths: '400, 600, 700, 900, 1200',
+                              sizes: '(min-width: 990px) 33vw, 100vw',
+                              alt: product.title
+                          }}
+                        {%- else -%}
+                          <span class="product-image__video-fallback" aria-hidden="true"></span>
+                        {%- endif -%}
+                        <span class="product-image__play" aria-hidden="true">
+                          <svg viewBox="0 0 64 64" width="56" height="56" fill="none">
+                            <circle cx="32" cy="32" r="31" stroke="currentColor" stroke-width="1.5" fill="rgba(255,255,255,0.92)"/>
+                            <path d="M27 22l18 10-18 10V22z" fill="currentColor"/>
+                          </svg>
+                        </span>
+                      </a>
+                      {%- assign gj_slide_index = gj_slide_index | plus: 1 -%}
                     {%- endif -%}
                   {%- endfor -%}
                 {%- else -%}
@@ -190,25 +257,40 @@
               {%- unless section.settings.hide_mobile_thumbnails -%}
                 <div id="thumbnails" class="product-thumbnails not-show-desktop">
                   <div class="owl-thumbs" data-slider-id="productImageCarousel">
+                    {%- assign gj_thumb_index = 0 -%}
                     {%- for media in product.media -%}
-                      {%- if media.media_type == 'image' -%}
+                      {%- if media.media_type == 'image' or media.media_type == 'video' or media.media_type == 'external_video' -%}
                         <button
                           type="button"
-                          class="thumb owl-thumb-item{% if forloop.first %} selected{% endif %}"
+                          class="thumb owl-thumb-item{% if gj_thumb_index == 0 %} selected{% endif %}{% if media.media_type != 'image' %} thumb--video{% endif %}"
                           aria-label="{{ 'products.product.media.gallery_viewer' | t | default: 'Change current image' }}"
                         >
                           <div class="thumbnail-link">
-                            {{
-                              media
-                              | image_url: width: 140
-                              | image_tag:
-                                loading: 'lazy',
-                                class: 'cld-responsive productthumbnail',
-                                alt: '',
-                                widths: '70, 140'
-                            }}
+                            {%- if media.media_type == 'image' -%}
+                              {{
+                                media
+                                | image_url: width: 140
+                                | image_tag:
+                                  loading: 'lazy',
+                                  class: 'cld-responsive productthumbnail',
+                                  alt: '',
+                                  widths: '70, 140'
+                              }}
+                            {%- elsif media.preview_image -%}
+                              {{
+                                media.preview_image
+                                | image_url: width: 140
+                                | image_tag:
+                                  loading: 'lazy',
+                                  class: 'cld-responsive productthumbnail',
+                                  alt: '',
+                                  widths: '70, 140'
+                              }}
+                              <span class="thumb__play" aria-hidden="true"></span>
+                            {%- endif -%}
                           </div>
                         </button>
+                        {%- assign gj_thumb_index = gj_thumb_index | plus: 1 -%}
                       {%- endif -%}
                     {%- endfor -%}
                   </div>
@@ -350,9 +432,9 @@
                         "id": {{ variant.id | json }},
                         "available": {{ variant.available | json }},
                         "price": {{ variant.price | json }},
-                        "price_formatted": {{ variant.price | money | json }},
+                        "price_formatted": {{ variant.price | money_without_trailing_zeros | json }},
                         "compare_at_price": {{ variant.compare_at_price | json }},
-                        "compare_at_price_formatted": {% if variant.compare_at_price %}{{ variant.compare_at_price | money | json }}{% else %}null{% endif %},
+                        "compare_at_price_formatted": {% if variant.compare_at_price %}{{ variant.compare_at_price | money_without_trailing_zeros | json }}{% else %}null{% endif %},
                         "options": {{ variant.options | json }},
                         "sku": {{ variant.sku | json }}
                       }{% unless forloop.last %},{% endunless %}
@@ -373,10 +455,10 @@
 
             <div class="product-price pdpPrice">
               <span class="price-sales effectiveprice" data-gj-price>
-                {{ current_variant.price | money }}
+                {{ current_variant.price | money_without_trailing_zeros }}
               </span>
               {%- if current_variant.compare_at_price > current_variant.price -%}
-                <span class="price-compare" data-gj-compare>{{ current_variant.compare_at_price | money }}</span>
+                <span class="price-compare" data-gj-compare>{{ current_variant.compare_at_price | money_without_trailing_zeros }}</span>
               {%- else -%}
                 <span class="price-compare" data-gj-compare hidden></span>
               {%- endif -%}
@@ -619,7 +701,7 @@
 
   {%- if section.settings.show_mobile_sticky_bar -%}
     <div class="gj-mobile-atc-bar" aria-hidden="true">
-      <span class="price-sales" data-gj-mobile-price>{{ current_variant.price | money }}</span>
+      <span class="price-sales" data-gj-mobile-price>{{ current_variant.price | money_without_trailing_zeros }}</span>
       <button
         type="button"
         class="button-fancy-large add-to-cart"

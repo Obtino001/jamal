@@ -60,9 +60,7 @@
     }
 
     // Mobile image gallery — thumbs + optional arrows
-    var slides = Array.prototype.slice.call(
-      root.querySelectorAll('.product-image-carousel .product-image.main-image, [data-gj-gallery-slide]')
-    );
+    var slides = Array.prototype.slice.call(root.querySelectorAll('[data-gj-gallery-slide]'));
     var thumbs = Array.prototype.slice.call(root.querySelectorAll('.owl-thumbs .thumb'));
     var galleryIndex = 0;
 
@@ -133,6 +131,8 @@
         });
       }
     }
+
+    initFancyboxGallery(root);
 
     // Wishlist — shared window.Wishlist (handles)
     var wishAdd = root.querySelector('[data-gj-wishlist-add], .add-remove-wishlist.add');
@@ -215,14 +215,23 @@
         });
       }
 
+      function stripTrailingMoneyZeros(str) {
+        return String(str).replace(/([,.])00(?!\d)/g, '');
+      }
+
       function formatMoney(cents) {
         if (window.Shopify && typeof Shopify.formatMoney === 'function') {
           var format = (window.theme && theme.moneyFormat) || '{{amount}}';
-          return Shopify.formatMoney(cents, format);
+          return stripTrailingMoneyZeros(Shopify.formatMoney(cents, format));
         }
         var fmt = root.getAttribute('data-money-format') || '{{amount}}';
-        var amount = (cents / 100).toFixed(2).replace('.', ',');
-        return fmt.replace(/\{\{\s*amount\s*\}\}/, amount).replace(/\{\{\s*amount_with_comma_separator\s*\}\}/, amount);
+        var value = Number(cents) / 100;
+        var amount = Number.isInteger(value)
+          ? String(value).replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+          : value.toFixed(2).replace('.', ',');
+        return stripTrailingMoneyZeros(
+          fmt.replace(/\{\{\s*amount\s*\}\}/, amount).replace(/\{\{\s*amount_with_comma_separator\s*\}\}/, amount)
+        );
       }
 
       function syncDeliveryNote() {
@@ -452,6 +461,46 @@
         if (submit && !submit.disabled) submit.click();
       });
     }
+  }
+
+  function initFancyboxGallery(root) {
+    function bind() {
+      if (typeof Fancybox === 'undefined') return false;
+      var first = root.querySelector('[data-fancybox]');
+      if (!first) return true;
+      var group = first.getAttribute('data-fancybox');
+      try {
+        Fancybox.unbind('[data-fancybox="' + group + '"]');
+      } catch (e) {}
+      Fancybox.bind('[data-fancybox="' + group + '"]', {
+        Carousel: { transition: 'slide' },
+        Images: {
+          zoom: true,
+          Panzoom: { maxScale: 3 },
+        },
+        Html: { videoAutoplay: true },
+        Toolbar: {
+          display: {
+            left: [],
+            middle: [],
+            right: ['close'],
+          },
+        },
+        Thumbs: false,
+        animated: true,
+        placeFocusBack: false,
+        dragToClose: true,
+        backdropClick: 'close',
+      });
+      return true;
+    }
+
+    if (bind()) return;
+    var tries = 0;
+    var timer = setInterval(function () {
+      tries += 1;
+      if (bind() || tries > 40) clearInterval(timer);
+    }, 100);
   }
 
   function boot() {

@@ -313,10 +313,10 @@ wi-cartdrawer { transition: background-color 0.32s cubic-bezier(0.16, 1, 0.3, 1)
                                     <a href="{{ item.product.url }}" class="WI_cartDrawer_item_title">{{item.product.title | escape}}</a>
                                     <span class="WI_cartDrawer_item_price">
                                         {%- if item.variant.compare_at_price > item.variant.price -%}
-                                        <span class="compare-price">{{item.variant.compare_at_price | money}}</span>
-                                        <span>{{item.variant.price | money}}</span>
+                                        <span class="compare-price">{{item.variant.compare_at_price | money_without_trailing_zeros}}</span>
+                                        <span>{{item.variant.price | money_without_trailing_zeros}}</span>
                                         {%- else -%}
-                                        <span>{{item.variant.price | money}}</span>
+                                        <span>{{item.variant.price | money_without_trailing_zeros}}</span>
                                         {%- endif -%}
                                     </span>
                                 </div>
@@ -436,7 +436,7 @@ wi-cartdrawer { transition: background-color 0.32s cubic-bezier(0.16, 1, 0.3, 1)
                 <div class="WI_cartDrawerin_cart_footer">
                     <div class="WI_cartDrawer_total">
                         <h5>{{ 'sections.cart.estimated_total' | t }}</h5>
-                        <h5 class="WI_cartDrawer_total_price">{{ cart.total_price | money }}</h5>
+                        <h5 class="WI_cartDrawer_total_price">{{ cart.total_price | money_without_trailing_zeros }}</h5>
                     </div>
 
                     <button type="submit" name="checkout" value="Checkout" class="WI_cartDrawer_checkout">{{ section.settings.checkout_btn_text | default: 'GÅ TIL KASSEN' }}</button>

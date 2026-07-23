@@ -53,7 +53,7 @@
     {%- endif -%}
 
     <div class="georg-card-price">
-      {{ product.price | money_with_currency }}
+      {{ product.price | money_without_trailing_zeros }}
     </div>
   </div>
 </div>

@@ -333,7 +333,26 @@ if (!customElements.get('wishlist-page')) {
         }
 
         _formatMoney(cents) {
-            return (cents / 100).toLocaleString(undefined, { style: 'currency', currency: window.Shopify?.currency?.active || 'USD' });
+            const value = Number(cents) / 100;
+            const currency = window.Shopify?.currency?.active || 'DKK';
+            try {
+                if (Number.isInteger(value)) {
+                    return new Intl.NumberFormat(undefined, {
+                        style: 'currency',
+                        currency,
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0,
+                    }).format(value);
+                }
+                return new Intl.NumberFormat(undefined, {
+                    style: 'currency',
+                    currency,
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                }).format(value);
+            } catch {
+                return String(value).replace(/([,.])00$/, '') + ' kr';
+            }
         }
 
         _escape(str) {

@@ -59,7 +59,7 @@
       <p class="gj-reco-card__material">{{ material }}</p>
     {%- endif -%}
 
-    <p class="gj-reco-card__price">{{ product.price_min | money }}</p>
+    <p class="gj-reco-card__price">{{ product.price_min | money_without_trailing_zeros }}</p>
 
     {%- if show_stock_status and manage_stock and product.available and inventory_qty > 0 and inventory_qty <= threshold -%}
       <p class="gj-reco-card__stock">Only {{ inventory_qty }} left</p>
