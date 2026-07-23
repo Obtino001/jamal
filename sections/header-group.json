@@ -11,6 +11,35 @@
   "name": "Header Group",
   "type": "header",
   "sections": {
+    "custom_announcement_bar_WYeURC": {
+      "type": "custom-announcement-bar",
+      "blocks": {
+        "announcement_MphLPR": {
+          "type": "announcement",
+          "settings": {
+            "text": "Welcome, signup and get 10%",
+            "link": ""
+          }
+        },
+        "announcement_Kffihk": {
+          "type": "announcement",
+          "settings": {
+            "text": "Home delivery service",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_MphLPR",
+        "announcement_Kffihk"
+      ],
+      "name": "Custom Announcement",
+      "settings": {
+        "bg_color": "#2D3542",
+        "text_color": "#FFFFFF",
+        "alignment": "flex-end"
+      }
+    },
     "georg_jensen_header": {
       "type": "georg-jensen-header",
       "blocks": {
@@ -71,6 +100,7 @@
     }
   },
   "order": [
+    "custom_announcement_bar_WYeURC",
     "georg_jensen_header"
   ]
 }
