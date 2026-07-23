@@ -74,9 +74,9 @@
 
     <p class="gj-coll-card__price">
       {%- if product.price_varies -%}
-        From {{ product.price_min | money }}
+        From {{ product.price_min | money_without_trailing_zeros }}
       {%- else -%}
-        {{ product.price | money }}
+        {{ product.price | money_without_trailing_zeros }}
       {%- endif -%}
     </p>
 

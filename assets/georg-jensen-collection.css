@@ -508,7 +508,7 @@
   z-index: 2;
   background: #e8e8e8;
   color: #333;
-  font-family: var(--georg-font-futura);
+  font-family: var(--georg-font-futura, Futura, sans-serif) !important;
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -543,7 +543,7 @@
 
 .gj-coll-card__title {
   display: block;
-  font-family: var(--georg-font-futura);
+  font-family: var(--georg-font-futura, Futura, sans-serif);
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -571,7 +571,7 @@
 
 .gj-coll-card__price {
   margin: 8px 0 0;
-  font-family: var(--georg-font-futura);
+  font-family: var(--georg-font-futura, Futura, sans-serif);
   font-size: 14px;
   font-weight: 600;
   color: var(--gj-c-text);
