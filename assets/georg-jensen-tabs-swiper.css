@@ -56,34 +56,48 @@
 }
 
 .gj-tabs-swiper__nav {
-  display: flex;
-  gap: 10px;
-  flex-shrink: 0;
-  padding-bottom: 4px;
+  display: none; /* progress bar replaces arrows */
 }
 
 .gj-tabs-swiper__arrow {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid #222;
-  background: #fff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: #222;
-  padding: 0;
-  transition: background 0.2s ease, opacity 0.2s ease;
+  display: none;
 }
 
-.gj-tabs-swiper__arrow:hover {
-  background: #f7f7f7;
+.gj-tabs-swiper .gj-swiper {
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 0;
+  position: relative;
 }
 
-.gj-tabs-swiper__arrow.swiper-button-disabled {
-  opacity: 0.35;
-  cursor: default;
+.gj-tabs-swiper .swiper-slide {
+  height: auto;
+}
+
+/* Clean progress bar (GJ style) */
+.gj-tabs-swiper .gj-swiper__progress,
+.gj-tabs-swiper .swiper-scrollbar {
+  position: static;
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin: 28px 0 0;
+  left: auto;
+  bottom: auto;
+  background: #e6e6e6;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.gj-tabs-swiper .swiper-scrollbar-drag {
+  background: #1a1a1a;
+  border-radius: 0;
+  height: 100%;
+  cursor: grab;
+}
+
+.gj-tabs-swiper .swiper-scrollbar-drag:active {
+  cursor: grabbing;
 }
 
 .gj-tabs-swiper__panel {
@@ -92,15 +106,6 @@
 
 .gj-tabs-swiper__panel.is-active {
   display: block;
-}
-
-.gj-tabs-swiper .gj-swiper {
-  overflow: hidden;
-  width: 100%;
-}
-
-.gj-tabs-swiper .swiper-slide {
-  height: auto;
 }
 
 .gj-tabs-swiper__empty {
@@ -218,13 +223,14 @@
     display: none;
   }
 
-  .gj-tabs-swiper__nav {
-    align-self: flex-end;
-  }
-
   .gj-tabs-swiper__tab {
     font-size: 10px;
     letter-spacing: 0.08em;
+  }
+
+  .gj-tabs-swiper .gj-swiper__progress,
+  .gj-tabs-swiper .swiper-scrollbar {
+    margin-top: 22px;
   }
 }
 

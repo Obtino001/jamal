@@ -13,6 +13,7 @@
   data-gj-tabs-swiper
   data-columns="{{ section.settings.desktop_columns }}"
   data-space="{{ section.settings.space_between }}"
+  data-show-progress="{% if section.settings.show_progress %}true{% else %}false{% endif %}"
   style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; background: {{ section.settings.background_color }};"
 >
   <div class="page-width">
@@ -135,6 +136,12 @@
       "type": "checkbox",
       "id": "show_arrows",
       "label": "Show arrow navigation",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress",
+      "label": "Show progress bar",
       "default": true
     },
     {

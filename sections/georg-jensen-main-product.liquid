@@ -332,6 +332,15 @@
               {%- endunless -%}
             </div>
 
+            <p
+              class="gj-size-error"
+              data-gj-size-error
+              hidden
+              {% if product.has_only_default_variant %}style="display:none"{% endif %}
+            >
+              {{ section.settings.size_required_error | default: 'Please choose a size' }}
+            </p>
+
             <div class="product-price pdpPrice">
               <span class="price-sales effectiveprice" data-gj-price>
                 {{ current_variant.price | money }}
@@ -568,7 +577,7 @@
   </div>
 
   {%- if section.settings.show_mobile_sticky_bar -%}
-    <div class="gj-mobile-atc-bar" aria-hidden="false">
+    <div class="gj-mobile-atc-bar" aria-hidden="true">
       <span class="price-sales" data-gj-mobile-price>{{ current_variant.price | money }}</span>
       <button
         type="button"
@@ -651,6 +660,12 @@
       "id": "choose_option_label",
       "label": "Choose option label",
       "default": "Choose size"
+    },
+    {
+      "type": "text",
+      "id": "size_required_error",
+      "label": "Size required error",
+      "default": "Please choose a size"
     },
     {
       "type": "checkbox",

@@ -145,7 +145,11 @@
         </div>
 
         {%- if shop.customer_accounts_enabled -%}
-          <a href="{{ routes.account_url }}" class="gj-header__icon-btn" aria-label="{{ 'customer.account_fallback' | t | default: 'Account' }}">
+          <a
+            href="{{ routes.account_url }}"
+            class="gj-header__icon-btn gj-header__account-link"
+            aria-label="{{ 'customer.account_fallback' | t | default: 'Account' }}"
+          >
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="12" cy="8" r="3.5"/>
               <path d="M5 19.5c0-3.4 3.1-5.5 7-5.5s7 2.1 7 5.5"/>

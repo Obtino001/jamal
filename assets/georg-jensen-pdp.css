@@ -338,9 +338,10 @@ body:has(.georg-pdp-section) {
   padding: 0;
 }
 
-/* Georg Jensen “CHOOSE SIZE” picker */
+/* Georg Jensen “CHOOSE SIZE” picker — full width */
 .georg-pdp-section .gj-size-picker {
   position: relative;
+  width: 100%;
 }
 
 .georg-pdp-section .gj-size-picker+.gj-size-picker {
@@ -348,10 +349,11 @@ body:has(.georg-pdp-section) {
 }
 
 .georg-pdp-section .gj-size-picker__trigger {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
-  width: auto;
+  width: 100%;
   max-width: 100%;
   margin: 0;
   padding: 16px 0;
@@ -365,6 +367,7 @@ body:has(.georg-pdp-section) {
   text-transform: uppercase;
   color: #1a1a1a;
   text-align: left;
+  box-sizing: border-box;
 }
 
 .georg-pdp-section .gj-size-picker.is-selected .gj-size-picker__trigger {
@@ -374,18 +377,24 @@ body:has(.georg-pdp-section) {
   text-transform: none;
 }
 
+.georg-pdp-section .gj-size-picker.is-error .gj-size-picker__trigger {
+  color: #c62828;
+}
+
 .georg-pdp-section .gj-size-picker__label {
   display: inline-block;
+  flex: 1;
+  min-width: 0;
 }
 
 .georg-pdp-section .gj-size-picker__caret {
   display: inline-block;
   width: 0;
   height: 0;
-  margin-left: 2px;
+  margin-left: auto;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 6px solid #1a1a1a;
+  border-top: 6px solid currentColor;
   transition: transform 0.2s ease;
   flex-shrink: 0;
 }
@@ -400,6 +409,8 @@ body:has(.georg-pdp-section) {
   padding: 14px 16px;
   background: #efeeed;
   border: 1px solid #e4e2e0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .georg-pdp-section .gj-size-picker.is-open .gj-size-picker__panel {
@@ -407,6 +418,20 @@ body:has(.georg-pdp-section) {
 }
 
 .georg-pdp-section .gj-size-picker__panel[hidden] {
+  display: none !important;
+}
+
+.georg-pdp-section .gj-size-error {
+  margin: 0 0 12px;
+  padding: 0;
+  font-family: var(--gj-pdp-sans);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #c62828;
+}
+
+.georg-pdp-section .gj-size-error[hidden] {
   display: none !important;
 }
 
@@ -875,6 +900,18 @@ body:has(.georg-pdp-section) {
     gap: 12px;
     align-items: center;
     box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+    transform: translateY(110%);
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: transform 0.28s ease, opacity 0.28s ease, visibility 0.28s;
+  }
+
+  .georg-pdp-section .gj-mobile-atc-bar.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
   }
 
   .georg-pdp-section .gj-mobile-atc-bar .price-sales {

@@ -186,12 +186,14 @@
 
       function applyVariant(variant) {
         if (!variant) {
+          var chosen = allOptionsChosen();
           atcBtns.forEach(function (btn) {
-            btn.disabled = true;
-            btn.setAttribute('aria-disabled', 'true');
+            // Keep clickable when size not chosen (so we can show error)
+            btn.disabled = chosen;
+            btn.setAttribute('aria-disabled', chosen ? 'true' : 'false');
             var label = btn.querySelector('[data-gj-atc-label]');
             if (label) {
-              label.textContent = allOptionsChosen()
+              label.textContent = chosen
                 ? btn.getAttribute('data-unavailable-label') || 'Unavailable'
                 : btn.getAttribute('data-available-label') || 'Add to basket';
             }
@@ -226,6 +228,39 @@
         syncDeliveryNote();
       }
 
+      function showSizeError() {
+        var err = root.querySelector('[data-gj-size-error]');
+        if (err) err.hidden = false;
+        pickers.forEach(function (p) {
+          p.classList.add('is-error');
+        });
+        var first = pickers[0];
+        if (first && typeof first.scrollIntoView === 'function') {
+          first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+
+      function clearSizeError() {
+        var err = root.querySelector('[data-gj-size-error]');
+        if (err) err.hidden = true;
+        pickers.forEach(function (p) {
+          p.classList.remove('is-error');
+        });
+      }
+
+      function requireSizeOrSubmit(e) {
+        if (!allOptionsChosen()) {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          showSizeError();
+          return false;
+        }
+        clearSizeError();
+        return true;
+      }
+
       function closePicker(picker) {
         picker.classList.remove('is-open');
         var trigger = picker.querySelector('[data-gj-size-trigger]');
@@ -245,10 +280,10 @@
         if (panel) panel.hidden = false;
       }
 
-      // Start with no size chosen (GJ: CHOOSE SIZE first)
+      // Start with no size chosen (GJ: CHOOSE SIZE first) — ATC stays clickable for error
       atcBtns.forEach(function (btn) {
-        btn.disabled = true;
-        btn.setAttribute('aria-disabled', 'true');
+        btn.disabled = false;
+        btn.setAttribute('aria-disabled', 'false');
       });
       if (variantInput) variantInput.disabled = true;
 
@@ -277,6 +312,7 @@
               o.setAttribute('aria-selected', on ? 'true' : 'false');
             });
             setPickerSelected(picker, value);
+            clearSizeError();
             closePicker(picker);
           });
         });
@@ -293,12 +329,65 @@
           applyVariant(findVariant(selectedOptions()));
         });
       });
+
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          requireSizeOrSubmit(e);
+        });
+      }
+
+      atcBtns.forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          if (!allOptionsChosen()) {
+            requireSizeOrSubmit(e);
+          }
+        });
+      });
     }
 
-    // Mobile ATC mirror click → submit main form
+    // Mobile ATC: only show when main ATC is off-screen
+    var mobileBar = root.querySelector('.gj-mobile-atc-bar');
+    var mainAtcAnchor =
+      root.querySelector('.mobile-sticky-container') ||
+      root.querySelector('#add-to-cart') ||
+      root.querySelector('[data-gj-atc]:not([data-gj-mobile-atc])');
     var mobileAtc = root.querySelector('[data-gj-mobile-atc]');
+
+    if (mobileBar && mainAtcAnchor && window.IntersectionObserver) {
+      mobileBar.classList.remove('is-visible');
+      mobileBar.setAttribute('aria-hidden', 'true');
+      var atcObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            var showSticky = !entry.isIntersecting;
+            mobileBar.classList.toggle('is-visible', showSticky);
+            mobileBar.setAttribute('aria-hidden', showSticky ? 'false' : 'true');
+          });
+        },
+        { root: null, threshold: 0, rootMargin: '0px' }
+      );
+      atcObserver.observe(mainAtcAnchor);
+    }
+
     if (mobileAtc && form) {
-      mobileAtc.addEventListener('click', function () {
+      mobileAtc.addEventListener('click', function (e) {
+        var selectsCheck = root.querySelectorAll('.variation-select, [data-gj-variation-select]');
+        if (selectsCheck.length) {
+          var incomplete = Array.prototype.some.call(selectsCheck, function (s) {
+            return !s.value;
+          });
+          if (incomplete) {
+            e.preventDefault();
+            var err = root.querySelector('[data-gj-size-error]');
+            if (err) err.hidden = false;
+            root.querySelectorAll('[data-gj-size-picker]').forEach(function (p) {
+              p.classList.add('is-error');
+            });
+            var firstPicker = root.querySelector('[data-gj-size-picker]');
+            if (firstPicker) firstPicker.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+        }
         var submit = form.querySelector('[type="submit"]');
         if (submit && !submit.disabled) submit.click();
       });

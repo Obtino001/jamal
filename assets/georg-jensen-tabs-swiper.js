@@ -85,8 +85,10 @@
 
     var columns = parseInt(root.getAttribute('data-columns') || '4', 10);
     var space = parseInt(root.getAttribute('data-space') || '24', 10);
+    var showProgress = root.getAttribute('data-show-progress') !== 'false';
+    var scrollbarEl = el.querySelector('.swiper-scrollbar, .gj-swiper__progress');
 
-    var swiper = new Swiper(el, {
+    var options = {
       slidesPerView: 1.15,
       spaceBetween: 16,
       grabCursor: true,
@@ -107,8 +109,20 @@
           updateArrowState(root, this);
         },
       },
-    });
+    };
 
+    if (showProgress && scrollbarEl) {
+      options.scrollbar = {
+        el: scrollbarEl,
+        draggable: true,
+        hide: false,
+        dragSize: 'auto',
+      };
+    } else if (scrollbarEl) {
+      scrollbarEl.style.display = 'none';
+    }
+
+    var swiper = new Swiper(el, options);
     return swiper;
   }
 
