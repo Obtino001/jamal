@@ -57,16 +57,7 @@
   }
 
   function bindWishlist(root) {
-    root.addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-gj-wishlist-toggle]');
-      if (!btn || !root.contains(btn)) return;
-      e.preventDefault();
-      e.stopPropagation();
-      var handle = btn.getAttribute('data-product-handle') || '';
-      if (!handle || !window.Wishlist) return;
-      Wishlist.toggle(handle);
-      syncWishlistButtons(root);
-    });
+    // Clicks handled globally by wishlist.js — only sync UI here
     syncWishlistButtons(root);
     document.addEventListener('wishlist:updated', function () {
       syncWishlistButtons(root);

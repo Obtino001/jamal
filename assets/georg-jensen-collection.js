@@ -1,10 +1,15 @@
 /**
- * Georg Jensen collection — wishlist toggles on cards (handles)
+ * Georg Jensen collection — keep wishlist hearts in sync after facet AJAX
+ * Click handling lives in wishlist.js (global [data-gj-wishlist-toggle])
  */
 (function () {
   function sync(root) {
+    if (window.Wishlist && typeof window.Wishlist.syncToggleButtons === 'function') {
+      window.Wishlist.syncToggleButtons(root || document);
+      return;
+    }
     if (!window.Wishlist) return;
-    root.querySelectorAll('[data-gj-wishlist-toggle]').forEach(function (btn) {
+    (root || document).querySelectorAll('[data-gj-wishlist-toggle]').forEach(function (btn) {
       var handle = btn.getAttribute('data-product-handle') || '';
       btn.classList.toggle('is-active', Wishlist.has(handle));
     });
@@ -13,17 +18,6 @@
   function init(root) {
     if (!root || root.dataset.gjCollInit === 'true') return;
     root.dataset.gjCollInit = 'true';
-
-    root.addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-gj-wishlist-toggle]');
-      if (!btn || !root.contains(btn)) return;
-      e.preventDefault();
-      e.stopPropagation();
-      var handle = btn.getAttribute('data-product-handle') || '';
-      if (!handle || !window.Wishlist) return;
-      Wishlist.toggle(handle);
-      sync(root);
-    });
 
     sync(root);
     document.addEventListener('wishlist:updated', function () {

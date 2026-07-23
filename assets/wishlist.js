@@ -1,44 +1,68 @@
 /**
  * ============================================================
- * WISHLIST — Custom Web Components
- * localStorage-backed wishlist for Shopify (Prestige theme)
+ * WISHLIST — Custom Web Components + card toggles
+ * localStorage-backed wishlist for Shopify
  * ============================================================
  */
 
-// ── Storage helper ──────────────────────────────────────────
 const Wishlist = {
-    STORAGE_KEY: 'mytruth_wishlist',
+    STORAGE_KEY: 'gj-wishlist',
+    LEGACY_KEYS: ['mytruth_wishlist'],
 
     get() {
         try {
-            return JSON.parse(localStorage.getItem(this.STORAGE_KEY)) || [];
+            this._migrate();
+            const list = JSON.parse(localStorage.getItem(this.STORAGE_KEY)) || [];
+            return Array.isArray(list) ? list.filter(Boolean).map(String) : [];
         } catch {
             return [];
         }
     },
 
+    _migrate() {
+        if (localStorage.getItem(this.STORAGE_KEY)) return;
+        for (const key of this.LEGACY_KEYS) {
+            try {
+                const legacy = JSON.parse(localStorage.getItem(key) || '[]');
+                if (Array.isArray(legacy) && legacy.length) {
+                    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(legacy.map(String)));
+                    return;
+                }
+            } catch (_) {}
+        }
+    },
+
     has(handle) {
-        return this.get().includes(handle);
+        if (!handle) return false;
+        return this.get().includes(String(handle));
     },
 
     add(handle) {
+        handle = String(handle || '');
+        if (!handle) return;
         const list = this.get();
         if (!list.includes(handle)) {
             list.push(handle);
             localStorage.setItem(this.STORAGE_KEY, JSON.stringify(list));
             this._dispatch('wishlist:added', { handle });
             this._dispatch('wishlist:updated', { list });
+            this._dispatch('gj:wishlist-updated', { list });
         }
     },
 
     remove(handle) {
-        const list = this.get().filter(h => h !== handle);
+        handle = String(handle || '');
+        if (!handle) return;
+        const list = this.get().filter((h) => h !== handle);
         localStorage.setItem(this.STORAGE_KEY, JSON.stringify(list));
         this._dispatch('wishlist:removed', { handle });
         this._dispatch('wishlist:updated', { list });
+        this._dispatch('gj:wishlist-updated', { list });
     },
 
     toggle(handle) {
+        handle = String(handle || '');
+        if (!handle) return;
         this.has(handle) ? this.remove(handle) : this.add(handle);
     },
 
@@ -48,8 +72,47 @@ const Wishlist = {
 
     _dispatch(name, detail = {}) {
         document.dispatchEvent(new CustomEvent(name, { bubbles: true, detail }));
+    },
+
+    syncToggleButtons(root) {
+        const scope = root || document;
+        scope.querySelectorAll('[data-gj-wishlist-toggle]').forEach((btn) => {
+            const handle = btn.getAttribute('data-product-handle') || '';
+            const active = this.has(handle);
+            btn.classList.toggle('is-active', active);
+            btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+            btn.setAttribute('aria-label', active ? 'Remove from wishlist' : 'Add to wishlist');
+        });
     }
 };
+
+window.Wishlist = Wishlist;
+
+// Global card / heart toggles (collection, reco, carousel)
+(function bindWishlistToggles() {
+    function onClick(e) {
+        const btn = e.target.closest('[data-gj-wishlist-toggle]');
+        if (!btn) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const handle = btn.getAttribute('data-product-handle') || '';
+        if (!handle) return;
+        Wishlist.toggle(handle);
+        Wishlist.syncToggleButtons(document);
+    }
+
+    function boot() {
+        document.addEventListener('click', onClick);
+        Wishlist.syncToggleButtons(document);
+        document.addEventListener('wishlist:updated', () => Wishlist.syncToggleButtons(document));
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
+    } else {
+        boot();
+    }
+})();
 
 // ── WishlistButton ───────────────────────────────────────────
 // Usage: <wishlist-button product-handle="my-product"></wishlist-button>
@@ -62,7 +125,7 @@ if (!customElements.get('wishlist-button')) {
             this._render();
             this._syncState();
 
-            this._btn.addEventListener('click', e => {
+            this._btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 Wishlist.toggle(this.handle);
@@ -96,18 +159,20 @@ if (!customElements.get('wishlist-button')) {
 }
 
 // ── WishlistCount ────────────────────────────────────────────
-// Usage: <wishlist-count></wishlist-count>
 if (!customElements.get('wishlist-count')) {
     class WishlistCount extends HTMLElement {
         connectedCallback() {
             this._update();
             document.addEventListener('wishlist:updated', () => this._update());
+            document.addEventListener('gj:wishlist-updated', () => this._update());
         }
 
         _update() {
             const count = Wishlist.count();
             this.textContent = count;
             this.hidden = count === 0;
+            if (count === 0) this.setAttribute('data-empty', '');
+            else this.removeAttribute('data-empty');
         }
     }
 

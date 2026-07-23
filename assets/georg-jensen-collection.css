@@ -517,17 +517,16 @@
 }
 
 .gj-coll-card__wishlist {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  z-index: 2;
-  width: 32px;
-  height: 32px;
+  flex-shrink: 0;
+  position: static;
+  width: 28px;
+  height: 28px;
+  margin: -2px -4px 0 0;
   border: 0;
   background: transparent;
-  padding: 0;
+  padding: 4px;
   cursor: pointer;
-  color: var(--gj-c-text);
+  color: #000;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -541,8 +540,17 @@
   padding-top: 12px;
 }
 
+.gj-coll-card__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .gj-coll-card__title {
   display: block;
+  flex: 1;
+  min-width: 0;
   font-family: var(--georg-font-sans-bold, 'SourceSansPro-Bold', 'Source Sans Pro', sans-serif);
   font-size: 16px;
   font-weight: 700;
@@ -550,7 +558,7 @@
   color: #000;
   text-decoration: none;
   line-height: 1.35;
-  padding-right: 30px;
+  padding-right: 0;
 }
 
 .gj-coll-card__title:hover {

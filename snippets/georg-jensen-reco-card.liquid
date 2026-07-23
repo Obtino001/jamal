@@ -21,7 +21,7 @@
   assign manage_stock = product.selected_or_first_available_variant.inventory_management
 -%}
 
-<article class="gj-reco-card" data-product-id="{{ product.id }}">
+<article class="gj-reco-card" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}">
   <a href="{{ product.url }}" class="gj-reco-card__media">
     {%- if product.featured_media != blank -%}
       {{

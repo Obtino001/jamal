@@ -74,43 +74,27 @@
       });
     }
 
-    // Wishlist local UI (no app required)
-    var wishAdd = root.querySelector('.add-remove-wishlist.add');
-    var wishRemove = root.querySelector('.add-remove-wishlist.remove');
-    var productId = root.getAttribute('data-product-id');
-    var storageKey = 'gj-wishlist';
-
-    function getWishlist() {
-      try {
-        return JSON.parse(localStorage.getItem(storageKey) || '[]');
-      } catch (e) {
-        return [];
-      }
-    }
-
-    function setWishlist(ids) {
-      localStorage.setItem(storageKey, JSON.stringify(ids));
-    }
+    // Wishlist — shared window.Wishlist (handles)
+    var wishAdd = root.querySelector('[data-gj-wishlist-add], .add-remove-wishlist.add');
+    var wishRemove = root.querySelector('[data-gj-wishlist-remove], .add-remove-wishlist.remove');
+    var productHandle =
+      (wishAdd && wishAdd.getAttribute('data-product-handle')) ||
+      (wishRemove && wishRemove.getAttribute('data-product-handle')) ||
+      '';
 
     function syncWishlistUI() {
-      if (!productId || !wishAdd) return;
-      var ids = getWishlist();
-      var active = ids.indexOf(String(productId)) !== -1;
+      if (!wishAdd || !window.Wishlist || !productHandle) return;
+      var active = Wishlist.has(productHandle);
       wishAdd.classList.toggle('is-active', active);
       wishAdd.style.display = active ? 'none' : '';
       if (wishRemove) wishRemove.style.display = active ? '' : 'none';
     }
 
     function toggleWishlist(add) {
-      if (!productId) return;
-      var ids = getWishlist();
-      var id = String(productId);
-      var idx = ids.indexOf(id);
-      if (add && idx === -1) ids.push(id);
-      if (!add && idx !== -1) ids.splice(idx, 1);
-      setWishlist(ids);
+      if (!window.Wishlist || !productHandle) return;
+      if (add) Wishlist.add(productHandle);
+      else Wishlist.remove(productHandle);
       syncWishlistUI();
-      document.dispatchEvent(new CustomEvent('gj:wishlist-updated'));
     }
 
     if (wishAdd) {
@@ -130,6 +114,7 @@
       });
     }
     syncWishlistUI();
+    document.addEventListener('wishlist:updated', syncWishlistUI);
 
     // Variant picker (CHOOSE SIZE) → update id + price + ATC state
     var form = root.querySelector('form[data-type="add-to-cart-form"]');
