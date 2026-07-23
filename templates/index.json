@@ -22,9 +22,59 @@
         "button_label": "Udforsk weft",
         "button_link": ""
       }
+    },
+    "category_directory_Qgyt8q": {
+      "type": "category-directory",
+      "blocks": {
+        "category_dLJtfM": {
+          "type": "category",
+          "settings": {
+            "title": "GOLD JEWELLERY",
+            "main_link": "",
+            "menu": ""
+          }
+        },
+        "category_FRhpHW": {
+          "type": "category",
+          "settings": {
+            "title": "SILVER JEWELLERY",
+            "main_link": "",
+            "menu": ""
+          }
+        },
+        "category_VLjbPB": {
+          "type": "category",
+          "settings": {
+            "title": "DINING",
+            "main_link": "",
+            "menu": ""
+          }
+        },
+        "category_FNYMwL": {
+          "type": "category",
+          "settings": {
+            "title": "FINE SILVER",
+            "main_link": "",
+            "menu": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_dLJtfM",
+        "category_FRhpHW",
+        "category_VLjbPB",
+        "category_FNYMwL"
+      ],
+      "name": "Category Directory",
+      "settings": {
+        "section_color_scheme": "",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
     }
   },
   "order": [
-    "georg_jensen_video_hero_bzg4jN"
+    "georg_jensen_video_hero_bzg4jN",
+    "category_directory_Qgyt8q"
   ]
 }
