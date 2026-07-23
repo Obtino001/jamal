@@ -239,7 +239,7 @@
   background: #fafafa;
 }
 
-/* Badges — light blue */
+.gj-header__wishlist-link .gj-header__badge,
 .gj-header__badge {
   position: absolute;
   top: -6px;
@@ -247,7 +247,7 @@
   min-width: 15px;
   height: 15px;
   padding: 0 3px;
-  background: var(--gj-h-badge);
+  background: var(--gj-h-badge, #b6e3ff);
   color: #fff;
   font-family: var(--georg-font-futura);
   font-size: 9px;
@@ -256,6 +256,40 @@
   text-align: center;
   border-radius: 50%;
   box-sizing: border-box;
+}
+
+/* Cart count bubble — Dawn-compatible, GJ light-blue style */
+.gj-header__cart-link .cart-count-bubble,
+.gj-header #cart-icon-bubble .cart-count-bubble {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  background: var(--gj-h-badge, #b6e3ff);
+  color: #fff;
+  font-family: var(--georg-font-futura);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: center;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.gj-header__cart-link .cart-count-bubble span[aria-hidden='true'],
+.gj-header #cart-icon-bubble .cart-count-bubble span[aria-hidden='true'] {
+  display: block;
+}
+
+.gj-header__cart-link svg,
+.gj-header #cart-icon-bubble svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.4;
 }
 
 /* Nav */

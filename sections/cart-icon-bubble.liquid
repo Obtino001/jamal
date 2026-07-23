@@ -1,9 +1,11 @@
-{% if cart == empty %}
-  <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
-{% else %}
-  <span class="svg-wrapper">{{ 'icon-cart.svg' | inline_asset_content }}</span>
-{% endif %}
-
+{% comment %}
+  Cart icon bubble section — refreshed after add-to-cart / cart updates.
+  Markup matches Georg Jensen header cart link (#cart-icon-bubble).
+{% endcomment %}
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+  <path d="M6.5 8.5h11l-.8 10.2a1.5 1.5 0 0 1-1.5 1.3H8.8a1.5 1.5 0 0 1-1.5-1.3L6.5 8.5z"/>
+  <path d="M9 8.5V7a3 3 0 0 1 6 0v1.5"/>
+</svg>
 <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
 {%- if cart != empty -%}
   <div class="cart-count-bubble">
@@ -13,3 +15,10 @@
     <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
   </div>
 {%- endif -%}
+
+{% schema %}
+{
+  "name": "Cart icon bubble",
+  "settings": []
+}
+{% endschema %}

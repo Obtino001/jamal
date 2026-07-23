@@ -166,12 +166,24 @@
           </a>
         {%- endif -%}
 
-        <a href="{{ routes.cart_url }}" class="gj-header__icon-btn" aria-label="{{ 'templates.cart.cart' | t | default: 'Cart' }}">
+        <a
+          href="{{ routes.cart_url }}"
+          class="gj-header__icon-btn gj-header__cart-link"
+          id="cart-icon-bubble"
+          aria-label="{{ 'templates.cart.cart' | t | default: 'Cart' }}"
+        >
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M6.5 8.5h11l-.8 10.2a1.5 1.5 0 0 1-1.5 1.3H8.8a1.5 1.5 0 0 1-1.5-1.3L6.5 8.5z"/>
             <path d="M9 8.5V7a3 3 0 0 1 6 0v1.5"/>
           </svg>
-          <span class="gj-header__badge" id="gj-cart-count">{{ cart.item_count }}</span>
+          {%- if cart.item_count > 0 -%}
+            <div class="cart-count-bubble">
+              {%- if cart.item_count < 100 -%}
+                <span aria-hidden="true">{{ cart.item_count }}</span>
+              {%- endif -%}
+              <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+            </div>
+          {%- endif -%}
         </a>
       </div>
     </div>
