@@ -511,12 +511,26 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-      AOS.init({
-        duration: 800,
-        easing: 'ease-out-cubic',
-        once: true,
-        offset: 50
+      function initAOS() {
+        if (typeof AOS !== 'undefined') {
+          AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 50
+          });
+        }
+      }
+      document.addEventListener('DOMContentLoaded', initAOS);
+      document.addEventListener('shopify:section:load', function() {
+        if (typeof AOS !== 'undefined') {
+          AOS.refresh();
+        }
       });
+      // Fallback if DOM is already loaded
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        initAOS();
+      }
     </script>
   </body>
 </html>
