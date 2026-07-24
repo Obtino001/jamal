@@ -114,21 +114,34 @@
             </svg>
           </button>
 
-          <div class="gj-header__search-dropdown" role="dialog" aria-label="Search">
-            <form action="{{ routes.search_url }}" method="get" class="gj-header__search-form" role="search">
-              <input
-                type="search"
-                name="q"
-                placeholder="{{ section.settings.search_placeholder | escape }}"
-                autocomplete="off"
+          <div class="gj-header__search-dropdown" role="dialog" aria-label="Search" data-gj-search-panel hidden>
+            <div class="gj-header__search-panel-head">
+              <form action="{{ routes.search_url }}" method="get" class="gj-header__search-form" role="search">
+                <input
+                  type="search"
+                  name="q"
+                  placeholder="{{ section.settings.search_placeholder | escape }}"
+                  autocomplete="off"
+                  data-gj-search-input
+                >
+                <button type="submit" aria-label="{{ section.settings.search_placeholder | escape }}">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                    <circle cx="11" cy="11" r="6.5"/>
+                    <path d="M20 20l-3.5-3.5"/>
+                  </svg>
+                </button>
+              </form>
+              <button
+                type="button"
+                class="gj-header__search-close"
+                data-gj-search-close
+                aria-label="{{ 'accessibility.close' | t | default: 'Close' }}"
               >
-              <button type="submit" aria-label="{{ section.settings.search_placeholder | escape }}">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4">
-                  <circle cx="11" cy="11" r="6.5"/>
-                  <path d="M20 20l-3.5-3.5"/>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                  <path d="M6 6l12 12M18 6L6 18"/>
                 </svg>
               </button>
-            </form>
+            </div>
 
             {%- if section.settings.show_search_links -%}
               <ul class="gj-header__quick-links">
@@ -142,6 +155,7 @@
               </ul>
             {%- endif -%}
           </div>
+          <div class="gj-header__search-backdrop" data-gj-search-backdrop hidden></div>
         </div>
 
         {%- if shop.customer_accounts_enabled -%}

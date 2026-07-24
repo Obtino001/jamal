@@ -1,233 +1,144 @@
+{% comment %}
+  Be Inspired Grid — Georg Jensen 1:1
+{% endcomment %}
+
 {%- style -%}
-  .section-{{ section.id }}-padding {
+  .section-{{ section.id }} {
+    --bi-bg: {{ section.settings.background_color }};
+    --bi-card: {{ section.settings.card_background }};
+    --bi-gap: {{ section.settings.card_gap }}px;
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    background: var(--bi-bg);
   }
 
-@media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
-    
-    /* Matches your 2rem column-gap to prevent wrapping */
-    .be-inspired__grid .grid__item {
-      width: calc(33.333% - (2rem * 2 / 3));
-      max-width: calc(33.333% - (2rem * 2 / 3));
-    }
-  }
-
-  .be-inspired__header {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-
-  .be-inspired__heading {
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: 0.2rem;
-    text-transform: uppercase;
-    margin: 0;
-  }
-
-  .be-inspired__grid {
-    row-gap: 3rem;
-    column-gap: 2rem;
-  }
-
-  .be-inspired__card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    border-radius: 0;
-    overflow: hidden;
-  }
-
-  .be-inspired__image-wrapper {
-    position: relative;
-    width: 100%;
-    padding-bottom: 100%; /* 1:1 Square aspect ratio */
-    background-color: rgba(var(--color-foreground), 0.05);
-  }
-
-  .be-inspired__image-wrapper img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-
-  .be-inspired__content {
-    display: flex;
-    flex-direction: column;
-    padding: 2.5rem 2rem;
-    flex-grow: 1;
-  }
-
-  .be-inspired__tag {
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 0.15rem;
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-  }
-
-  .be-inspired__title {
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    font-family: var(--font-heading-family);
-    font-size: calc(var(--font-heading-scale) * 2.2rem);
-    font-weight: 400;
-    line-height: 1.2;
-  }
-
-  .be-inspired__text {
-    font-size: 1.3rem;
-    line-height: 1.6;
-    color: rgba(var(--color-foreground), 0.8);
-    margin-bottom: 3rem;
-  }
-
-  .be-inspired__text p {
-    margin: 0;
-  }
-
-  .be-inspired__button {
-    display: block;
-    width: 100%;
-    text-align: center;
-    font-size: 1.1rem;
-    font-weight: 600;
-    letter-spacing: 0.15rem;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 1.4rem 2rem;
-    border: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    margin-top: auto;
-  }
-
-  .be-inspired__button:hover {
-    opacity: 0.85;
-    transform: translateY(-1px);
   }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.section_color_scheme }} gradient section-{{ section.id }}-padding">
-  <div class="page-width">
-    
+{{ 'georg-jensen-be-inspired.css' | asset_url | stylesheet_tag }}
+
+<section class="gj-bi section-{{ section.id }}" data-gj-be-inspired>
+  <div class="page-width gj-bi__inner">
     {%- if section.settings.heading != blank -%}
-      <div class="be-inspired__header">
-        <h2 class="be-inspired__heading">{{ section.settings.heading | escape }}</h2>
-      </div>
+      <header class="gj-bi__header">
+        <h2 class="gj-bi__heading">{{ section.settings.heading | escape }}</h2>
+      </header>
     {%- endif -%}
 
-    <div class="grid grid--1-col grid--3-col-desktop be-inspired__grid">
-      
+    <div class="gj-bi__grid">
       {%- for block in section.blocks -%}
-        <div class="grid__item" {{ block.shopify_attributes }}>
-          <div class="be-inspired__card color-{{ section.settings.card_color_scheme }}">
-            
-            <div class="be-inspired__image-wrapper global-media-settings">
-              {%- if block.settings.image != blank -%}
-                {{ block.settings.image | image_url: width: 800 | image_tag:
+        <article class="gj-bi__card" {{ block.shopify_attributes }}>
+          <div class="gj-bi__media">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 900
+                | image_tag:
                   loading: 'lazy',
-                  sizes: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw',
-                  widths: '375, 550, 750, 800',
-                  alt: block.settings.image.alt | escape
-                }}
-              {%- else -%}
-                {{ 'image_d170a5.jpg' | asset_url | img_tag: 'Placeholder', 'placeholder-svg' }}
-              {%- endif -%}
-            </div>
-
-            <div class="be-inspired__content">
-              {%- if block.settings.tag != blank -%}
-                <div class="be-inspired__tag" style="color: {{ block.settings.tag_color }};">
-                  {{ block.settings.tag | escape }}
-                </div>
-              {%- endif -%}
-
-              {%- if block.settings.title != blank -%}
-                <h3 class="be-inspired__title">{{ block.settings.title | escape }}</h3>
-              {%- endif -%}
-
-              {%- if block.settings.text != blank -%}
-                <div class="be-inspired__text rte">
-                  {{ block.settings.text }}
-                </div>
-              {%- endif -%}
-
-              {%- if block.settings.button_label != blank -%}
-                <a {% if block.settings.button_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.button_link }}"{% endif %} 
-                   class="be-inspired__button"
-                   style="background-color: {{ block.settings.button_bg_color }}; color: {{ block.settings.button_text_color }};">
-                  {{ block.settings.button_label | escape }}
-                </a>
-              {%- endif -%}
-            </div>
-
+                  class: 'gj-bi__img',
+                  widths: '400, 600, 800, 900',
+                  sizes: '(min-width: 990px) 30vw, 100vw',
+                  alt: block.settings.image.alt | default: block.settings.title | escape
+              }}
+            {%- else -%}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'gj-bi__placeholder' }}
+            {%- endif -%}
           </div>
-        </div>
-      {%- endfor -%}
 
+          <div class="gj-bi__body">
+            {%- if block.settings.tag != blank -%}
+              <p class="gj-bi__tag" style="color: {{ block.settings.tag_color }};">
+                {{ block.settings.tag | escape }}
+              </p>
+            {%- endif -%}
+
+            {%- if block.settings.title != blank -%}
+              <h3 class="gj-bi__title">{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.text != blank -%}
+              <div class="gj-bi__text">{{ block.settings.text }}</div>
+            {%- endif -%}
+
+            {%- if block.settings.button_label != blank -%}
+              <a
+                class="gj-bi__button"
+                {% if block.settings.button_link != blank %}
+                  href="{{ block.settings.button_link }}"
+                {% else %}
+                  role="link" aria-disabled="true"
+                {% endif %}
+                style="background-color: {{ block.settings.button_bg_color }}; color: {{ block.settings.button_text_color }};"
+              >
+                {{ block.settings.button_label | escape }}
+              </a>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
     </div>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
   "name": "Be Inspired Grid",
   "tag": "section",
-  "class": "section",
+  "class": "section-be-inspired",
   "max_blocks": 3,
   "settings": [
     {
       "type": "text",
       "id": "heading",
       "default": "BE INSPIRED",
-      "label": "Section Heading"
+      "label": "Heading"
     },
     {
-      "type": "color_scheme",
-      "id": "section_color_scheme",
-      "label": "Section color scheme",
-      "default": "background-2",
-      "info": "Use a subtle off-white background to match the reference."
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#f5f5f5"
     },
     {
-      "type": "color_scheme",
-      "id": "card_color_scheme",
-      "label": "Card color scheme",
-      "default": "background-1",
-      "info": "Use a pure white background for the cards."
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
     },
     {
-      "type": "header",
-      "content": "Section Padding"
+      "type": "range",
+      "id": "card_gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Card gap",
+      "default": 20
     },
     {
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 100,
+      "max": 120,
       "step": 4,
       "unit": "px",
       "label": "Top padding",
-      "default": 48
+      "default": 56
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 100,
+      "max": 120,
       "step": 4,
       "unit": "px",
       "label": "Bottom padding",
-      "default": 48
+      "default": 56
     }
   ],
   "blocks": [
@@ -238,39 +149,31 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
-        },
-        {
-          "type": "header",
-          "content": "Content"
+          "label": "Image (square crop)"
         },
         {
           "type": "text",
           "id": "tag",
           "default": "ICONS",
-          "label": "Subheading / Tag"
+          "label": "Tag"
         },
         {
           "type": "color",
           "id": "tag_color",
           "label": "Tag color",
-          "default": "#2c6e91"
+          "default": "#5b8aa8"
         },
         {
           "type": "text",
           "id": "title",
           "default": "The House Icons",
-          "label": "Heading"
+          "label": "Title"
         },
         {
           "type": "richtext",
           "id": "text",
           "default": "<p>Boasting a 120-year history of collaborations with great designers, Georg Jensen is behind some of the most iconic designs of the past century.</p>",
           "label": "Text"
-        },
-        {
-          "type": "header",
-          "content": "Button"
         },
         {
           "type": "text",
@@ -286,14 +189,14 @@
         {
           "type": "color",
           "id": "button_bg_color",
-          "label": "Button background color",
-          "default": "#A8DDF7"
+          "label": "Button background",
+          "default": "#aee1fd"
         },
         {
           "type": "color",
           "id": "button_text_color",
-          "label": "Button text color",
-          "default": "#000000"
+          "label": "Button text",
+          "default": "#1a2533"
         }
       ]
     }
@@ -307,9 +210,7 @@
           "settings": {
             "tag": "ICONS",
             "title": "The House Icons",
-            "button_label": "DISCOVER THE ICONS",
-            "button_bg_color": "#aee1fd",
-            "button_text_color": "#1a1a1a"
+            "button_label": "DISCOVER THE ICONS"
           }
         },
         {
@@ -318,9 +219,7 @@
             "tag": "DISCOVER",
             "title": "Bracelets and bangles",
             "text": "<p>A selection of timeless designs created in collaboration with leading designers.</p>",
-            "button_label": "EXPLORE",
-            "button_bg_color": "#aee1fd",
-            "button_text_color": "#1a1a1a"
+            "button_label": "EXPLORE"
           }
         },
         {
@@ -328,10 +227,8 @@
           "settings": {
             "tag": "DISCOVER",
             "title": "Silver Stacking",
-            "text": "<p>It's layering season. Discover our wide-ranging designs in sterling silver, designed to stand out alone and be stacked as you wish.</p>",
-            "button_label": "SHOP SILVER",
-            "button_bg_color": "#6bc6fa",
-            "button_text_color": "#ffffff"
+            "text": "<p>It's layering season. Discover our wide-ranging designs in sterling silver.</p>",
+            "button_label": "SHOP SILVER"
           }
         }
       ]
