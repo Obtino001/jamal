@@ -172,7 +172,6 @@
         "gallery_extension_1"
       ],
       "settings": {
-        "show_breadcrumbs": true,
         "hide_mobile_thumbnails": true,
         "show_gallery_arrows": true,
         "show_mobile_sticky_bar": true
