@@ -211,3 +211,37 @@
   /* Override the padding set for product images */
 }
 
+@media screen and (max-width: 750px) {
+  .gj-header__wishlist-link .gj-header__badge, .gj-header__badge, .gj-header__cart-link .cart-count-bubble, .gj-header #cart-icon-bubble .cart-count-bubble {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    min-width: 15px;
+    height: 15px;
+    padding: 0 3px;
+    background: var(--gj-h-badge, #b6e3ff);
+    color: #fff;
+    font-family: var(--georg-font-futura);
+    font-size: 9px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: center;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+.cart-count-bubble {
+  position: absolute;
+  background-color: rgb(var(--color-button));
+  color: rgb(var(--color-button-text));
+  height: 1.7rem;
+  width: 1.7rem;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: .9rem;
+  bottom: .8rem;
+  left: 1.9rem;
+  line-height: calc(1 + .1 / var(--font-body-scale));
+}
+}
