@@ -23,9 +23,17 @@
   if lazy_load == false
     assign img_loading = 'eager'
   endif
+
+  assign secondary_image = blank
+  for media in product.media
+    if media.media_type == 'image' and media.id != product.featured_media.id
+      assign secondary_image = media
+      break
+    endif
+  endfor
 -%}
 
-<article class="gj-coll-card" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}">
+<article class="gj-coll-card{% if secondary_image != blank %} has-secondary{% endif %}" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}">
   <div class="gj-coll-card__media-wrap">
     <a href="{{ product.url }}" class="gj-coll-card__media">
       {%- if product.featured_media != blank -%}
@@ -34,11 +42,23 @@
           | image_url: width: 800
           | image_tag:
             loading: img_loading,
-            class: 'gj-coll-card__img',
+            class: 'gj-coll-card__img gj-coll-card__img--primary',
             widths: '300, 400, 600, 800',
             sizes: '(min-width: 990px) 23vw, 48vw',
             alt: product.title
         }}
+        {%- if secondary_image != blank -%}
+          {{
+            secondary_image
+            | image_url: width: 800
+            | image_tag:
+              loading: 'lazy',
+              class: 'gj-coll-card__img gj-coll-card__img--secondary',
+              widths: '300, 400, 600, 800',
+              sizes: '(min-width: 990px) 23vw, 48vw',
+              alt: product.title
+          }}
+        {%- endif -%}
       {%- else -%}
         {{ 'product-1' | placeholder_svg_tag: 'gj-coll-card__placeholder' }}
       {%- endif -%}

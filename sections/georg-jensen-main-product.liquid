@@ -391,18 +391,20 @@
                         role="listbox"
                         aria-labelledby="GjSizeTrigger-{{ section.id }}-{{ forloop.index0 }}"
                       >
-                        {%- for value in option.values -%}
-                          <button
-                            type="button"
-                            class="gj-size-picker__option"
-                            role="option"
-                            data-gj-size-option
-                            data-value="{{ value | escape }}"
-                            aria-selected="false"
-                          >
-                            {{ value }}
-                          </button>
-                        {%- endfor -%}
+                        <div class="gj-size-picker__panel-inner">
+                          {%- for value in option.values -%}
+                            <button
+                              type="button"
+                              class="gj-size-picker__option"
+                              role="option"
+                              data-gj-size-option
+                              data-value="{{ value | escape }}"
+                              aria-selected="false"
+                            >
+                              {{ value }}
+                            </button>
+                          {%- endfor -%}
+                        </div>
                       </div>
 
                       <label class="visually-hidden" for="Option-{{ section.id }}-{{ forloop.index0 }}">

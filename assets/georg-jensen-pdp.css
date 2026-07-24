@@ -452,10 +452,15 @@ body:has(.georg-pdp-section) {
   padding: 0;
 }
 
-/* Georg Jensen “CHOOSE SIZE” picker — full width */
+/* Georg Jensen “CHOOSE SIZE” picker — smooth height overlay */
 .georg-pdp-section .gj-size-picker {
   position: relative;
   width: 100%;
+  z-index: 2;
+}
+
+.georg-pdp-section .gj-size-picker.is-open {
+  z-index: 40;
 }
 
 .georg-pdp-section .gj-size-picker+.gj-size-picker {
@@ -482,6 +487,8 @@ body:has(.georg-pdp-section) {
   color: #1a1a1a;
   text-align: left;
   box-sizing: border-box;
+  position: relative;
+  z-index: 2;
 }
 
 .georg-pdp-section .gj-size-picker.is-selected .gj-size-picker__trigger {
@@ -509,7 +516,7 @@ body:has(.georg-pdp-section) {
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 6px solid currentColor;
-  transition: transform 0.2s ease;
+  transition: transform 0.28s ease;
   flex-shrink: 0;
 }
 
@@ -518,21 +525,52 @@ body:has(.georg-pdp-section) {
 }
 
 .georg-pdp-section .gj-size-picker__panel {
-  display: none;
-  margin: 0 0 14px;
-  padding: 14px 16px;
-  background: #efeeed;
-  border: 1px solid #e4e2e0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% - 2px);
+  z-index: 30;
+  display: block;
+  margin: 0;
+  padding: 0 16px;
   width: 100%;
   box-sizing: border-box;
+  background: #efeeed;
+  border: 1px solid #e4e2e0;
+  border-top: 0;
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    height 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.28s ease,
+    visibility 0.28s ease,
+    padding 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: height;
 }
 
 .georg-pdp-section .gj-size-picker.is-open .gj-size-picker__panel {
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  padding: 10px 16px 14px;
+  /* height set inline by JS for smooth 0 → content */
 }
 
 .georg-pdp-section .gj-size-picker__panel[hidden] {
-  display: none !important;
+  display: block !important;
+  height: 0 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.georg-pdp-section .gj-size-picker__panel-inner {
+  display: block;
 }
 
 .georg-pdp-section .gj-size-error {
@@ -563,11 +601,17 @@ body:has(.georg-pdp-section) {
   font-weight: 500;
   letter-spacing: 0.04em;
   color: #1a1a1a;
+  transition: opacity 0.15s ease;
 }
 
 .georg-pdp-section .gj-size-picker__option:hover,
 .georg-pdp-section .gj-size-picker__option.is-selected {
   opacity: 0.7;
+}
+
+.georg-pdp-section .gj-size-picker__option.is-unavailable {
+  opacity: 0.35;
+  pointer-events: none;
 }
 
 .georg-pdp-section .variation-select.visually-hidden {

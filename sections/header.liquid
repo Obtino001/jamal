@@ -143,7 +143,9 @@
       endif
 
       if section.settings.logo_position == 'top-center' or section.settings.menu == blank
-        render 'header-search', input_id: 'Search-In-Modal-1'
+        echo '<a href="' | append: routes.search_url | append: '" class="header__icon header__icon--search link focus-inset" role="button" onclick="event.preventDefault(); window.openCustomSearch();"><span class="svg-wrapper">'
+        echo 'icon-search.svg' | inline_asset_content
+        echo '</span></a>'
       endif
     -%}
 
@@ -247,7 +249,11 @@
           </localization-form>
         {%- endif -%}
       </div>
-      {% render 'header-search', input_id: 'Search-In-Modal' %}
+      <a href="{{ routes.search_url }}" class="header__icon header__icon--search link focus-inset" role="button" onclick="event.preventDefault(); window.openCustomSearch();">
+        <span class="svg-wrapper">
+          {{- 'icon-search.svg' | inline_asset_content -}}
+        </span>
+      </a>
 
       {%- if shop.customer_accounts_enabled -%}
         <a

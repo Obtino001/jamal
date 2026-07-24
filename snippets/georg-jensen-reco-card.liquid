@@ -20,9 +20,17 @@
 
   assign inventory_qty = product.selected_or_first_available_variant.inventory_quantity
   assign manage_stock = product.selected_or_first_available_variant.inventory_management
+
+  assign secondary_image = blank
+  for media in product.media
+    if media.media_type == 'image' and media.id != product.featured_media.id
+      assign secondary_image = media
+      break
+    endif
+  endfor
 -%}
 
-<article class="gj-reco-card" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}">
+<article class="gj-reco-card{% if secondary_image != blank %} has-secondary{% endif %}" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}">
   <a href="{{ product.url }}" class="gj-reco-card__media">
     {%- if product.featured_media != blank -%}
       {{
@@ -30,11 +38,23 @@
         | image_url: width: 800
         | image_tag:
           loading: 'lazy',
-          class: 'gj-reco-card__img',
+          class: 'gj-reco-card__img gj-reco-card__img--primary',
           widths: '300, 400, 600, 800',
           sizes: '(min-width: 990px) 22vw, 45vw',
           alt: product.title
       }}
+      {%- if secondary_image != blank -%}
+        {{
+          secondary_image
+          | image_url: width: 800
+          | image_tag:
+            loading: 'lazy',
+            class: 'gj-reco-card__img gj-reco-card__img--secondary',
+            widths: '300, 400, 600, 800',
+            sizes: '(min-width: 990px) 22vw, 45vw',
+            alt: product.title
+        }}
+      {%- endif -%}
     {%- else -%}
       {{ 'product-1' | placeholder_svg_tag: 'gj-reco-card__placeholder' }}
     {%- endif -%}

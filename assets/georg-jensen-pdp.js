@@ -331,22 +331,67 @@
       }
 
       function closePicker(picker) {
-        picker.classList.remove('is-open');
         var trigger = picker.querySelector('[data-gj-size-trigger]');
         var panel = picker.querySelector('[data-gj-size-panel]');
+        if (!panel) {
+          picker.classList.remove('is-open');
+          return;
+        }
+        if (!picker.classList.contains('is-open') && panel.hidden) return;
+
+        var current = panel.getBoundingClientRect().height;
+        if (panel.style.height === 'auto' || !panel.style.height) {
+          panel.style.height = current + 'px';
+        }
+        panel.removeAttribute('hidden');
+        panel.offsetHeight;
+        panel.style.height = '0px';
+        picker.classList.remove('is-open');
         if (trigger) trigger.setAttribute('aria-expanded', 'false');
-        if (panel) panel.hidden = true;
+        panel.setAttribute('aria-hidden', 'true');
+
+        var done = false;
+        var finish = function () {
+          if (done) return;
+          done = true;
+          panel.removeEventListener('transitionend', onEnd);
+          if (!picker.classList.contains('is-open')) {
+            panel.hidden = true;
+            panel.style.height = '';
+          }
+        };
+        var onEnd = function (e) {
+          if (e && e.propertyName && e.propertyName !== 'height') return;
+          finish();
+        };
+        panel.addEventListener('transitionend', onEnd);
+        setTimeout(finish, 450);
       }
 
       function openPicker(picker) {
         pickers.forEach(function (p) {
           if (p !== picker) closePicker(p);
         });
-        picker.classList.add('is-open');
+
         var trigger = picker.querySelector('[data-gj-size-trigger]');
         var panel = picker.querySelector('[data-gj-size-panel]');
+        if (!panel) return;
+
+        picker.classList.add('is-open');
+        panel.hidden = false;
+        panel.setAttribute('aria-hidden', 'false');
         if (trigger) trigger.setAttribute('aria-expanded', 'true');
-        if (panel) panel.hidden = false;
+
+        panel.style.height = '0px';
+        var max = Math.round(Math.min(window.innerHeight * 0.65, 420));
+        var target = Math.min(panel.scrollHeight, max);
+        panel.offsetHeight;
+        panel.style.height = target + 'px';
+        if (panel.scrollHeight > max) {
+          panel.style.overflowY = 'auto';
+        } else {
+          panel.style.overflowY = 'hidden';
+        }
       }
 
       // Start with no size chosen (GJ: CHOOSE SIZE first) — ATC stays clickable for error
