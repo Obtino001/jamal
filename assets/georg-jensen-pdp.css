@@ -10,7 +10,7 @@
   --gj-pdp-sans: var(--georg-font-sans, 'Source Sans Pro', 'SourceSansPro-Light', sans-serif);
   --gj-pdp-serif: var(--georg-font-serif, var(--gj-pdp-futura));
   --gj-pdp-sticky-top: 110px;
-  --gj-pdp-sidebar-width: 40%;
+  --gj-pdp-sidebar-width: 35%;
   color: var(--gj-pdp-text);
   font-family: var(--gj-pdp-sans);
   background-color: var(--gj-pdp-bg);
@@ -377,6 +377,7 @@ body:has(.georg-pdp-section) {
 /* Product info column */
 .georg-pdp-section #product-content {
   padding-top: 0;
+  max-width: 400px;;
 }
 
 .georg-pdp-section .product-collection {
