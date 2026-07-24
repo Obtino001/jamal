@@ -284,8 +284,8 @@
 .gj-header__wishlist-link .gj-header__badge,
 .gj-header__badge {
   position: absolute;
-  top: -2px;
-  right: -2px;
+  top: -10px;
+  right: -6px;
   bottom: auto;
   left: auto;
   display: inline-flex;
@@ -315,8 +315,8 @@
 .gj-header__cart-link .cart-count-bubble,
 .gj-header #cart-icon-bubble .cart-count-bubble {
   position: absolute !important;
-  top: -2px !important;
-  right: -2px !important;
+  top: -10px !important;
+  right: -6px !important;
   bottom: auto !important;
   left: auto !important;
   display: inline-flex !important;
@@ -651,14 +651,6 @@
     color: var(--gj-h-text);
     text-decoration: none;
     border-bottom: 1px solid #f0f0f0;
-  }
-
-  .gj-header__search-dropdown {
-    position: fixed;
-    left: 16px;
-    right: 16px;
-    top: auto;
-    width: auto;
   }
 }
 
