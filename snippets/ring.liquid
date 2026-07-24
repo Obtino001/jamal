@@ -1,20 +1,27 @@
 {%- comment -%}
   MEJURI STYLE RING SIZE GUIDE MODAL
   Vanilla CSS, Web Component, 100% Editable Schema
+  Accepts: block, product, force (optional — show even if product is not a ring)
 {%- endcomment -%}
 
-{%- assign downcased_type = product.type | downcase -%}
-{%- assign downcased_title = product.title | downcase -%}
-{%- assign is_ring = false -%}
-{%- if downcased_type contains 'ring' or downcased_title contains 'ring' -%}
-  {%- assign is_ring = true -%}
-{%- endif -%}
-{%- for tag in product.tags -%}
-  {%- assign downcased_tag = tag | downcase -%}
-  {%- if downcased_tag contains 'ring' -%}
-    {%- assign is_ring = true -%}
-  {%- endif -%}
-{%- endfor -%}
+{%- liquid
+  assign is_ring = false
+  if force == true or force == 'true'
+    assign is_ring = true
+  else
+    assign downcased_type = product.type | downcase
+    assign downcased_title = product.title | downcase
+    if downcased_type contains 'ring' or downcased_title contains 'ring'
+      assign is_ring = true
+    endif
+    for tag in product.tags
+      assign downcased_tag = tag | downcase
+      if downcased_tag contains 'ring'
+        assign is_ring = true
+      endif
+    endfor
+  endif
+-%}
 
 {%- if is_ring -%}
 

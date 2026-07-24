@@ -675,6 +675,24 @@ body:has(.georg-pdp-section) {
   padding: 0 0 18px;
 }
 
+.georg-pdp-section .gj-ring-size-guide {
+  margin: 0 0 16px;
+}
+
+.georg-pdp-section .gj-ring-size-guide .product-block {
+  margin: 0;
+}
+
+.georg-pdp-section .gj-ring-size-guide .rsg-trigger-btn {
+  font-family: var(--gj-pdp-futura);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  border-bottom-color: #1a1a1a;
+}
+
 .georg-pdp-section .price-sales {
   font-family: var(--georg-font-sans-bold, 'SourceSansPro-Bold', 'Source Sans Pro', sans-serif);
   font-size: 18px;
