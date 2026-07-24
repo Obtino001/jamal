@@ -345,6 +345,67 @@
             <span class="visually-hidden">{{ current_variant.sku }}</span>
             <span class="visually-hidden">{{ shop.url }}{{ product.url }}</span>
 
+            {%- liquid
+              assign show_pdp_usps = false
+              if section.settings.show_usps
+                if section.settings.usp_1 != blank or section.settings.usp_2 != blank or section.settings.usp_3 != blank
+                  assign show_pdp_usps = true
+                endif
+                for block in section.blocks
+                  if block.type == 'usp' and block.settings.text != blank
+                    assign show_pdp_usps = true
+                    break
+                  endif
+                endfor
+              endif
+            -%}
+            {%- if show_pdp_usps -%}
+              <ul class="gj-pdp-usps" aria-label="Product benefits">
+                {%- if section.settings.usp_1 != blank -%}
+                  <li class="gj-pdp-usp">
+                    <span class="gj-pdp-usp__text">{{ section.settings.usp_1 | escape }}</span>
+                    <span class="gj-pdp-usp__check" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <path d="M3 8.2l3.2 3.2L13 4.5"/>
+                      </svg>
+                    </span>
+                  </li>
+                {%- endif -%}
+                {%- if section.settings.usp_2 != blank -%}
+                  <li class="gj-pdp-usp">
+                    <span class="gj-pdp-usp__text">{{ section.settings.usp_2 | escape }}</span>
+                    <span class="gj-pdp-usp__check" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <path d="M3 8.2l3.2 3.2L13 4.5"/>
+                      </svg>
+                    </span>
+                  </li>
+                {%- endif -%}
+                {%- if section.settings.usp_3 != blank -%}
+                  <li class="gj-pdp-usp">
+                    <span class="gj-pdp-usp__text">{{ section.settings.usp_3 | escape }}</span>
+                    <span class="gj-pdp-usp__check" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <path d="M3 8.2l3.2 3.2L13 4.5"/>
+                      </svg>
+                    </span>
+                  </li>
+                {%- endif -%}
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'usp' and block.settings.text != blank -%}
+                    <li class="gj-pdp-usp" {{ block.shopify_attributes }}>
+                      <span class="gj-pdp-usp__text">{{ block.settings.text | escape }}</span>
+                      <span class="gj-pdp-usp__check" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4">
+                          <path d="M3 8.2l3.2 3.2L13 4.5"/>
+                        </svg>
+                      </span>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
             <div class="product-variations-container{% if product.has_only_default_variant %} empty-vairation{% endif %}">
               {%- unless product.has_only_default_variant -%}
                 {%- if section.settings.show_delivery_note -%}
@@ -787,6 +848,34 @@
       "default": "Choose size"
     },
     {
+      "type": "header",
+      "content": "USP badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_usps",
+      "label": "Show USP badges above size",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "usp_1",
+      "label": "USP 1",
+      "default": "Handmade in Australia"
+    },
+    {
+      "type": "text",
+      "id": "usp_2",
+      "label": "USP 2",
+      "default": "Take two and the third is on me"
+    },
+    {
+      "type": "text",
+      "id": "usp_3",
+      "label": "USP 3",
+      "default": "Free shipping today"
+    },
+    {
       "type": "text",
       "id": "size_required_error",
       "label": "Size required error",
@@ -1030,6 +1119,18 @@
     }
   ],
   "blocks": [
+    {
+      "type": "usp",
+      "name": "Extra USP badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "USP text",
+          "default": "Extra benefit"
+        }
+      ]
+    },
     {
       "type": "detail_row",
       "name": "Detail row",
