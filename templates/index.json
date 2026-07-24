@@ -30,11 +30,11 @@
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/hf_20260506_163811_77451a5e-01bd-40f8-b168-3a8578e280aa.jpg",
-            "tag": "ICONS",
+            "tag": "IKONER",
             "tag_color": "#2c6e91",
-            "title": "The House Icons",
-            "text": "<p>Boasting a 120-year history of collaborations with great designers, Georg Jensen is behind some of the most iconic designs of the past century.</p>",
-            "button_label": "DISCOVER THE ICONS",
+            "title": "Husets Ikoner",
+            "text": "<p>Med en 120-årig historie for samarbejder med store designere, står Georg Jensen bag nogle af de mest ikoniske designs i det seneste århundrede.</p>",
+            "button_label": "OPDAG IKONERNE",
             "button_link": "",
             "button_bg_color": "#aee1fd",
             "button_text_color": "#1a1a1a"
@@ -44,11 +44,11 @@
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/hf_20260403_154128_eb251e1c-4e16-4fc0-bfba-8018c7ad4645_3.jpg",
-            "tag": "DISCOVER",
+            "tag": "OPDAG",
             "tag_color": "#2c6e91",
-            "title": "Bracelets and bangles",
-            "text": "<p>A selection of timeless designs created in collaboration with leading designers.</p>",
-            "button_label": "EXPLORE",
+            "title": "Armbånd og bangles",
+            "text": "<p>Et udvalg af tidsløse designs skabt i samarbejde med førende designere.</p>",
+            "button_label": "UDFORSK",
             "button_link": "",
             "button_bg_color": "#aee1fd",
             "button_text_color": "#1a1a1a"
@@ -58,11 +58,11 @@
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/hf_20260403_140114_91c1ca6b-d797-4023-96d5-c820b431e0ca.jpg",
-            "tag": "DISCOVER",
+            "tag": "OPDAG",
             "tag_color": "#2c6e91",
-            "title": "Silver Stacking",
-            "text": "<p>It's layering season. Discover our wide-ranging designs in sterling silver, designed to stand out alone and be stacked as you wish.</p>",
-            "button_label": "SHOP SILVER",
+            "title": "Sølv stacking",
+            "text": "<p>Det er sæson for lag-på-lag. Opdag vores brede udvalg af designs i sterlingsølv, skabt til at skille sig ud alene og stakkes, som du ønsker.</p>",
+            "button_label": "KØB SØLV",
             "button_link": "",
             "button_bg_color": "#6bc6fa",
             "button_text_color": "#ffffff"
@@ -74,11 +74,9 @@
         "card_q9qW7F",
         "card_yUrkyj"
       ],
-      "name": "Be Inspired Grid",
+      "name": "Find Inspiration Gitter",
       "settings": {
-        "heading": "BE INSPIRED",
-        "section_color_scheme": "",
-        "card_color_scheme": "",
+        "heading": "BLIV INSPIRERET",
         "padding_top": 48,
         "padding_bottom": 48
       }
@@ -89,7 +87,7 @@
         "tab_Y6UyCK": {
           "type": "tab",
           "settings": {
-            "title": "People who viewed this item also viewed",
+            "title": "Kunder der så denne vare, så også",
             "collection": "frontpage"
           }
         }
@@ -97,16 +95,16 @@
       "block_order": [
         "tab_Y6UyCK"
       ],
-      "name": "GJ Tabs Swiper",
+      "name": "GJ Fane Swiper",
       "settings": {
-        "tabs_aria_label": "Product recommendations",
+        "tabs_aria_label": "Produktanbefalinger",
         "products_to_show": 8,
         "desktop_columns": 4,
         "space_between": 24,
         "show_arrows": true,
         "show_progress": true,
-        "prev_label": "Previous",
-        "next_label": "Next",
+        "prev_label": "Forrige",
+        "next_label": "Næste",
         "show_stock": true,
         "low_stock_threshold": 1,
         "background_color": "#ffffff",
@@ -121,7 +119,7 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/GJ_SS26_Seasonal_JW_eCOM_featured_img_frontpage_2_410x4101600_dc573c98-8687-4362-ba52-d2991fbd8782.jpg",
-            "title": "GOLD JEWELLERY",
+            "title": "GULDSMYKKER",
             "main_link": "",
             "menu": ""
           }
@@ -130,7 +128,7 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/hf_20260503_170415_64bbaabc-9409-40fe-8d74-ab27f979e945.jpg",
-            "title": "SILVER JEWELLERY",
+            "title": "SØLVSMYKKER",
             "main_link": "",
             "menu": ""
           }
@@ -139,7 +137,7 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/hf_20260403_140114_91c1ca6b-d797-4023-96d5-c820b431e0ca.jpg",
-            "title": "DINING",
+            "title": "BORDDÆKNING",
             "main_link": "",
             "menu": ""
           }
@@ -148,7 +146,7 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/hf_20260503_173558_a155fe5c-2243-4215-8383-3263dd3cf071.jpg",
-            "title": "FINE SILVER",
+            "title": "FINERE SØLV",
             "main_link": "",
             "menu": ""
           }
@@ -160,7 +158,7 @@
         "category_VLjbPB",
         "category_FNYMwL"
       ],
-      "name": "Category Directory",
+      "name": "Kategori Oversigt",
       "settings": {
         "section_color_scheme": "",
         "padding_top": 48,
