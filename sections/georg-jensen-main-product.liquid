@@ -13,64 +13,633 @@
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign product_form_id = 'gj-product-form-' | append: section.id
-  assign collection_title = section.settings.collection_label
-  if collection_title == blank and product.collections.size > 0
-    assign collection_title = product.collections.first.title
-  endif
-  if collection_title == blank
-    assign collection_title = product.vendor
-  endif
-  assign collection_url = section.settings.collection_link
-  if collection_url == blank and product.collections.size > 0
-    assign collection_url = product.collections.first.url
-  endif
-  if collection_url == blank
-    assign collection_url = routes.all_products_collection_url
-  endif
 
-  assign material = product.metafields.custom.material.value | default: product.metafields.custom.material
-  if material == blank
-    assign material = section.settings.material_fallback
-  endif
+  assign breadcrumb_block = section.blocks | where: 'type', 'breadcrumbs' | first
+  assign gallery_block = section.blocks | where: 'type', 'gallery_extension' | first
 
-  assign design_year = product.metafields.custom.design_year.value | default: product.metafields.custom.design_year
-  if design_year == blank
-    assign design_year = section.settings.design_year_fallback
-  endif
+  if gallery_block
+    assign gallery_text = product.metafields.custom.gallery_extension_text.value | default: product.metafields.custom.gallery_extension_text
+    if gallery_text == blank
+      assign gallery_text = gallery_block.settings.gallery_extension_text
+    endif
 
-  assign measurements = product.metafields.custom.measurements.value | default: product.metafields.custom.measurements
-  if measurements == blank
-    assign measurements = section.settings.measurements_fallback
+    assign gallery_image = gallery_block.settings.gallery_extension_image
+    if product.metafields.custom.gallery_extension_image.value != blank
+      assign gallery_image = product.metafields.custom.gallery_extension_image.value
+    endif
   endif
+-%}
 
-  assign gallery_text = product.metafields.custom.gallery_extension_text.value | default: product.metafields.custom.gallery_extension_text
-  if gallery_text == blank
-    assign gallery_text = section.settings.gallery_extension_text
+<div
+  id="main"
+  role="main"
+  class="full-width clearfix georg-pdp-section section-{{ section.id }}"
+  data-gj-pdp
+  data-product-id="{{ product.id }}"
+  data-money-format="{{ shop.money_format | escape }}"
+  data-show-gallery-arrows="{% if section.settings.show_gallery_arrows %}true{% else %}false{% endif %}"
+  data-hide-thumbnails="{% if section.settings.hide_mobile_thumbnails %}true{% else %}false{% endif %}"
+>
+  <div class="georg-containers georg-container">
+    {%- if section.settings.show_breadcrumbs -%}
+      <nav aria-label="Breadcrumb">
+        <ul class="breadcrumbs">
+          <li class="d-none">
+            <span><a class="breadcrumb-element" href="{{ routes.root_url }}"><span>{{ section.settings.breadcrumb_home | default: 'Home' }}</span></a></span>
+          </li>
+          {%- if section.settings.breadcrumb_parent_label != blank -%}
+            <li>
+              <span>
+                <a class="breadcrumb-element" href="{{ section.settings.breadcrumb_parent_link | default: routes.all_products_collection_url }}">
+                  <span>{{ section.settings.breadcrumb_parent_label }}</span>
+                </a>
+              </span>
+            </li>
+          {%- endif -%}
+          {%- if collection != blank -%}
+            <li>
+              <span>
+                <a class="breadcrumb-element" href="{{ collection.url }}">
+                  <span>{{ collection.title }}</span>
+                </a>
+              </span>
+            </li>
+          {%- elsif product.collections.size > 0 -%}
+            <li>
+              <span>
+                <a class="breadcrumb-element" href="{{ product.collections.first.url }}">
+                  <span>{{ product.collections.first.title }}</span>
+                </a>
+              </span>
+            </li>
+          {%- endif -%}
+          <li class="d-none">
+            <span><span class="breadcrumb-element">{{ product.title }}</span></span>
+          </li>
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    <div id="primary" class="primary-content">
+      <div id="pdpMain" class="pdp-main">
+        <div class="product-col-1" style="position: relative;">
+          <div class="pdp-sticky-left product-image-container">
+            <div class="product-primary-image{% if section.settings.show_gallery_arrows %} has-gallery-arrows{% endif %}{% if section.settings.hide_mobile_thumbnails %} hide-mobile-thumbs{% endif %}">
+              <div class="product-image-carousel owl-carousel owl-theme" data-slider-id="productImageCarousel" data-gj-gallery-track>
+                {%- if product.media.size > 0 -%}
+                  {%- assign gj_slide_index = 0 -%}
+                  {%- for media in product.media -%}
+                    {%- if media.media_type == 'image' -%}
+                      {%- liquid
+                        if gj_slide_index == 0
+                          assign img_loading = 'eager'
+                          assign img_fetch = 'high'
+                        else
+                          assign img_loading = 'lazy'
+                          assign img_fetch = 'auto'
+                        endif
+                      -%}
+                      <a
+                        class="product-image main-image{% if gj_slide_index == 0 %} is-active{% endif %}"
+                        data-gallery="gallery-{{ section.id }}"
+                        data-gj-gallery-slide
+                        data-fancybox="gj-gallery-{{ section.id }}"
+                        data-caption="{{ product.title | escape }}"
+                        href="{{ media | image_url: width: 2400 }}"
+                        title="{{ product.title | escape }}"
+                      >
+                        {%- if gj_slide_index == 0 -%}
+                          <link rel="preload" as="image" href="{{ media | image_url: width: 900 }}">
+                        {%- endif -%}
+                        {{
+                          media
+                          | image_url: width: 900
+                          | image_tag:
+                            loading: img_loading,
+                            fetchpriority: img_fetch,
+                            class: 'cld-responsive primary-image product-image',
+                            widths: '400, 600, 700, 900, 1200',
+                            sizes: '(min-width: 990px) 33vw, 100vw',
+                            alt: product.title
+                        }}
+                      </a>
+                      {%- assign gj_slide_index = gj_slide_index | plus: 1 -%}
+
+                    {%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}
+                      {%- liquid
+                        assign video_href = blank
+                        assign video_type = 'html5video'
+                        if media.media_type == 'video'
+                          assign video_href = media.sources.first.url
+                          assign video_type = 'html5video'
+                        elsif media.host == 'youtube'
+                          assign video_href = 'https://www.youtube.com/watch?v=' | append: media.external_id
+                          assign video_type = 'youtube'
+                        elsif media.host == 'vimeo'
+                          assign video_href = 'https://vimeo.com/' | append: media.external_id
+                          assign video_type = 'vimeo'
+                        else
+                          assign video_href = media | external_video_url
+                          assign video_type = 'iframe'
+                        endif
+                      -%}
+                      <a
+                        class="product-image main-image product-image--video{% if gj_slide_index == 0 %} is-active{% endif %}"
+                        data-gallery="gallery-{{ section.id }}"
+                        data-gj-gallery-slide
+                        data-fancybox="gj-gallery-{{ section.id }}"
+                        data-type="{{ video_type }}"
+                        {% if video_type == 'html5video' %}
+                          data-width="1280"
+                          data-height="720"
+                        {% endif %}
+                        data-caption="{{ product.title | escape }}"
+                        href="{{ video_href }}"
+                        title="{{ product.title | escape }} — video"
+                      >
+                        {%- if media.preview_image -%}
+                          {{
+                            media.preview_image
+                            | image_url: width: 900
+                            | image_tag:
+                              loading: 'lazy',
+                              class: 'cld-responsive primary-image product-image',
+                              widths: '400, 600, 700, 900, 1200',
+                              sizes: '(min-width: 990px) 33vw, 100vw',
+                              alt: product.title
+                          }}
+                        {%- else -%}
+                          <span class="product-image__video-fallback" aria-hidden="true"></span>
+                        {%- endif -%}
+                        <span class="product-image__play" aria-hidden="true">
+                          <svg viewBox="0 0 64 64" width="56" height="56" fill="none">
+                            <circle cx="32" cy="32" r="31" stroke="currentColor" stroke-width="1.5" fill="rgba(255,255,255,0.92)"/>
+                            <path d="M27 22l18 10-18 10V22z" fill="currentColor"/>
+                          </svg>
+                        </span>
+                      </a>
+                      {%- assign gj_slide_index = gj_slide_index | plus: 1 -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+
+              {%- if section.settings.show_gallery_arrows and product.media.size > 1 -%}
+                <div class="gj-gallery-arrows" data-gj-gallery-arrows>
+                  <button
+                    type="button"
+                    class="gj-gallery-arrow gj-gallery-arrow--prev"
+                    data-gj-gallery-prev
+                    aria-label="{{ 'general.pagination.previous' | t | default: 'Previous' }}"
+                  >
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                      <path d="M15 5l-7 7 7 7"/>
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    class="gj-gallery-arrow gj-gallery-arrow--next"
+                    data-gj-gallery-next
+                    aria-label="{{ 'general.pagination.next' | t | default: 'Next' }}"
+                  >
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                      <path d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </button>
+                </div>
+              {%- endif -%}
+
+              {%- unless section.settings.hide_mobile_thumbnails -%}
+                <div id="thumbnails" class="product-thumbnails not-show-desktop">
+                  <div class="owl-thumbs" data-slider-id="productImageCarousel">
+                    {%- assign gj_thumb_index = 0 -%}
+                    {%- for media in product.media -%}
+                      {%- if media.media_type == 'image' or media.media_type == 'video' or media.media_type == 'external_video' -%}
+                        <button
+                          type="button"
+                          class="thumb owl-thumb-item{% if gj_thumb_index == 0 %} selected{% endif %}{% if media.media_type != 'image' %} thumb--video{% endif %}"
+                          aria-label="{{ 'products.product.media.gallery_viewer' | t | default: 'Change current image' }}"
+                        >
+                          <div class="thumbnail-link">
+                            {%- if media.media_type == 'image' -%}
+                              {{
+                                media
+                                | image_url: width: 140
+                                | image_tag:
+                                  loading: 'lazy',
+                                  class: 'cld-responsive productthumbnail',
+                                  alt: '',
+                                  widths: '70, 140'
+                              }}
+                            {%- elsif media.preview_image -%}
+                              {{
+                                media.preview_image
+                                | image_url: width: 140
+                                | image_tag:
+                                  loading: 'lazy',
+                                  class: 'cld-responsive productthumbnail',
+                                  alt: '',
+                                  widths: '70, 140'
+                              }}
+                              <span class="thumb__play" aria-hidden="true"></span>
+                            {%- endif -%}
+                          </div>
+                        </button>
+                        {%- assign gj_thumb_index = gj_thumb_index | plus: 1 -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- endunless -%}
+            </div>
+
+            {%- if gallery_text != blank or gallery_image != blank -%}
+              <div class="gallery-extension-top gallery-extension-top--desktop-only">
+                {%- if gallery_text != blank -%}
+                  <span class="gallery-extension-text">{{ gallery_text }}</span>
+                {%- endif -%}
+                {%- if gallery_image != blank -%}
+                  <div class="gallery-extension-image">
+                    {{
+                      gallery_image
+                      | image_url: width: 1400
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'cld-responsive',
+                        widths: '600, 900, 1200, 1400',
+                        sizes: '(min-width: 990px) 60vw, 100vw',
+                        alt: product.title
+                    }}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="product-col-2 product-detail pdp-sticky-right">
+          <div id="product-content">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when '@app' -%}
+                  {% render block %}
+
+                {%- when 'collection_link' -%}
+                  {%- liquid
+                    assign collection_title = block.settings.collection_label
+                    if collection_title == blank and product.collections.size > 0
+                      assign collection_title = product.collections.first.title
+                    endif
+                    if collection_title == blank
+                      assign collection_title = product.vendor
+                    endif
+                    assign collection_url = block.settings.collection_link
+                    if collection_url == blank and product.collections.size > 0
+                      assign collection_url = product.collections.first.url
+                    endif
+                    if collection_url == blank
+                      assign collection_url = routes.all_products_collection_url
+                    endif
+                  -%}
+                  {%- if collection_title != blank -%}
+                    <a class="product-collection" href="{{ collection_url }}" {{ block.shopify_attributes }}>
+                      {{ collection_title }}
+                      {%- unless collection_title contains 'Collection' or collection_title contains 'collection' or collection_title contains 'Kollektion' -%}
+                        {{ ' ' }}{{ block.settings.collection_suffix | default: 'Collection' }}
+                      {%- endunless -%}
+                    </a>
+                  {%- endif -%}
+
+                {%- when 'title' -%}
+                  <h1 class="product-name" {{ block.shopify_attributes }}>{{ product.title }}</h1>
+                  <span class="visually-hidden">{{ product.vendor }}</span>
+                  <span class="visually-hidden">{{ current_variant.sku }}</span>
+                  <span class="visually-hidden">{{ shop.url }}{{ product.url }}</span>
+
+                {%- when 'material' -%}
+                  {%- liquid
+                    assign material = product.metafields.custom.material.value | default: product.metafields.custom.material
+                    if material == blank
+                      assign material = block.settings.material_fallback
+                    endif
+                  -%}
+                  {%- if material != blank -%}
+                    <div class="product-material pdpMaterial" {{ block.shopify_attributes }}>
+                      <div>{{ material }}</div>
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'usps' -%}
+                  {%- liquid
+                    assign show_pdp_usps = false
+                    if block.settings.show_usps
+                      if block.settings.usp_1 != blank or block.settings.usp_2 != blank or block.settings.usp_3 != blank
+                        assign show_pdp_usps = true
+                      endif
+                      for inner_block in section.blocks
+                        if inner_block.type == 'usp' and inner_block.settings.text != blank
+                          assign show_pdp_usps = true
+                          break
+                        endif
+                      endfor
+                    endif
+                  -%}
+                  {%- if show_pdp_usps -%}
+                    <ul class="gj-pdp-usps" aria-label="Product benefits" {{ block.shopify_attributes }}>
+                      {%- if block.settings.usp_1 != blank -%}
+                        <li class="gj-pdp-usp">
+                          <span class="gj-pdp-usp__text">{{ block.settings.usp_1 | escape }}</span>
+                          <span class="gj-pdp-usp__check" aria-hidden="true">
+                            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 8.2l3.2 3.2L13 4.5"/></svg>
+                          </span>
+                        </li>
+                      {%- endif -%}
+                      {%- if block.settings.usp_2 != blank -%}
+                        <li class="gj-pdp-usp">
+                          <span class="gj-pdp-usp__text">{{ block.settings.usp_2 | escape }}</span>
+                          <span class="gj-pdp-usp__check" aria-hidden="true">
+                            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 8.2l3.2 3.2L13 4.5"/></svg>
+                          </span>
+                        </li>
+                      {%- endif -%}
+                      {%- if block.settings.usp_3 != blank -%}
+                        <li class="gj-pdp-usp">
+                          <span class="gj-pdp-usp__text">{{ block.settings.usp_3 | escape }}</span>
+                          <span class="gj-pdp-usp__check" aria-hidden="true">
+                            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 8.2l3.2 3.2L13 4.5"/></svg>
+                          </span>
+                        </li>
+                      {%- endif -%}
+                      {%- for inner_block in section.blocks -%}
+                        {%- if inner_block.type == 'usp' and inner_block.settings.text != blank -%}
+                          <li class="gj-pdp-usp" {{ inner_block.shopify_attributes }}>
+                            <span class="gj-pdp-usp__text">{{ inner_block.settings.text | escape }}</span>
+                            <span class="gj-pdp-usp__check" aria-hidden="true">
+                              <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 8.2l3.2 3.2L13 4.5"/></svg>
+                            </span>
+                          </li>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+
+                {%- when 'variant_picker' -%}
+                  <div class="product-variations-container{% if product.has_only_default_variant %} empty-vairation{% endif %}" {{ block.shopify_attributes }}>
+                    {%- unless product.has_only_default_variant -%}
+                      {%- if block.settings.show_delivery_note -%}
+                        <p class="gj-delivery-note" data-gj-delivery-note hidden>{{ block.settings.delivery_note_text }}</p>
+                      {%- endif -%}
+                      <div class="product-variations" data-gj-variations>
+                        {%- for option in product.options_with_values -%}
+                          {%- liquid
+                            assign option_label = block.settings.choose_option_label | default: 'Choose size'
+                            if product.options.size > 1
+                              assign option_label = 'Choose ' | append: option.name
+                            endif
+                          -%}
+                          <div class="gj-size-picker" data-gj-size-picker data-option-index="{{ forloop.index0 }}" data-placeholder="{{ option_label | escape }}">
+                            <button type="button" class="gj-size-picker__trigger" data-gj-size-trigger aria-expanded="false" aria-controls="GjSizePanel-{{ section.id }}-{{ forloop.index0 }}" id="GjSizeTrigger-{{ section.id }}-{{ forloop.index0 }}">
+                              <span class="gj-size-picker__label" data-gj-size-trigger-label>{{ option_label }}</span>
+                              <span class="gj-size-picker__caret" aria-hidden="true"></span>
+                            </button>
+                            <div class="gj-size-picker__panel" id="GjSizePanel-{{ section.id }}-{{ forloop.index0 }}" data-gj-size-panel hidden role="listbox" aria-labelledby="GjSizeTrigger-{{ section.id }}-{{ forloop.index0 }}">
+                              <div class="gj-size-picker__panel-inner">
+                                {%- for value in option.values -%}
+                                  <button type="button" class="gj-size-picker__option" role="option" data-gj-size-option data-value="{{ value | escape }}" aria-selected="false">{{ value }}</button>
+                                {%- endfor -%}
+                              </div>
+                            </div>
+                            <label class="visually-hidden" for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+                            <select id="Option-{{ section.id }}-{{ forloop.index0 }}" class="variation-select visually-hidden" name="options[{{ option.name | escape }}]" form="{{ product_form_id }}" data-gj-variation-select tabindex="-1" aria-hidden="true">
+                              <option value="" selected disabled>{{ option_label }}</option>
+                              {%- for value in option.values -%}
+                                <option value="{{ value | escape }}">{{ value }}</option>
+                              {%- endfor -%}
+                            </select>
+                          </div>
+                        {%- endfor -%}
+                      </div>
+                      <script type="application/json" data-gj-variants>
+                        [
+                          {%- for variant in product.variants -%}
+                            {
+                              "id": {{ variant.id | json }},
+                              "available": {{ variant.available | json }},
+                              "price": {{ variant.price | json }},
+                              "price_formatted": {{ variant.price | money_without_trailing_zeros | json }},
+                              "compare_at_price": {{ variant.compare_at_price | json }},
+                              "compare_at_price_formatted": {% if variant.compare_at_price %}{{ variant.compare_at_price | money_without_trailing_zeros | json }}{% else %}null{% endif %},
+                              "options": {{ variant.options | json }},
+                              "sku": {{ variant.sku | json }}
+                            }{% unless forloop.last %},{% endunless %}
+                          {%- endfor -%}
+                        ]
+                      </script>
+                    {%- endunless -%}
+                  </div>
+                  <p class="gj-size-error" data-gj-size-error hidden {% if product.has_only_default_variant %}style="display:none"{% endif %}>
+                    {{ block.settings.size_required_error | default: 'Please choose a size' }}
+                  </p>
+
+                {%- when 'price' -%}
+                  <div class="product-price pdpPrice" {{ block.shopify_attributes }}>
+                    <span class="price-sales effectiveprice" data-gj-price>{{ current_variant.price | money_without_trailing_zeros }}</span>
+                    {%- if current_variant.compare_at_price > current_variant.price -%}
+                      <span class="price-compare" data-gj-compare>{{ current_variant.compare_at_price | money_without_trailing_zeros }}</span>
+                    {%- else -%}
+                      <span class="price-compare" data-gj-compare hidden></span>
+                    {%- endif -%}
+                  </div>
+
+                {%- when 'ring_size' -%}
+                  <div class="gj-ring-size-guide" {{ block.shopify_attributes }}>
+                    {% render 'ring', block: block, product: product, force: true %}
+                  </div>
+
+                {%- when 'buy_buttons' -%}
+                  {%- liquid
+                    assign atc_label = block.settings.add_to_cart_label
+                    assign wishlist_label = block.settings.wishlist_label
+                    assign wishlist_remove_label = block.settings.wishlist_remove_label
+                  -%}
+                  <div class="mobile-sticky-container" {{ block.shopify_attributes }}>
+                    <div class="cta">
+                      <product-form class="product-form" data-hide-errors="false" data-section-id="{{ section.id }}">
+                        <div class="product-form__error-message-wrapper" role="alert" hidden>
+                          <span class="product-form__error-message"></span>
+                        </div>
+                        {%- form 'product', product, id: product_form_id, class: 'pdpForm form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                          <input type="hidden" name="id" value="{{ current_variant.id }}" class="product-variant-id" {% if current_variant.available == false %}disabled{% endif %}>
+                          <input type="hidden" name="quantity" value="1">
+                          <fieldset>
+                            <legend>Add to basket Fields</legend>
+                            <div class="product-add-to-cart">
+                              <button id="add-to-cart" type="submit" name="add" class="button-fancy-large add-to-cart product-form__submit" data-gj-atc data-available-label="{{ atc_label | escape }}" data-soldout-label="{{ block.settings.sold_out_label | escape }}" data-unavailable-label="{{ block.settings.unavailable_label | escape }}" {% if current_variant.available == false %}disabled aria-disabled="true"{% endif %}>
+                                <span data-gj-atc-label>{%- if current_variant.available -%}{{ atc_label }}{%- else -%}{{ block.settings.sold_out_label }}{%- endif -%}</span>
+                                {%- render 'loading-spinner' -%}
+                              </button>
+                            </div>
+                          </fieldset>
+                        {%- endform -%}
+                      </product-form>
+                      {%- if block.settings.show_wishlist -%}
+                        <div aria-label="{{ wishlist_label | escape }}" class="add-remove-wishlist add" tabindex="0" role="button" data-gj-wishlist-add data-product-handle="{{ product.handle }}">{{ wishlist_label }}</div>
+                        <div aria-label="{{ wishlist_remove_label | escape }}" class="add-remove-wishlist remove" tabindex="0" role="button" data-gj-wishlist-remove data-product-handle="{{ product.handle }}" style="display:none">{{ wishlist_remove_label }}</div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+
+                {%- when 'gift_wrapping' -%}
+                  {%- if block.settings.show_gift_wrapping -%}
+                    {%- liquid
+                      assign gift_text = block.settings.gift_wrapping_text
+                      assign gift_image = block.settings.gift_wrapping_image
+                    -%}
+                    <div class="giftwrapping" {{ block.shopify_attributes }}>
+                      {%- if gift_image != blank -%}
+                        {{ gift_image | image_url: width: 800 | image_tag: class: 'giftwrapping-image', loading: 'lazy', alt: gift_text }}
+                      {%- else -%}
+                        <img class="giftwrapping-image" src="https://www.georgjensen.com/on/demandware.static/-/Sites/default/dwd8cb5458/gift-wrap-banner@2x.jpg" alt="{{ gift_text | escape }}" loading="lazy" width="800" height="300">
+                      {%- endif -%}
+                      <span class="giftwrapping-text">{{ gift_text }}</span>
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'description' -%}
+                  {%- liquid
+                    assign desc_plain = product.description | strip_html | strip | replace: '&nbsp;', '' | strip
+                    assign show_description = false
+                    if desc_plain != blank and desc_plain != '.' and desc_plain != '-' and desc_plain.size > 2
+                      assign show_description = true
+                    endif
+                  -%}
+                  {%- if show_description -%}
+                    <div class="gj-pdp-description" {{ block.shopify_attributes }}>
+                      <div class="product-info_content_item active is-collapsed" data-full-text="{{ desc_plain | escape }}">
+                        <p>{{ desc_plain | newline_to_br }}</p>
+                      </div>
+                      {%- if desc_plain.size > 180 -%}
+                        <div class="product-info_content_item-read-more" role="button" tabindex="0" data-more-label="{{ block.settings.read_more_label | escape }}" data-less-label="{{ block.settings.read_less_label | escape }}">{{ block.settings.read_more_label }}</div>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'product_details' -%}
+                  {%- liquid
+                    assign material = product.metafields.custom.material.value | default: product.metafields.custom.material
+                    assign design_year = product.metafields.custom.design_year.value | default: product.metafields.custom.design_year
+                    if design_year == blank
+                      assign design_year = block.settings.design_year_fallback
+                    endif
+                    assign measurements = product.metafields.custom.measurements.value | default: product.metafields.custom.measurements
+                    if measurements == blank
+                      assign measurements = block.settings.measurements_fallback
+                    endif
+                    assign collection_title = block.settings.collection_label
+                    if collection_title == blank and product.collections.size > 0
+                      assign collection_title = product.collections.first.title
+                    endif
+                    if collection_title == blank
+                      assign collection_title = product.vendor
+                    endif
+                    assign collection_url = block.settings.collection_link
+                    if collection_url == blank and product.collections.size > 0
+                      assign collection_url = product.collections.first.url
+                    endif
+                    if collection_url == blank
+                      assign collection_url = routes.all_products_collection_url
+                    endif
+                  -%}
+                  <div class="product-accordion" role="tablist" {{ block.shopify_attributes }}>
+                    <h2 class="accordion-head accordion-1" role="tab" tabindex="0" aria-expanded="false">{{ block.settings.details_heading }}</h2>
+                    <div class="accordion-body accordion-1" role="tabpanel">
+                      <section class="product-info">
+                        <div class="product-info_details">
+                          <div class="product-info_content">
+                            <div class="product-info_content_item_list">
+                              <ul>
+                                <li><span class="product-info_content_item_detail">{{ block.settings.item_number_label }}</span>{{ current_variant.sku | default: product.id }}</li>
+                                {%- if material != blank -%}<li><span class="product-info_content_item_detail">{{ block.settings.materials_label }}</span>{{ material }}</li>{%- endif -%}
+                                {%- if measurements != blank -%}<li><span class="product-info_content_item_detail">{{ block.settings.measurements_label }}</span>{{ measurements }}</li>{%- endif -%}
+                                {%- if design_year != blank -%}<li><span class="product-info_content_item_detail">{{ block.settings.design_year_label }}</span>{{ design_year }}</li>{%- endif -%}
+                                {%- if collection_title != blank -%}<li><span class="product-info_content_item_detail meta-collection">{{ block.settings.collection_meta_label }}</span><a href="{{ collection_url }}">{{ collection_title }}</a></li>{%- endif -%}
+                                {%- if block.settings.explore_text != blank -%}<li><span class="product-info_content_item_detail">{{ block.settings.explore_label }}</span><a class="product-info_content_item_explore" href="{{ block.settings.explore_link | default: routes.all_products_collection_url }}">{{ block.settings.explore_text }}</a></li>{%- endif -%}
+                                {%- for inner_block in section.blocks -%}
+                                  {%- if inner_block.type == 'detail_row' and inner_block.settings.value != blank -%}
+                                    <li {{ inner_block.shopify_attributes }}>
+                                      {%- if inner_block.settings.label != blank -%}<span class="product-info_content_item_detail">{{ inner_block.settings.label }}</span>{%- endif -%}
+                                      {{ inner_block.settings.value }}
+                                    </li>
+                                  {%- endif -%}
+                                {%- endfor -%}
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+
+                {%- when 'shipping' -%}
+                  <div class="product-accordion" role="tablist" {{ block.shopify_attributes }}>
+                    <h2 class="accordion-head accordion-2" role="tab" tabindex="0" aria-expanded="false">{{ block.settings.shipping_heading }}</h2>
+                    <div class="accordion-body accordion-2" role="tabpanel">{{ block.settings.shipping_content }}</div>
+                  </div>
+
+                {%- when 'phone' -%}
+                  {%- if block.settings.phone_number != blank -%}
+                    <div class="product-usp-items-container" {{ block.shopify_attributes }}>
+                      <div class="product-usp-item call-customer-service">
+                        <a href="tel:{{ block.settings.phone_number | replace: ' ', '' }}">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                          {{ block.settings.phone_label }} {{ block.settings.phone_number }}
+                        </a>
+                      </div>
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'gallery_extension' -%}
+                  {%- if gallery_text != blank or gallery_image != blank -%}
+                    <div class="gallery-extension-top gallery-extension-top--mobile-only" {{ block.shopify_attributes }}>
+                      {%- if gallery_text != blank -%}<span class="gallery-extension-text">{{ gallery_text }}</span>{%- endif -%}
+                      {%- if gallery_image != blank -%}<div class="gallery-extension-image">{{ gallery_image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'cld-responsive', alt: product.title }}</div>{%- endif -%}
+                    </div>
+                  {%- endif -%}
+
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>{{ 'georg-jensen-pdp.css' | asset_url | stylesheet_tag }}
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css"
+>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.js"
+  defer
+></script>
+<script src="{{ 'georg-jensen-pdp.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_form_id = 'gj-product-form-' | append: section.id
+
+  assign breadcrumb_block = section.blocks | where: 'type', 'breadcrumbs' | first
+  assign gallery_block = section.blocks | where: 'type', 'gallery_extension' | first
+
+  if gallery_block
+    assign gallery_text = product.metafields.custom.gallery_extension_text.value | default: product.metafields.custom.gallery_extension_text
+    if gallery_text == blank
+      assign gallery_text = gallery_block.settings.gallery_extension_text
+    endif
+
+    assign gallery_image = gallery_block.settings.gallery_extension_image
+    if product.metafields.custom.gallery_extension_image.value != blank
+      assign gallery_image = product.metafields.custom.gallery_extension_image.value
+    endif
   endif
-
-  assign gallery_image = section.settings.gallery_extension_image
-  if product.metafields.custom.gallery_extension_image.value != blank
-    assign gallery_image = product.metafields.custom.gallery_extension_image.value
-  endif
-
-  assign gift_text = section.settings.gift_wrapping_text
-  assign gift_image = section.settings.gift_wrapping_image
-  assign phone = section.settings.phone_number
-  assign phone_label = section.settings.phone_label
-  assign atc_label = section.settings.add_to_cart_label
-  assign wishlist_label = section.settings.wishlist_label
-  assign wishlist_remove_label = section.settings.wishlist_remove_label
-  assign read_more_label = section.settings.read_more_label
-  assign read_less_label = section.settings.read_less_label
-  assign details_heading = section.settings.details_heading
-  assign shipping_heading = section.settings.shipping_heading
-  assign shipping_content = section.settings.shipping_content
-  assign item_number_label = section.settings.item_number_label
-  assign materials_label = section.settings.materials_label
-  assign measurements_label = section.settings.measurements_label
-  assign design_year_label = section.settings.design_year_label
-  assign collection_meta_label = section.settings.collection_meta_label
-  assign explore_label = section.settings.explore_label
 -%}
 
 <div
@@ -796,314 +1365,6 @@
   "settings": [
     {
       "type": "header",
-      "content": "Breadcrumbs"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_breadcrumbs",
-      "label": "Show breadcrumbs",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "breadcrumb_home",
-      "label": "Home label",
-      "default": "Home"
-    },
-    {
-      "type": "text",
-      "id": "breadcrumb_parent_label",
-      "label": "Parent crumb label",
-      "default": "Jewellery"
-    },
-    {
-      "type": "url",
-      "id": "breadcrumb_parent_link",
-      "label": "Parent crumb link"
-    },
-    {
-      "type": "header",
-      "content": "Product labels"
-    },
-    {
-      "type": "text",
-      "id": "collection_label",
-      "label": "Collection label override",
-      "info": "Leave blank to use product collection / vendor"
-    },
-    {
-      "type": "url",
-      "id": "collection_link",
-      "label": "Collection link override"
-    },
-    {
-      "type": "text",
-      "id": "collection_suffix",
-      "label": "Collection suffix",
-      "default": "Collection"
-    },
-    {
-      "type": "text",
-      "id": "material_fallback",
-      "label": "Material fallback",
-      "default": "Sterling Silver",
-      "info": "Uses metafield custom.material when set"
-    },
-    {
-      "type": "text",
-      "id": "choose_option_label",
-      "label": "Choose option label",
-      "default": "Choose size"
-    },
-    {
-      "type": "header",
-      "content": "USP badges"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_usps",
-      "label": "Show USP badges above size",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "usp_1",
-      "label": "USP 1",
-      "default": "Handmade in Australia"
-    },
-    {
-      "type": "text",
-      "id": "usp_2",
-      "label": "USP 2",
-      "default": "Take two and the third is on me"
-    },
-    {
-      "type": "text",
-      "id": "usp_3",
-      "label": "USP 3",
-      "default": "Free shipping today"
-    },
-    {
-      "type": "text",
-      "id": "size_required_error",
-      "label": "Size required error",
-      "default": "Please choose a size"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_delivery_note",
-      "label": "Show delivery note after size selected",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "delivery_note_text",
-      "label": "Delivery note text",
-      "default": "The product has extended delivery time of 2-4 weeks."
-    },
-    {
-      "type": "text",
-      "id": "add_to_cart_label",
-      "label": "Add to basket label",
-      "default": "Add to basket"
-    },
-    {
-      "type": "text",
-      "id": "sold_out_label",
-      "label": "Sold out label",
-      "default": "Sold out"
-    },
-    {
-      "type": "text",
-      "id": "unavailable_label",
-      "label": "Unavailable label",
-      "default": "Unavailable"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_wishlist",
-      "label": "Show wishlist",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "wishlist_label",
-      "label": "Wishlist label",
-      "default": "Add to Wishlist"
-    },
-    {
-      "type": "text",
-      "id": "wishlist_remove_label",
-      "label": "Remove wishlist label",
-      "default": "Remove from Wishlist"
-    },
-    {
-      "type": "text",
-      "id": "read_more_label",
-      "label": "Read more label",
-      "default": "Read more"
-    },
-    {
-      "type": "text",
-      "id": "read_less_label",
-      "label": "Read less label",
-      "default": "Read less"
-    },
-    {
-      "type": "header",
-      "content": "Gift wrapping"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_gift_wrapping",
-      "label": "Show gift wrapping banner",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "gift_wrapping_text",
-      "label": "Gift wrapping text",
-      "default": "Complimentary gift wrapping"
-    },
-    {
-      "type": "image_picker",
-      "id": "gift_wrapping_image",
-      "label": "Gift wrapping image"
-    },
-    {
-      "type": "header",
-      "content": "Gallery extension"
-    },
-    {
-      "type": "textarea",
-      "id": "gallery_extension_text",
-      "label": "Gallery extension text",
-      "default": "Weft draws on the structures of weaving, translating them into sterling silver jewellery defined by a sense of movement.",
-      "info": "Override with metafield custom.gallery_extension_text"
-    },
-    {
-      "type": "image_picker",
-      "id": "gallery_extension_image",
-      "label": "Gallery extension image",
-      "info": "Override with metafield custom.gallery_extension_image"
-    },
-    {
-      "type": "header",
-      "content": "Product details accordion"
-    },
-    {
-      "type": "text",
-      "id": "details_heading",
-      "label": "Details heading",
-      "default": "Product details"
-    },
-    {
-      "type": "text",
-      "id": "item_number_label",
-      "label": "Item number label",
-      "default": "Item number:"
-    },
-    {
-      "type": "text",
-      "id": "materials_label",
-      "label": "Materials label",
-      "default": "Materials:"
-    },
-    {
-      "type": "text",
-      "id": "measurements_label",
-      "label": "Measurements label",
-      "default": "Measurements:"
-    },
-    {
-      "type": "text",
-      "id": "measurements_fallback",
-      "label": "Measurements fallback",
-      "default": "W: 8 mm. L: 42 mm.",
-      "info": "Uses metafield custom.measurements when set"
-    },
-    {
-      "type": "text",
-      "id": "design_year_label",
-      "label": "Design year label",
-      "default": "Design year:"
-    },
-    {
-      "type": "text",
-      "id": "design_year_fallback",
-      "label": "Design year fallback",
-      "default": "2026",
-      "info": "Uses metafield custom.design_year when set"
-    },
-    {
-      "type": "text",
-      "id": "collection_meta_label",
-      "label": "Collection detail label",
-      "default": "Collection:"
-    },
-    {
-      "type": "text",
-      "id": "explore_label",
-      "label": "Explore label",
-      "default": "Explore:"
-    },
-    {
-      "type": "text",
-      "id": "explore_text",
-      "label": "Explore link text",
-      "default": "Earrings"
-    },
-    {
-      "type": "url",
-      "id": "explore_link",
-      "label": "Explore link"
-    },
-    {
-      "type": "header",
-      "content": "Shipping accordion"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_shipping_accordion",
-      "label": "Show shipping accordion",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "shipping_heading",
-      "label": "Shipping heading",
-      "default": "Shipping and returns"
-    },
-    {
-      "type": "richtext",
-      "id": "shipping_content",
-      "label": "Shipping content",
-      "default": "<ul><li>Free gift wrapping on full priced items</li><li>Shipping by UPS</li><li>Easy exchanges and returns</li></ul>"
-    },
-    {
-      "type": "header",
-      "content": "Customer service"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_phone",
-      "label": "Show call link",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "phone_label",
-      "label": "Call label",
-      "default": "Call"
-    },
-    {
-      "type": "text",
-      "id": "phone_number",
-      "label": "Phone number",
-      "default": "+45 38 14 90 44"
-    },
-    {
-      "type": "header",
       "content": "Mobile"
     },
     {
@@ -1128,236 +1389,218 @@
   ],
   "blocks": [
     {
+      "type": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "breadcrumb_home", "label": "Home label", "default": "Home" },
+        { "type": "text", "id": "breadcrumb_parent_label", "label": "Parent crumb label", "default": "Jewellery" },
+        { "type": "url", "id": "breadcrumb_parent_link", "label": "Parent crumb link" }
+      ]
+    },
+    {
+      "type": "collection_link",
+      "name": "Collection link",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "collection_label", "label": "Collection label override", "info": "Leave blank to use product collection / vendor" },
+        { "type": "url", "id": "collection_link", "label": "Collection link override" },
+        { "type": "text", "id": "collection_suffix", "label": "Collection suffix", "default": "Collection" }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1
+    },
+    {
+      "type": "material",
+      "name": "Material",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "material_fallback", "label": "Material fallback", "default": "Sterling Silver", "info": "Uses metafield custom.material when set" }
+      ]
+    },
+    {
+      "type": "usps",
+      "name": "USP badges list",
+      "limit": 1,
+      "settings": [
+        { "type": "checkbox", "id": "show_usps", "label": "Show USP badges above size", "default": true },
+        { "type": "text", "id": "usp_1", "label": "USP 1", "default": "Handmade in Australia" },
+        { "type": "text", "id": "usp_2", "label": "USP 2", "default": "Take two and the third is on me" },
+        { "type": "text", "id": "usp_3", "label": "USP 3", "default": "Free shipping today" }
+      ]
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant picker",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "choose_option_label", "label": "Choose option label", "default": "Choose size" },
+        { "type": "text", "id": "size_required_error", "label": "Size required error", "default": "Please choose a size" },
+        { "type": "checkbox", "id": "show_delivery_note", "label": "Show delivery note", "default": true },
+        { "type": "text", "id": "delivery_note_text", "label": "Delivery note text", "default": "The product has extended delivery time of 2-4 weeks." }
+      ]
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy buttons",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "add_to_cart_label", "label": "Add to basket label", "default": "Add to basket" },
+        { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Sold out" },
+        { "type": "text", "id": "unavailable_label", "label": "Unavailable label", "default": "Unavailable" },
+        { "type": "checkbox", "id": "show_wishlist", "label": "Show wishlist", "default": true },
+        { "type": "text", "id": "wishlist_label", "label": "Wishlist label", "default": "Add to Wishlist" },
+        { "type": "text", "id": "wishlist_remove_label", "label": "Remove wishlist label", "default": "Remove from Wishlist" }
+      ]
+    },
+    {
+      "type": "gift_wrapping",
+      "name": "Gift wrapping",
+      "limit": 1,
+      "settings": [
+        { "type": "checkbox", "id": "show_gift_wrapping", "label": "Show gift wrapping banner", "default": true },
+        { "type": "text", "id": "gift_wrapping_text", "label": "Gift wrapping text", "default": "Complimentary gift wrapping" },
+        { "type": "image_picker", "id": "gift_wrapping_image", "label": "Gift wrapping image" }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "read_more_label", "label": "Read more label", "default": "Read more" },
+        { "type": "text", "id": "read_less_label", "label": "Read less label", "default": "Read less" }
+      ]
+    },
+    {
+      "type": "product_details",
+      "name": "Product details accordion",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "details_heading", "label": "Details heading", "default": "Product details" },
+        { "type": "text", "id": "item_number_label", "label": "Item number label", "default": "Item number:" },
+        { "type": "text", "id": "materials_label", "label": "Materials label", "default": "Materials:" },
+        { "type": "text", "id": "measurements_label", "label": "Measurements label", "default": "Measurements:" },
+        { "type": "text", "id": "measurements_fallback", "label": "Measurements fallback", "default": "W: 8 mm. L: 42 mm." },
+        { "type": "text", "id": "design_year_label", "label": "Design year label", "default": "Design year:" },
+        { "type": "text", "id": "design_year_fallback", "label": "Design year fallback", "default": "2026" },
+        { "type": "text", "id": "collection_meta_label", "label": "Collection detail label", "default": "Collection:" },
+        { "type": "text", "id": "explore_label", "label": "Explore label", "default": "Explore:" },
+        { "type": "text", "id": "explore_text", "label": "Explore link text", "default": "Earrings" },
+        { "type": "url", "id": "explore_link", "label": "Explore link" }
+      ]
+    },
+    {
+      "type": "shipping",
+      "name": "Shipping accordion",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "shipping_heading", "label": "Shipping heading", "default": "Shipping and returns" },
+        { "type": "richtext", "id": "shipping_content", "label": "Shipping content", "default": "<ul><li>Free gift wrapping on full priced items</li><li>Shipping by UPS</li><li>Easy exchanges and returns</li></ul>" }
+      ]
+    },
+    {
+      "type": "phone",
+      "name": "Customer service link",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "phone_label", "label": "Call label", "default": "Call" },
+        { "type": "text", "id": "phone_number", "label": "Phone number", "default": "+45 38 14 90 44" }
+      ]
+    },
+    {
+      "type": "gallery_extension",
+      "name": "Gallery extension",
+      "limit": 1,
+      "settings": [
+        { "type": "textarea", "id": "gallery_extension_text", "label": "Gallery extension text", "default": "Weft draws on the structures of weaving, translating them into sterling silver jewellery defined by a sense of movement." },
+        { "type": "image_picker", "id": "gallery_extension_image", "label": "Gallery extension image" }
+      ]
+    },
+    {
       "type": "ring_size",
       "name": "Ring Size Guide",
       "limit": 1,
       "settings": [
-        {
-          "type": "text",
-          "id": "trigger_text",
-          "label": "Trigger Button Text",
-          "default": "Size Guide"
-        },
-        {
-          "type": "text",
-          "id": "modal_heading",
-          "label": "Modal Heading",
-          "default": "RING SIZE GUIDE"
-        },
-        {
-          "type": "header",
-          "content": "--- TAB 1: Measure My Own Ring ---"
-        },
-        {
-          "type": "text",
-          "id": "tab1_title",
-          "label": "Tab 1 Title",
-          "default": "MEASURE MY OWN RING"
-        },
-        {
-          "type": "textarea",
-          "id": "tab1_instructions",
-          "label": "Tab 1 Instructions",
-          "default": "1. Use a ring that fits the desired finger.\n2. Measure the internal diameter of the ring (in mm). Ensure your ruler starts at the 0mm mark."
-        },
-        {
-          "type": "image_picker",
-          "id": "tab1_image",
-          "label": "Tab 1 Ring Diagram"
-        },
-        {
-          "type": "text",
-          "id": "t1_col1_heading",
-          "label": "Tab 1 - Col 1 Header",
-          "default": "Internal Diameter (mm)"
-        },
-        {
-          "type": "text",
-          "id": "t1_col2_heading",
-          "label": "Tab 1 - Col 2 Header",
-          "default": "US/CAN"
-        },
-        {
-          "type": "text",
-          "id": "t1_col3_heading",
-          "label": "Tab 1 - Col 3 Header",
-          "default": "UK/AUS"
-        },
-        {
-          "type": "text",
-          "id": "t1_col4_heading",
-          "label": "Tab 1 - Col 4 Header",
-          "default": "German"
-        },
-        {
-          "type": "textarea",
-          "id": "tab1_rows",
-          "label": "Tab 1 Rows",
-          "info": "Separate columns with a comma (,). Separate rows with a double-pipe (||).",
-          "default": "14.1 mm, 3, F, 14 || 14.5 mm, 3.5, G, 14.5 || 14.9 mm, 4, H 1/2, 15 || 15.3 mm, 4.5, I 1/2, 15.25 || 15.7 mm, 5, J 1/2, 15 3/4 || 16.1 mm, 5.5, K 1/2, 16 || 16.5 mm, 6, L 1/2, 16 1/2 || 16.9 mm, 6.5, M 1/2, 16.75 || 17.3 mm, 7, O, 17 1/4 || 17.7 mm, 7.5, P, 17.75 || 18.1 mm, 8, Q, 18 || 18.5 mm, 8.5, R, 18.5 || 19 mm, 9, S, 19 || 19.4 mm, 9.5, T, 19.5 || 19.8 mm, 10, U, 19 3/4 || 20.2 mm, 10.5, V, 20.25 || 20.6 mm, 11, W, 20 1/2 || 21.0 mm, 11.5, X, 21 || 21.4 mm, 12, Y, 21 1/2 || 21.8 mm, 12.5, Z, 22 || 22.2 mm, 13, Z 1, 22.25"
-        },
-        {
-          "type": "header",
-          "content": "--- TAB 2: Measure My Finger ---"
-        },
-        {
-          "type": "text",
-          "id": "tab2_title",
-          "label": "Tab 2 Title",
-          "default": "MEASURE MY FINGER"
-        },
-        {
-          "type": "video",
-          "id": "tab2_video",
-          "label": "Tab 2 Video"
-        },
-        {
-          "type": "textarea",
-          "id": "tab2_step1_text",
-          "label": "Step 1 Text",
-          "default": "1. Cut a thin strip of paper..."
-        },
-        {
-          "type": "image_picker",
-          "id": "tab2_step1_image",
-          "label": "Step 1 Image"
-        },
-        {
-          "type": "textarea",
-          "id": "tab2_step2_text",
-          "label": "Step 2 Text"
-        },
-        {
-          "type": "image_picker",
-          "id": "tab2_step2_image",
-          "label": "Step 2 Image"
-        },
-        {
-          "type": "textarea",
-          "id": "tab2_step3_text",
-          "label": "Step 3 Text"
-        },
-        {
-          "type": "image_picker",
-          "id": "tab2_step3_image",
-          "label": "Step 3 Image"
-        },
-        {
-          "type": "text",
-          "id": "t2_col1_heading",
-          "label": "Tab 2 - Col 1 Header",
-          "default": "Circumference\n(mm)"
-        },
-        {
-          "type": "text",
-          "id": "t2_col2_heading",
-          "label": "Tab 2 - Col 2 Header",
-          "default": "US/CAN\nRing Size"
-        },
-        {
-          "type": "text",
-          "id": "t2_col3_heading",
-          "label": "Tab 2 - Col 3 Header",
-          "default": "UK/AUS\nRing Size"
-        },
-        {
-          "type": "text",
-          "id": "t2_col4_heading",
-          "label": "Tab 2 - Col 4 Header",
-          "default": "German\nRing Size"
-        },
-        {
-          "type": "textarea",
-          "id": "tab2_rows",
-          "label": "Tab 2 Rows",
-          "info": "Separate columns with a comma (,). Separate rows with a double-pipe (||).",
-          "default": "44.2, 3, F, 14"
-        },
-        {
-          "type": "header",
-          "content": "--- Common Table Settings ---"
-        },
-        {
-          "type": "text",
-          "id": "table_heading",
-          "label": "Table Heading",
-          "default": "Use the size chart to determine your ring size."
-        },
-        {
-          "type": "header",
-          "content": "--- Footer Settings ---"
-        },
-        {
-          "type": "text",
-          "id": "footer_heading",
-          "label": "Footer Heading",
-          "default": "Need help finding your size? Let us help."
-        },
-        {
-          "type": "text",
-          "id": "footer_email",
-          "label": "Email Address",
-          "default": "contact@mejuri.com"
-        },
-        {
-          "type": "text",
-          "id": "footer_phone",
-          "label": "Phone/Text Line",
-          "default": "Text 1-855-496-1110"
-        },
-        {
-          "type": "text",
-          "id": "footer_phone_subtext",
-          "label": "Phone Subtext",
-          "default": "(North America only)"
-        },
-        {
-          "type": "text",
-          "id": "footer_store_text",
-          "label": "Store Link Text",
-          "default": "Visit a Store"
-        },
-        {
-          "type": "url",
-          "id": "footer_store_url",
-          "label": "Store Link URL"
-        }
+        { "type": "text", "id": "trigger_text", "label": "Trigger Button Text", "default": "Size Guide" },
+        { "type": "text", "id": "modal_heading", "label": "Modal Heading", "default": "RING SIZE GUIDE" },
+        { "type": "header", "content": "--- TAB 1: Measure My Own Ring ---" },
+        { "type": "text", "id": "tab1_title", "label": "Tab 1 Title", "default": "MEASURE MY OWN RING" },
+        { "type": "textarea", "id": "tab1_instructions", "label": "Tab 1 Instructions", "default": "1. Use a ring that fits the desired finger.\n2. Measure the internal diameter of the ring (in mm). Ensure your ruler starts at the 0mm mark." },
+        { "type": "image_picker", "id": "tab1_image", "label": "Tab 1 Ring Diagram" },
+        { "type": "text", "id": "t1_col1_heading", "label": "Tab 1 - Col 1 Header", "default": "Internal Diameter (mm)" },
+        { "type": "text", "id": "t1_col2_heading", "label": "Tab 1 - Col 2 Header", "default": "US/CAN" },
+        { "type": "text", "id": "t1_col3_heading", "label": "Tab 1 - Col 3 Header", "default": "UK/AUS" },
+        { "type": "text", "id": "t1_col4_heading", "label": "Tab 1 - Col 4 Header", "default": "German" },
+        { "type": "textarea", "id": "tab1_rows", "label": "Tab 1 Rows", "info": "Separate columns with a comma (,). Separate rows with a double-pipe (||).", "default": "14.1 mm, 3, F, 14 || 14.5 mm, 3.5, G, 14.5" },
+        { "type": "header", "content": "--- TAB 2: Measure My Finger ---" },
+        { "type": "text", "id": "tab2_title", "label": "Tab 2 Title", "default": "MEASURE MY FINGER" },
+        { "type": "video", "id": "tab2_video", "label": "Tab 2 Video" },
+        { "type": "textarea", "id": "tab2_step1_text", "label": "Step 1 Text", "default": "1. Cut a thin strip of paper..." },
+        { "type": "image_picker", "id": "tab2_step1_image", "label": "Step 1 Image" },
+        { "type": "textarea", "id": "tab2_step2_text", "label": "Step 2 Text" },
+        { "type": "image_picker", "id": "tab2_step2_image", "label": "Step 2 Image" },
+        { "type": "textarea", "id": "tab2_step3_text", "label": "Step 3 Text" },
+        { "type": "image_picker", "id": "tab2_step3_image", "label": "Step 3 Image" },
+        { "type": "text", "id": "t2_col1_heading", "label": "Tab 2 - Col 1 Header", "default": "Circumference\n(mm)" },
+        { "type": "text", "id": "t2_col2_heading", "label": "Tab 2 - Col 2 Header", "default": "US/CAN\nRing Size" },
+        { "type": "text", "id": "t2_col3_heading", "label": "Tab 2 - Col 3 Header", "default": "UK/AUS\nRing Size" },
+        { "type": "text", "id": "t2_col4_heading", "label": "Tab 2 - Col 4 Header", "default": "German\nRing Size" },
+        { "type": "textarea", "id": "tab2_rows", "label": "Tab 2 Rows", "info": "Separate columns with a comma (,). Separate rows with a double-pipe (||).", "default": "44.2, 3, F, 14" },
+        { "type": "header", "content": "--- Common Table Settings ---" },
+        { "type": "text", "id": "table_heading", "label": "Table Heading", "default": "Use the size chart to determine your ring size." },
+        { "type": "header", "content": "--- Footer Settings ---" },
+        { "type": "text", "id": "footer_heading", "label": "Footer Heading", "default": "Need help finding your size? Let us help." },
+        { "type": "text", "id": "footer_email", "label": "Email Address", "default": "contact@mejuri.com" },
+        { "type": "text", "id": "footer_phone", "label": "Phone/Text Line", "default": "Text 1-855-496-1110" },
+        { "type": "text", "id": "footer_phone_subtext", "label": "Phone Subtext", "default": "(North America only)" },
+        { "type": "text", "id": "footer_store_text", "label": "Store Link Text", "default": "Visit a Store" },
+        { "type": "url", "id": "footer_store_url", "label": "Store Link URL" }
       ]
     },
     {
       "type": "usp",
       "name": "Extra USP badge",
       "settings": [
-        {
-          "type": "text",
-          "id": "text",
-          "label": "USP text",
-          "default": "Extra benefit"
-        }
+        { "type": "text", "id": "text", "label": "USP text", "default": "Extra benefit" }
       ]
     },
     {
       "type": "detail_row",
       "name": "Detail row",
       "settings": [
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label",
-          "default": "Detail:"
-        },
-        {
-          "type": "text",
-          "id": "value",
-          "label": "Value",
-          "default": "Value"
-        }
+        { "type": "text", "id": "label", "label": "Label", "default": "Detail:" },
+        { "type": "text", "id": "value", "label": "Value", "default": "Value" }
       ]
     }
   ],
   "presets": [
     {
-      "name": "GJ Main Product"
+      "name": "GJ Main Product",
+      "blocks": [
+        { "type": "breadcrumbs" },
+        { "type": "collection_link" },
+        { "type": "title" },
+        { "type": "material" },
+        { "type": "usps" },
+        { "type": "variant_picker" },
+        { "type": "price" },
+        { "type": "buy_buttons" },
+        { "type": "gift_wrapping" },
+        { "type": "description" },
+        { "type": "product_details" },
+        { "type": "shipping" },
+        { "type": "phone" },
+        { "type": "gallery_extension" }
+      ]
     }
   ]
 }

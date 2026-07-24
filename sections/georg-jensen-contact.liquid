@@ -2,9 +2,23 @@
   Georg Jensen Contact Us Section - 1-to-1 Replica
 {% endcomment %}
 
-<div class="georg-contact-section">
-  <div class="georg-container">
-    <div class="georg-contact-header">
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="georg-contact-section section-{{ section.id }}-padding">
+  <div class="georg-container page-width">
+    <div class="georg-contact-header" data-aos="fade-up">
       <span class="georg-story-tag">KUNDESERVICE</span>
       <h1 class="georg-contact-title georg-serif">Kontakt Georg Jensen</h1>
       <p class="georg-contact-subtitle georg-sans">
@@ -14,7 +28,7 @@
 
     <div class="georg-contact-grid">
       <!-- Direct Info Column -->
-      <div class="georg-contact-info-card">
+      <div class="georg-contact-info-card" data-aos="fade-up" data-aos-delay="100">
         <h3 class="georg-serif">Kundeservice Åbningstider</h3>
         <div class="georg-info-row">
           <strong>Telefon:</strong>
@@ -41,9 +55,19 @@
       </div>
 
       <!-- Form Column -->
-      <div class="georg-contact-form-card">
+      <div class="georg-contact-form-card" data-aos="fade-up" data-aos-delay="200">
         <h3 class="georg-serif">Send en besked</h3>
         {%- form 'contact', id: 'GeorgContactForm' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="form-status-success" style="margin-bottom: 20px; padding: 10px; background: #e6f4ea; color: #1e4620; text-align: center; font-weight: 500;">
+              Din besked er blevet sendt succesfuldt. Vi vender tilbage hurtigst muligt.
+            </div>
+          {%- elsif form.errors -%}
+            <div class="form-status-error" style="margin-bottom: 20px; padding: 10px; background: #fce8e6; color: #c5221f; text-align: center; font-weight: 500;">
+              Der opstod en fejl. Udfyld venligst de påkrævede felter.
+            </div>
+          {%- endif -%}
+
           <div class="georg-field">
             <label for="ContactName" class="georg-label">Navn *</label>
             <input type="text" id="ContactName" name="contact[name]" class="georg-input" required>
@@ -73,7 +97,6 @@
 
 <style>
   .georg-contact-section {
-    padding: 70px 0 90px 0;
     background-color: #ffffff;
     font-family: var(--georg-font-sans);
   }
@@ -178,7 +201,28 @@
 {% schema %}
 {
   "name": "Georg Jensen Contact",
-  "settings": [],
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 90
+    }
+  ],
   "presets": [
     {
       "name": "Georg Jensen Contact"

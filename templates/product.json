@@ -12,6 +12,117 @@
     "main": {
       "type": "georg-jensen-main-product",
       "blocks": {
+        "breadcrumbs_1": {
+          "type": "breadcrumbs",
+          "settings": {
+            "breadcrumb_home": "Home",
+            "breadcrumb_parent_label": "Jewellery",
+            "breadcrumb_parent_link": ""
+          }
+        },
+        "collection_link_1": {
+          "type": "collection_link",
+          "settings": {
+            "collection_label": "",
+            "collection_link": "",
+            "collection_suffix": "Collection"
+          }
+        },
+        "title_1": {
+          "type": "title",
+          "settings": {}
+        },
+        "material_1": {
+          "type": "material",
+          "settings": {
+            "material_fallback": "Sterling Silver"
+          }
+        },
+        "usps_1": {
+          "type": "usps",
+          "settings": {
+            "show_usps": true,
+            "usp_1": "Handmade in Australia",
+            "usp_2": "Take two and the third is on me",
+            "usp_3": "Free shipping today"
+          }
+        },
+        "variant_picker_1": {
+          "type": "variant_picker",
+          "settings": {
+            "choose_option_label": "Choose size",
+            "size_required_error": "Please choose a size",
+            "show_delivery_note": true,
+            "delivery_note_text": "The product has extended delivery time of 2-4 weeks."
+          }
+        },
+        "price_1": {
+          "type": "price",
+          "settings": {}
+        },
+        "buy_buttons_1": {
+          "type": "buy_buttons",
+          "settings": {
+            "add_to_cart_label": "Add to basket",
+            "sold_out_label": "Sold out",
+            "unavailable_label": "Unavailable",
+            "show_wishlist": true,
+            "wishlist_label": "Add to Wishlist",
+            "wishlist_remove_label": "Remove from Wishlist"
+          }
+        },
+        "gift_wrapping_1": {
+          "type": "gift_wrapping",
+          "settings": {
+            "show_gift_wrapping": true,
+            "gift_wrapping_text": "Complimentary gift wrapping",
+            "gift_wrapping_image": "shopify://shop_images/gift-wrap-banner_2x_eda945f1-0efd-4dbe-bf1f-1a8c80f2154b.jpg"
+          }
+        },
+        "description_1": {
+          "type": "description",
+          "settings": {
+            "read_more_label": "Read more",
+            "read_less_label": "Read less"
+          }
+        },
+        "product_details_1": {
+          "type": "product_details",
+          "settings": {
+            "details_heading": "Product details",
+            "item_number_label": "Item number:",
+            "materials_label": "Materials:",
+            "measurements_label": "Measurements:",
+            "measurements_fallback": "W: 8 mm. L: 42 mm.",
+            "design_year_label": "Design year:",
+            "design_year_fallback": "2026",
+            "collection_meta_label": "Collection:",
+            "explore_label": "Explore:",
+            "explore_text": "Earrings",
+            "explore_link": ""
+          }
+        },
+        "shipping_1": {
+          "type": "shipping",
+          "settings": {
+            "shipping_heading": "Shipping and returns",
+            "shipping_content": "<ul><li>Free gift wrapping on full priced items</li><li>Shipping by UPS</li><li>Easy exchanges and returns</li></ul>"
+          }
+        },
+        "phone_1": {
+          "type": "phone",
+          "settings": {
+            "phone_label": "Call",
+            "phone_number": "+45 38 14 90 44"
+          }
+        },
+        "gallery_extension_1": {
+          "type": "gallery_extension",
+          "settings": {
+            "gallery_extension_text": "Weft draws on the structures of weaving, translating them into sterling silver jewellery defined by a sense of movement.",
+            "gallery_extension_image": "shopify://shop_images/GJ_SS26_Weft_eCOM_Gallery_Extension_image_4.avif"
+          }
+        },
         "ring_size_cXhVCf": {
           "type": "ring_size",
           "settings": {
@@ -44,55 +155,24 @@
         }
       },
       "block_order": [
-        "ring_size_cXhVCf"
+        "breadcrumbs_1",
+        "collection_link_1",
+        "title_1",
+        "material_1",
+        "usps_1",
+        "variant_picker_1",
+        "price_1",
+        "ring_size_cXhVCf",
+        "buy_buttons_1",
+        "gift_wrapping_1",
+        "description_1",
+        "product_details_1",
+        "shipping_1",
+        "phone_1",
+        "gallery_extension_1"
       ],
       "settings": {
         "show_breadcrumbs": true,
-        "breadcrumb_home": "Home",
-        "breadcrumb_parent_label": "Jewellery",
-        "breadcrumb_parent_link": "",
-        "collection_label": "",
-        "collection_link": "",
-        "collection_suffix": "Collection",
-        "material_fallback": "Sterling Silver",
-        "choose_option_label": "Choose size",
-        "show_usps": true,
-        "usp_1": "Handmade in Australia",
-        "usp_2": "Take two and the third is on me",
-        "usp_3": "Free shipping today",
-        "size_required_error": "Please choose a size",
-        "show_delivery_note": true,
-        "delivery_note_text": "The product has extended delivery time of 2-4 weeks.",
-        "add_to_cart_label": "Add to basket",
-        "sold_out_label": "Sold out",
-        "unavailable_label": "Unavailable",
-        "show_wishlist": true,
-        "wishlist_label": "Add to Wishlist",
-        "wishlist_remove_label": "Remove from Wishlist",
-        "read_more_label": "Read more",
-        "read_less_label": "Read less",
-        "show_gift_wrapping": true,
-        "gift_wrapping_text": "Complimentary gift wrapping",
-        "gift_wrapping_image": "shopify://shop_images/gift-wrap-banner_2x_eda945f1-0efd-4dbe-bf1f-1a8c80f2154b.jpg",
-        "gallery_extension_text": "Weft draws on the structures of weaving, translating them into sterling silver jewellery defined by a sense of movement.",
-        "gallery_extension_image": "shopify://shop_images/GJ_SS26_Weft_eCOM_Gallery_Extension_image_4.avif",
-        "details_heading": "Product details",
-        "item_number_label": "Item number:",
-        "materials_label": "Materials:",
-        "measurements_label": "Measurements:",
-        "measurements_fallback": "W: 8 mm. L: 42 mm.",
-        "design_year_label": "Design year:",
-        "design_year_fallback": "2026",
-        "collection_meta_label": "Collection:",
-        "explore_label": "Explore:",
-        "explore_text": "Earrings",
-        "explore_link": "",
-        "show_shipping_accordion": true,
-        "shipping_heading": "Shipping and returns",
-        "shipping_content": "<ul><li>Free gift wrapping on full priced items</li><li>Shipping by UPS</li><li>Easy exchanges and returns</li></ul>",
-        "show_phone": true,
-        "phone_label": "Call",
-        "phone_number": "+45 38 14 90 44",
         "hide_mobile_thumbnails": true,
         "show_gallery_arrows": true,
         "show_mobile_sticky_bar": true

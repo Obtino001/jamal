@@ -2,9 +2,23 @@
   Georg Jensen About Us Section - 1-to-1 Replica
 {% endcomment %}
 
-<div class="georg-about-section">
-  <div class="georg-container">
-    <div class="georg-about-header">
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="georg-about-section section-{{ section.id }}-padding">
+  <div class="georg-container page-width">
+    <div class="georg-about-header" data-aos="fade-up">
       <span class="georg-story-tag">SIDEN 1904</span>
       <h1 class="georg-about-title georg-serif">Om Georg Jensen</h1>
       <p class="georg-about-intro georg-sans">
@@ -12,7 +26,7 @@
       </p>
     </div>
 
-    <div class="georg-about-hero-media">
+    <div class="georg-about-hero-media" data-aos="fade-up" data-aos-delay="100">
       <svg viewBox="0 0 1200 500" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
         <rect width="100%" height="100%" fill="#191c20"/>
         <circle cx="600" cy="250" r="180" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
@@ -21,14 +35,14 @@
     </div>
 
     <div class="georg-about-story-grid">
-      <div class="georg-about-col">
+      <div class="georg-about-col" data-aos="fade-up" data-aos-delay="200">
         <h3 class="georg-serif">Dansk Designtradition</h3>
         <p class="georg-sans">
           Grundlagt af sølvsmed Georg Jensen i København i 1904 har mærket altid været synonymt med organisk elegance, præcision og funktionalitet. Vores filosofi er at skabe demokratisk design, der kombinerer skønhed og funktion.
         </p>
       </div>
 
-      <div class="georg-about-col">
+      <div class="georg-about-col" data-aos="fade-up" data-aos-delay="300">
         <h3 class="georg-serif">Kompromisløst Håndværk</h3>
         <p class="georg-sans">
           Fra de ikoniske Moonlight Grapes og Bernadotte serier til vores moderne bolig- og smykkekollektioner udstråler hvert enkelt produkt sølvsmedens ekspertise og passion for ædle metaller.
@@ -40,7 +54,6 @@
 
 <style>
   .georg-about-section {
-    padding: 70px 0 90px 0;
     background-color: #ffffff;
     font-family: var(--georg-font-sans);
   }
@@ -106,7 +119,28 @@
 {% schema %}
 {
   "name": "Georg Jensen About",
-  "settings": [],
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 90
+    }
+  ],
   "presets": [
     {
       "name": "Georg Jensen About"

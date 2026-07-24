@@ -60,11 +60,23 @@
                     | image_url: width: 700
                     | image_tag:
                       loading: 'lazy',
-                      class: 'gj-siw__product-img',
+                      class: 'gj-siw__product-img gj-siw__product-img--main',
                       widths: '280, 400, 560, 700',
                       sizes: '(min-width: 990px) 18vw, 42vw',
                       alt: product.title
                   }}
+                  {%- if product.media[1] != blank -%}
+                    {{
+                      product.media[1]
+                      | image_url: width: 700
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'gj-siw__product-img gj-siw__product-img--hover',
+                        widths: '280, 400, 560, 700',
+                        sizes: '(min-width: 990px) 18vw, 42vw',
+                        alt: product.title
+                    }}
+                  {%- endif -%}
                 {%- else -%}
                   {{ 'product-1' | placeholder_svg_tag: 'gj-siw__placeholder' }}
                 {%- endif -%}
