@@ -11,6 +11,18 @@
   "sections": {
     "main": {
       "type": "georg-jensen-main-product",
+      "blocks": {
+        "ring_size_guide": {
+          "type": "ring_size",
+          "settings": {
+            "trigger_text": "Size Guide",
+            "modal_heading": "RING SIZE GUIDE"
+          }
+        }
+      },
+      "block_order": [
+        "ring_size_guide"
+      ],
       "settings": {
         "show_breadcrumbs": true,
         "breadcrumb_home": "Home",
