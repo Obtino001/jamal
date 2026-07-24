@@ -11,7 +11,7 @@
     {%- endif -%}
 
     <div class="georg-hero-overlay-content" style="justify-content: {{ section.settings.content_position }};">
-      <div class="georg-hero-card" style="background: {{ section.settings.card_bg }}; color: {{ section.settings.card_text_color }}; max-width: {{ section.settings.card_max_width }}px;">
+      <div class="georg-hero-card" data-aos="fade-up" data-aos-delay="100" style="background: {{ section.settings.card_bg }}; color: {{ section.settings.card_text_color }}; max-width: {{ section.settings.card_max_width }}px;">
         {%- if section.settings.heading != blank -%}
           <h2 class="georg-hero-heading georg-serif" style="color: {{ section.settings.heading_color }}; font-size: {{ section.settings.heading_size }}px;">
             {{ section.settings.heading }}

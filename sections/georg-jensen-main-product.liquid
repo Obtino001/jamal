@@ -600,14 +600,6 @@
                     </div>
                   {%- endif -%}
 
-                {%- when 'gallery_extension' -%}
-                  {%- if gallery_text != blank or gallery_image != blank -%}
-                    <div class="gallery-extension-top gallery-extension-top--mobile-only" {{ block.shopify_attributes }}>
-                      {%- if gallery_text != blank -%}<span class="gallery-extension-text">{{ gallery_text }}</span>{%- endif -%}
-                      {%- if gallery_image != blank -%}<div class="gallery-extension-image">{{ gallery_image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'cld-responsive', alt: product.title }}</div>{%- endif -%}
-                    </div>
-                  {%- endif -%}
-
               {%- endcase -%}
             {%- endfor -%}
           </div>{{ 'georg-jensen-pdp.css' | asset_url | stylesheet_tag }}
