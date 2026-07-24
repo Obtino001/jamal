@@ -18,7 +18,7 @@
 
 <div class="georg-contact-section section-{{ section.id }}-padding">
   <div class="georg-container page-width">
-    <div class="georg-contact-header" data-aos="fade-up">
+    <div class="georg-contact-header scroll-trigger animate--slide-in">
       <span class="georg-story-tag">KUNDESERVICE</span>
       <h1 class="georg-contact-title georg-serif">Kontakt Georg Jensen</h1>
       <p class="georg-contact-subtitle georg-sans">
@@ -28,7 +28,7 @@
 
     <div class="georg-contact-grid">
       <!-- Direct Info Column -->
-      <div class="georg-contact-info-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="georg-contact-info-card scroll-trigger animate--slide-in">
         <h3 class="georg-serif">Kundeservice Åbningstider</h3>
         <div class="georg-info-row">
           <strong>Telefon:</strong>
@@ -55,7 +55,7 @@
       </div>
 
       <!-- Form Column -->
-      <div class="georg-contact-form-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="georg-contact-form-card scroll-trigger animate--slide-in">
         <h3 class="georg-serif">Send en besked</h3>
         {%- form 'contact', id: 'GeorgContactForm' -%}
           {%- if form.posted_successfully? -%}

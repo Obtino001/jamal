@@ -112,7 +112,7 @@
               {%- endif -%}
             </div>
 
-            <div class="promo-card__content" data-aos="fade-up" data-aos-delay="{{ forloop.index | times: 100 }}">
+            <div class="promo-card__content scroll-trigger animate--slide-in">
               {%- if block.settings.heading != blank -%}
                 <h3 class="promo-card__heading">{{ block.settings.heading | escape }}</h3>
               {%- endif -%}
