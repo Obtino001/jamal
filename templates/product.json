@@ -15,8 +15,8 @@
         "breadcrumbs_1": {
           "type": "breadcrumbs",
           "settings": {
-            "breadcrumb_home": "Home",
-            "breadcrumb_parent_label": "Jewellery",
+            "breadcrumb_home": "Hjem",
+            "breadcrumb_parent_label": "Smykker",
             "breadcrumb_parent_link": ""
           }
         },
@@ -25,7 +25,7 @@
           "settings": {
             "collection_label": "",
             "collection_link": "",
-            "collection_suffix": "Collection"
+            "collection_suffix": "Kollektion"
           }
         },
         "title_1": {
@@ -35,25 +35,25 @@
         "material_1": {
           "type": "material",
           "settings": {
-            "material_fallback": "Sterling Silver"
+            "material_fallback": "Sterlingsølv"
           }
         },
         "usps_1": {
           "type": "usps",
           "settings": {
             "show_usps": true,
-            "usp_1": "Handmade in Australia",
-            "usp_2": "Take two and the third is on me",
-            "usp_3": "Free shipping today"
+            "usp_1": "Håndlavet i Australien",
+            "usp_2": "Køb to og få den tredje gratis",
+            "usp_3": "Gratis fragt i dag"
           }
         },
         "variant_picker_1": {
           "type": "variant_picker",
           "settings": {
-            "choose_option_label": "Choose size",
-            "size_required_error": "Please choose a size",
+            "choose_option_label": "Vælg størrelse",
+            "size_required_error": "Vælg venligst en størrelse",
             "show_delivery_note": true,
-            "delivery_note_text": "The product has extended delivery time of 2-4 weeks."
+            "delivery_note_text": "Dette produkt har en forlænget leveringstid på 2-4 uger."
           }
         },
         "price_1": {
@@ -63,93 +63,93 @@
         "buy_buttons_1": {
           "type": "buy_buttons",
           "settings": {
-            "add_to_cart_label": "Add to basket",
-            "sold_out_label": "Sold out",
-            "unavailable_label": "Unavailable",
+            "add_to_cart_label": "Læg i kurv",
+            "sold_out_label": "Udsolgt",
+            "unavailable_label": "Ikke tilgængelig",
             "show_wishlist": true,
-            "wishlist_label": "Add to Wishlist",
-            "wishlist_remove_label": "Remove from Wishlist"
+            "wishlist_label": "Tilføj til ønskeliste",
+            "wishlist_remove_label": "Fjern fra ønskeliste"
           }
         },
         "gift_wrapping_1": {
           "type": "gift_wrapping",
           "settings": {
             "show_gift_wrapping": true,
-            "gift_wrapping_text": "Complimentary gift wrapping",
+            "gift_wrapping_text": "Gratis indpakning af gave",
             "gift_wrapping_image": "shopify://shop_images/gift-wrap-banner_2x_eda945f1-0efd-4dbe-bf1f-1a8c80f2154b.jpg"
           }
         },
         "description_1": {
           "type": "description",
           "settings": {
-            "read_more_label": "Read more",
-            "read_less_label": "Read less"
+            "read_more_label": "Læs mere",
+            "read_less_label": "Læs mindre"
           }
         },
         "product_details_1": {
           "type": "product_details",
           "settings": {
-            "details_heading": "Product details",
-            "item_number_label": "Item number:",
-            "materials_label": "Materials:",
-            "measurements_label": "Measurements:",
-            "measurements_fallback": "W: 8 mm. L: 42 mm.",
-            "design_year_label": "Design year:",
+            "details_heading": "Produktdetaljer",
+            "item_number_label": "Varenummer:",
+            "materials_label": "Materialer:",
+            "measurements_label": "Mål:",
+            "measurements_fallback": "B: 8 mm. L: 42 mm.",
+            "design_year_label": "Desigår:",
             "design_year_fallback": "2026",
-            "collection_meta_label": "Collection:",
-            "explore_label": "Explore:",
-            "explore_text": "Earrings",
+            "collection_meta_label": "Kollektion:",
+            "explore_label": "Udforsk:",
+            "explore_text": "Øreringe",
             "explore_link": ""
           }
         },
         "shipping_1": {
           "type": "shipping",
           "settings": {
-            "shipping_heading": "Shipping and returns",
-            "shipping_content": "<ul><li>Free gift wrapping on full priced items</li><li>Shipping by UPS</li><li>Easy exchanges and returns</li></ul>"
+            "shipping_heading": "Fragt og retur",
+            "shipping_content": "<ul><li>Gratis gaveindpakning på varer til fuld pris</li><li>Levering med UPS</li><li>Nem ombytning og returnering</li></ul>"
           }
         },
         "phone_1": {
           "type": "phone",
           "settings": {
-            "phone_label": "Call",
+            "phone_label": "Ring",
             "phone_number": "+45 38 14 90 44"
           }
         },
         "gallery_extension_1": {
           "type": "gallery_extension",
           "settings": {
-            "gallery_extension_text": "Weft draws on the structures of weaving, translating them into sterling silver jewellery defined by a sense of movement.",
+            "gallery_extension_text": "Weft trækker inspiration fra vævningens strukturer og oversætter dem til smykker i sterlingsølv, defineret af en følelse af bevægelse.",
             "gallery_extension_image": "shopify://shop_images/GJ_SS26_Weft_eCOM_Gallery_Extension_image_4.avif"
           }
         },
         "ring_size_cXhVCf": {
           "type": "ring_size",
           "settings": {
-            "trigger_text": "Size Guide",
-            "modal_heading": "RING SIZE GUIDE",
-            "tab1_title": "MEASURE MY OWN RING",
-            "tab1_instructions": "1. Use a ring that fits the desired finger.\n2. Measure the internal diameter of the ring (in mm). Ensure your ruler starts at the 0mm mark.",
-            "t1_col1_heading": "Internal Diameter (mm)",
-            "t1_col2_heading": "US/CAN",
+            "trigger_text": "Størrelsesguide",
+            "modal_heading": "STØRRELSESGUIDE TIL RINGE",
+            "tab1_title": "MÅL MIN EGEN RING",
+            "tab1_instructions": "1. Brug en ring, der passer til den ønskede finger.\n2. Mål den indre diameter på ringen (i mm). Sørg for, at din lineal starter ved 0 mm-mærket.",
+            "t1_col1_heading": "Indre diameter (mm)",
+            "t1_col2_heading": "USA/CAN",
             "t1_col3_heading": "UK/AUS",
-            "t1_col4_heading": "German",
+            "t1_col4_heading": "Tysk",
             "tab1_rows": "14.1 mm, 3, F, 14 || 14.5 mm, 3.5, G, 14.5 || 14.9 mm, 4, H 1/2, 15 || 15.3 mm, 4.5, I 1/2, 15.25 || 15.7 mm, 5, J 1/2, 15 3/4 || 16.1 mm, 5.5, K 1/2, 16 || 16.5 mm, 6, L 1/2, 16 1/2 || 16.9 mm, 6.5, M 1/2, 16.75 || 17.3 mm, 7, O, 17 1/4 || 17.7 mm, 7.5, P, 17.75 || 18.1 mm, 8, Q, 18 || 18.5 mm, 8.5, R, 18.5 || 19 mm, 9, S, 19 || 19.4 mm, 9.5, T, 19.5 || 19.8 mm, 10, U, 19 3/4 || 20.2 mm, 10.5, V, 20.25 || 20.6 mm, 11, W, 20 1/2 || 21.0 mm, 11.5, X, 21 || 21.4 mm, 12, Y, 21 1/2 || 21.8 mm, 12.5, Z, 22 || 22.2 mm, 13, Z 1, 22.25",
-            "tab2_title": "MEASURE MY FINGER",
-            "tab2_step1_text": "1. Cut a thin strip of paper...",
+            "tab2_title": "MÅL MIN FINGER",
+            "tab2_step1_text": "1. Klip en tynd strimmel papir...",
             "tab2_step2_text": "",
             "tab2_step3_text": "",
-            "t2_col1_heading": "Circumference\n(mm)",
-            "t2_col2_heading": "US/CAN\nRing Size",
-            "t2_col3_heading": "UK/AUS\nRing Size",
-            "t2_col4_heading": "German\nRing Size",
+            "t2_col1_heading": "Omkreds\n(mm)",
+            "t2_col2_heading": "USA/CAN\nRingstørrelse",
+            "t2_col3_heading": "UK/AUS\nRingstørrelse",
+            "t2_col4_heading": "Tysk\nRingstørrelse",
             "tab2_rows": "44.2, 3, F, 14",
-            "table_heading": "Use the size chart to determine your ring size.",
-            "footer_heading": "Need help finding your size? Let us help.",
+            "table_heading": "Brug størrelsestabellen til at finde din ringstørrelse.",
+            "footer_heading": "Brug for hjælp til at finde din størrelse? Lad os hjælpe.",
             "footer_email": "contact@mejuri.com",
-            "footer_phone": "Text 1-855-496-1110",
-            "footer_phone_subtext": "(North America only)",
-            "footer_store_text": "Visit a Store",
+            "footer_phone": "Skriv til 1-855-496-1110",
+            "footer_phone_subtext": "(Kun Nordamerika)",
+            "footer_store_text": "Besøg en butik",
             "footer_store_url": ""
           }
         }
@@ -183,14 +183,14 @@
         "tab_also_viewed": {
           "type": "tab",
           "settings": {
-            "title": "People who viewed this item also viewed",
+            "title": "Kunder, der så denne vare, så også",
             "collection": "frontpage"
           }
         },
         "tab_combine": {
           "type": "tab",
           "settings": {
-            "title": "Combine it with",
+            "title": "Kombinér det med",
             "collection": "frontpage"
           }
         }
@@ -200,14 +200,14 @@
         "tab_combine"
       ],
       "settings": {
-        "tabs_aria_label": "Product recommendations",
+        "tabs_aria_label": "Produktanbefalinger",
         "products_to_show": 8,
         "desktop_columns": 4,
         "space_between": 24,
         "show_arrows": true,
         "show_progress": true,
-        "prev_label": "Previous",
-        "next_label": "Next",
+        "prev_label": "Forrige",
+        "next_label": "Næste",
         "show_stock": true,
         "low_stock_threshold": 1,
         "background_color": "#ffffff",
@@ -235,10 +235,10 @@
         "product_xPTKUW",
         "product_RdTNid"
       ],
-      "name": "Style It With",
+      "name": "Stil det med",
       "settings": {
-        "heading": "Style it with",
-        "link_text": "Explore the collection",
+        "heading": "Stil det med",
+        "link_text": "Udforsk kollektionen",
         "link_url": "shopify://collections",
         "link_color": "#6b8cae",
         "main_image": "shopify://shop_images/hf_20260503_170758_8dfd8e5f-6b8c-4f7b-955b-281ef03083ff.jpg",
@@ -252,7 +252,7 @@
       "type": "related-products",
       "disabled": true,
       "settings": {
-        "heading": "You may also like",
+        "heading": "Måske også dig",
         "heading_size": "h2",
         "products_to_show": 4,
         "columns_desktop": 4,
@@ -273,7 +273,7 @@
         "caption_URBijB": {
           "type": "caption",
           "settings": {
-            "text": "Meet the designer"
+            "text": "Mød designeren"
           }
         },
         "heading_kYDJY6": {
@@ -285,13 +285,13 @@
         "text_3D4daT": {
           "type": "text",
           "settings": {
-            "text": "<p>Rooted in the house's century-long heritage, the Georg Jensen Design Studio upholds the superior craftsmanship and innovation that have defined Georg Jensen since its foundation in 1904.</p>"
+            "text": "<p>Med rødder i husets århundredelange arv opretholder Georg Jensen Design Studio det overlegne håndværk og den innovation, der har defineret Georg Jensen siden grundlæggelsen i 1904.</p>"
           }
         },
         "link_AAYDgX": {
           "type": "link",
           "settings": {
-            "link_label": "Find out more",
+            "link_label": "Find ud af mere",
             "link_url": ""
           }
         }
@@ -302,7 +302,7 @@
         "text_3D4daT",
         "link_AAYDgX"
       ],
-      "name": "Designer Spotlight",
+      "name": "Designer i fokus",
       "settings": {
         "image": "shopify://shop_images/hf_20260503_170415_64bbaabc-9409-40fe-8d74-ab27f979e945.jpg",
         "layout": "image_first",
