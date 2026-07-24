@@ -8,7 +8,7 @@
  * ------------------------------------------------------------
  */
 {
-  "name": "Header Group",
+  "name": "Header Gruppe",
   "type": "header",
   "sections": {
     "custom_announcement_bar_WYeURC": {
@@ -17,14 +17,14 @@
         "announcement_MphLPR": {
           "type": "announcement",
           "settings": {
-            "text": "Welcome, signup and get 10%",
+            "text": "Velkommen, tilmeld dig og få 10%",
             "link": ""
           }
         },
         "announcement_Kffihk": {
           "type": "announcement",
           "settings": {
-            "text": "Home delivery service",
+            "text": "Hjemmelevering",
             "link": ""
           }
         }
@@ -33,7 +33,7 @@
         "announcement_MphLPR",
         "announcement_Kffihk"
       ],
-      "name": "Custom Announcement",
+      "name": "Brugerdefineret Meddelelse",
       "settings": {
         "bg_color": "#2d3542",
         "text_color": "#ffffff",
@@ -46,21 +46,21 @@
         "search_link_1": {
           "type": "search_link",
           "settings": {
-            "title": "Find Stores",
+            "title": "Find butikker",
             "link": ""
           }
         },
         "search_link_2": {
           "type": "search_link",
           "settings": {
-            "title": "Exchange and returns",
+            "title": "Ombytning og retur",
             "link": ""
           }
         },
         "search_link_3": {
           "type": "search_link",
           "settings": {
-            "title": "Customer service",
+            "title": "Kundeservice",
             "link": ""
           }
         }
@@ -72,9 +72,9 @@
       ],
       "settings": {
         "show_announcement": false,
-        "announcement_left_text": "Welcome, signup and get 10%",
+        "announcement_left_text": "Velkommen, tilmeld dig og få 10%",
         "announcement_left_link": "",
-        "announcement_right_text": "Home delivery service",
+        "announcement_right_text": "Hjemmelevering",
         "announcement_right_link": "",
         "announcement_bg": "#1a1e26",
         "announcement_text_color": "#ffffff",
@@ -82,15 +82,15 @@
         "logo_text": "Georg Jensen",
         "logo_width": 200,
         "show_store_icon": true,
-        "store_locator_label": "Find Stores",
+        "store_locator_label": "Find butikker",
         "store_locator_link": "",
         "show_phone_icon": true,
-        "support_label": "Customer service",
+        "support_label": "Kundeservice",
         "support_link": "",
-        "search_placeholder": "Search",
+        "search_placeholder": "Søg",
         "show_search_links": true,
         "show_wishlist": true,
-        "wishlist_label": "Wishlist",
+        "wishlist_label": "Ønskeliste",
         "wishlist_link": "/pages/wishlist",
         "badge_color": "#b6e3ff",
         "menu": "main-menu",
