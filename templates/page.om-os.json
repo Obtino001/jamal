@@ -16,9 +16,58 @@
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+        "designer_spotlight_fwfGgf": {
+      "type": "designer-spotlight",
+      "blocks": {
+        "caption_URBijB": {
+          "type": "caption",
+          "settings": {
+            "text": "Mød designeren"
+          }
+        },
+        "heading_kYDJY6": {
+          "type": "heading",
+          "settings": {
+            "heading": "Georg Jensen Design Studio"
+          }
+        },
+        "text_3D4daT": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Med rødder i husets århundredelange arv opretholder Georg Jensen Design Studio det overlegne håndværk og den innovation, der har defineret Georg Jensen siden grundlæggelsen i 1904.</p>"
+          }
+        },
+        "link_AAYDgX": {
+          "type": "link",
+          "settings": {
+            "link_label": "Find ud af mere",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "caption_URBijB",
+        "heading_kYDJY6",
+        "text_3D4daT",
+        "link_AAYDgX"
+      ],
+      "name": "Designer i fokus",
+      "settings": {
+        "image": "shopify://shop_images/hf_20260503_170415_64bbaabc-9409-40fe-8d74-ab27f979e945.jpg",
+        "layout": "image_first",
+        "full_width": false,
+        "bg_color": "#f4f3f1",
+        "heading_color": "#1c2633",
+        "caption_color": "#8c8681",
+        "text_color": "#1a1a1a",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+        "designer_spotlight_fwfGgf"
   ]
 }
