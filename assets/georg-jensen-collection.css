@@ -433,7 +433,7 @@
 
 /* Product grid */
 .gj-collection__grid-wrap {
-  padding: 28px 0 64px;
+  padding-block: 34px;
   position: relative;
 }
 
