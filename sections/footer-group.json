@@ -14,35 +14,26 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "menu_rxHrFF": {
-          "type": "menu",
-          "settings": {
-            "heading": "Online Shopping",
-            "menu": "",
-            "fallback_links": ""
-          }
-        },
-        "menu_397Bac": {
-          "type": "menu",
-          "settings": {
-            "heading": "Online Shopping",
-            "menu": "",
-            "fallback_links": ""
-          }
-        },
         "menu_7HQ3M3": {
           "type": "menu",
           "settings": {
-            "heading": "Online Shopping",
-            "menu": "",
+            "heading": "Shop",
+            "menu": "main-menu",
+            "fallback_links": ""
+          }
+        },
+        "menu_6JVd7c": {
+          "type": "menu",
+          "settings": {
+            "heading": "Search",
+            "menu": "footer",
             "fallback_links": ""
           }
         }
       },
       "block_order": [
-        "menu_rxHrFF",
-        "menu_397Bac",
-        "menu_7HQ3M3"
+        "menu_7HQ3M3",
+        "menu_6JVd7c"
       ],
       "settings": {
         "show_member_banner": true,
@@ -62,7 +53,7 @@
         "footer_text_color": "#ffffff",
         "heading_color": "#9fd6f5",
         "accent_color": "#b6e3ff",
-        "show_country_selector": true,
+        "show_country_selector": false,
         "default_country": "Denmark",
         "country_options": "Denmark, Sweden, Norway, Germany, United Kingdom, USA & Canada, Australia",
         "support_heading": "Kundeservice",
