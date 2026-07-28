@@ -127,10 +127,12 @@
     grid-template-columns: 100px 1fr;
     grid-template-rows: auto auto;
   }
+
   .gj-cart-row .gj-item-quantity {
     grid-column: 2;
     grid-row: 2;
   }
+
   .gj-cart-row .gj-item-total {
     grid-column: 2;
     grid-row: 1;
@@ -142,8 +144,8 @@
   width: 100%;
   height: auto;
   display: block;
-  background-color: #f7f6f5; /* Match typical product bg */
-  border-radius: 50%; /* Circle images as per screenshot */
+  background-color: #f7f6f5;
+  /* Match typical product bg */
   padding: 1rem;
 }
 
@@ -167,12 +169,14 @@
 }
 
 .gj-item-details .availability-msg .less-than-five-msg {
-  color: #9d8452; /* Gold/Bronze warning color */
+  color: #9d8452;
+  /* Gold/Bronze warning color */
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
+
 .gj-item-details .availability-msg .less-than-five-msg::before {
   content: '';
   display: inline-block;
@@ -220,6 +224,7 @@
   -moz-appearance: textfield;
   outline: none;
 }
+
 .input-text[type="number"]::-webkit-outer-spin-button,
 .input-text[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -237,6 +242,7 @@
   font-size: 1.4rem;
   color: #666;
 }
+
 .input-number__btn:hover {
   background: #eaeaea;
 }
@@ -251,6 +257,7 @@
   padding: 0;
   margin-top: 0.5rem;
 }
+
 .button-remove:hover {
   color: #1a1a1a;
 }
@@ -334,6 +341,7 @@
   justify-content: flex-end;
   margin-bottom: 2rem;
 }
+
 .gj-cart-actions .cta {
   width: 100%;
 }
@@ -346,6 +354,7 @@
   justify-content: center;
   margin-bottom: 2rem;
 }
+
 .payment-icons img {
   height: 24px;
   width: auto;
