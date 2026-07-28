@@ -53,7 +53,7 @@
           "settings": {
             "choose_option_label": "Vælg størrelse",
             "size_required_error": "Vælg venligst en størrelse",
-            "show_delivery_note": false,
+            "show_delivery_note": true,
             "delivery_note_text": "Dette produkt har en forlænget leveringstid på 2-4 uger."
           }
         },
@@ -280,13 +280,13 @@
         "heading_kYDJY6": {
           "type": "heading",
           "settings": {
-            "heading": "Georg Jensen Design Studio"
+            "heading": "Best Design Studio"
           }
         },
         "text_3D4daT": {
           "type": "text",
           "settings": {
-            "text": "<p>Med rødder i husets århundredelange arv opretholder Georg Jensen Design Studio det overlegne håndværk og den innovation, der har defineret Georg Jensen siden grundlæggelsen i 1904.</p>"
+            "text": "<p>Med rødder i husets århundredelange arv opretholder Best Design Studio det overlegne håndværk og den innovation, der har defineret Georg Jensen siden grundlæggelsen i 1904.</p>"
           }
         },
         "link_AAYDgX": {
