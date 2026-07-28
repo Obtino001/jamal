@@ -18,13 +18,13 @@
 }
 
 /* Header & Actions */
-.cart-actions-top {
+.gj-cart-actions-top {
   text-align: center;
   position: relative;
   margin-bottom: 2rem;
 }
 
-.cart-actions-top h1 {
+.gj-cart-actions-top h1 {
   font-family: var(--font-heading-family);
   font-size: 3.5rem;
   font-weight: 300;
@@ -33,14 +33,14 @@
   margin: 0 0 3rem 0;
 }
 
-.cart-actions-top fieldset {
+.gj-cart-actions-top fieldset {
   border: none;
   padding: 0;
   margin: 0;
   width: 100%;
 }
 
-.free-shipping-callout {
+.gj-free-shipping-callout {
   background-color: #f7f6f5;
   padding: 1.5rem;
   display: flex;
@@ -53,12 +53,12 @@
   border: 1px solid #eaeaea;
 }
 
-.free-shipping-callout img {
+.gj-free-shipping-callout img {
   width: 20px;
   height: 20px;
 }
 
-.shipping-callout-wrapper {
+.gj-shipping-callout-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -66,7 +66,7 @@
   border-bottom: 1px solid #e0e0e0;
 }
 
-.shipping-callout {
+.gj-shipping-callout {
   display: flex;
   align-items: center;
   gap: 0.8rem;
@@ -74,7 +74,7 @@
   font-weight: 500;
 }
 
-.shipping-callout .icon-truck svg {
+.gj-shipping-callout .icon-truck svg {
   width: 24px;
   height: 24px;
   fill: none;
@@ -101,19 +101,19 @@
 }
 
 /* Cart Content */
-#cart-content fieldset {
+#gj-cart-content fieldset {
   border: none;
   padding: 0;
   margin: 0;
 }
 
 /* Cart Items */
-.item-list {
+.gj-item-list {
   display: flex;
   flex-direction: column;
 }
 
-.cart-row {
+.gj-cart-row {
   display: grid;
   grid-template-columns: 120px 1fr auto auto;
   gap: 2rem;
@@ -123,22 +123,22 @@
 }
 
 @media screen and (max-width: 768px) {
-  .cart-row {
+  .gj-cart-row {
     grid-template-columns: 100px 1fr;
     grid-template-rows: auto auto;
   }
-  .cart-row .item-quantity {
+  .gj-cart-row .gj-item-quantity {
     grid-column: 2;
     grid-row: 2;
   }
-  .cart-row .item-total {
+  .gj-cart-row .gj-item-total {
     grid-column: 2;
     grid-row: 1;
     justify-self: end;
   }
 }
 
-.item-image img {
+.gj-item-image img {
   width: 100%;
   height: auto;
   display: block;
@@ -147,7 +147,7 @@
   padding: 1rem;
 }
 
-.item-details .name {
+.gj-item-details .name {
   font-family: var(--font-heading-family);
   font-size: 1.6rem;
   font-weight: 600;
@@ -157,23 +157,23 @@
   margin-bottom: 0.5rem;
 }
 
-.item-details .materials,
-.item-details .attribute,
-.item-details .availability-msg,
-.item-details .sku {
+.gj-item-details .materials,
+.gj-item-details .attribute,
+.gj-item-details .availability-msg,
+.gj-item-details .sku {
   font-size: 1.2rem;
   color: #666;
   margin-bottom: 0.3rem;
 }
 
-.item-details .availability-msg .less-than-five-msg {
+.gj-item-details .availability-msg .less-than-five-msg {
   color: #9d8452; /* Gold/Bronze warning color */
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-.item-details .availability-msg .less-than-five-msg::before {
+.gj-item-details .availability-msg .less-than-five-msg::before {
   content: '';
   display: inline-block;
   width: 12px;
@@ -198,7 +198,7 @@
 }
 
 /* Quantity */
-.item-quantity {
+.gj-item-quantity {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -262,18 +262,18 @@
 }
 
 /* Footer / Order Totals */
-.cart-footer {
+.gj-cart-footer {
   margin-top: 4rem;
   display: flex;
   justify-content: flex-end;
 }
 
-.cart-order-totals {
+.gj-cart-order-totals {
   width: 100%;
   max-width: 400px;
 }
 
-.cart-country-select select {
+.gj-cart-country-select select {
   width: 100%;
   padding: 1rem;
   font-size: 1.3rem;
@@ -298,19 +298,19 @@
   margin-top: 1rem;
 }
 
-.cart-coupon-code {
+.gj-cart-coupon-code {
   margin: 2rem 0;
   display: flex;
   gap: 1rem;
 }
 
-.cart-coupon-code .input-wrap-fix {
+.gj-cart-coupon-code .input-wrap-fix {
   display: flex;
   width: 100%;
   gap: 1rem;
 }
 
-.cart-coupon-code input {
+.gj-cart-coupon-code input {
   flex: 1;
   padding: 1rem;
   border: 1px solid #ccc;
@@ -318,7 +318,7 @@
   outline: none;
 }
 
-.cart-coupon-code button {
+.gj-cart-coupon-code button {
   background-color: #aaddf5;
   border: none;
   padding: 1rem 2rem;
@@ -329,12 +329,12 @@
   cursor: pointer;
 }
 
-.cart-actions {
+.gj-cart-actions {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 2rem;
 }
-.cart-actions .cta {
+.gj-cart-actions .cta {
   width: 100%;
 }
 

@@ -7,18 +7,18 @@
       <div class="cart-content-container">
         
         <!-- Header & Actions -->
-        <div class="cart-actions cart-actions-top">
+        <div class="gj-cart-actions-top">
           <h1>Kurv</h1>
-          <fieldset style="float: right;">
+          <fieldset>
             <legend style="display: none">medlemsfragtfordele</legend>
             
-            <div class="free-shipping-callout">
+            <div class="gj-free-shipping-callout">
               <img src="https://www.georgjensen.com/on/demandware.static/Sites-GeorgJensen_DK-Site/-/default/dwb7503e82/assets/images/icon_information_Dark_blue.png" alt="medlemsfragtfordele">
               Som medlem af Mit Georg Jensen får du altid gratis fragt. Du kan registrere dig i kassen.
             </div>
             
-            <div class="shipping-callout-wrapper">
-              <div class="shipping-callout">
+            <div class="gj-shipping-callout-wrapper">
+              <div class="gj-shipping-callout">
                 <span class="icon-truck">
                   <svg viewBox="0 0 24 24"><path d="M1 4h15v14H1zM16 8h4l3 4v6h-7M16 12h7M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>
                 </span>
@@ -33,16 +33,16 @@
         </div>
 
         <!-- Cart Content -->
-        <div id="cart-content">	
+        <div id="gj-cart-content">	
           <fieldset>
             <legend style="display:none">Kurv Felter</legend>
             
-            <div id="cart-table" class="item-list">		
+            <div id="gj-cart-table" class="gj-item-list">		
               {%- for item in cart.items -%}
-                <div class="cart-row">
+                <div class="gj-cart-row">
                   
                   <!-- Item Image -->
-                  <div class="item-image">
+                  <div class="gj-item-image">
                     <a href="{{ item.url }}" class="product-image-link" tabindex="-1" aria-hidden="true" role="presentation">
                       {% if item.image %}
                         {{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: item.title, class: 'cld-responsive' }}
@@ -53,7 +53,7 @@
                   </div>
 
                   <!-- Item Details -->
-                  <div class="item-details">
+                  <div class="gj-item-details">
                     <div class="product-list-item">
                       <a class="name" href="{{ item.url }}">{{ item.product.title }}</a>
                       
@@ -96,7 +96,7 @@
                   </div>
                   
                   <!-- Item Quantity -->
-                  <div class="item-quantity">
+                  <div class="gj-item-quantity">
                     <span class="input-number js-input-number">							
                       <button type="button" class="input-number__btn input-number__btn--minus js-input-number-minus">-</button>
                       
@@ -112,7 +112,7 @@
                   </div>
 
                   <!-- Item Total -->
-                  <div class="item-total">
+                  <div class="gj-item-total">
                     <span class="price-total">{{ item.final_line_price | money_with_currency }}</span>
                   </div>
 
@@ -121,10 +121,10 @@
             </div>
 
             <!-- Cart Footer -->
-            <div class="cart-footer">
-              <div class="cart-order-totals">
+            <div class="gj-cart-footer">
+              <div class="gj-cart-order-totals">
                 
-                <div class="cart-country-select">
+                <div class="gj-cart-country-select">
                   <label for="shippingcountryselector" style="display:none">Levering Land</label>
                   <select name="shippingcountries" id="shippingcountryselector">
                     <option value="DK" selected>Levering til Danmark</option>
@@ -132,30 +132,30 @@
                 </div>
                 
                 <div class="order-totals-table">
-                  <div class="order-subtotal order-totals-table-row">
+                  <div class="order-totals-table-row">
                     <div>Subtotal</div>
                     <div class="order-value">{{ cart.items_subtotal_price | money_with_currency }}</div>
                   </div>
 
-                  <div class="order-shipping order-totals-table-row">
+                  <div class="order-totals-table-row">
                     <div>Standard Levering</div>
                     <div>Gratis</div>
                   </div>
                   
                   {%- assign tax_rate = 0.20 -%}
                   {%- assign tax_amount = cart.total_price | times: tax_rate -%}
-                  <div class="order-vat order-totals-table-row">
+                  <div class="order-totals-table-row">
                     <div>Moms</div>
                     <div class="order-value">{{ tax_amount | money_with_currency }}</div>
                   </div>
 
-                  <div class="order-total order-totals-table-row">
+                  <div class="order-totals-table-row order-total">
                     <div>Total</div>
                     <div class="order-value">{{ cart.total_price | money_with_currency }}</div>
                   </div>
                 </div>
 
-                <div class="cart-coupon-code">
+                <div class="gj-cart-coupon-code">
                   <div class="input-wrap-fix">
                     <div class="field-wrapper" style="flex:1;">
                       <label class="d-none" for="couponCode"><span>Kuponkode:</span></label>
@@ -165,7 +165,7 @@
                   </div>
                 </div>
                 
-                <div class="cart-actions">
+                <div class="gj-cart-actions">
                   <button class="button-fancy-large cta" type="submit" name="checkout">Til kassen</button>
                 </div>
                 
