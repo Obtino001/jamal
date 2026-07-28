@@ -117,10 +117,10 @@
 }
 
 .gj-header__logo-text {
-  font-family: var(--georg-font-futura);
-  font-size: clamp(18px, 2.2vw, 26px);
-  font-weight: 400;
-  letter-spacing: 0.22em;
+  font-family: var(--georg-font-serif, 'Freight Display Pro', Georgia, serif);
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
@@ -459,8 +459,8 @@
   }
 
   .gj-header__logo-text {
-    font-size: 15px;
-    letter-spacing: 0.18em;
+    font-size: 16px;
+    letter-spacing: 0.05em;
   }
 
   .gj-header__logo-img {
