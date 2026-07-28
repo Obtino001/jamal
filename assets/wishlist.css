@@ -117,7 +117,7 @@ wishlist-count[data-empty] {
   margin: 0 0 28px;
   font-family: var(--georg-font-serif, 'freight-display-pro-semibold', Georgia, serif);
   font-size: clamp(28px, 3.5vw, 40px);
-  font-weight: 600;
+  font-weight: 400;
   color: #1a1a1a;
   letter-spacing: 0;
   line-height: 1.15;

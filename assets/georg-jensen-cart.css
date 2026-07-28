@@ -152,7 +152,7 @@
 .gj-item-details .name {
   font-family: var(--font-heading-family);
   font-size: 1.6rem;
-  font-weight: 600;
+  font-weight: 400;
   text-decoration: none;
   color: #1a1a1a;
   display: block;
@@ -376,7 +376,7 @@
   text-decoration: none;
   color: #1a1a1a;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
 }

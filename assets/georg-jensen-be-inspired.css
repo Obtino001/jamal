@@ -24,13 +24,13 @@
 }
 
 .gj-bi__heading {
-    margin: 0 0 14px;
-    font-family: var(--georg-font-serif, "freight-display-pro-semibold", Georgia, serif);
-    font-size: clamp(22px,2.2vw,28px);
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: 0;
-    color: #1a1a1a;
+  margin: 0 0 14px;
+  font-family: var(--georg-font-serif, "freight-display-pro-semibold", Georgia, serif);
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: #1a1a1a;
 }
 
 .gj-bi__grid {
@@ -97,7 +97,7 @@
   margin: 0 0 14px;
   font-family: var(--georg-font-serif, 'freight-display-pro-semibold', Georgia, serif);
   font-size: clamp(22px, 2.2vw, 28px);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.2;
   letter-spacing: 0;
   color: #1a1a1a;
@@ -116,7 +116,7 @@
   margin: 0;
 }
 
-.gj-bi__text p + p {
+.gj-bi__text p+p {
   margin-top: 0.75em;
 }
 

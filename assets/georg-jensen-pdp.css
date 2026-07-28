@@ -542,7 +542,7 @@ body:has(.georg-pdp-section) {
 
 .georg-pdp-section .gj-size-picker.is-selected .gj-size-picker__trigger {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.02em;
   text-transform: none;
 }
@@ -1039,7 +1039,7 @@ body:has(.georg-pdp-section) {
 }
 
 .georg-pdp-section .product-info_content_item_detail {
-  font-weight: 600;
+  font-weight: 400;
   margin-right: 6px;
 }
 
