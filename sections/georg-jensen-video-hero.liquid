@@ -68,7 +68,7 @@
               >
               </video>
             {%- elsif poster != blank or poster_mobile != blank -%}
-              <picture style="width: 100%; height: 100%; display: block;">
+              <picture style="width: 100%; height: auto; display: block;">
                 {% if poster_mobile != blank %}
                   <source media="(max-width: 1023px)" srcset="{{ poster_mobile | image_url: width: 1000 }}">
                 {% endif %}
@@ -224,6 +224,7 @@
     var video = root.querySelector('.herobanner_poster_overlay video');
     var overlay = root.querySelector('.herobanner_poster_overlay');
     var siteCoreVideo = root.querySelector('.herobanner_poster_overlay .site-core-video');
+    var cldVideoPlayer = root.querySelector('.cld-video-player');
     var videoParent = video && video.parentElement;
 
     function applyVideoSource() {
@@ -265,7 +266,14 @@
           video.style.position = 'absolute';
         }
         if (videoParent) videoParent.style.position = 'absolute';
-        if (siteCoreVideo) siteCoreVideo.style.position = 'absolute';
+        if (siteCoreVideo) {
+          siteCoreVideo.style.position = 'absolute';
+          siteCoreVideo.style.height = '100%';
+        }
+        if (cldVideoPlayer) {
+          cldVideoPlayer.style.position = 'absolute';
+          cldVideoPlayer.style.height = '100%';
+        }
         if (overlay) overlay.style.height = overlay.dataset.height;
       } else {
         if (overlay) overlay.style.height = 'auto';
@@ -273,9 +281,18 @@
           video.style.height = 'auto';
           video.style.position = 'relative';
         }
-        if (videoParent) videoParent.style.position = 'relative';
-        if (siteCoreVideo) siteCoreVideo.style.position = 'relative';
-        if (cldVideoPlayer) cldVideoPlayer.style.position = 'relative';
+        if (videoParent) {
+          videoParent.style.position = 'relative';
+          videoParent.style.height = 'auto';
+        }
+        if (siteCoreVideo) {
+          siteCoreVideo.style.position = 'relative';
+          siteCoreVideo.style.height = 'auto';
+        }
+        if (cldVideoPlayer) {
+          cldVideoPlayer.style.position = 'relative';
+          cldVideoPlayer.style.height = 'auto';
+        }
       }
     };
 
