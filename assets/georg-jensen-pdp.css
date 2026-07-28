@@ -933,11 +933,12 @@ body:has(.georg-pdp-section) {
 
 .georg-pdp-section .product-info_content_item p {
   margin: 0;
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: inherit;
-  line-height: inherit;
-  color: inherit;
+    width: 100%;
+    float: none;
+    margin-right: 0;
+    font-size: 15px;
+    line-height: normal;
+    margin-bottom: 48px;
 }
 
 .georg-pdp-section .product-info_content_item.is-collapsed {
