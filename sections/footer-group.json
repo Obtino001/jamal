@@ -14,34 +14,16 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "menu_rxHrFF": {
-          "type": "menu",
-          "settings": {
-            "heading": "Online Shopping",
-            "menu": "",
-            "fallback_links": ""
-          }
-        },
-        "menu_397Bac": {
-          "type": "menu",
-          "settings": {
-            "heading": "Online Shopping",
-            "menu": "",
-            "fallback_links": ""
-          }
-        },
         "menu_7HQ3M3": {
           "type": "menu",
           "settings": {
             "heading": "Online Shopping",
-            "menu": "",
+            "menu": "main-menu",
             "fallback_links": ""
           }
         }
       },
       "block_order": [
-        "menu_rxHrFF",
-        "menu_397Bac",
         "menu_7HQ3M3"
       ],
       "settings": {
