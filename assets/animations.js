@@ -82,10 +82,10 @@
       var first = document.querySelector('#MainContent > .shopify-section');
       if (first) {
         var picks = [];
-        var line = first.querySelector('.luxury-line');
-        var h1 = first.querySelector('h1');
-        var sub = h1 && h1.parentElement ? h1.parentElement.querySelector(':scope > p') : null;
-        var ctas = first.querySelector('.flex.flex-col.sm\\:flex-row, .flex.flex-col.gap-4');
+        var line = first.querySelector('.luxury-line, .herobanner_poster_content_subheadline');
+        var h1 = first.querySelector('h1, .herobanner_poster_content_headline');
+        var sub = h1 && h1.parentElement ? h1.parentElement.querySelector(':scope > p') : first.querySelector('.herobanner_poster_content_body');
+        var ctas = first.querySelector('.flex.flex-col.sm\\:flex-row, .flex.flex-col.gap-4, .herobanner_poster_content_button');
         var usp = first.querySelector('.border-t.border-gold\\/15, [data-woc-hero-usp]');
 
         if (line) picks.push({ el: line, fade: true, delay: 0.2, dur: 1.0, y: 0 });
@@ -179,6 +179,10 @@
     // WOC custom cards
     '.woc-product-card',
     '.product-card',
+    '.gj-bi__card',
+    '.category-directory__item',
+    '.gj-reco-card',
+    '.gj-siw__product',
   ].join(',');
 
   // Top-level content blocks to animate as a whole (NOT their children)
@@ -190,6 +194,9 @@
     '.newsletter__wrapper',
     '.video-section__media',
     '.collection-hero__inner',
+    '.designer-spotlight__content',
+    '.gj-siw__feature',
+    '.georg-pdp-content__block',
   ].join(',');
 
   function markEl(el, delay, y) {
@@ -217,7 +224,7 @@
 
       // 1. Look for a grid/flex container with multiple children (card grid)
       var grids = Array.from(section.querySelectorAll(
-        '.grid, [class*="grid-cols"], [class*="flex-wrap"], ul.list-unstyled, .multicolumn-list, .collection-list'
+        '.grid, [class*="grid-cols"], [class*="flex-wrap"], ul.list-unstyled, .multicolumn-list, .collection-list, .gj-bi__grid, .category-directory__grid, .gj-siw__products, .swiper-wrapper'
       )).filter(function (g) {
         return !skipped(g) && g.children.length >= 2;
       });
