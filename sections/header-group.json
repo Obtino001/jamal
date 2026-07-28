@@ -43,32 +43,24 @@
     "georg_jensen_header": {
       "type": "georg-jensen-header",
       "blocks": {
-        "search_link_1": {
+        "search_link_contact": {
           "type": "search_link",
           "settings": {
-            "title": "Find butikker",
+            "title": "Kontakt",
             "link": ""
           }
         },
-        "search_link_2": {
+        "search_link_omoss": {
           "type": "search_link",
           "settings": {
-            "title": "Ombytning og retur",
-            "link": ""
-          }
-        },
-        "search_link_3": {
-          "type": "search_link",
-          "settings": {
-            "title": "Kundeservice",
+            "title": "Om os",
             "link": ""
           }
         }
       },
       "block_order": [
-        "search_link_1",
-        "search_link_2",
-        "search_link_3"
+        "search_link_contact",
+        "search_link_omoss"
       ],
       "settings": {
         "show_announcement": false,
