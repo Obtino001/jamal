@@ -47,14 +47,14 @@
           "type": "search_link",
           "settings": {
             "title": "Kontakt",
-            "link": ""
+            "link": "https://fjeldfund.dk/pages/contact"
           }
         },
         "search_link_omoss": {
           "type": "search_link",
           "settings": {
             "title": "Om os",
-            "link": ""
+            "link": "https://fjeldfund.dk/pages/om-os"
           }
         }
       },
