@@ -185,14 +185,14 @@
           "type": "tab",
           "settings": {
             "title": "Kunder, der så denne vare, så også",
-            "collection": "frontpage"
+            "collection": "rings"
           }
         },
         "tab_combine": {
           "type": "tab",
           "settings": {
             "title": "Kombinér det med",
-            "collection": "frontpage"
+            "collection": "rings"
           }
         }
       },
