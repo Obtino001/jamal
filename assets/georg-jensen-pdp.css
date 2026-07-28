@@ -377,7 +377,8 @@ body:has(.georg-pdp-section) {
 /* Product info column */
 .georg-pdp-section #product-content {
   padding-top: 0;
-  max-width: 400px;;
+  max-width: 400px;
+  ;
 }
 
 .georg-pdp-section .product-collection {
@@ -398,7 +399,6 @@ body:has(.georg-pdp-section) {
 .georg-pdp-section .product-name {
   font-family: var(--gj-pdp-serif);
   font-size: clamp(24px, 2.2vw, 28px);
-  font-weight: 600;
   line-height: 1.2;
   margin: 0 0 12px;
   color: #000;
