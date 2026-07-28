@@ -38,11 +38,11 @@
   gap: 24px;
 }
 
-.gj-header__announcement-inner > div {
+.gj-header__announcement-inner>div {
   min-width: 0;
 }
 
-.gj-header__announcement-inner > div:last-child {
+.gj-header__announcement-inner>div:last-child {
   text-align: right;
 }
 
@@ -474,7 +474,7 @@
 
   .gj-header__search-toggle {
     min-width: 0;
-    width: 40px;
+    /* width: 40px; */
     height: 40px;
     border-bottom: 0;
     padding: 0;
@@ -568,7 +568,8 @@
   }
 
   .gj-header__search-form input {
-    font-size: 16px; /* avoid iOS zoom */
+    font-size: 16px;
+    /* avoid iOS zoom */
     padding: 4px 0;
   }
 
