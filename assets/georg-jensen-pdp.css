@@ -982,7 +982,7 @@ body:has(.georg-pdp-section) {
   align-items: center;
   gap: 12px;
   margin: 0;
-  padding: 18px 0;
+  padding: 10px 0;
   border: 0;
   border-bottom: 0;
   font-family: var(--gj-pdp-futura);
