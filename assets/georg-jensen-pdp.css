@@ -401,7 +401,7 @@ body:has(.georg-pdp-section) {
 
 .georg-pdp-section .product-name {
   font-family: var(--gj-pdp-serif);
-  font-weight: 600;
+  font-weight: 400;
   font-size: clamp(32px, 3.4vw, 42px);
   line-height: 1.15;
   margin: 0 0 14px;
