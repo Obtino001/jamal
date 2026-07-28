@@ -939,6 +939,7 @@ body:has(.georg-pdp-section) {
     font-size: 11px;
     line-height: normal;
     margin-bottom: 48px;
+  font-family: FuturaPT-Light;
 }
 
 .georg-pdp-section .product-info_content_item.is-collapsed {
