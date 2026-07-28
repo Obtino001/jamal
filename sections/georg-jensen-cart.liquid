@@ -1,0 +1,221 @@
+{{ 'georg-jensen-cart.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'georg-jensen-cart.js' | asset_url }}" defer="defer"></script>
+
+<div class="georg-cart-section section-{{ section.id }}">
+  {%- if cart.item_count > 0 -%}
+    <form action="{{ routes.cart_url }}" method="post" id="cart" class="cart">
+      <div class="cart-content-container">
+        
+        <!-- Header & Actions -->
+        <div class="cart-actions cart-actions-top">
+          <h1>Kurv</h1>
+          <fieldset style="float: right;">
+            <legend style="display: none">medlemsfragtfordele</legend>
+            
+            <div class="free-shipping-callout">
+              <img src="https://www.georgjensen.com/on/demandware.static/Sites-GeorgJensen_DK-Site/-/default/dwb7503e82/assets/images/icon_information_Dark_blue.png" alt="medlemsfragtfordele">
+              Som medlem af Mit Georg Jensen får du altid gratis fragt. Du kan registrere dig i kassen.
+            </div>
+            
+            <div class="shipping-callout-wrapper">
+              <div class="shipping-callout">
+                <span class="icon-truck">
+                  <svg viewBox="0 0 24 24"><path d="M1 4h15v14H1zM16 8h4l3 4v6h-7M16 12h7M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>
+                </span>
+                Du har gratis levering.						
+              </div>
+              
+              <button class="button-fancy-large cta" type="submit" name="checkout" aria-label="Fortsæt til betaling">
+                Til kassen
+              </button>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Cart Content -->
+        <div id="cart-content">	
+          <fieldset>
+            <legend style="display:none">Kurv Felter</legend>
+            
+            <div id="cart-table" class="item-list">		
+              {%- for item in cart.items -%}
+                <div class="cart-row">
+                  
+                  <!-- Item Image -->
+                  <div class="item-image">
+                    <a href="{{ item.url }}" class="product-image-link" tabindex="-1" aria-hidden="true" role="presentation">
+                      {% if item.image %}
+                        {{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: item.title, class: 'cld-responsive' }}
+                      {% else %}
+                        {{ 'product-1' | placeholder_svg_tag }}
+                      {% endif %}
+                    </a>
+                  </div>
+
+                  <!-- Item Details -->
+                  <div class="item-details">
+                    <div class="product-list-item">
+                      <a class="name" href="{{ item.url }}">{{ item.product.title }}</a>
+                      
+                      <!-- Metafields / Properties -->
+                      <div class="materials">
+                        {%- if item.product.metafields.custom.material != blank -%}
+                          <div class="product-material">
+                            <div>{{ item.product.metafields.custom.material }}</div>
+                          </div>
+                        {%- else -%}
+                          <div class="product-material">
+                            <div>Sterlingsølv</div>
+                          </div>
+                        {%- endif -%}
+                      </div>
+
+                      {%- unless item.product.has_only_default_variant -%}
+                        <div class="attribute">
+                          <span class="label">Variant:</span>
+                          <span class="value">{{ item.variant.title }}</span>
+                        </div>
+                      {%- endunless -%}
+
+                      <div class="availability-msg">
+                        {%- if item.variant.inventory_quantity > 0 and item.variant.inventory_quantity <= 5 -%}
+                          <p class="less-than-five-msg">Kun {{ item.variant.inventory_quantity }} tilbage</p>
+                        {%- endif -%}
+                      </div>
+
+                      <div class="sku">
+                        <span class="label">Varenummer: </span>
+                        <span class="value">{{ item.sku }}</span>
+                      </div>
+
+                      <div class="giftwrap-label styled-checkbox-small">
+                        <input class="input-checkbox" type="checkbox" id="giftWrap_{{ item.key }}" name="attributes[giftWrap_{{ item.key }}]" value="true" {% if cart.attributes['giftWrap'] == 'true' %}checked{% endif %}>
+                        <label for="giftWrap_{{ item.key }}"><span>Pak denne vare ind</span></label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Item Quantity -->
+                  <div class="item-quantity">
+                    <span class="input-number js-input-number">							
+                      <button type="button" class="input-number__btn input-number__btn--minus js-input-number-minus">-</button>
+                      
+                      <label class="d-none" for="updates_{{ item.key }}"><span>Antal</span></label>
+                      <input class="input-text" type="number" id="updates_{{ item.key }}" name="updates[]" value="{{ item.quantity }}" min="1" data-key="{{ item.key }}" aria-label="Ændr mængde">
+                      
+                      <button type="button" class="input-number__btn input-number__btn--plus js-input-number-plus">+</button>
+                    </span>
+                    
+                    <button type="button" class="button-text button-remove" data-key="{{ item.key }}" aria-label="Fjern {{ item.title }}">
+                      <span>Fjern</span>
+                    </button>
+                  </div>
+
+                  <!-- Item Total -->
+                  <div class="item-total">
+                    <span class="price-total">{{ item.final_line_price | money_with_currency }}</span>
+                  </div>
+
+                </div>
+              {%- endfor -%}
+            </div>
+
+            <!-- Cart Footer -->
+            <div class="cart-footer">
+              <div class="cart-order-totals">
+                
+                <div class="cart-country-select">
+                  <label for="shippingcountryselector" style="display:none">Levering Land</label>
+                  <select name="shippingcountries" id="shippingcountryselector">
+                    <option value="DK" selected>Levering til Danmark</option>
+                  </select>
+                </div>
+                
+                <div class="order-totals-table">
+                  <div class="order-subtotal order-totals-table-row">
+                    <div>Subtotal</div>
+                    <div class="order-value">{{ cart.items_subtotal_price | money_with_currency }}</div>
+                  </div>
+
+                  <div class="order-shipping order-totals-table-row">
+                    <div>Standard Levering</div>
+                    <div>Gratis</div>
+                  </div>
+                  
+                  {%- assign tax_rate = 0.20 -%}
+                  {%- assign tax_amount = cart.total_price | times: tax_rate -%}
+                  <div class="order-vat order-totals-table-row">
+                    <div>Moms</div>
+                    <div class="order-value">{{ tax_amount | money_with_currency }}</div>
+                  </div>
+
+                  <div class="order-total order-totals-table-row">
+                    <div>Total</div>
+                    <div class="order-value">{{ cart.total_price | money_with_currency }}</div>
+                  </div>
+                </div>
+
+                <div class="cart-coupon-code">
+                  <div class="input-wrap-fix">
+                    <div class="field-wrapper" style="flex:1;">
+                      <label class="d-none" for="couponCode"><span>Kuponkode:</span></label>
+                      <input class="input-text" type="text" id="couponCode" name="discount" value="" aria-label="Tilføj Voucher Kodefelt" placeholder="Tilføj kode">
+                    </div>
+                    <button class="button" type="button" aria-label="Anvend Voucher Kode-knap">Anvend</button>
+                  </div>
+                </div>
+                
+                <div class="cart-actions">
+                  <button class="button-fancy-large cta" type="submit" name="checkout">Til kassen</button>
+                </div>
+                
+                <div class="payment-icons-asset">
+                  <div class="payment-icons">
+                    <img alt="Visa" src="https://www.georgjensen.com/on/demandware.static/-/Sites-GeorgJensen_DK-Library/default/dw746d7dc9/payment_icons/visadk.png">
+                    <img alt="Maestro" src="https://www.georgjensen.com/on/demandware.static/-/Sites-GeorgJensen_DK-Library/default/dw4dc1da61/payment_icons/maestro.png">
+                    <img alt="Mastercard" src="https://www.georgjensen.com/on/demandware.static/-/Sites-GeorgJensen_DK-Library/default/dwee1f7005/payment_icons/mastercard.png">
+                    <img alt="American Express" src="https://www.georgjensen.com/on/demandware.static/-/Sites-GeorgJensen_DK-Library/default/dwd6fb4f87/payment_icons/american express.png"> 
+                    <img alt="MobilePay" src="https://www.georgjensen.com/on/demandware.static/-/Sites-GeorgJensen_DK-Library/default/dw2737fbaf/payment_icons/Mobilepay.png"> 
+                    <img alt="Klarna" src="https://www.georgjensen.com/on/demandware.static/-/Sites-GeorgJensen_DK-Library/default/dwc39a09b6/payment_icons/klarna-2024.png">
+                    <img alt="Apple Pay" src="https://www.georgjensen.com/on/demandware.static/-/Sites-GeorgJensen_DK-Library/default/dwd1ae4fba/payment_icons/apple_pay.png">
+                  </div>
+                </div>
+                
+                <div class="cart-usp">
+                  <a class="cart-usp-item" href="/pages/shipping">
+                    <img alt="" aria-hidden="true" src="/on/demandware.static/Sites-GeorgJensen_DK-Site/-/default/dwa1c6770e/assets/images/shipping.png">
+                    <span class="cart-usp-item-text">Forsendelse og levering</span>
+                  </a>
+                  <a class="cart-usp-item" href="/pages/returns">
+                    <img alt="" aria-hidden="true" src="/on/demandware.static/Sites-GeorgJensen_DK-Site/-/default/dw9cbefd65/assets/images/returns.png">
+                    <span class="cart-usp-item-text">Fortrydelse og ombytning</span>
+                  </a>
+                  <a class="cart-usp-item" href="/pages/contact">
+                    <img alt="" aria-hidden="true" src="/on/demandware.static/Sites-GeorgJensen_DK-Site/-/default/dw88508c2a/assets/images/customerService.svg">
+                    <span class="cart-usp-item-text">Kundeservice</span>
+                  </a>
+                </div>
+
+              </div>
+            </div>	
+            
+          </fieldset>
+        </div>
+
+      </div>
+    </form>
+  {%- else -%}
+    <div class="cart-actions-top" style="text-align: center; margin-top: 10rem;">
+      <h1>Kurv</h1>
+      <p style="font-size: 1.6rem; margin-bottom: 2rem;">Din kurv er tom</p>
+      <a href="{{ routes.all_products_collection_url }}" class="button-fancy-large cta" style="display: inline-block; text-decoration: none;">Fortsæt med at handle</a>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Georg Jensen Cart",
+  "settings": []
+}
+{% endschema %}
