@@ -488,6 +488,9 @@
                         <div aria-label="{{ wishlist_label | escape }}" class="add-remove-wishlist add" tabindex="0" role="button" data-gj-wishlist-add data-product-handle="{{ product.handle }}">{{ wishlist_label }}</div>
                         <div aria-label="{{ wishlist_remove_label | escape }}" class="add-remove-wishlist remove" tabindex="0" role="button" data-gj-wishlist-remove data-product-handle="{{ product.handle }}" style="display:none">{{ wishlist_remove_label }}</div>
                       {%- endif -%}
+                      <div class="pdp-payment-icons" style="margin-top: 15px; display: flex; justify-content: center;">
+                        {% render 'Payments' %}
+                      </div>
                     </div>
                   </div>
 
