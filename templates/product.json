@@ -94,7 +94,7 @@
         "buy_buttons_1": {
           "type": "buy_buttons",
           "settings": {
-            "add_to_cart_label": "GØR ET FUND",
+            "add_to_cart_label": "LÆG I KURV",
             "sold_out_label": "Udsolgt",
             "unavailable_label": "Ikke tilgængelig",
             "show_wishlist": true,
