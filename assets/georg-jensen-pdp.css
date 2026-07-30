@@ -899,8 +899,7 @@ body:has(.georg-pdp-section) {
     padding: 18px 20px;
     font-family: var(--gj-pdp-futura);
     font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .12em;
+    font-weight: 600;
     line-height: 1.45;
     text-transform: uppercase;
     color: #4a4743;
