@@ -32,12 +32,6 @@
           "type": "title",
           "settings": {}
         },
-        "material_1": {
-          "type": "material",
-          "settings": {
-            "material_fallback": "Saml dit eget sæt – tre fund, 1.200 kr."
-          }
-        },
         "usps_1": {
           "type": "usps",
           "disabled": true,
@@ -60,6 +54,12 @@
         "price_1": {
           "type": "price",
           "settings": {}
+        },
+        "material_1": {
+          "type": "material",
+          "settings": {
+            "material_fallback": "Saml dit eget sæt – tre fund, 1.200 kr."
+          }
         },
         "ring_size_cXhVCf": {
           "type": "ring_size",
@@ -159,10 +159,10 @@
         "breadcrumbs_1",
         "collection_link_1",
         "title_1",
-        "material_1",
         "usps_1",
         "variant_picker_1",
         "price_1",
+        "material_1",
         "ring_size_cXhVCf",
         "buy_buttons_1",
         "gift_wrapping_1",
