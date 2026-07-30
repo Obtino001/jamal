@@ -26,6 +26,7 @@
 {%- if is_ring -%}
 
 <style>
+  /* --- Trigger Button --- */
 .rsg-trigger-btn {
     appearance: none;
     background: transparent;
@@ -420,10 +421,11 @@
         <table class="rsg-table">
           <thead>
             <tr>
-              <th>{{ block.settings.t1_col1_heading | newline_to_br }}</th>
-              <th>{{ block.settings.t1_col2_heading | newline_to_br }}</th>
-              <th>{{ block.settings.t1_col3_heading | newline_to_br }}</th>
-              <th>{{ block.settings.t1_col4_heading | newline_to_br }}</th>
+              {%- if block.settings.t1_col1_heading != blank -%}<th>{{ block.settings.t1_col1_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t1_col2_heading != blank -%}<th>{{ block.settings.t1_col2_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t1_col3_heading != blank -%}<th>{{ block.settings.t1_col3_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t1_col4_heading != blank -%}<th>{{ block.settings.t1_col4_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t1_col5_heading != blank -%}<th>{{ block.settings.t1_col5_heading | newline_to_br }}</th>{%- endif -%}
             </tr>
           </thead>
           <tbody>
@@ -432,10 +434,9 @@
               {%- assign cols = t1_row | split: ',' -%}
               {%- if cols.size >= 1 and cols[0] != blank -%}
               <tr>
-                <td>{{ cols[0] | strip }}</td>
-                <td>{{ cols[1] | strip }}</td>
-                <td>{{ cols[2] | strip }}</td>
-                <td>{{ cols[3] | strip }}</td>
+                {%- for col in cols -%}
+                  <td>{{ col | strip }}</td>
+                {%- endfor -%}
               </tr>
               {%- endif -%}
             {%- endfor -%}
@@ -447,7 +448,16 @@
     <div id="rsg-panel2-{{ block.id }}" class="rsg-panel" role="tabpanel" aria-labelledby="rsg-tab2-{{ block.id }}" hidden>
       
       <div class="rsg-panel-content" style="padding-top: 0;">
-        {%- if block.settings.tab2_video != blank -%}
+        {%- if block.settings.tab2_video_url != blank -%}
+          <div class="rsg-video-wrapper">
+            <video class="rsg-video-el" autoplay loop muted playsinline>
+              <source src="{{ block.settings.tab2_video_url }}" type="video/mp4">
+            </video>
+            <button type="button" class="rsg-video-btn" aria-label="Pause Video">
+              <svg viewBox="0 0 24 24"><rect x="8" y="5" width="3" height="14"/><rect x="14" y="5" width="3" height="14"/></svg>
+            </button>
+          </div>
+        {%- elsif block.settings.tab2_video != blank -%}
           <div class="rsg-video-wrapper">
             {{ block.settings.tab2_video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, class: 'rsg-video-el' }}
             <button type="button" class="rsg-video-btn" aria-label="Pause Video">
@@ -461,14 +471,18 @@
         {%- for i in (1..3) -%}
           {%- capture step_text_key -%}tab2_step{{ i }}_text{%- endcapture -%}
           {%- capture step_img_key -%}tab2_step{{ i }}_image{%- endcapture -%}
+          {%- capture step_img_url_key -%}tab2_step{{ i }}_image_url{%- endcapture -%}
           {%- assign step_text = block.settings[step_text_key] -%}
           {%- assign step_img = block.settings[step_img_key] -%}
-          {%- if step_text != blank or step_img != blank -%}
+          {%- assign step_img_url = block.settings[step_img_url_key] -%}
+          {%- if step_text != blank or step_img != blank or step_img_url != blank -%}
             <div class="rsg-step">
               {%- if step_text != blank -%}
                 <div class="rsg-mono-text" style="margin-bottom: 0;">{{ step_text | newline_to_br }}</div>
               {%- endif -%}
-              {%- if step_img != blank -%}
+              {%- if step_img_url != blank -%}
+                <img src="{{ step_img_url }}" class="rsg-step-img" loading="lazy" alt="Step {{ i }}">
+              {%- elsif step_img != blank -%}
                 {{ step_img | image_url: width: 800 | image_tag: class: 'rsg-step-img', loading: 'lazy' }}
               {%- endif -%}
             </div>
@@ -483,10 +497,11 @@
         <table class="rsg-table">
           <thead>
             <tr>
-              <th>{{ block.settings.t2_col1_heading | newline_to_br }}</th>
-              <th>{{ block.settings.t2_col2_heading | newline_to_br }}</th>
-              <th>{{ block.settings.t2_col3_heading | newline_to_br }}</th>
-              <th>{{ block.settings.t2_col4_heading | newline_to_br }}</th>
+              {%- if block.settings.t2_col1_heading != blank -%}<th>{{ block.settings.t2_col1_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t2_col2_heading != blank -%}<th>{{ block.settings.t2_col2_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t2_col3_heading != blank -%}<th>{{ block.settings.t2_col3_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t2_col4_heading != blank -%}<th>{{ block.settings.t2_col4_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t2_col5_heading != blank -%}<th>{{ block.settings.t2_col5_heading | newline_to_br }}</th>{%- endif -%}
             </tr>
           </thead>
           <tbody>
@@ -495,10 +510,9 @@
               {%- assign cols = t2_row | split: ',' -%}
               {%- if cols.size >= 1 and cols[0] != blank -%}
               <tr>
-                <td>{{ cols[0] | strip }}</td>
-                <td>{{ cols[1] | strip }}</td>
-                <td>{{ cols[2] | strip }}</td>
-                <td>{{ cols[3] | strip }}</td>
+                {%- for col in cols -%}
+                  <td>{{ col | strip }}</td>
+                {%- endfor -%}
               </tr>
               {%- endif -%}
             {%- endfor -%}
