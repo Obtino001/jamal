@@ -400,10 +400,21 @@
                             endif
                           -%}
                           <div class="gj-size-picker" data-gj-size-picker data-option-index="{{ forloop.index0 }}" data-placeholder="{{ option_label | escape }}">
-                            <button type="button" class="gj-size-picker__trigger" data-gj-size-trigger aria-expanded="false" aria-controls="GjSizePanel-{{ section.id }}-{{ forloop.index0 }}" id="GjSizeTrigger-{{ section.id }}-{{ forloop.index0 }}">
-                              <span class="gj-size-picker__label" data-gj-size-trigger-label>{{ option_label }}</span>
-                              <span class="gj-size-picker__caret" aria-hidden="true"></span>
-                            </button>
+                            <div class="gj-size-picker-header">
+                              <button type="button" class="gj-size-picker__trigger" data-gj-size-trigger aria-expanded="false" aria-controls="GjSizePanel-{{ section.id }}-{{ forloop.index0 }}" id="GjSizeTrigger-{{ section.id }}-{{ forloop.index0 }}">
+                                <span class="gj-size-picker__label" data-gj-size-trigger-label>{{ option_label }}</span>
+                                <span class="gj-size-picker__caret" aria-hidden="true"></span>
+                              </button>
+                              {%- assign downcased_option = option.name | downcase -%}
+                              {%- if downcased_option contains 'size' or downcased_option contains 'størrelse' -%}
+                                {%- assign ring_size_block = section.blocks | where: 'type', 'ring_size' | first -%}
+                                {%- if ring_size_block -%}
+                                  <div class="gj-ring-size-guide-inline">
+                                    {% render 'ring', block: ring_size_block, product: product, force: true %}
+                                  </div>
+                                {%- endif -%}
+                              {%- endif -%}
+                            </div>
                             <div class="gj-size-picker__panel" id="GjSizePanel-{{ section.id }}-{{ forloop.index0 }}" data-gj-size-panel hidden role="listbox" aria-labelledby="GjSizeTrigger-{{ section.id }}-{{ forloop.index0 }}">
                               <div class="gj-size-picker__panel-inner">
                                 {%- for value in option.values -%}
@@ -454,9 +465,7 @@
                   </div>
 
                 {%- when 'ring_size' -%}
-                  <div class="gj-ring-size-guide" {{ block.shopify_attributes }}>
-                    {% render 'ring', block: block, product: product, force: true %}
-                  </div>
+                  {%- comment -%} Rendered inline within variant_picker for size options {%- endcomment -%}
 
                 {%- when 'buy_buttons' -%}
                   {%- liquid

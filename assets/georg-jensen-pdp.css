@@ -519,10 +519,27 @@ body:has(.georg-pdp-section) {
   border-top: 1px solid #e5e5e5;
 }
 
+.georg-pdp-section .gj-size-picker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.georg-pdp-section .gj-size-picker-header .gj-size-picker__trigger {
+    width: auto;
+    flex: 0 0 auto;
+}
+.georg-pdp-section .gj-size-picker-header .gj-ring-size-guide-inline {
+    flex: 0 0 auto;
+}
+.georg-pdp-section .gj-size-picker-header .gj-ring-size-guide-inline .product-block {
+    margin: 0;
+}
+
 .georg-pdp-section .gj-size-picker__trigger {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 8px;
     width: 100%;
     max-width: 100%;
@@ -563,7 +580,7 @@ body:has(.georg-pdp-section) {
   display: inline-block;
   width: 0;
   height: 0;
-  margin-left: auto;
+  margin-left: 8px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 6px solid currentColor;
