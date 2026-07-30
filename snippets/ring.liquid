@@ -447,7 +447,7 @@
 
     <div id="rsg-panel2-{{ block.id }}" class="rsg-panel" role="tabpanel" aria-labelledby="rsg-tab2-{{ block.id }}">
       
-      <div class="rsg-panel-content" style="padding-top: 0;">
+      {% comment %} <div class="rsg-panel-content" style="padding-top: 0;">
         {%- if block.settings.tab2_video_url != blank -%}
           <div class="rsg-video-wrapper">
             <video class="rsg-video-el" autoplay loop muted playsinline>
@@ -487,8 +487,8 @@
               {%- endif -%}
             </div>
           {%- endif -%}
-        {%- endfor -%}
-      </div>
+        {%- endfor -%} {% endcomment %}
+      {% comment %} </div> {% endcomment %}
 
       <hr class="rsg-divider" style="margin-top: 0;">
 
