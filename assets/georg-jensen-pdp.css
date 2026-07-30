@@ -696,10 +696,9 @@ body:has(.georg-pdp-section) {
 }
 
 .georg-pdp-section .product-price {
-  margin: 0 0 0;
-  padding: 0 0 18px;
+    margin: 0;
+    padding-block: 30px 20px;
 }
-
 .georg-pdp-section .gj-ring-size-guide {
   margin: 0 0 16px;
 }
