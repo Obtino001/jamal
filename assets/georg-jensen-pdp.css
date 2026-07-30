@@ -887,7 +887,7 @@ body:has(.georg-pdp-section) {
   height: 0 !important;
 }
 
-.georg-pdp-section .giftwrapping-text.georg-pdp-section .giftwrapping-text {
+.georg-pdp-section .giftwrapping-text {
     position: relative;
     z-index: 2;
     flex: 1 1 auto;
