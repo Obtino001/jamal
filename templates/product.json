@@ -66,9 +66,8 @@
           "settings": {
             "trigger_text": "Størrelsesguide",
             "modal_heading": "STØRRELSESGUIDE TIL RINGE",
-            "tab1_title": "MÅL MIN EGEN RING",
-            "tab1_instructions": "1. Brug en ring, der passer til den ønskede finger.\n2. Mål den indre diameter på ringen (i mm). Sørg for, at din lineal starter ved 0 mm-mærket.",
-            "tab1_image": "shopify://shop_images/GJ_Ring_Size_guide-01.jpg",
+            "tab1_title": "",
+            "tab1_instructions": "",
             "t1_col1_heading": "",
             "t1_col2_heading": "",
             "t1_col3_heading": "",
