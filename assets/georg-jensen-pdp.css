@@ -1047,9 +1047,8 @@ body:has(.georg-pdp-section) {
 }
 
 .georg-pdp-section .accordion-body {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 0;
+  overflow: hidden;
   padding: 0 0 0 26px;
   border-bottom: 0;
   font-family: var(--gj-pdp-sans);
@@ -1057,15 +1056,14 @@ body:has(.georg-pdp-section) {
   font-weight: 300;
   line-height: 1.65;
   color: #333;
-}
-
-.georg-pdp-section .accordion-body-inner {
-  overflow: hidden;
-  padding-bottom: 18px;
+  visibility: hidden;
+  transition: max-height 0.4s ease, padding-bottom 0.4s ease, visibility 0.4s ease;
 }
 
 .georg-pdp-section .accordion-body.is-open {
-  grid-template-rows: 1fr;
+  max-height: 1000px;
+  padding-bottom: 18px;
+  visibility: visible;
 }
 
 .georg-pdp-section .product-info_content_item_list ul {
