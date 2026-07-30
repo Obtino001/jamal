@@ -423,11 +423,11 @@
         <table class="rsg-table">
           <thead>
             <tr>
-              {%- assign raw_t1 = block.settings.t1_col_headings | default: "Indre diameter (mm), USA/CAN, UK/AUS, Tysk" -%}
-              {%- assign t1_headings = raw_t1 | split: ',' -%}
-              {%- for heading in t1_headings -%}
-                {%- if heading != blank -%}<th>{{ heading | strip | newline_to_br }}</th>{%- endif -%}
-              {%- endfor -%}
+              {%- if block.settings.t1_col1_heading != blank -%}<th>{{ block.settings.t1_col1_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t1_col2_heading != blank -%}<th>{{ block.settings.t1_col2_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t1_col3_heading != blank -%}<th>{{ block.settings.t1_col3_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t1_col4_heading != blank -%}<th>{{ block.settings.t1_col4_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t1_col5_heading != blank -%}<th>{{ block.settings.t1_col5_heading | newline_to_br }}</th>{%- endif -%}
             </tr>
           </thead>
           <tbody>
@@ -499,11 +499,11 @@
         <table class="rsg-table">
           <thead>
             <tr>
-              {%- assign raw_t2 = block.settings.t2_col_headings | default: "Omkreds (cm), Europa, Japan, USA, UK" -%}
-              {%- assign t2_headings = raw_t2 | split: ',' -%}
-              {%- for heading in t2_headings -%}
-                {%- if heading != blank -%}<th>{{ heading | strip | newline_to_br }}</th>{%- endif -%}
-              {%- endfor -%}
+              {%- if block.settings.t2_col1_heading != blank -%}<th>{{ block.settings.t2_col1_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t2_col2_heading != blank -%}<th>{{ block.settings.t2_col2_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t2_col3_heading != blank -%}<th>{{ block.settings.t2_col3_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t2_col4_heading != blank -%}<th>{{ block.settings.t2_col4_heading | newline_to_br }}</th>{%- endif -%}
+              {%- if block.settings.t2_col5_heading != blank -%}<th>{{ block.settings.t2_col5_heading | newline_to_br }}</th>{%- endif -%}
             </tr>
           </thead>
           <tbody>
