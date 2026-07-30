@@ -479,7 +479,7 @@
           {%- if step_text != blank or step_img != blank or step_img_url != blank -%}
             <div class="rsg-step">
               {%- if step_text != blank -%}
-                <div class="rsg-mono-text" style="margin-bottom: 0;">{{ step_text | newline_to_br }}</div>
+                <div class="rsg-mono-text" style="margin-bottom: 0;">{{ step_text }}</div>
               {%- endif -%}
               {%- if step_img_url != blank -%}
                 <img src="{{ step_img_url }}" class="rsg-step-img" loading="lazy" alt="Step {{ i }}">
