@@ -97,7 +97,7 @@ body:has(.georg-pdp-section) {
   grid-template-columns: minmax(0, 1fr) var(--gj-pdp-sidebar-width);
   align-items: start;
   column-gap: 0;
-  margin: 0 0 80px;
+  margin: 0 0 30px;
   width: 100%;
   max-width: 100%;
   padding: 0;
