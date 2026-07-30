@@ -400,7 +400,7 @@
       </button>
     </div>
 
-    <div id="rsg-panel1-{{ block.id }}" class="rsg-panel" role="tabpanel" aria-labelledby="rsg-tab1-{{ block.id }}">
+    {% comment %} <div id="rsg-panel1-{{ block.id }}" class="rsg-panel" role="tabpanel" aria-labelledby="rsg-tab1-{{ block.id }}">
       <div class="rsg-panel-content">
         <div class="rsg-section-title">Instruktioner</div>
         <div class="rsg-mono-text">{{ block.settings.tab1_instructions | newline_to_br }}</div>
@@ -443,9 +443,9 @@
           </tbody>
         </table>
       </div>
-    </div>
+    </div> {% endcomment %}
 
-    <div id="rsg-panel2-{{ block.id }}" class="rsg-panel" role="tabpanel" aria-labelledby="rsg-tab2-{{ block.id }}" hidden>
+    <div id="rsg-panel2-{{ block.id }}" class="rsg-panel" role="tabpanel" aria-labelledby="rsg-tab2-{{ block.id }}">
       
       <div class="rsg-panel-content" style="padding-top: 0;">
         {%- if block.settings.tab2_video_url != blank -%}
