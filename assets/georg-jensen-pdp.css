@@ -465,10 +465,9 @@ body:has(.georg-pdp-section) {
 }
 
 .georg-pdp-section .product-variations-container {
-  margin: 0 0 18px;
-  border-top: 1px solid var(--gj-pdp-border);
+    margin-top: 40px;
+    border-top: 1px solid var(--gj-pdp-border);
 }
-
 .georg-pdp-section .product-variations-container.empty-vairation {
   display: none !important;
   margin: 0 !important;
