@@ -509,7 +509,7 @@
           <tbody>
             {%- assign t2_rows = block.settings.tab2_rows | split: '||' -%}
             {%- for t2_row in t2_rows -%}
-              {%- assign cols = t2_row | split: ',' -%}
+                  {%- assign cols = t2_row | split: ';' -%}
               {%- if cols.size >= 1 and cols[0] != blank -%}
               <tr>
                 {%- for col in cols -%}
