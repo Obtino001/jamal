@@ -423,7 +423,8 @@
         <table class="rsg-table">
           <thead>
             <tr>
-              {%- assign t1_headings = block.settings.t1_col_headings | split: ',' -%}
+              {%- assign raw_t1 = block.settings.t1_col_headings | default: "Indre diameter (mm), USA/CAN, UK/AUS, Tysk" -%}
+              {%- assign t1_headings = raw_t1 | split: ',' -%}
               {%- for heading in t1_headings -%}
                 {%- if heading != blank -%}<th>{{ heading | strip | newline_to_br }}</th>{%- endif -%}
               {%- endfor -%}
@@ -498,7 +499,8 @@
         <table class="rsg-table">
           <thead>
             <tr>
-              {%- assign t2_headings = block.settings.t2_col_headings | split: ',' -%}
+              {%- assign raw_t2 = block.settings.t2_col_headings | default: "Omkreds (cm), Europa, Japan, USA, UK" -%}
+              {%- assign t2_headings = raw_t2 | split: ',' -%}
               {%- for heading in t2_headings -%}
                 {%- if heading != blank -%}<th>{{ heading | strip | newline_to_br }}</th>{%- endif -%}
               {%- endfor -%}
