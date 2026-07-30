@@ -34,9 +34,8 @@
   <div class="georg-card-info">
     <a href="{{ product.url }}" class="georg-card-title-link">
       <div class="georg-card-title-wrap">
-        {%- assign title_parts = product.title | split: ' ' -%}
-        <span class="georg-card-brand-caps">{{ product.vendor | default: title_parts[0] | upcase }}</span>
-        <span class="georg-card-prod-type">{{ product.title | remove: title_parts[0] | downcase }}</span>
+        <span class="georg-card-brand-caps" style="display: block;">{{ product.vendor | upcase }}</span>
+        <span class="georg-card-prod-type" style="margin-left: 0;">{{ product.title }}</span>
       </div>
     </a>
 
