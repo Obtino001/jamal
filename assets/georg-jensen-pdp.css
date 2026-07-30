@@ -1242,7 +1242,7 @@ body:has(.georg-pdp-section) {
   }
 
   .georg-pdp-section {
-    padding-bottom: 72px;
+    padding-bottom: 0px;
   }
 }
 
