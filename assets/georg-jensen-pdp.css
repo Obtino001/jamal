@@ -557,6 +557,7 @@ body:has(.georg-pdp-section) {
     text-align: left;
     box-sizing: border-box;
     position: relative;
+        font-family: FuturaPT-Light;
     z-index: 2;
 }
 .georg-pdp-section .gj-size-picker.is-selected .gj-size-picker__trigger {
