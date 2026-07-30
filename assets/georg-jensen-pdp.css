@@ -410,16 +410,15 @@ body:has(.georg-pdp-section) {
 }
 
 .georg-pdp-section .product-material {
-  font-family: var(--gj-pdp-futura);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gj-pdp-muted);
-  margin: 0 0 18px;
-  padding: 0;
+    font-family: var(--gj-pdp-futura);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #6a6558 !important;
+    margin: 0 0 18px;
+    padding: 0;
 }
-
 /* USP badges — above size picker */
 .georg-pdp-section .gj-pdp-usps {
   list-style: none;
