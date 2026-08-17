@@ -243,6 +243,7 @@
         "product_xPTKUW",
         "product_RdTNid"
       ],
+      "disabled": true,
       "name": "Stil det med",
       "settings": {
         "heading": "Stil det med",
