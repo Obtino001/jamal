@@ -1,0 +1,334 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "georg-jensen-main-product",
+      "blocks": {
+        "breadcrumbs_1": {
+          "type": "breadcrumbs",
+          "settings": {
+            "breadcrumb_home": "Hjem",
+            "breadcrumb_parent_label": "Smykker",
+            "breadcrumb_parent_link": ""
+          }
+        },
+        "collection_link_1": {
+          "type": "collection_link",
+          "settings": {
+            "collection_label": "MINENS HALSKÆDER",
+            "collection_link": "",
+            "collection_suffix": "Kollektion"
+          }
+        },
+        "title_1": {
+          "type": "title",
+          "settings": {}
+        },
+        "usps_1": {
+          "type": "usps",
+          "disabled": true,
+          "settings": {
+            "show_usps": true,
+            "usp_1": "Håndlavet i Australien",
+            "usp_2": "Køb to og få den tredje gratis",
+            "usp_3": "Gratis fragt i dag"
+          }
+        },
+        "variant_picker_1": {
+          "type": "variant_picker",
+          "settings": {
+            "choose_option_label": "Vælg størrelse",
+            "size_required_error": "Vælg venligst en størrelse",
+            "show_delivery_note": true,
+            "delivery_note_text": "Dette produkt har en forlænget leveringstid på 2-4 uger."
+          }
+        },
+        "price_1": {
+          "type": "price",
+          "settings": {}
+        },
+        "material_1": {
+          "type": "material",
+          "settings": {
+            "material_fallback": "Saml dit eget sæt – tre fund, 1.200 kr."
+          }
+        },
+        "ring_size_cXhVCf": {
+          "type": "ring_size",
+          "settings": {
+            "trigger_text": "Størrelsesguide",
+            "modal_heading": "STØRRELSESGUIDE TIL RINGE",
+            "tab1_title": "",
+            "tab1_instructions": "",
+            "t1_col1_heading": "",
+            "t1_col2_heading": "",
+            "t1_col3_heading": "",
+            "t1_col4_heading": "",
+            "t1_col5_heading": "",
+            "tab1_rows": "",
+            "tab2_title": "Sådan måler du",
+            "tab2_video": "shopify://files/videos/Ring Size Video Georg Jensen 5.webm",
+            "tab2_video_url": "https://res.cloudinary.com/georgjensen/video/upload/f_auto,q_auto:good,w_auto/v1686904554/videos/Jewellery%20Videos/Campaign%20Videos/Ring%20Size%20Video%20Georg%20Jensen%205.mp4",
+            "tab2_step1_text": "For at måle din ringstørrelse derhjemme, skal du bruge:\n- En smal papirstrimmel, ca. 3mm bred og 10cm lang\n- En pen eller markør\n- Målebånd eller lineal\n\nStep 1: Sæt papirstrimlen rundt om den finger, du ønsker at bære ringen på. Strimlen skal sidde stramt rundt om fingeren, jo strammere desto bedre.",
+            "tab2_step1_image": "shopify://shop_images/GJ_Ring_Size_guide-01.jpg",
+            "tab2_step1_image_url": "https://www.georgjensen.com/dw/image/v2/BBPS_PRD/on/demandware.static/Sites-GeorgJensen_DK-Site/-/default/dwadf90284/images/GJ%20Ring%20Size%20guide-01.jpg",
+            "tab2_step2_text": "Step 2: Marker hvor de to ender af papirstrimlen, møder hinanden.",
+            "tab2_step2_image": "shopify://shop_images/GJ_Ring_Size_guide-02.jpg",
+            "tab2_step2_image_url": "https://www.georgjensen.com/dw/image/v2/BBPS_PRD/on/demandware.static/Sites-GeorgJensen_DK-Site/-/default/dw8a04abef/images/GJ%20Ring%20Size%20guide-02.jpg",
+            "tab2_step3_text": "Step 3: Placér papirstrimlen på en flad overflade og mål afstanden imellem de to markeringer i centimeter. Når du kender målet af din finger, kan du benytte konverteringstabellen til at finde den rette størrelse.",
+            "tab2_step3_image": "shopify://shop_images/GJ_Ring_Size_guide-03.jpg",
+            "tab2_step3_image_url": "https://www.georgjensen.com/dw/image/v2/BBPS_PRD/on/demandware.static/Sites-GeorgJensen_DK-Site/-/default/dw1ec58c9f/images/GJ%20Ring%20Size%20guide-03.jpg",
+            "t2_col1_heading": "Omkreds (cm)",
+            "t2_col2_heading": "Størrelse",
+            "tab2_rows": "4,8; 48 || 4,9; 49 || 5,0; 50 || 5,1; 51 || 5,2; 52 || 5,3; 53 || 5,4; 54 || 5,5; 55 || 5,6; 56 || 5,7; 57 || 5,8; 58 || 5,9; 59 || 6,0; 60 || 6,1; 61 || 6,2; 62 || 6,3; 63 || 6,4; 64 || 6,5; 65 || 6,6; 66 || 6,7; 67 || 6,8; 68 || 6,9; 69 || 7,0; 70",
+            "table_heading": "Brug størrelsestabellen til at finde din ringstørrelse.",
+            "footer_heading": "Stadig ikke sikker på hvilken størrelse, du skal have?",
+            "footer_email": "hej@fjeldfund.dk",
+            "footer_phone": "+45 38 14 90 44",
+            "footer_phone_subtext": "Mandag, tirsdag, torsdag og fredag: 10.00–12.00",
+            "footer_store_text": "",
+            "footer_store_url": ""
+          }
+        },
+        "buy_buttons_1": {
+          "type": "buy_buttons",
+          "settings": {
+            "add_to_cart_label": "LÆG I KURV",
+            "sold_out_label": "Udsolgt",
+            "unavailable_label": "Ikke tilgængelig",
+            "show_wishlist": true,
+            "wishlist_label": "Tilføj til ønskeliste",
+            "wishlist_remove_label": "Fjern fra ønskeliste"
+          }
+        },
+        "gift_wrapping_1": {
+          "type": "gift_wrapping",
+          "settings": {
+            "show_gift_wrapping": true,
+            "gift_wrapping_text": "GRATIS GAVEINDPAKNING",
+            "gift_wrapping_image": "shopify://shop_images/gift-wrap-banner_2x_eda945f1-0efd-4dbe-bf1f-1a8c80f2154b.jpg"
+          }
+        },
+        "description_1": {
+          "type": "description",
+          "settings": {
+            "read_more_label": "Læs mere",
+            "read_less_label": "Læs mindre"
+          }
+        },
+        "product_details_1": {
+          "type": "product_details",
+          "settings": {
+            "details_heading": "Produktdetaljer",
+            "item_number_label": "Varenummer:",
+            "materials_label": "Materialer:",
+            "measurements_label": "Mål:",
+            "measurements_fallback": "B: 8 mm. L: 42 mm.",
+            "design_year_label": "Desigår:",
+            "design_year_fallback": "2026",
+            "collection_meta_label": "Kollektion:",
+            "explore_label": "Udforsk:",
+            "explore_text": "Øreringe",
+            "explore_link": ""
+          }
+        },
+        "shipping_1": {
+          "type": "shipping",
+          "settings": {
+            "shipping_heading": "Fragt og retur",
+            "shipping_content": "<ul><li>Gratis gaveindpakning på varer til fuld pris</li><li>Levering med UPS</li><li>Nem ombytning og returnering</li></ul>"
+          }
+        },
+        "phone_1": {
+          "type": "phone",
+          "settings": {
+            "phone_label": "Ring",
+            "phone_number": "+45 38 14 90 44"
+          }
+        },
+        "gallery_extension_1": {
+          "type": "gallery_extension",
+          "settings": {
+            "gallery_extension_text": "Weft trækker inspiration fra vævningens strukturer og oversætter dem til smykker i sterlingsølv, defineret af en følelse af bevægelse.",
+            "gallery_extension_image": "shopify://shop_images/GJ_SS26_Weft_eCOM_Gallery_Extension_image_4.avif"
+          }
+        }
+      },
+      "block_order": [
+        "breadcrumbs_1",
+        "collection_link_1",
+        "title_1",
+        "usps_1",
+        "variant_picker_1",
+        "price_1",
+        "material_1",
+        "ring_size_cXhVCf",
+        "buy_buttons_1",
+        "gift_wrapping_1",
+        "description_1",
+        "product_details_1",
+        "shipping_1",
+        "phone_1",
+        "gallery_extension_1"
+      ],
+      "settings": {
+        "hide_mobile_thumbnails": true,
+        "show_gallery_arrows": true,
+        "show_mobile_sticky_bar": true
+      }
+    },
+    "product-tabs-swiper": {
+      "type": "georg-jensen-product-tabs-swiper",
+      "blocks": {
+        "tab_also_viewed": {
+          "type": "tab",
+          "settings": {
+            "title": "→ Saml dit eget fund-sæt – tre fund, 1.200 kr.",
+            "collection": "rings"
+          }
+        },
+        "tab_combine": {
+          "type": "tab",
+          "settings": {
+            "title": "Kombinér det med",
+            "collection": "rings"
+          }
+        }
+      },
+      "block_order": [
+        "tab_also_viewed",
+        "tab_combine"
+      ],
+      "settings": {
+        "tabs_aria_label": "Produktanbefalinger",
+        "products_to_show": 8,
+        "desktop_columns": 4,
+        "space_between": 24,
+        "show_arrows": true,
+        "show_progress": true,
+        "prev_label": "Forrige",
+        "next_label": "Næste",
+        "show_stock": true,
+        "low_stock_threshold": 1,
+        "background_color": "#ffffff",
+        "padding_top": 48,
+        "padding_bottom": 64
+      }
+    },
+    "style_it_with_yWgcgt": {
+      "type": "style-it-with",
+      "blocks": {
+        "product_xPTKUW": {
+          "type": "product",
+          "settings": {
+            "product": "after-storm"
+          }
+        },
+        "product_RdTNid": {
+          "type": "product",
+          "settings": {
+            "product": "driftwood"
+          }
+        }
+      },
+      "block_order": [
+        "product_xPTKUW",
+        "product_RdTNid"
+      ],
+      "name": "Stil det med",
+      "settings": {
+        "heading": "Stil det med",
+        "link_text": "Udforsk kollektionen",
+        "link_url": "shopify://collections",
+        "link_color": "#6b8cae",
+        "main_image": "shopify://shop_images/hf_20260503_170758_8dfd8e5f-6b8c-4f7b-955b-281ef03083ff.jpg",
+        "layout": "text_first",
+        "background_color": "#ffffff",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "heading": "Måske også dig",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "designer_spotlight_fwfGgf": {
+      "type": "designer-spotlight",
+      "blocks": {
+        "caption_URBijB": {
+          "type": "caption",
+          "settings": {
+            "text": "Mød håndværkeren"
+          }
+        },
+        "heading_kYDJY6": {
+          "type": "heading",
+          "settings": {
+            "heading": "Hanne Jensen"
+          }
+        },
+        "text_3D4daT": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Danske Hanne Jensen satte sig første gang ved en guldsmedebænk i 1991 og har haft værksted i Skagen lige siden. Det var mødet med de frasorterede sten fra de norske miner, der ændrede hendes arbejde  I dag står hun bag flere af smykkerne i Fjeld-kollektionen, hvor hun former hver indfatning i hånden efter netop den stens egen kant.</p>"
+          }
+        },
+        "link_AAYDgX": {
+          "type": "link",
+          "settings": {
+            "link_label": "MØD HÅNDVÆRKERNE",
+            "link_url": "shopify://pages/om-os"
+          }
+        }
+      },
+      "block_order": [
+        "caption_URBijB",
+        "heading_kYDJY6",
+        "text_3D4daT",
+        "link_AAYDgX"
+      ],
+      "name": "Designer i fokus",
+      "settings": {
+        "image": "shopify://shop_images/hf_20260728_113131_8e4a30b2-1a00-40e2-8efd-b974e10320e9_1.jpg",
+        "layout": "image_first",
+        "full_width": false,
+        "bg_color": "#f4f3f1",
+        "heading_color": "#1c2633",
+        "caption_color": "#8c8681",
+        "text_color": "#1a1a1a",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "product-tabs-swiper",
+    "style_it_with_yWgcgt",
+    "related-products",
+    "designer_spotlight_fwfGgf"
+  ]
+}
