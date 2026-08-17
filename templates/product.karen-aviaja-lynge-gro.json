@@ -23,7 +23,7 @@
         "collection_link_1": {
           "type": "collection_link",
           "settings": {
-            "collection_label": "HVER STEN ER SIN EGEN",
+            "collection_label": "HVER STEN FINDES KUN ÉN GANG",
             "collection_link": "",
             "collection_suffix": ""
           }
