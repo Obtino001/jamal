@@ -154,18 +154,19 @@
             "phone_number": "+45 38 14 90 44"
           }
         },
-        "gallery_extension_1": {
-          "type": "gallery_extension",
-          "settings": {
-            "gallery_extension_text": "Weft trækker inspiration fra vævningens strukturer og oversætter dem til smykker i sterlingsølv, defineret af en følelse af bevægelse.",
-            "gallery_extension_image": "shopify://shop_images/GJ_SS26_Weft_eCOM_Gallery_Extension_image_4.avif"
-          }
-        },
         "quote_tAG6WR": {
           "type": "quote",
           "settings": {
             "quote_text": "Det perfekte smykke sætter gang i følelserne og afspejler med ynde essensen af ens inderste skønhed",
             "quote_author": "Jacqueline Rabun."
+          }
+        },
+        "gallery_extension_1": {
+          "type": "gallery_extension",
+          "disabled": true,
+          "settings": {
+            "gallery_extension_text": "Weft trækker inspiration fra vævningens strukturer og oversætter dem til smykker i sterlingsølv, defineret af en følelse af bevægelse.",
+            "gallery_extension_image": "shopify://shop_images/GJ_SS26_Weft_eCOM_Gallery_Extension_image_4.avif"
           }
         }
       },
@@ -201,7 +202,8 @@
           "settings": {
             "title": "→ Saml dit eget fund-sæt – tre fund, 1.200 kr.",
             "collection": "fjeldets-ringe",
-            "link_text": "Udforsk"
+            "link_text": "Udforsk",
+            "link_url": ""
           }
         },
         "tab_combine": {
@@ -209,7 +211,8 @@
           "settings": {
             "title": "",
             "collection": "fjeldets-ringe",
-            "link_text": "Udforsk"
+            "link_text": "Udforsk",
+            "link_url": ""
           }
         }
       },
