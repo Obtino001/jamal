@@ -17,19 +17,19 @@
         "padding_bottom": 28
       }
     },
-        "designer_spotlight_fwfGgf": {
+    "designer_spotlight_fwfGgf": {
       "type": "designer-spotlight",
       "blocks": {
         "caption_URBijB": {
           "type": "caption",
           "settings": {
-            "text": "Mød designeren"
+            "text": "Mød håndværkerne"
           }
         },
         "heading_kYDJY6": {
           "type": "heading",
           "settings": {
-            "heading": "Best Design Studio"
+            "heading": "Fire lande. Ét blik for det, andre gik forbi."
           }
         },
         "text_3D4daT": {
@@ -54,7 +54,7 @@
       ],
       "name": "Designer i fokus",
       "settings": {
-        "image": "shopify://shop_images/hf_20260503_170415_64bbaabc-9409-40fe-8d74-ab27f979e945.jpg",
+        "image": "shopify://shop_images/hf_20260728_161414_d4b04e5c-d69e-4241-9798-d5f1066eaf7a.jpg",
         "layout": "image_first",
         "full_width": false,
         "bg_color": "#f4f3f1",
@@ -64,10 +64,58 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "designer_spotlight_7qxHFr": {
+      "type": "designer-spotlight",
+      "blocks": {
+        "caption_3zHyqk": {
+          "type": "caption",
+          "settings": {
+            "text": "Meet the designer"
+          }
+        },
+        "heading_8YMm4D": {
+          "type": "heading",
+          "settings": {
+            "heading": "Georg Jensen\nDesign Studio"
+          }
+        },
+        "text_pNjbcG": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Rooted in the house's century-long heritage, the Best Design Studio upholds the superior craftsmanship and innovation that have defined Georg Jensen since its foundation in 1904.</p>"
+          }
+        },
+        "link_c8BT6k": {
+          "type": "link",
+          "settings": {
+            "link_label": "Find out more",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "caption_3zHyqk",
+        "heading_8YMm4D",
+        "text_pNjbcG",
+        "link_c8BT6k"
+      ],
+      "name": "Designer Spotlight",
+      "settings": {
+        "layout": "image_first",
+        "full_width": false,
+        "bg_color": "#F4F3F1",
+        "heading_color": "#1C2633",
+        "caption_color": "#8C8681",
+        "text_color": "#1A1A1A",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main",
-        "designer_spotlight_fwfGgf"
+    "designer_spotlight_fwfGgf",
+    "designer_spotlight_7qxHFr"
   ]
 }
