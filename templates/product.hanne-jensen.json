@@ -300,7 +300,7 @@
           "type": "link",
           "settings": {
             "link_label": "MØD HÅNDVÆRKERNE",
-            "link_url": ""
+            "link_url": "shopify://pages/om-os"
           }
         }
       },
