@@ -48,7 +48,7 @@
             "choose_option_label": "Vælg størrelse",
             "size_required_error": "Vælg venligst en størrelse",
             "show_delivery_note": true,
-            "delivery_note_text": "Dette produkt har en forlænget leveringstid på 2-4 uger."
+            "delivery_note_text": ""
           }
         },
         "price_1": {
