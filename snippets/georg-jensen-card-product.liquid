@@ -47,9 +47,7 @@
       {%- endif -%}
     </div>
 
-    {%- if product.has_only_default_variant == false -%}
-      <div class="georg-card-variation">Flere variationer</div>
-    {%- endif -%}
+
 
     <div class="georg-card-price">
       {{ product.price | money_without_trailing_zeros }}
