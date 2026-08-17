@@ -134,14 +134,15 @@
         "category_FRhpHW": {
           "type": "category",
           "settings": {
-            "image": "shopify://shop_images/hf_20260503_170415_64bbaabc-9409-40fe-8d74-ab27f979e945.jpg",
-            "title": "SØLVSMYKKER",
-            "main_link": "",
+            "image": "shopify://shop_images/hf_20260817_110952_70e67dec-5a78-42f6-953a-ef601b3ff761.jpg",
+            "title": "Mød håndværkerne",
+            "main_link": "shopify://pages/om-os",
             "menu": ""
           }
         },
         "category_VLjbPB": {
           "type": "category",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/hf_20260403_140114_91c1ca6b-d797-4023-96d5-c820b431e0ca.jpg",
             "title": "BORDDÆKNING",
@@ -151,6 +152,7 @@
         },
         "category_FNYMwL": {
           "type": "category",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/hf_20260503_173558_a155fe5c-2243-4215-8383-3263dd3cf071.jpg",
             "title": "FINERE SØLV",
