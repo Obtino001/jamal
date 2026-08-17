@@ -51,7 +51,7 @@
             "title": "FJELDETS RINGE",
             "text": "<p>Sten fra de norske fjelde, fattet i hånden. Hver ring har sin egen sten — med de ridser og skyer, den kom med..</p>",
             "button_label": "SE FJELDETS RINGE",
-            "button_link": "",
+            "button_link": "shopify://collections/fjeldets-ringe",
             "button_bg_color": "#aee1fd",
             "button_text_color": "#1a1a1a"
           }
@@ -65,7 +65,7 @@
             "title": "Fjeldets halskæder",
             "text": "<p>Det, fjeldet gemte, båret tæt på huden. Hver sten er hentet op af minernes sorteringsbunker og sat, som den blev fundet.</p>",
             "button_label": "Se Fjeldets halskæder",
-            "button_link": "",
+            "button_link": "shopify://collections/fjeldets-halskaeder",
             "button_bg_color": "#aee1fd",
             "button_text_color": "#1a1a1a"
           }
