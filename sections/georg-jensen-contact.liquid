@@ -1,7 +1,3 @@
-{% comment %}
-  Georg Jensen Contact Us Section - 1-to-1 Replica
-{% endcomment %}
-
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -14,384 +10,274 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .category-directory__grid {
+    column-gap: var(--grid-desktop-horizontal-spacing);
+    row-gap: 4rem;
+  }
+
+  .category-directory__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .category-directory__image-link {
+    display: block;
+    width: 100%;
+    position: relative;
+    padding-bottom: 100%; /* 1:1 Square aspect ratio */
+    overflow: hidden;
+    text-decoration: none;
+    background-color: rgba(var(--color-foreground), 0.05);
+  }
+
+  .category-directory__image-link img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform var(--duration-default) ease;
+  }
+
+  .category-directory__image-link:hover img {
+    transform: scale(1.03);
+  }
+
+  .category-directory__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.15) 100%);
+    z-index: 2;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .category-directory__title {
+    color: #ffffff;
+    font-family: var(--font-heading-family);
+    font-size: calc(var(--font-heading-scale) * 1.8rem);
+    font-weight: 700;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    margin: 0 0 1.5rem 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  .category-directory__icon {
+    width: 32px;
+    height: 32px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+  }
+
+  .category-directory__image-link:hover .category-directory__icon {
+    transform: translateX(3px);
+  }
+
+  .category-directory__icon svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    /* Optical alignment for standard chevron */
+    margin-left: 2px; 
+  }
+
+  .category-directory__links {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .category-directory__links li {
+    margin-bottom: 0.8rem;
+  }
+
+  .category-directory__links li:last-child {
+    margin-bottom: 0;
+  }
+
+  .category-directory__links a {
+    color: rgb(var(--color-foreground));
+    font-size: 1.3rem;
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+    text-decoration-thickness: 0.1rem;
+    text-decoration-color: rgba(var(--color-foreground), 0.3);
+    transition: text-decoration-color 0.2s ease, opacity 0.2s ease;
+  }
+
+  .category-directory__links a:hover {
+    text-decoration-color: rgb(var(--color-foreground));
+    opacity: 0.7;
+  }
 {%- endstyle -%}
 
-<div class="georg-contact-section section-{{ section.id }}-padding">
-  <div class="georg-container page-width">
-    <div class="georg-contact-header scroll-trigger animate--slide-in">
-      <span class="georg-story-tag">{{ section.settings.story_tag }}</span>
-      <h1 class="georg-contact-title georg-serif">{{ section.settings.title }}</h1>
-      <p class="georg-contact-subtitle georg-sans">
-        {{ section.settings.subtitle }}
-      </p>
-    </div>
-
-    <div class="georg-contact-grid">
-      <!-- Direct Info Column -->
-      <div class="georg-contact-info-card scroll-trigger animate--slide-in">
-        <h3 class="georg-serif">{{ section.settings.support_heading }}</h3>
-        
-        {%- if section.settings.phone != blank -%}
-        <div class="georg-info-row">
-          <strong>{{ section.settings.phone_label }}</strong>
-          <span>{{ section.settings.phone }}</span>
-        </div>
-        {%- endif -%}
-
-        {%- if section.settings.hours_1_text != blank -%}
-        <div class="georg-info-row">
-          <strong>{{ section.settings.hours_1_label }}</strong>
-          <span>{{ section.settings.hours_1_text }}</span>
-        </div>
-        {%- endif -%}
-
-        {%- if section.settings.hours_2_text != blank -%}
-        <div class="georg-info-row">
-          <strong>{{ section.settings.hours_2_label }}</strong>
-          <span>{{ section.settings.hours_2_text }}</span>
-        </div>
-        {%- endif -%}
-
-        {%- if section.settings.email != blank -%}
-        <div class="georg-info-row">
-          <strong>{{ section.settings.email_label }}</strong>
-          <span>{{ section.settings.email }}</span>
-        </div>
-        {%- endif -%}
-        
-        {%- if section.settings.additional_info_text != blank -%}
-        <div class="georg-info-row">
-          <strong>{{ section.settings.additional_info_label }}</strong>
-          <span>{{ section.settings.additional_info_text }}</span>
-        </div>
-        {%- endif -%}
-
-        <div class="georg-store-locator-box">
-          <h4 class="georg-serif">{{ section.settings.store_locator_heading }}</h4>
-          <p class="georg-sans">{{ section.settings.store_locator_text }}</p>
-          {%- if section.settings.store_locator_btn_text != blank -%}
-            <a href="{{ section.settings.store_locator_url | default: '#' }}" class="button-georg-black">{{ section.settings.store_locator_btn_text }}</a>
-          {%- endif -%}
-        </div>
-      </div>
-
-      <!-- Form Column -->
-      <div class="georg-contact-form-card scroll-trigger animate--slide-in">
-        <h3 class="georg-serif">{{ section.settings.form_heading }}</h3>
-        {%- form 'contact', id: 'GeorgContactForm' -%}
-          {%- if form.posted_successfully? -%}
-            <div class="form-status-success" style="margin-bottom: 20px; padding: 10px; background: #e6f4ea; color: #1e4620; text-align: center; font-weight: 500;">
-              {{ section.settings.success_message }}
+<div class="color-{{ section.settings.section_color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="grid grid--1-col grid--2-col-tablet grid--4-col-desktop category-directory__grid">
+      
+      {%- for block in section.blocks -%}
+        <div class="grid__item category-directory__item" {{ block.shopify_attributes }}>
+          
+          <a {% if block.settings.main_link == blank %} role="link" aria-disabled="true"{% else %} href="{{ block.settings.main_link }}"{% endif %} class="category-directory__image-link global-media-settings">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 600 | image_tag:
+                loading: 'lazy',
+                sizes: '(min-width: 990px) 25vw, (min-width: 750px) 50vw, 100vw',
+                widths: '275, 400, 600',
+                alt: block.settings.image.alt | escape
+              }}
+            {%- else -%}
+              {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+            
+            <div class="category-directory__overlay">
+              {%- if block.settings.title != blank -%}
+                <h3 class="category-directory__title">{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+              {% comment %} <div class="category-directory__icon">
+                <svg viewBox="0 0 14 14" aria-hidden="true" focusable="false">
+                  <path d="M5 2L10 7L5 12" />
+                </svg>
+              </div> {% endcomment %}
             </div>
-          {%- elsif form.errors -%}
-            <div class="form-status-error" style="margin-bottom: 20px; padding: 10px; background: #fce8e6; color: #c5221f; text-align: center; font-weight: 500;">
-              {{ section.settings.error_message }}
-            </div>
+          </a>
+
+          {%- if block.settings.menu != blank -%}
+            <ul class="category-directory__links">
+              {%- for link in block.settings.menu.links -%}
+                <li>
+                  <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
           {%- endif -%}
 
-          <div class="georg-field">
-            <label for="ContactName" class="georg-label">Navn *</label>
-            <input type="text" id="ContactName" name="contact[name]" class="georg-input" required>
-          </div>
+        </div>
+      {%- endfor -%}
 
-          <div class="georg-field">
-            <label for="ContactEmail" class="georg-label">E-mail *</label>
-            <input type="email" id="ContactEmail" name="contact[email]" class="georg-input" required>
-          </div>
-
-          <div class="georg-field">
-            <label for="ContactOrder" class="georg-label">Ordrenummer (valgfrit)</label>
-            <input type="text" id="ContactOrder" name="contact[order_number]" class="georg-input">
-          </div>
-
-          <div class="georg-field">
-            <label for="ContactMessage" class="georg-label">Din besked *</label>
-            <textarea id="ContactMessage" name="contact[body]" rows="5" class="georg-input" required></textarea>
-          </div>
-
-          <button type="submit" class="button-georg-black">{{ section.settings.form_btn_text }}</button>
-        {%- endform -%}
-      </div>
     </div>
   </div>
 </div>
 
-<style>
-  .georg-contact-section {
-    background-color: #ffffff;
-    font-family: var(--georg-font-sans);
-  }
-
-  .georg-contact-header {
-    text-align: center;
-    max-width: 650px;
-    margin: 0 auto 50px auto;
-  }
-
-  .georg-contact-title {
-    font-size: 40px;
-    font-weight: 400;
-    color: #111111;
-    margin: 10px 0 16px 0;
-  }
-
-  .georg-contact-subtitle {
-    font-size: 15px;
-    color: #555555;
-    line-height: 1.6;
-  }
-
-  .georg-contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-  }
-
-  .georg-contact-info-card, .georg-contact-form-card {
-    background: #fbfbfb;
-    border: 1px solid #eeeeee;
-    padding: 40px;
-  }
-
-  .georg-contact-info-card h3, .georg-contact-form-card h3 {
-    font-size: 26px;
-    font-weight: 400;
-    margin: 0 0 24px 0;
-    color: #111111;
-  }
-
-  .georg-info-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid #eeeeee;
-    font-size: 13px;
-  }
-
-  .georg-store-locator-box {
-    margin-top: 36px;
-    padding-top: 24px;
-    border-top: 1px solid #e5e5e5;
-  }
-
-  .georg-store-locator-box h4 {
-    font-size: 20px;
-    margin: 0 0 8px 0;
-  }
-
-  .georg-store-locator-box p {
-    font-size: 13px;
-    color: #666;
-    margin-bottom: 20px;
-  }
-
-  .georg-field {
-    margin-bottom: 20px;
-  }
-
-  .georg-label {
-    display: block;
-    font-size: 12px;
-    font-weight: 500;
-    margin-bottom: 6px;
-    color: #222;
-  }
-
-  .georg-input {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #cccccc;
-    outline: none;
-    font-size: 13px;
-    background: #ffffff;
-    border-radius: 0;
-  }
-
-  .georg-input:focus {
-    border-color: #000000;
-  }
-
-  @media screen and (max-width: 749px) {
-    .georg-contact-grid {
-      grid-template-columns: 1fr;
-      gap: 30px;
-    }
-  }
-</style>
-
 {% schema %}
 {
-  "name": "Georg Jensen Contact",
+  "name": "Category Directory",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 4,
   "settings": [
     {
-      "type": "header",
-      "content": "Header Section"
-    },
-    {
-      "type": "text",
-      "id": "story_tag",
-      "label": "Tag",
-      "default": "KUNDESERVICE"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Heading",
-      "default": "Kontakt Georg Jensen"
-    },
-    {
-      "type": "textarea",
-      "id": "subtitle",
-      "label": "Subheading",
-      "default": "Vi sidder klar til at hjælpe dig med spørgsmål om ordrer, produkter eller gaveindpakning."
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "label": "Section color scheme",
+      "default": "background-2",
+      "info": "Use an off-white background to match the reference."
     },
     {
       "type": "header",
-      "content": "Contact Info Box"
-    },
-    {
-      "type": "text",
-      "id": "support_heading",
-      "label": "Support Box Heading",
-      "default": "Kundeservice Åbningstider"
-    },
-    {
-      "type": "text",
-      "id": "phone_label",
-      "label": "Phone Label",
-      "default": "Telefon:"
-    },
-    {
-      "type": "text",
-      "id": "phone",
-      "label": "Phone Number",
-      "default": "+45 38 14 98 98"
-    },
-    {
-      "type": "text",
-      "id": "hours_1_label",
-      "label": "Hours Row 1 Label",
-      "default": "Mandag - Torsdag:"
-    },
-    {
-      "type": "text",
-      "id": "hours_1_text",
-      "label": "Hours Row 1 Text",
-      "default": "09.00 - 16.00"
-    },
-    {
-      "type": "text",
-      "id": "hours_2_label",
-      "label": "Hours Row 2 Label",
-      "default": "Fredag:"
-    },
-    {
-      "type": "text",
-      "id": "hours_2_text",
-      "label": "Hours Row 2 Text",
-      "default": "09.00 - 15.30"
-    },
-    {
-      "type": "text",
-      "id": "email_label",
-      "label": "Email Label",
-      "default": "E-mail:"
-    },
-    {
-      "type": "text",
-      "id": "email",
-      "label": "Email Address",
-      "default": "kundeservice@georgjensen.com"
-    },
-    {
-      "type": "text",
-      "id": "additional_info_label",
-      "label": "Additional Info Label (Optional)"
-    },
-    {
-      "type": "text",
-      "id": "additional_info_text",
-      "label": "Additional Info Text (Optional)"
-    },
-    {
-      "type": "header",
-      "content": "Store Locator Box"
-    },
-    {
-      "type": "text",
-      "id": "store_locator_heading",
-      "label": "Store Locator Heading",
-      "default": "Besøg vores butikker"
-    },
-    {
-      "type": "textarea",
-      "id": "store_locator_text",
-      "label": "Store Locator Text",
-      "default": "Find din nærmeste Georg Jensen flagskibsbutik eller forhandler."
-    },
-    {
-      "type": "text",
-      "id": "store_locator_btn_text",
-      "label": "Store Locator Button Text",
-      "default": "FIND BUTIK"
-    },
-    {
-      "type": "url",
-      "id": "store_locator_url",
-      "label": "Store Locator Button URL"
-    },
-    {
-      "type": "header",
-      "content": "Contact Form Box"
-    },
-    {
-      "type": "text",
-      "id": "form_heading",
-      "label": "Form Heading",
-      "default": "Send en besked"
-    },
-    {
-      "type": "text",
-      "id": "form_btn_text",
-      "label": "Form Submit Button Text",
-      "default": "SEND BESKED"
-    },
-    {
-      "type": "textarea",
-      "id": "success_message",
-      "label": "Success Message",
-      "default": "Din besked er blevet sendt succesfuldt. Vi vender tilbage hurtigst muligt."
-    },
-    {
-      "type": "textarea",
-      "id": "error_message",
-      "label": "Error Message",
-      "default": "Der opstod en fejl. Udfyld venligst de påkrævede felter."
+      "content": "Section Padding"
     },
     {
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 150,
-      "step": 5,
+      "max": 100,
+      "step": 4,
       "unit": "px",
       "label": "Top padding",
-      "default": 70
+      "default": 48
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 150,
-      "step": 5,
+      "max": 100,
+      "step": 4,
       "unit": "px",
       "label": "Bottom padding",
-      "default": 90
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Category Name",
+          "label": "Image Overlay Title"
+        },
+        {
+          "type": "url",
+          "id": "main_link",
+          "label": "Image Link"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Sub-category Links",
+          "info": "Select a navigation menu to display the list of links below the image."
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Georg Jensen Contact"
+      "name": "Category Directory",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "title": "GOLD JEWELLERY"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "SILVER JEWELLERY"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "DINING"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "FINE SILVER"
+          }
+        }
+      ]
     }
   ]
 }
