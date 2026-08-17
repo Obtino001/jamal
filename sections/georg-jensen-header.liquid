@@ -54,7 +54,7 @@
         {%- if section.settings.show_store_icon -%}
           <a
             href="{{ section.settings.store_locator_link | default: '#' }}"
-            class="gj-header__icon-btn"
+            class="gj-header__icon-btn gj-header__store-link"
             aria-label="{{ section.settings.store_locator_label | escape }}"
           >
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -67,7 +67,7 @@
         {%- if section.settings.show_phone_icon -%}
           <a
             href="{{ section.settings.support_link | default: '#' }}"
-            class="gj-header__icon-btn"
+            class="gj-header__icon-btn gj-header__phone-link"
             aria-label="{{ section.settings.support_label | escape }}"
           >
             <svg viewBox="0 0 24 24" aria-hidden="true">

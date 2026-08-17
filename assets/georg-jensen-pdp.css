@@ -922,13 +922,13 @@ body:has(.georg-pdp-section) {
     color: #4a4743;
     background: transparent;
     display: block;
-    padding-left: 18px;
+    padding-left: 5px;
     color: #9f9a8d;
     line-height: 30px;
     text-transform: uppercase;
     /* font-family: cursive; */
     font-size: 14px;
-    max-width: 50.4%;
+    max-width: 60%;
     position: absolute;
     top: 50%;
     left: 0;

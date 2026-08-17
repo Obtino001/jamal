@@ -418,7 +418,7 @@
     padding: 0;
   }
 
-  .gj-header__left .gj-header__icon-btn:not(.gj-header__menu-toggle) {
+  .gj-header__left .gj-header__store-link {
     display: none;
   }
 
