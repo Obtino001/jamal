@@ -60,7 +60,11 @@
                 muted
                 playsinline
                 class="vjs-tech pauseFirstClick"
-                style="height: auto; position: absolute; width: 100%; object-fit: cover;"
+                style="    height: auto;
+    position: relative;
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;"
                 {% if poster != blank %}
                   poster="{{ poster | image_url: width: 1920 }}"
                 {% endif %}
