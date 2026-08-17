@@ -31,13 +31,13 @@
         "card_d6DnN9": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/hf_20260506_163811_77451a5e-01bd-40f8-b168-3a8578e280aa.jpg",
-            "tag": "IKONER",
+            "image": "shopify://shop_images/hf_20260817_115228_60183981-eb1d-45d9-9152-0513dbdacae7.jpg",
+            "tag": "",
             "tag_color": "#2c6e91",
-            "title": "Husets Ikoner",
-            "text": "<p>Med en 120-årig historie for samarbejder med store designere, står Georg Jensen bag nogle af de mest ikoniske designs i det seneste århundrede.</p>",
-            "button_label": "OPDAG IKONERNE",
-            "button_link": "shopify://collections/fjeldets-ringe",
+            "title": "",
+            "text": "<p>Dybt i de norske fjelde lægges sten til side hver dag — for en ridse, en sky i det indre, en kant der aldrig blev jævn. Det er dem, vi kommer efter.</p>",
+            "button_label": "LÆS HISTORIEN",
+            "button_link": "shopify://pages/om-os",
             "button_bg_color": "#aee1fd",
             "button_text_color": "#1a1a1a"
           }
@@ -78,7 +78,7 @@
       ],
       "name": "Find Inspiration Gitter",
       "settings": {
-        "heading": "BLIV INSPIRERET",
+        "heading": "Det, industrien ikke ville have",
         "background_color": "#f5f5f5",
         "card_background": "#ffffff",
         "card_gap": 20,
