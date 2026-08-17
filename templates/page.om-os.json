@@ -208,6 +208,54 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "designer_spotlight_8kAiTr": {
+      "type": "designer-spotlight",
+      "blocks": {
+        "caption_mJkh8b": {
+          "type": "caption",
+          "settings": {
+            "text": "mød håndværkeren"
+          }
+        },
+        "heading_gXpQmy": {
+          "type": "heading",
+          "settings": {
+            "heading": "Sunneva Højgaard"
+          }
+        },
+        "text_ctcNiG": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Færøske Sunneva Højgaard lærte sølvsmedens håndværk af sin far i Tórshavn og har haft eget værksted siden 1998. Hun har altid arbejdet med det, havet og fjeldet efterlod — sten slidt af vejr og vand, som andre gik forbi. I dag står hun bag flere af smykkerne i Fjeld-kollektionen, hvor hendes brede, hamrede bånd bærer samme spor som stenene, de holder.</p>"
+          }
+        },
+        "link_kaGDgr": {
+          "type": "link",
+          "settings": {
+            "link_label": "Find out more",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "caption_mJkh8b",
+        "heading_gXpQmy",
+        "text_ctcNiG",
+        "link_kaGDgr"
+      ],
+      "name": "Designer Spotlight",
+      "settings": {
+        "image": "shopify://shop_images/hf_20260728_113909_52227376-d6e8-41a5-a8fa-f8b4c63b5fbf.jpg",
+        "layout": "image_first",
+        "full_width": false,
+        "bg_color": "#F4F3F1",
+        "heading_color": "#1C2633",
+        "caption_color": "#8C8681",
+        "text_color": "#1A1A1A",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -215,6 +263,7 @@
     "designer_spotlight_fwfGgf",
     "designer_spotlight_7qxHFr",
     "designer_spotlight_gz9kGQ",
-    "designer_spotlight_8PnfXM"
+    "designer_spotlight_8PnfXM",
+    "designer_spotlight_8kAiTr"
   ]
 }
