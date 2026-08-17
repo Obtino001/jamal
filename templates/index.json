@@ -46,11 +46,11 @@
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/hf_20260817_155100_574b2f3c-5c0a-497e-a3c2-c44af67f516a.jpg",
-            "tag": "OPDAG",
+            "tag": "gør et fund",
             "tag_color": "#2c6e91",
-            "title": "Armbånd og bangles",
-            "text": "<p>Et udvalg af tidsløse designs skabt i samarbejde med førende designere.</p>",
-            "button_label": "FJELDETS RINGE",
+            "title": "FJELDETS RINGE",
+            "text": "<p>Sten fra de norske fjelde, fattet i hånden. Hver ring har sin egen sten — med de ridser og skyer, den kom med..</p>",
+            "button_label": "SE FJELDETS RINGE",
             "button_link": "",
             "button_bg_color": "#aee1fd",
             "button_text_color": "#1a1a1a"
