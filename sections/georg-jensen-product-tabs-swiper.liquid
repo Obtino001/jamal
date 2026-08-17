@@ -80,6 +80,13 @@
                 low_stock_threshold: section.settings.low_stock_threshold,
                 show_stock: section.settings.show_stock
               %}
+              {%- if block.settings.link_text != blank -%}
+                <div class="gj-tabs-swiper__button-wrapper" style="text-align: center; margin-top: 40px;">
+                  <a href="{{ block.settings.link_url | default: block.settings.collection.url | default: '#' }}" class="button-fancy-large" style="display: inline-block; min-width: 250px;">
+                    {{ block.settings.link_text }}
+                  </a>
+                </div>
+              {%- endif -%}
             </div>
           {%- endif -%}
         {%- endfor -%}
@@ -223,6 +230,18 @@
           "type": "collection",
           "id": "collection",
           "label": "Collection for this tab"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Button link text",
+          "info": "Leave blank to hide button"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Button link URL",
+          "info": "Defaults to collection URL if left blank"
         }
       ]
     }

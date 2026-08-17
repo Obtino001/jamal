@@ -307,7 +307,9 @@
                     <a class="product-collection" href="{{ collection_url }}" {{ block.shopify_attributes }}>
                       {{ collection_title }}
                       {%- unless collection_title contains 'Collection' or collection_title contains 'collection' or collection_title contains 'Kollektion' -%}
-                        {{ ' ' }}{{ block.settings.collection_suffix | default: 'Collection' }}
+                        {%- if block.settings.collection_suffix != blank -%}
+                          {{ ' ' }}{{ block.settings.collection_suffix }}
+                        {%- endif -%}
                       {%- endunless -%}
                     </a>
                   {%- endif -%}
@@ -612,6 +614,16 @@
                     </div>
                   {%- endif -%}
 
+                {%- when 'quote' -%}
+                  {%- if block.settings.quote_text != blank -%}
+                    <div class="gj-pdp-quote" {{ block.shopify_attributes }}>
+                      <p class="gj-pdp-quote__text">"{{ block.settings.quote_text }}"</p>
+                      {%- if block.settings.quote_author != blank -%}
+                        <p class="gj-pdp-quote__author">- {{ block.settings.quote_author }}</p>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+
               {%- endcase -%}
             {%- endfor -%}
           </div>{{ 'georg-jensen-pdp.css' | asset_url | stylesheet_tag }}
@@ -872,6 +884,14 @@
         { "type": "text", "id": "label", "label": "Label", "default": "Detail:" },
         { "type": "text", "id": "value", "label": "Value", "default": "Value" }
       ]
+    },
+    {
+      "type": "quote",
+      "name": "Quote",
+      "settings": [
+        { "type": "textarea", "id": "quote_text", "label": "Quote text", "default": "Det perfekte smykke sætter gang i følelserne og afspejler med ynde essensen af ens inderste skønhed" },
+        { "type": "text", "id": "quote_author", "label": "Quote author", "default": "Jacqueline Rabun." }
+      ]
     }
   ],
   "presets": [
@@ -891,7 +911,8 @@
         { "type": "product_details" },
         { "type": "shipping" },
         { "type": "phone" },
-        { "type": "gallery_extension" }
+        { "type": "gallery_extension" },
+        { "type": "quote" }
       ]
     }
   ]

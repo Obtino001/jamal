@@ -1299,3 +1299,28 @@ body:has(.georg-pdp-section) {
     display: none;
   }
 }
+/* Quote block styling */
+.georg-pdp-section .gj-pdp-quote {
+  margin: 30px 0;
+  padding: 30px 0;
+  border-top: 1px solid var(--gj-pdp-border);
+  border-bottom: 1px solid var(--gj-pdp-border);
+  text-align: center;
+}
+
+.georg-pdp-section .gj-pdp-quote__text {
+  font-family: var(--gj-pdp-serif);
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--gj-pdp-text);
+  margin: 0 0 16px;
+}
+
+.georg-pdp-section .gj-pdp-quote__author {
+  font-family: var(--gj-pdp-futura);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gj-pdp-text);
+  margin: 0;
+}
