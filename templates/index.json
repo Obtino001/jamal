@@ -15,8 +15,6 @@
       "settings": {
         "video_url": "",
         "video_url_mobile": "",
-        "poster_image": "shopify://shop_images/hf_20260726_125201_6619a935-f983-448e-88ad-8d012cc77ae6.jpg",
-        "poster_image_mobile": "shopify://shop_images/hf_20260727_124546_ecfd8cb9-4648-432d-a80d-2bd057716b88.jpg",
         "desktop_height": 800,
         "heading": "",
         "subheading": "",
@@ -94,7 +92,8 @@
           "settings": {
             "title": "Kunder der så denne vare, så også",
             "collection": "fjeldets-ringe",
-            "link_text": "Udforsk"
+            "link_text": "Udforsk",
+            "link_url": ""
           }
         }
       },
