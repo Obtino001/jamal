@@ -35,7 +35,7 @@
         "text_3D4daT": {
           "type": "text",
           "settings": {
-            "text": "<p>Med rødder i husets århundredelange arv opretholder Best Design Studio det overlegne håndværk og den innovation, der har defineret Georg Jensen siden grundlæggelsen i 1904.</p>"
+            "text": "<p>Vi er fire håndværkere fra Danmark, Norge, Færøerne og Grønland. Vi har hver vores værksted, hver vores hænder og hver vores måde at arbejde på — men vi samler på det samme: sten, som industrien har sorteret fra.</p><p>I minerne og fjeldene i Norge måles sten på ensartethed. En ridse i overfladen, en sky i det indre, en kant der aldrig blev jævn — og stenen lægges til side. Det er dem, vi henter. Ingrid finder dem i sorteringsbunkerne og sender dem videre til Skagen, Tórshavn og Nuuk, hvor de bliver til smykker, der ikke findes andre steder.</p><p>Vi mødes på fjeldet et par gange om året. Resten af tiden arbejder vi hver for sig — med den samme overbevisning: at det, der gør en sten anderledes, også er det, der gør den værd at bære.</p>"
           }
         },
         "link_AAYDgX": {
@@ -104,10 +104,10 @@
       "settings": {
         "layout": "image_first",
         "full_width": false,
-        "bg_color": "#F4F3F1",
-        "heading_color": "#1C2633",
-        "caption_color": "#8C8681",
-        "text_color": "#1A1A1A",
+        "bg_color": "#f4f3f1",
+        "heading_color": "#1c2633",
+        "caption_color": "#8c8681",
+        "text_color": "#1a1a1a",
         "padding_top": 36,
         "padding_bottom": 36
       }
