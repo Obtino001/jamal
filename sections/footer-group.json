@@ -24,6 +24,7 @@
         },
         "menu_6JVd7c": {
           "type": "menu",
+          "disabled": true,
           "settings": {
             "heading": "Search",
             "menu": "footer",
