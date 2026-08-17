@@ -92,10 +92,10 @@
         "tab_Y6UyCK": {
           "type": "tab",
           "settings": {
-            "title": "Kunder der så denne vare, så også",
-            "collection": "fjeldets-ringe",
-            "link_text": "Udforsk",
-            "link_url": ""
+            "title": "Saml dit eget sæt – tre fund, 1.200 kr.",
+            "collection": "alle-fund",
+            "link_text": "gør et fund",
+            "link_url": "shopify://collections/alle-fund"
           }
         }
       },
