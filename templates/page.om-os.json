@@ -281,7 +281,7 @@
         "link_yyfca7": {
           "type": "link",
           "settings": {
-            "link_label": "Find out more",
+            "link_label": "",
             "link_url": ""
           }
         }
@@ -353,6 +353,54 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "designer_spotlight_e9iJJY": {
+      "type": "designer-spotlight",
+      "blocks": {
+        "caption_amCqH3": {
+          "type": "caption",
+          "settings": {
+            "text": ""
+          }
+        },
+        "heading_jKMmBD": {
+          "type": "heading",
+          "settings": {
+            "heading": "Fra bunken til fingeren"
+          }
+        },
+        "text_jeq3iq": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Til venstre ligger stenen, som den kom op af minen: dækket af skorpe, sprukket, sorteret fra. Til højre er den samme sten — slebet, fattet i guld og båret.</p><p>Ingenting er skjult undervejs. Ridserne, skyerne og de mørke prikker er der stadig. Det er dem, der gør den til din.</p>"
+          }
+        },
+        "link_YwXp8d": {
+          "type": "link",
+          "settings": {
+            "link_label": "Gør et fund",
+            "link_url": "shopify://collections/alle-fund"
+          }
+        }
+      },
+      "block_order": [
+        "caption_amCqH3",
+        "heading_jKMmBD",
+        "text_jeq3iq",
+        "link_YwXp8d"
+      ],
+      "name": "Designer Spotlight",
+      "settings": {
+        "image": "shopify://shop_images/hf_20260817_115228_60183981-eb1d-45d9-9152-0513dbdacae7.jpg",
+        "layout": "image_first",
+        "full_width": false,
+        "bg_color": "#F4F3F1",
+        "heading_color": "#1C2633",
+        "caption_color": "#8C8681",
+        "text_color": "#1A1A1A",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -363,6 +411,7 @@
     "designer_spotlight_8PnfXM",
     "designer_spotlight_8kAiTr",
     "designer_spotlight_Ya4Tea",
-    "designer_spotlight_h8aVHr"
+    "designer_spotlight_h8aVHr",
+    "designer_spotlight_e9iJJY"
   ]
 }
