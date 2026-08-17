@@ -119,6 +119,11 @@
               {{ section.settings.support_email }}
             </a>
           {%- endif -%}
+          {%- if section.settings.additional_support_text != blank -%}
+            <div class="gj-footer__additional-text">
+              {{ section.settings.additional_support_text }}
+            </div>
+          {%- endif -%}
         </div>
 
         <div class="gj-footer__menus">
@@ -440,6 +445,12 @@
       "id": "support_email",
       "label": "Email",
       "default": "onlinestore@georgjensen.com"
+    },
+    {
+      "type": "richtext",
+      "id": "additional_support_text",
+      "label": "Additional support text",
+      "info": "Optional text to display below the email."
     },
     {
       "type": "header",
