@@ -198,7 +198,7 @@
         "tab_combine": {
           "type": "tab",
           "settings": {
-            "title": "Kombinér det med",
+            "title": "",
             "collection": "fjeldets-ringe"
           }
         }
@@ -243,6 +243,7 @@
         "product_xPTKUW",
         "product_RdTNid"
       ],
+      "disabled": true,
       "name": "Stil det med",
       "settings": {
         "heading": "Stil det med",
