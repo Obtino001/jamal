@@ -47,8 +47,8 @@
           "settings": {
             "choose_option_label": "Vælg størrelse",
             "size_required_error": "Vælg venligst en størrelse",
-            "show_delivery_note": true,
-            "delivery_note_text": "Dette produkt har en forlænget leveringstid på 2-4 uger."
+            "show_delivery_note": false,
+            "delivery_note_text": ""
           }
         },
         "price_1": {
@@ -157,7 +157,7 @@
         "quote_gjAq11": {
           "type": "quote",
           "settings": {
-            "quote_text": "Jeg tegner ikke ringen først. Jeg lægger stenen på bordet og venter på, at den fortæller mig, hvor kanten skal gå.",
+            "quote_text": "Jeg tegner ikke smykket først. Jeg lægger stenen på bordet og venter på, at den fortæller mig, hvor kanten skal gå.",
             "quote_author": "Hanne Jensen"
           }
         },
@@ -211,7 +211,7 @@
           "settings": {
             "title": "",
             "collection": "fjeldets-ringe",
-            "link_text": "Udforsk",
+            "link_text": "Gør et fund mere",
             "link_url": ""
           }
         }
