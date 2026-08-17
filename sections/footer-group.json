@@ -17,7 +17,7 @@
         "menu_7HQ3M3": {
           "type": "menu",
           "settings": {
-            "heading": "Shop",
+            "heading": "",
             "menu": "main-menu",
             "fallback_links": ""
           }
