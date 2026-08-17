@@ -23,7 +23,7 @@
         "collection_link_1": {
           "type": "collection_link",
           "settings": {
-            "collection_label": "HVER STEN ER SIN EGEN",
+            "collection_label": "HVER STEN FINDES KUN ÉN GANG",
             "collection_link": "",
             "collection_suffix": ""
           }
@@ -144,7 +144,7 @@
           "type": "shipping",
           "settings": {
             "shipping_heading": "Fragt og retur",
-            "shipping_content": "<ul><li>Gratis gaveindpakning på varer til fuld pris</li><li>Levering med UPS</li><li>Nem ombytning og returnering</li></ul>"
+            "shipping_content": "<ul><li>Gratis gaveindpakning på varer til fuld pris</li><li>Levering med PostNord</li><li>Nem ombytning og returnering</li></ul>"
           }
         },
         "phone_1": {
