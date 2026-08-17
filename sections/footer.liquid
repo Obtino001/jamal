@@ -219,6 +219,33 @@
         </div>
 
         <div>
+          <div class="gj-footer__crest" style="margin-bottom: 2rem;">
+            {%- if section.settings.crest_image != blank -%}
+              {{
+                section.settings.crest_image
+                | image_url: width: 400
+                | image_tag:
+                  class: 'gj-footer__crest-img',
+                  loading: 'lazy',
+                  widths: '160, 240, 320',
+                  width: 240,
+                  alt: shop.name
+              }}
+            {%- endif -%}
+            {%- if section.settings.crest_line_1 != blank -%}
+              <span class="gj-footer__crest-line">{{ section.settings.crest_line_1 }}</span>
+            {%- endif -%}
+            {%- if section.settings.crest_line_2 != blank -%}
+              <span class="gj-footer__crest-line">{{ section.settings.crest_line_2 }}</span>
+            {%- endif -%}
+            {%- if section.settings.crest_brand != blank -%}
+              <span class="gj-footer__crest-brand">{{ section.settings.crest_brand }}</span>
+            {%- endif -%}
+            {%- if section.settings.crest_sub != blank -%}
+              <span class="gj-footer__crest-sub">{{ section.settings.crest_sub }}</span>
+            {%- endif -%}
+          </div>
+
           {%- if section.settings.show_payment_badges -%}
               <div class="footer-misc">
                 <div class="payment-icons">
@@ -242,33 +269,6 @@
                 </div>
               </div>
             {%- endif -%}
-
-          <div class="gj-footer__crest">
-            {%- if section.settings.crest_image != blank -%}
-              {{
-                section.settings.crest_image
-                | image_url: width: 240
-                | image_tag:
-                  class: 'gj-footer__crest-img',
-                  loading: 'lazy',
-                  widths: '110, 160, 220',
-                  width: 110,
-                  alt: shop.name
-              }}
-            {%- endif -%}
-            {%- if section.settings.crest_line_1 != blank -%}
-              <span class="gj-footer__crest-line">{{ section.settings.crest_line_1 }}</span>
-            {%- endif -%}
-            {%- if section.settings.crest_line_2 != blank -%}
-              <span class="gj-footer__crest-line">{{ section.settings.crest_line_2 }}</span>
-            {%- endif -%}
-            {%- if section.settings.crest_brand != blank -%}
-              <span class="gj-footer__crest-brand">{{ section.settings.crest_brand }}</span>
-            {%- endif -%}
-            {%- if section.settings.crest_sub != blank -%}
-              <span class="gj-footer__crest-sub">{{ section.settings.crest_sub }}</span>
-            {%- endif -%}
-          </div>
         </div>
       </div>
     </div>
