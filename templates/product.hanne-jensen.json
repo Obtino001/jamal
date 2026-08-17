@@ -198,7 +198,7 @@
         "tab_combine": {
           "type": "tab",
           "settings": {
-            "title": "Kombinér det med",
+            "title": "",
             "collection": "fjeldets-ringe"
           }
         }
