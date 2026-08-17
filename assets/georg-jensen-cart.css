@@ -83,8 +83,9 @@
 }
 
 .button-fancy-large.cta {
-  background-color: #aaddf5;
-  color: #1a1a1a;
+  background: linear-gradient(0deg, #a1deff, #b1e5ff) !important;
+  background-color: #aee1fc !important;
+  color: #263040 !important;
   border: none;
   padding: 1.2rem 3rem;
   font-size: 1.1rem;
