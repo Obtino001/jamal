@@ -120,7 +120,7 @@
     "predictive_search_enabled": true,
     "predictive_search_show_vendor": false,
     "predictive_search_show_price": false,
-    "currency_code_enabled": true,
+    "currency_code_enabled": false,
     "cart_type": "drawer",
     "show_vendor": false,
     "show_cart_note": false,
@@ -137,6 +137,27 @@
         "type": "main-password-footer",
         "settings": {
           "color_scheme": "scheme-1"
+        }
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {
+          "complete_look_title": "FULDEND LOOKET",
+          "complete_look_add_btn_text": "+ TILFØJ",
+          "you_may_also_like_title": "DU VIL MÅSKE OGSÅ KUNNE LIDE",
+          "bundle_title": "EXERCERE PAKKE",
+          "bundle_desc": "<p>Spar 15 % ved køb af en pakke. Tilføj blot en <a href=\"/collections/tops\">Top</a>, <a href=\"/collections/blouses\">Bluse</a> og <a href=\"/collections/bottoms\">Underdel</a> til indkøbskurven. Allerede nedsatte varer er ekskluderet.</p>",
+          "show_discount_code": true,
+          "discount_placeholder": "Indtast rabatkode",
+          "discount_btn_text": "ANVEND",
+          "discount_applied_btn_text": "ANVENDT",
+          "checkout_btn_text": "GÅ TIL KASSEN"
+        }
+      },
+      "WI_mainSearch": {
+        "type": "WI_mainSearch",
+        "settings": {
+          "trending_title": "Trending"
         }
       }
     },
