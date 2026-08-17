@@ -71,19 +71,19 @@
         "caption_3zHyqk": {
           "type": "caption",
           "settings": {
-            "text": "Meet the designer"
+            "text": "mød håndværkeren"
           }
         },
         "heading_8YMm4D": {
           "type": "heading",
           "settings": {
-            "heading": "Georg Jensen\nDesign Studio"
+            "heading": "Hanne Jensen"
           }
         },
         "text_pNjbcG": {
           "type": "text",
           "settings": {
-            "text": "<p>Rooted in the house's century-long heritage, the Best Design Studio upholds the superior craftsmanship and innovation that have defined Georg Jensen since its foundation in 1904.</p>"
+            "text": "<p>Danske Hanne Jensen satte sig første gang ved en guldsmedebænk i 1991 og har haft værksted i Skagen lige siden. Det var mødet med de frasorterede sten fra de norske miner, der ændrede hendes arbejde — sten, som ingen ville have, fordi de bar en ridse eller en sky. I dag står hun bag flere af smykkerne i Minen-kollektionen, hvor hun former hver indfatning i hånden efter netop den stens egen kant.</p>"
           }
         },
         "link_c8BT6k": {
@@ -102,6 +102,7 @@
       ],
       "name": "Designer Spotlight",
       "settings": {
+        "image": "shopify://shop_images/hf_20260728_113131_8e4a30b2-1a00-40e2-8efd-b974e10320e9_1.jpg",
         "layout": "image_first",
         "full_width": false,
         "bg_color": "#f4f3f1",
