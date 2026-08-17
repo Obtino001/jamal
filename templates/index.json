@@ -13,14 +13,16 @@
       "type": "georg-jensen-video-hero",
       "name": "Georg Jensen Video Hero",
       "settings": {
+        "video": "shopify://files/videos/Untitled design.mp4",
+        "video_mobile": "shopify://files/videos/Untitled design.mp4",
         "video_url": "",
         "video_url_mobile": "",
         "desktop_height": 800,
         "heading": "",
         "subheading": "",
         "text": "",
-        "button_label": "Udforsk weft",
-        "button_link": ""
+        "button_label": "SE ALLE FUND",
+        "button_link": "shopify://collections/alle-fund"
       }
     },
     "georg_jensen_story_grid_BYpmJh": {
