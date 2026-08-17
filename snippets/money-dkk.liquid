@@ -1,0 +1,7 @@
+{%- comment -%}
+  Formats money with DKK instead of Shopify's Danish "kr" symbol.
+  Usage: {% render 'money-dkk', amount: product.price %}
+{%- endcomment -%}
+{%- if amount != blank -%}
+  {{- amount | money_without_trailing_zeros | replace: '&nbsp;kr.', ' DKK' | replace: '&nbsp;kr', ' DKK' | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' -}}
+{%- endif -%}

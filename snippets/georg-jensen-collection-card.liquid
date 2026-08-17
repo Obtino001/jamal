@@ -93,9 +93,9 @@
 
     <p class="gj-coll-card__price">
       {%- if product.price_varies -%}
-        From {{ product.price_min | money_without_trailing_zeros }}
+        From {{ product.price_min | money_without_trailing_zeros | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}
       {%- else -%}
-        {{ product.price | money_without_trailing_zeros }}
+        {{ product.price | money_without_trailing_zeros | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}
       {%- endif -%}
     </p>
 

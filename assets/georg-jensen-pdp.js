@@ -216,7 +216,9 @@
       }
 
       function stripTrailingMoneyZeros(str) {
-        return String(str).replace(/([,.])00(?!\d)/g, '');
+        return String(str)
+          .replace(/([,.])00(?!\d)/g, '')
+          .replace(/\s*kr\.?/gi, ' DKK');
       }
 
       function formatMoney(cents) {

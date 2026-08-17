@@ -36,7 +36,7 @@
   class="full-width clearfix georg-pdp-section section-{{ section.id }}"
   data-gj-pdp
   data-product-id="{{ product.id }}"
-  data-money-format="{{ shop.money_format | escape }}"
+  data-money-format="{{ shop.money_format | replace: 'kr', 'DKK' | escape }}"
   data-show-gallery-arrows="{% if section.settings.show_gallery_arrows %}true{% else %}false{% endif %}"
   data-hide-thumbnails="{% if section.settings.hide_mobile_thumbnails %}true{% else %}false{% endif %}"
 >
@@ -441,9 +441,9 @@
                               "id": {{ variant.id | json }},
                               "available": {{ variant.available | json }},
                               "price": {{ variant.price | json }},
-                              "price_formatted": {{ variant.price | money_without_trailing_zeros | json }},
+                              "price_formatted": {{ variant.price | money_without_trailing_zeros | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' | json }},
                               "compare_at_price": {{ variant.compare_at_price | json }},
-                              "compare_at_price_formatted": {% if variant.compare_at_price %}{{ variant.compare_at_price | money_without_trailing_zeros | json }}{% else %}null{% endif %},
+                              "compare_at_price_formatted": {% if variant.compare_at_price %}{{ variant.compare_at_price | money_without_trailing_zeros | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' | json }}{% else %}null{% endif %},
                               "options": {{ variant.options | json }},
                               "sku": {{ variant.sku | json }}
                             }{% unless forloop.last %},{% endunless %}
@@ -458,9 +458,9 @@
 
                 {%- when 'price' -%}
                   <div class="product-price pdpPrice" {{ block.shopify_attributes }}>
-                    <span class="price-sales effectiveprice" data-gj-price>{{ current_variant.price | money_without_trailing_zeros }}</span>
+                    <span class="price-sales effectiveprice" data-gj-price>{{ current_variant.price | money_without_trailing_zeros | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}</span>
                     {%- if current_variant.compare_at_price > current_variant.price -%}
-                      <span class="price-compare" data-gj-compare>{{ current_variant.compare_at_price | money_without_trailing_zeros }}</span>
+                      <span class="price-compare" data-gj-compare>{{ current_variant.compare_at_price | money_without_trailing_zeros | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}</span>
                     {%- else -%}
                       <span class="price-compare" data-gj-compare hidden></span>
                     {%- endif -%}
@@ -642,7 +642,7 @@
 
   {%- if section.settings.show_mobile_sticky_bar -%}
     <div class="gj-mobile-atc-bar" aria-hidden="true">
-      {% comment %} <span class="price-sales" data-gj-mobile-price>{{ current_variant.price | money_without_trailing_zeros }}</span> {% endcomment %}
+      {% comment %} <span class="price-sales" data-gj-mobile-price>{{ current_variant.price | money_without_trailing_zeros | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}</span> {% endcomment %}
       <button
         type="button"
         class="button-fancy-large add-to-cart"

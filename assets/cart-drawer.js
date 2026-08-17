@@ -272,7 +272,7 @@ class WIcartDrawer extends HTMLElement {
 
     function formatMoney(cents) {
       const amt = (cents / 100).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-      return amt + ' kr';
+      return amt + ' DKK';
     }
 
     /* ---- COMPLETE THE LOOK (complementary) ---- */
@@ -450,12 +450,14 @@ class WIcartDrawer extends HTMLElement {
       if (totalSaving > 0) {
         if (indicator) indicator.style.display = 'flex';
 
-        const currencyCode = (window.Shopify && window.Shopify.currency && window.Shopify.currency.active) || 'NOK';
-        const localeCode = currencyCode === 'NOK' ? 'nb-NO' : 'en-US';
+        const currencyCode = (window.Shopify && window.Shopify.currency && window.Shopify.currency.active) || 'DKK';
+        const localeCode = currencyCode === 'DKK' ? 'da-DK' : 'en-US';
         if (savedMoney) savedMoney.innerHTML = "-" + (totalSaving / 100).toLocaleString(localeCode, {
           style: 'currency',
           currency: currencyCode,
-          currencyDisplay: 'symbol'
+          currencyDisplay: 'code',
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0
         });
       }
     }, 100);

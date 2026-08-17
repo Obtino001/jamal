@@ -66,6 +66,12 @@
 
     {{ content_for_header }}
 
+    <script>
+      window.theme = window.theme || {};
+      window.theme.moneyFormat = {{ shop.money_format | replace: 'kr', 'DKK' | json }};
+      if (window.Shopify) window.Shopify.money_format = window.theme.moneyFormat;
+    </script>
+
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
       assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'

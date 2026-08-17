@@ -83,7 +83,7 @@
               </div>
               <div class="gj-siw__product-info">
                 <h3 class="gj-siw__product-title">{{ product.title | escape }}</h3>
-                <p class="gj-siw__product-price">{{ product.price | money_without_trailing_zeros }}</p>
+                <p class="gj-siw__product-price">{{ product.price | money_without_trailing_zeros | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}</p>
               </div>
             </a>
           {%- else -%}
@@ -93,7 +93,7 @@
               </div>
               <div class="gj-siw__product-info">
                 <h3 class="gj-siw__product-title">Weft Earrings</h3>
-                <p class="gj-siw__product-price">{{ 39200 | money_without_trailing_zeros }}</p>
+                <p class="gj-siw__product-price">{{ 39200 | money_without_trailing_zeros | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}</p>
               </div>
             </div>
           {%- endif -%}

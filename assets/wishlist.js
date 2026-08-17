@@ -337,16 +337,18 @@ if (!customElements.get('wishlist-page')) {
             const currency = window.Shopify?.currency?.active || 'DKK';
             try {
                 if (Number.isInteger(value)) {
-                    return new Intl.NumberFormat(undefined, {
+                    return new Intl.NumberFormat('da-DK', {
                         style: 'currency',
                         currency,
+                        currencyDisplay: 'code',
                         minimumFractionDigits: 0,
                         maximumFractionDigits: 0,
                     }).format(value);
                 }
-                return new Intl.NumberFormat(undefined, {
+                return new Intl.NumberFormat('da-DK', {
                     style: 'currency',
                     currency,
+                    currencyDisplay: 'code',
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                 }).format(value);

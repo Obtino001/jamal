@@ -113,7 +113,7 @@
 
                   <!-- Item Total -->
                   <div class="gj-item-total">
-                    <span class="price-total">{{ item.final_line_price | money_with_currency }}</span>
+                    <span class="price-total">{{ item.final_line_price | money_with_currency | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}</span>
                   </div>
 
                 </div>
@@ -134,7 +134,7 @@
                 <div class="order-totals-table">
                   <div class="order-totals-table-row">
                     <div>Subtotal</div>
-                    <div class="order-value">{{ cart.items_subtotal_price | money_with_currency }}</div>
+                    <div class="order-value">{{ cart.items_subtotal_price | money_with_currency | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}</div>
                   </div>
 
                   <div class="order-totals-table-row">
@@ -146,12 +146,12 @@
                   {%- assign tax_amount = cart.total_price | times: tax_rate -%}
                   <div class="order-totals-table-row">
                     <div>Moms</div>
-                    <div class="order-value">{{ tax_amount | money_with_currency }}</div>
+                    <div class="order-value">{{ tax_amount | money_with_currency | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}</div>
                   </div>
 
                   <div class="order-totals-table-row order-total">
                     <div>Total</div>
-                    <div class="order-value">{{ cart.total_price | money_with_currency }}</div>
+                    <div class="order-value">{{ cart.total_price | money_with_currency | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}</div>
                   </div>
                 </div>
 

@@ -50,7 +50,7 @@
 
 
     <div class="georg-card-price">
-      {{ product.price | money_without_trailing_zeros }}
+      {{ product.price | money_without_trailing_zeros | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}
     </div>
   </div>
 </div>
