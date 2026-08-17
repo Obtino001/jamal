@@ -351,7 +351,7 @@ if (!customElements.get('wishlist-page')) {
                     maximumFractionDigits: 2,
                 }).format(value);
             } catch {
-                return String(value).replace(/([,.])00$/, '') + ' kr';
+                return String(value).replace(/([,.])00$/, '') + ' DKK';
             }
         }
 

@@ -58,7 +58,7 @@
         "material_1": {
           "type": "material",
           "settings": {
-            "material_fallback": "Saml dit eget sæt – tre fund, 1.200 kr."
+            "material_fallback": "Saml dit eget sæt – tre fund, 1.200 DKK"
           }
         },
         "ring_size_cXhVCf": {
@@ -200,7 +200,7 @@
         "tab_also_viewed": {
           "type": "tab",
           "settings": {
-            "title": "→ Saml dit eget fund-sæt – tre fund, 1.200 kr.",
+            "title": "→ Saml dit eget fund-sæt – tre fund, 1.200 DKK",
             "collection": "fjeldets-ringe",
             "link_text": "Udforsk",
             "link_url": ""
