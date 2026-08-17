@@ -19,52 +19,73 @@
 <div class="georg-contact-section section-{{ section.id }}-padding">
   <div class="georg-container page-width">
     <div class="georg-contact-header scroll-trigger animate--slide-in">
-      <span class="georg-story-tag">KUNDESERVICE</span>
-      <h1 class="georg-contact-title georg-serif">Kontakt Georg Jensen</h1>
+      <span class="georg-story-tag">{{ section.settings.story_tag }}</span>
+      <h1 class="georg-contact-title georg-serif">{{ section.settings.title }}</h1>
       <p class="georg-contact-subtitle georg-sans">
-        Vi sidder klar til at hjælpe dig med spørgsmål om ordrer, produkter eller gaveindpakning.
+        {{ section.settings.subtitle }}
       </p>
     </div>
 
     <div class="georg-contact-grid">
       <!-- Direct Info Column -->
       <div class="georg-contact-info-card scroll-trigger animate--slide-in">
-        <h3 class="georg-serif">Kundeservice Åbningstider</h3>
+        <h3 class="georg-serif">{{ section.settings.support_heading }}</h3>
+        
+        {%- if section.settings.phone != blank -%}
         <div class="georg-info-row">
-          <strong>Telefon:</strong>
-          <span>+45 38 14 98 98</span>
+          <strong>{{ section.settings.phone_label }}</strong>
+          <span>{{ section.settings.phone }}</span>
         </div>
+        {%- endif -%}
+
+        {%- if section.settings.hours_1_text != blank -%}
         <div class="georg-info-row">
-          <strong>Mandag - Torsdag:</strong>
-          <span>09.00 - 16.00</span>
+          <strong>{{ section.settings.hours_1_label }}</strong>
+          <span>{{ section.settings.hours_1_text }}</span>
         </div>
+        {%- endif -%}
+
+        {%- if section.settings.hours_2_text != blank -%}
         <div class="georg-info-row">
-          <strong>Fredag:</strong>
-          <span>09.00 - 15.30</span>
+          <strong>{{ section.settings.hours_2_label }}</strong>
+          <span>{{ section.settings.hours_2_text }}</span>
         </div>
+        {%- endif -%}
+
+        {%- if section.settings.email != blank -%}
         <div class="georg-info-row">
-          <strong>E-mail:</strong>
-          <span>kundeservice@georgjensen.com</span>
+          <strong>{{ section.settings.email_label }}</strong>
+          <span>{{ section.settings.email }}</span>
         </div>
+        {%- endif -%}
+        
+        {%- if section.settings.additional_info_text != blank -%}
+        <div class="georg-info-row">
+          <strong>{{ section.settings.additional_info_label }}</strong>
+          <span>{{ section.settings.additional_info_text }}</span>
+        </div>
+        {%- endif -%}
 
         <div class="georg-store-locator-box">
-          <h4 class="georg-serif">Besøg vores butikker</h4>
-          <p class="georg-sans">Find din nærmeste Georg Jensen flagskibsbutik eller forhandler.</p>
-          <a href="#" class="button-georg-black">FIND BUTIK</a>
+          <h4 class="georg-serif">{{ section.settings.store_locator_heading }}</h4>
+          <p class="georg-sans">{{ section.settings.store_locator_text }}</p>
+          {%- if section.settings.store_locator_btn_text != blank -%}
+            <a href="{{ section.settings.store_locator_url | default: '#' }}" class="button-georg-black">{{ section.settings.store_locator_btn_text }}</a>
+          {%- endif -%}
         </div>
       </div>
 
       <!-- Form Column -->
       <div class="georg-contact-form-card scroll-trigger animate--slide-in">
-        <h3 class="georg-serif">Send en besked</h3>
+        <h3 class="georg-serif">{{ section.settings.form_heading }}</h3>
         {%- form 'contact', id: 'GeorgContactForm' -%}
           {%- if form.posted_successfully? -%}
             <div class="form-status-success" style="margin-bottom: 20px; padding: 10px; background: #e6f4ea; color: #1e4620; text-align: center; font-weight: 500;">
-              Din besked er blevet sendt succesfuldt. Vi vender tilbage hurtigst muligt.
+              {{ section.settings.success_message }}
             </div>
           {%- elsif form.errors -%}
             <div class="form-status-error" style="margin-bottom: 20px; padding: 10px; background: #fce8e6; color: #c5221f; text-align: center; font-weight: 500;">
-              Der opstod en fejl. Udfyld venligst de påkrævede felter.
+              {{ section.settings.error_message }}
             </div>
           {%- endif -%}
 
@@ -88,7 +109,7 @@
             <textarea id="ContactMessage" name="contact[body]" rows="5" class="georg-input" required></textarea>
           </div>
 
-          <button type="submit" class="button-georg-black">SEND BESKED</button>
+          <button type="submit" class="button-georg-black">{{ section.settings.form_btn_text }}</button>
         {%- endform -%}
       </div>
     </div>
@@ -202,6 +223,151 @@
 {
   "name": "Georg Jensen Contact",
   "settings": [
+    {
+      "type": "header",
+      "content": "Header Section"
+    },
+    {
+      "type": "text",
+      "id": "story_tag",
+      "label": "Tag",
+      "default": "KUNDESERVICE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Kontakt Georg Jensen"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Vi sidder klar til at hjælpe dig med spørgsmål om ordrer, produkter eller gaveindpakning."
+    },
+    {
+      "type": "header",
+      "content": "Contact Info Box"
+    },
+    {
+      "type": "text",
+      "id": "support_heading",
+      "label": "Support Box Heading",
+      "default": "Kundeservice Åbningstider"
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Phone Label",
+      "default": "Telefon:"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Number",
+      "default": "+45 38 14 98 98"
+    },
+    {
+      "type": "text",
+      "id": "hours_1_label",
+      "label": "Hours Row 1 Label",
+      "default": "Mandag - Torsdag:"
+    },
+    {
+      "type": "text",
+      "id": "hours_1_text",
+      "label": "Hours Row 1 Text",
+      "default": "09.00 - 16.00"
+    },
+    {
+      "type": "text",
+      "id": "hours_2_label",
+      "label": "Hours Row 2 Label",
+      "default": "Fredag:"
+    },
+    {
+      "type": "text",
+      "id": "hours_2_text",
+      "label": "Hours Row 2 Text",
+      "default": "09.00 - 15.30"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email Label",
+      "default": "E-mail:"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email Address",
+      "default": "kundeservice@georgjensen.com"
+    },
+    {
+      "type": "text",
+      "id": "additional_info_label",
+      "label": "Additional Info Label (Optional)"
+    },
+    {
+      "type": "text",
+      "id": "additional_info_text",
+      "label": "Additional Info Text (Optional)"
+    },
+    {
+      "type": "header",
+      "content": "Store Locator Box"
+    },
+    {
+      "type": "text",
+      "id": "store_locator_heading",
+      "label": "Store Locator Heading",
+      "default": "Besøg vores butikker"
+    },
+    {
+      "type": "textarea",
+      "id": "store_locator_text",
+      "label": "Store Locator Text",
+      "default": "Find din nærmeste Georg Jensen flagskibsbutik eller forhandler."
+    },
+    {
+      "type": "text",
+      "id": "store_locator_btn_text",
+      "label": "Store Locator Button Text",
+      "default": "FIND BUTIK"
+    },
+    {
+      "type": "url",
+      "id": "store_locator_url",
+      "label": "Store Locator Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Contact Form Box"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form Heading",
+      "default": "Send en besked"
+    },
+    {
+      "type": "text",
+      "id": "form_btn_text",
+      "label": "Form Submit Button Text",
+      "default": "SEND BESKED"
+    },
+    {
+      "type": "textarea",
+      "id": "success_message",
+      "label": "Success Message",
+      "default": "Din besked er blevet sendt succesfuldt. Vi vender tilbage hurtigst muligt."
+    },
+    {
+      "type": "textarea",
+      "id": "error_message",
+      "label": "Error Message",
+      "default": "Der opstod en fejl. Udfyld venligst de påkrævede felter."
+    },
     {
       "type": "range",
       "id": "padding_top",
