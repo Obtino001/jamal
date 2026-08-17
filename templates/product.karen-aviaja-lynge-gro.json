@@ -192,14 +192,14 @@
           "type": "tab",
           "settings": {
             "title": "→ Saml dit eget fund-sæt – tre fund, 1.200 kr.",
-            "collection": "rings"
+            "collection": "fjeldets-ringe"
           }
         },
         "tab_combine": {
           "type": "tab",
           "settings": {
             "title": "Kombinér det med",
-            "collection": "rings"
+            "collection": "fjeldets-ringe"
           }
         }
       },
