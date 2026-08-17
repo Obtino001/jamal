@@ -41,8 +41,8 @@
         "link_AAYDgX": {
           "type": "link",
           "settings": {
-            "link_label": "Find ud af mere",
-            "link_url": ""
+            "link_label": "se vores fund",
+            "link_url": "shopify://collections/alle-fund"
           }
         }
       },
