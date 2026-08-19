@@ -537,5 +537,12 @@
       "expanded": "Formularen til modtager af gavekort er vist",
       "collapsed": "Formularen til modtager af gavekort er skjult"
     }
+  },
+  "shopify": {
+    "errors": {
+      "shop_404": {
+        "title": "Forsøg igen"
+      }
+    }
   }
 }
