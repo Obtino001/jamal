@@ -437,6 +437,20 @@
             "comment_text": "Comment",
             "share_text": "Share"
           }
+        },
+        "slide_zHf4YL": {
+          "type": "slide",
+          "settings": {
+            "author": "Author",
+            "time": "6h ago",
+            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
+            "image": "shopify://shop_images/two_shades_of_amethyst_ft_ring_1.jpg",
+            "count_comments": "30",
+            "comment": "30 comments",
+            "like_text": "Like",
+            "comment_text": "Comment",
+            "share_text": "Share"
+          }
         }
       },
       "block_order": [
@@ -446,7 +460,8 @@
         "slide_P7RbQM",
         "slide_MUHXH9",
         "slide_N4caNU",
-        "slide_mJDUaf"
+        "slide_mJDUaf",
+        "slide_zHf4YL"
       ],
       "name": "SS - Testimonials #20",
       "settings": {
