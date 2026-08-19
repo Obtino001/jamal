@@ -403,6 +403,7 @@
         "slide_MUHXH9": {
           "type": "slide",
           "settings": {
+            "author_image": "shopify://shop_images/image.jpg",
             "author": "Author",
             "time": "6h ago",
             "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
