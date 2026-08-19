@@ -79,7 +79,7 @@
         "store_locator_link": "",
         "show_phone_icon": true,
         "support_label": "Kundeservice",
-        "support_link": "",
+        "support_link": "shopify://pages/kontakt",
         "search_placeholder": "Søg",
         "show_search_links": true,
         "show_wishlist": true,
