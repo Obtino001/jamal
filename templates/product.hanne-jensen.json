@@ -505,10 +505,10 @@
       ],
       "name": "SS - Testimonials #20",
       "settings": {
-        "heading": "<h2>Testimonials #20</h2>",
+        "heading": "<p><strong>Vis os dit fund</strong></p><p>Del et billede på Facebook eller Instagram og send det til <a href=\"mailto:hej@fjeldfund.dk\">hej@fjeldfund.dk</a>.<br/><br/>Vi viser de fineste på siden — og du får 15 % på dit næste fund.</p>",
         "heading_custom": false,
         "heading_font": "josefin_sans_n4",
-        "heading_size": 32,
+        "heading_size": 18,
         "heading_size_mobile": 26,
         "heading_height": 130,
         "heading_align": "center",
