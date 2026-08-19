@@ -451,6 +451,20 @@
             "comment_text": "Comment",
             "share_text": "Share"
           }
+        },
+        "slide_HyqVNJ": {
+          "type": "slide",
+          "settings": {
+            "author": "Author",
+            "time": "6h ago",
+            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
+            "image": "shopify://shop_images/Bague_de_Fiancailles_-_Bague_Pompadour_Saphir_Ceylan_3.55_Carats_Diamants_Or_Jaune_-_Joaillerie_Paris_-_Les_Pierres_de_Julie_3.jpg",
+            "count_comments": "30",
+            "comment": "30 comments",
+            "like_text": "Like",
+            "comment_text": "Comment",
+            "share_text": "Share"
+          }
         }
       },
       "block_order": [
@@ -461,7 +475,8 @@
         "slide_MUHXH9",
         "slide_N4caNU",
         "slide_mJDUaf",
-        "slide_zHf4YL"
+        "slide_zHf4YL",
+        "slide_HyqVNJ"
       ],
       "name": "SS - Testimonials #20",
       "settings": {
