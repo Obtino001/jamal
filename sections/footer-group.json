@@ -24,9 +24,8 @@
         },
         "menu_6JVd7c": {
           "type": "menu",
-          "disabled": true,
           "settings": {
-            "heading": "Search",
+            "heading": "Mere fra FJELDFUND",
             "menu": "footer",
             "fallback_links": ""
           }
