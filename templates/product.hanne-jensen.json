@@ -226,7 +226,7 @@
         "desktop_columns": 4,
         "space_between": 24,
         "show_arrows": true,
-        "show_progress": true,
+        "show_progress": false,
         "prev_label": "Forrige",
         "next_label": "Næste",
         "show_stock": true,
