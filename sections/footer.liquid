@@ -271,6 +271,11 @@
             {%- endif -%}
         </div>
       </div>
+      {%- if section.settings.copyright_text != blank -%}
+        <div class="gj-footer__copyright" style="text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 1.2rem; opacity: 0.8;">
+          {{ section.settings.copyright_text }}
+        </div>
+      {%- endif -%}
     </div>
   </footer>
 
