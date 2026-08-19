@@ -92,8 +92,8 @@
             "table_heading": "Brug størrelsestabellen til at finde din ringstørrelse.",
             "footer_heading": "Stadig ikke sikker på hvilken størrelse, du skal have?",
             "footer_email": "hej@fjeldfund.dk",
-            "footer_phone": "+45 38 14 90 44",
-            "footer_phone_subtext": "Mandag, tirsdag, torsdag og fredag: 10.00–12.00",
+            "footer_phone": "+45 71 32 29 56",
+            "footer_phone_subtext": "Mandag, tirsdag, torsdag og fredag: 09.00–16.00",
             "footer_store_text": "",
             "footer_store_url": ""
           }
@@ -144,7 +144,7 @@
           "type": "shipping",
           "settings": {
             "shipping_heading": "Fragt og retur",
-            "shipping_content": "<ul><li>Gratis gaveindpakning på varer til fuld pris</li><li>Levering med PostNord</li><li>Nem ombytning og returnering</li></ul>"
+            "shipping_content": "<ul><li>Gratis gaveindpakning på varer til fuld pris</li><li>Fri fragt på alle ordrer</li><li>Nem ombytning og returnering</li></ul>"
           }
         },
         "phone_1": {
