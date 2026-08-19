@@ -463,6 +463,7 @@
         "slide_HyqVNJ": {
           "type": "slide",
           "settings": {
+            "author_image": "shopify://shop_images/eva_skaar.png",
             "author": "Author",
             "time": "6h ago",
             "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
@@ -477,6 +478,7 @@
         "slide_qtCcTj": {
           "type": "slide",
           "settings": {
+            "author_image": "shopify://shop_images/maria_s_gjems_onstad.png",
             "author": "Author",
             "time": "6h ago",
             "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
