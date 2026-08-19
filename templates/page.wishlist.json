@@ -8,17 +8,20 @@
  * ------------------------------------------------------------
  */
 {
-    "sections": {
-        "main": {
-            "type": "main-wishlist",
-            "settings": {
-                "heading": "Min önskelista",
-                "heading_alignment": "start",
-                "empty_text": "Du har inte sparat några produkter än."
-            }
-        }
-    },
-    "order": [
-        "main"
-    ]
+  "sections": {
+    "main": {
+      "type": "main-wishlist",
+      "settings": {
+        "heading": "Min ønskeliste",
+        "heading_alignment": "start",
+        "empty_text": "Du har ikke gemt nogen produkter endnu.",
+        "add_to_cart_label": "Læg i kurv",
+        "sold_out_label": "Udsolgt",
+        "added_label": "Tilføjet"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
 }
