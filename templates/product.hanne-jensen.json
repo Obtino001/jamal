@@ -135,8 +135,8 @@
             "design_year_label": "Desigår:",
             "design_year_fallback": "2026",
             "collection_meta_label": "Kollektion:",
-            "explore_label": "Udforsk:",
-            "explore_text": "Øreringe",
+            "explore_label": "",
+            "explore_text": "",
             "explore_link": ""
           }
         },
