@@ -11,7 +11,32 @@
   "sections": {
     "georg_contact": {
       "type": "georg-jensen-contact",
-      "settings": {}
+      "settings": {
+        "story_tag": "KUNDESERVICE",
+        "title": "Kontakt FJELDFUND",
+        "subtitle": "Vi sidder klar til at hjælpe dig med spørgsmål om ordrer, produkter eller gaveindpakning.",
+        "support_heading": "Kundeservice Åbningstider",
+        "phone_label": "Telefon:",
+        "phone": "+45 71 32 29 56",
+        "hours_1_label": "Mandag - Tirsdag:",
+        "hours_1_text": "09.00 - 16.00",
+        "hours_2_label": "Torsdag - Fredag:",
+        "hours_2_text": "09.00 - 16.00",
+        "email_label": "E-mail:",
+        "email": "hej@fjeldfund.dk",
+        "additional_info_label": "",
+        "additional_info_text": "",
+        "store_locator_heading": "Oplev os til Smykkers By 2026",
+        "store_locator_text": "1. - 3. oktober i København",
+        "store_locator_btn_text": "",
+        "store_locator_url": "",
+        "form_heading": "Send en besked",
+        "form_btn_text": "SEND BESKED",
+        "success_message": "Din besked er blevet sendt succesfuldt. Vi vender tilbage hurtigst muligt.",
+        "error_message": "Der opstod en fejl. Udfyld venligst de påkrævede felter.",
+        "padding_top": 70,
+        "padding_bottom": 90
+      }
     }
   },
   "order": [
