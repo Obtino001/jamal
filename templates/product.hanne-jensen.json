@@ -465,6 +465,20 @@
             "comment_text": "Comment",
             "share_text": "Share"
           }
+        },
+        "slide_qtCcTj": {
+          "type": "slide",
+          "settings": {
+            "author": "Author",
+            "time": "6h ago",
+            "text": "<p>Add customer reviews and testimonials to highlight the positive experiences they’ve had with your store.</p>",
+            "image": "shopify://shop_images/il_1588xN.8206826844_n4rr.jpg",
+            "count_comments": "30",
+            "comment": "30 comments",
+            "like_text": "Like",
+            "comment_text": "Comment",
+            "share_text": "Share"
+          }
         }
       },
       "block_order": [
@@ -476,7 +490,8 @@
         "slide_N4caNU",
         "slide_mJDUaf",
         "slide_zHf4YL",
-        "slide_HyqVNJ"
+        "slide_HyqVNJ",
+        "slide_qtCcTj"
       ],
       "name": "SS - Testimonials #20",
       "settings": {
