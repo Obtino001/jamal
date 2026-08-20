@@ -172,7 +172,7 @@ class WIcartDrawer extends HTMLElement {
   }
 
   async checkForRingBundle() {
-    const DUMMY_VARIANT_ID = "YOUR_DUMMY_VARIANT_ID_HERE"; // MERCHANT: REPLACE THIS WITH YOUR DUMMY PRODUCT VARIANT ID
+    const DUMMY_VARIANT_ID = "58234190725503"; 
     if (DUMMY_VARIANT_ID === "YOUR_DUMMY_VARIANT_ID_HERE") return false;
 
     try {
