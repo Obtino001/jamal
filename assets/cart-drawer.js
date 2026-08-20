@@ -183,9 +183,8 @@ class WIcartDrawer extends HTMLElement {
       let totalRings = 0;
 
       cart.items.forEach(item => {
-        const isRing = (item.product_type && item.product_type.toLowerCase().includes('ring')) ||
-                       (item.handle && item.handle.toLowerCase().includes('ring')) ||
-                       (item.title && item.title.toLowerCase().includes('ring'));
+        // TEMPORARY: Treat everything as a ring to test if the core logic works
+        const isRing = true; 
         
         if (isRing && item.variant_id.toString() !== DUMMY_VARIANT_ID) {
           ringItems.push(item);
