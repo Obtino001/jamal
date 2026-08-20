@@ -183,8 +183,9 @@ class WIcartDrawer extends HTMLElement {
       let totalRings = 0;
 
       cart.items.forEach(item => {
-        // TEMPORARY: Treat everything as a ring to test if the core logic works
-        const isRing = true; 
+        // We will check if the product_type contains "ring". 
+        // IMPORTANT: You must ensure your ring products have the Product Type set to "Ring" in Shopify Admin!
+        const isRing = item.product_type && item.product_type.toLowerCase().includes('ring');
         
         if (isRing && item.variant_id.toString() !== DUMMY_VARIANT_ID) {
           ringItems.push(item);
@@ -208,7 +209,9 @@ class WIcartDrawer extends HTMLElement {
           ringsToRemove -= removeQty;
 
           for (let j = 0; j < removeQty; j++) {
-            properties[`_Bundle_Ring_${ringCount}`] = `${item.title}`;
+            // Using item.title includes both the product name AND the variant (e.g., "Vidjesten - Size 54")
+            // We removed the underscore so it is VISIBLE to the customer and you!
+            properties[`Ring ${ringCount}`] = `${item.title}`;
             ringCount++;
           }
         }
