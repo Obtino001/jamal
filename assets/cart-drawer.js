@@ -210,8 +210,7 @@ class WIcartDrawer extends HTMLElement {
 
           for (let j = 0; j < removeQty; j++) {
             // Using item.title includes both the product name AND the variant (e.g., "Vidjesten - Size 54")
-            // We removed the underscore so it is VISIBLE to the customer and you!
-            properties[`Ring ${ringCount}`] = `${item.title}`;
+            properties[`Valg ${ringCount}`] = `${item.title}`;
             ringCount++;
           }
         }
