@@ -171,7 +171,82 @@ class WIcartDrawer extends HTMLElement {
     return this._updateQueue;
   }
 
+  async checkForRingBundle() {
+    const DUMMY_VARIANT_ID = "YOUR_DUMMY_VARIANT_ID_HERE"; // MERCHANT: REPLACE THIS WITH YOUR DUMMY PRODUCT VARIANT ID
+    if (DUMMY_VARIANT_ID === "YOUR_DUMMY_VARIANT_ID_HERE") return false;
+
+    try {
+      const res = await fetch('/cart.js');
+      const cart = await res.json();
+
+      let ringItems = [];
+      let totalRings = 0;
+
+      cart.items.forEach(item => {
+        const isRing = (item.product_type && item.product_type.toLowerCase().includes('ring')) ||
+                       (item.handle && item.handle.toLowerCase().includes('ring')) ||
+                       (item.title && item.title.toLowerCase().includes('ring'));
+        
+        if (isRing && item.variant_id.toString() !== DUMMY_VARIANT_ID) {
+          ringItems.push(item);
+          totalRings += item.quantity;
+        }
+      });
+
+      const bundlesToCreate = Math.floor(totalRings / 3);
+      if (bundlesToCreate > 0) {
+        let updates = {};
+        let ringsToRemove = bundlesToCreate * 3;
+        let properties = {};
+        let ringCount = 1;
+
+        for (let i = 0; i < ringItems.length; i++) {
+          if (ringsToRemove <= 0) break;
+          const item = ringItems[i];
+          let removeQty = Math.min(item.quantity, ringsToRemove);
+          
+          updates[item.key] = item.quantity - removeQty;
+          ringsToRemove -= removeQty;
+
+          for (let j = 0; j < removeQty; j++) {
+            properties[`_Bundle_Ring_${ringCount}`] = `${item.title}`;
+            ringCount++;
+          }
+        }
+
+        await fetch('/cart/update.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ updates })
+        });
+
+        await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            items: [{
+              id: DUMMY_VARIANT_ID,
+              quantity: bundlesToCreate,
+              properties: properties
+            }]
+          })
+        });
+
+        return true; 
+      }
+    } catch (e) {
+      console.error("Bundle logic error:", e);
+    }
+    return false;
+  }
+
   async _performCartUpdate(options = {}) {
+    if (!this.isCheckingBundle) {
+      this.isCheckingBundle = true;
+      await this.checkForRingBundle();
+      this.isCheckingBundle = false;
+    }
+
     const { mode = 'refresh', itemKey = null } = options;
 
     try {
