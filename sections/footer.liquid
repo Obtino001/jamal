@@ -114,10 +114,16 @@
           {%- if section.settings.opening_hours != blank -%}
             <p class="gj-footer__hours">{{ section.settings.opening_hours }}</p>
           {%- endif -%}
+          {%- if section.settings.opening_hours_extra != blank -%}
+            <p class="gj-footer__hours gj-footer__hours--extra">{{ section.settings.opening_hours_extra }}</p>
+          {%- endif -%}
           {%- if section.settings.support_email != blank -%}
             <a class="gj-footer__email" href="mailto:{{ section.settings.support_email }}">
               {{ section.settings.support_email }}
             </a>
+          {%- endif -%}
+          {%- if section.settings.support_email_extra != blank -%}
+            <p class="gj-footer__hours gj-footer__email-extra">{{ section.settings.support_email_extra }}</p>
           {%- endif -%}
           {%- if section.settings.additional_support_text != blank -%}
             <div class="gj-footer__additional-text">
@@ -447,9 +453,21 @@
     },
     {
       "type": "text",
+      "id": "opening_hours_extra",
+      "label": "Extra opening hours text",
+      "info": "Displays below the opening hours"
+    },
+    {
+      "type": "text",
       "id": "support_email",
       "label": "Email",
       "default": "onlinestore@georgjensen.com"
+    },
+    {
+      "type": "text",
+      "id": "support_email_extra",
+      "label": "Extra email text",
+      "info": "Displays below the email address"
     },
     {
       "type": "richtext",
