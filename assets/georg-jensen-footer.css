@@ -1,16 +1,16 @@
 /* Georg Jensen Footer — 1:1 layout */
 
 .gj-footer {
-  --gj-f-bg: #1a2533;
-  --gj-f-banner: #1a2533;
-  --gj-f-text: #ffffff;
-  --gj-f-muted: #c8cdd3;
-  --gj-f-heading: #9fd6f5;
-  --gj-f-accent: #b6e3ff;
-  --gj-f-line: rgba(255, 255, 255, 0.12);
-  --gj-f-max: 1380px;
-  color: var(--gj-f-text);
-  font-family: var(--georg-font-sans, 'Source Sans Pro', sans-serif);
+    --gj-f-bg: #1a2533;
+    --gj-f-banner: #1a2533;
+    --gj-f-text: #ffffff;
+    --gj-f-muted: #c8cdd3;
+    --gj-f-heading: #9fd6f5;
+    --gj-f-accent: #b6e3ff;
+    --gj-f-line: rgba(255, 255, 255, .12);
+    --gj-f-max: 1380px;
+    color: var(--gj-f-text);
+    font-family: 'SourceSansPro-Bold';
 }
 
 .gj-footer a {
