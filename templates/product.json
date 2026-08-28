@@ -119,16 +119,10 @@
         },
         "product_details_1": {
           "type": "product_details",
-          "source": "{{ product.metafields.custom.product_details.value }}",
           "settings": {
-            "details_heading": "{{ product.metafields.custom.product_details.value.details_heading.value }}",
-            "item_number_label": "{{ product.metafields.custom.product_details.value.item_number_label.value }}",
-            "materials_label": "{{ product.metafields.custom.product_details.value.materials_label.value }}",
-            "measurements_label": "{{ product.metafields.custom.product_details.value.measurements_label.value }}",
-            "design_year_label": "{{ product.metafields.custom.product_details.value.design_year_label.value }}",
-            "collection_meta_label": "{{ product.metafields.custom.product_details.value.collection_detail_label.value }}",
-            "explore_label": "{{ product.metafields.custom.product_details.value.explore_label.value }}",
-            "explore_text": "{{ product.metafields.custom.product_details.value.explore_link_text.value }}"
+            "details_heading": "",
+            "explore_text": "",
+            "explore_link": ""
           }
         },
         "shipping_1": {
