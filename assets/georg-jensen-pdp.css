@@ -1063,7 +1063,7 @@ body:has(.georg-pdp-section) {
 
 .georg-pdp-section .accordion-body.is-open {
   max-height: 1000px;
-  padding-bottom: 18px;
+  padding-block: 18px;
   visibility: visible;
 }
 
