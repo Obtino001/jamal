@@ -121,16 +121,7 @@
           "type": "product_details",
           "settings": {
             "details_heading": "Produktdetaljer",
-            "item_number_label": "Varenummer:",
-            "materials_label": "Materialer:",
-            "measurements_label": "Mål:",
-            "measurements_fallback": "B: 8 mm. L: 42 mm.",
-            "design_year_label": "Desigår:",
-            "design_year_fallback": "2026",
-            "collection_meta_label": "Kollektion:",
-            "explore_label": "Udforsk:",
-            "explore_text": "Øreringe",
-            "explore_link": ""
+            "details_content": "{{ product.description }}"
           }
         },
         "shipping_1": {
