@@ -542,9 +542,7 @@
 
                 {%- when 'product_details' -%}
                   {%- liquid
-                    assign material = product.metafields.custom.material.value | default: product.metafields.custom.material
-                    assign sten = product.metafields.custom.sten.value | default: product.metafields.custom.sten
-                    assign measurements = product.metafields.custom.measurements.value | default: product.metafields.custom.measurements
+                    assign details_text = product.metafields.custom.product_details_text.value | default: product.metafields.custom.product_details_text
                     
                     assign collection_title = product.collections.first.title
                     if collection_title == blank
@@ -563,17 +561,50 @@
                           <div class="product-info_content">
                             <div class="product-info_content_item_list">
                               <ul>
-                                <li><span class="product-info_content_item_detail">Varenummer:</span>{{ current_variant.sku | default: product.id }}</li>
-                                {%- if material != blank -%}<li><span class="product-info_content_item_detail">Materialer:</span>{{ material }}</li>{%- endif -%}
-                                {%- if sten != blank -%}<li><span class="product-info_content_item_detail">Sten:</span>{{ sten }}</li>{%- endif -%}
-                                {%- if measurements != blank -%}<li><span class="product-info_content_item_detail">Mål:</span>{{ measurements }}</li>{%- endif -%}
-                                {%- if collection_title != blank -%}<li><span class="product-info_content_item_detail meta-collection">Kollektion:</span><a href="{{ collection_url }}">{{ collection_title }}</a></li>{%- endif -%}
-                                {%- if block.settings.explore_text != blank -%}<li><span class="product-info_content_item_detail">Udforsk:</span><a class="product-info_content_item_explore" href="{{ block.settings.explore_link | default: routes.all_products_collection_url }}">{{ block.settings.explore_text }}</a></li>{%- endif -%}
+                                <li><span class="product-info_content_item_detail">Varenummer:</span><span>{{ current_variant.sku | default: product.id }}</span></li>
+                                
+                                {%- if details_text != blank -%}
+                                  {%- assign lines = details_text | newline_to_br | split: '<br />' -%}
+                                  {%- for line in lines -%}
+                                    {%- assign clean_line = line | strip_html | strip -%}
+                                    {%- if clean_line != blank -%}
+                                      {%- if clean_line contains ':' -%}
+                                        {%- assign parts = clean_line | split: ':' -%}
+                                        <li>
+                                          <span class="product-info_content_item_detail">{{ parts[0] | strip }}:</span>
+                                          <span>
+                                            {%- assign value_part = parts[1] | strip -%}
+                                            {%- if parts.size > 2 -%}
+                                              {%- for part in parts offset: 2 -%}
+                                                {%- assign value_part = value_part | append: ':' | append: part -%}
+                                              {%- endfor -%}
+                                            {%- endif -%}
+                                            {{ value_part }}
+                                          </span>
+                                        </li>
+                                      {%- else -%}
+                                        <li>{{ clean_line }}</li>
+                                      {%- endif -%}
+                                    {%- endif -%}
+                                  {%- endfor -%}
+                                {%- else -%}
+                                  {%- assign material = product.metafields.custom.material.value | default: product.metafields.custom.material -%}
+                                  {%- assign sten = product.metafields.custom.sten.value | default: product.metafields.custom.sten -%}
+                                  {%- assign measurements = product.metafields.custom.measurements.value | default: product.metafields.custom.measurements -%}
+                                  
+                                  {%- if material != blank -%}<li><span class="product-info_content_item_detail">Materialer:</span><span>{{ material }}</span></li>{%- endif -%}
+                                  {%- if sten != blank -%}<li><span class="product-info_content_item_detail">Sten:</span><span>{{ sten }}</span></li>{%- endif -%}
+                                  {%- if measurements != blank -%}<li><span class="product-info_content_item_detail">Mål:</span><span>{{ measurements }}</span></li>{%- endif -%}
+                                {%- endif -%}
+                                
+                                {%- if collection_title != blank -%}<li><span class="product-info_content_item_detail meta-collection">Kollektion:</span><span><a href="{{ collection_url }}">{{ collection_title }}</a></span></li>{%- endif -%}
+                                {%- if block.settings.explore_text != blank -%}<li><span class="product-info_content_item_detail">Udforsk:</span><span><a class="product-info_content_item_explore" href="{{ block.settings.explore_link | default: routes.all_products_collection_url }}">{{ block.settings.explore_text }}</a></span></li>{%- endif -%}
+                                
                                 {%- for inner_block in section.blocks -%}
                                   {%- if inner_block.type == 'detail_row' and inner_block.settings.value != blank -%}
                                     <li {{ inner_block.shopify_attributes }}>
                                       {%- if inner_block.settings.label != blank -%}<span class="product-info_content_item_detail">{{ inner_block.settings.label }}</span>{%- endif -%}
-                                      {{ inner_block.settings.value }}
+                                      <span>{{ inner_block.settings.value }}</span>
                                     </li>
                                   {%- endif -%}
                                 {%- endfor -%}
