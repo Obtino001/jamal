@@ -544,13 +544,8 @@
                   {%- liquid
                     assign material = product.metafields.custom.material.value | default: product.metafields.custom.material
                     assign design_year = product.metafields.custom.design_year.value | default: product.metafields.custom.design_year
-                    if design_year == blank
-                      assign design_year = block.settings.design_year_fallback
-                    endif
                     assign measurements = product.metafields.custom.measurements.value | default: product.metafields.custom.measurements
-                    if measurements == blank
-                      assign measurements = block.settings.measurements_fallback
-                    endif
+                    
                     assign collection_title = block.settings.collection_label
                     if collection_title == blank and product.collections.size > 0
                       assign collection_title = product.collections.first.title
@@ -790,9 +785,7 @@
         { "type": "text", "id": "item_number_label", "label": "Item number label", "default": "Item number:" },
         { "type": "text", "id": "materials_label", "label": "Materials label", "default": "Materials:" },
         { "type": "text", "id": "measurements_label", "label": "Measurements label", "default": "Measurements:" },
-        { "type": "text", "id": "measurements_fallback", "label": "Measurements fallback", "default": "W: 8 mm. L: 42 mm." },
         { "type": "text", "id": "design_year_label", "label": "Design year label", "default": "Design year:" },
-        { "type": "text", "id": "design_year_fallback", "label": "Design year fallback", "default": "2026" },
         { "type": "text", "id": "collection_meta_label", "label": "Collection detail label", "default": "Collection:" },
         { "type": "text", "id": "explore_label", "label": "Explore label", "default": "Explore:" },
         { "type": "text", "id": "explore_text", "label": "Explore link text", "default": "Earrings" },
