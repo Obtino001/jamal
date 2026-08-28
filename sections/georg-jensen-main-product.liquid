@@ -543,20 +543,14 @@
                 {%- when 'product_details' -%}
                   {%- liquid
                     assign material = product.metafields.custom.material.value | default: product.metafields.custom.material
-                    assign design_year = product.metafields.custom.design_year.value | default: product.metafields.custom.design_year
+                    assign sten = product.metafields.custom.sten.value | default: product.metafields.custom.sten
                     assign measurements = product.metafields.custom.measurements.value | default: product.metafields.custom.measurements
                     
-                    assign collection_title = block.settings.collection_label
-                    if collection_title == blank and product.collections.size > 0
-                      assign collection_title = product.collections.first.title
-                    endif
+                    assign collection_title = product.collections.first.title
                     if collection_title == blank
                       assign collection_title = product.vendor
                     endif
-                    assign collection_url = block.settings.collection_link
-                    if collection_url == blank and product.collections.size > 0
-                      assign collection_url = product.collections.first.url
-                    endif
+                    assign collection_url = product.collections.first.url
                     if collection_url == blank
                       assign collection_url = routes.all_products_collection_url
                     endif
@@ -569,12 +563,12 @@
                           <div class="product-info_content">
                             <div class="product-info_content_item_list">
                               <ul>
-                                <li><span class="product-info_content_item_detail">{{ block.settings.item_number_label }}</span>{{ current_variant.sku | default: product.id }}</li>
-                                {%- if material != blank -%}<li><span class="product-info_content_item_detail">{{ block.settings.materials_label }}</span>{{ material }}</li>{%- endif -%}
-                                {%- if measurements != blank -%}<li><span class="product-info_content_item_detail">{{ block.settings.measurements_label }}</span>{{ measurements }}</li>{%- endif -%}
-                                {%- if design_year != blank -%}<li><span class="product-info_content_item_detail">{{ block.settings.design_year_label }}</span>{{ design_year }}</li>{%- endif -%}
-                                {%- if collection_title != blank -%}<li><span class="product-info_content_item_detail meta-collection">{{ block.settings.collection_meta_label }}</span><a href="{{ collection_url }}">{{ collection_title }}</a></li>{%- endif -%}
-                                {%- if block.settings.explore_text != blank -%}<li><span class="product-info_content_item_detail">{{ block.settings.explore_label }}</span><a class="product-info_content_item_explore" href="{{ block.settings.explore_link | default: routes.all_products_collection_url }}">{{ block.settings.explore_text }}</a></li>{%- endif -%}
+                                <li><span class="product-info_content_item_detail">Varenummer:</span>{{ current_variant.sku | default: product.id }}</li>
+                                {%- if material != blank -%}<li><span class="product-info_content_item_detail">Materialer:</span>{{ material }}</li>{%- endif -%}
+                                {%- if sten != blank -%}<li><span class="product-info_content_item_detail">Sten:</span>{{ sten }}</li>{%- endif -%}
+                                {%- if measurements != blank -%}<li><span class="product-info_content_item_detail">Mål:</span>{{ measurements }}</li>{%- endif -%}
+                                {%- if collection_title != blank -%}<li><span class="product-info_content_item_detail meta-collection">Kollektion:</span><a href="{{ collection_url }}">{{ collection_title }}</a></li>{%- endif -%}
+                                {%- if block.settings.explore_text != blank -%}<li><span class="product-info_content_item_detail">Udforsk:</span><a class="product-info_content_item_explore" href="{{ block.settings.explore_link | default: routes.all_products_collection_url }}">{{ block.settings.explore_text }}</a></li>{%- endif -%}
                                 {%- for inner_block in section.blocks -%}
                                   {%- if inner_block.type == 'detail_row' and inner_block.settings.value != blank -%}
                                     <li {{ inner_block.shopify_attributes }}>
@@ -781,14 +775,8 @@
       "name": "Product details accordion",
       "limit": 1,
       "settings": [
-        { "type": "text", "id": "details_heading", "label": "Details heading", "default": "Product details" },
-        { "type": "text", "id": "item_number_label", "label": "Item number label", "default": "Item number:" },
-        { "type": "text", "id": "materials_label", "label": "Materials label", "default": "Materials:" },
-        { "type": "text", "id": "measurements_label", "label": "Measurements label", "default": "Measurements:" },
-        { "type": "text", "id": "design_year_label", "label": "Design year label", "default": "Design year:" },
-        { "type": "text", "id": "collection_meta_label", "label": "Collection detail label", "default": "Collection:" },
-        { "type": "text", "id": "explore_label", "label": "Explore label", "default": "Explore:" },
-        { "type": "text", "id": "explore_text", "label": "Explore link text", "default": "Earrings" },
+        { "type": "text", "id": "details_heading", "label": "Details heading", "default": "Produktdetaljer" },
+        { "type": "text", "id": "explore_text", "label": "Explore link text", "default": "Guld ringe" },
         { "type": "url", "id": "explore_link", "label": "Explore link" }
       ]
     },
