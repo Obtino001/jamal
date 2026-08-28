@@ -1094,7 +1094,7 @@ body:has(.georg-pdp-section) {
 }
 .georg-pdp-section .accordion-body ul {
   margin: 0;
-  padding-left: 18px;
+  /* padding-left: 18px;/\ */
 }
 
 .georg-pdp-section .accordion-body a {
