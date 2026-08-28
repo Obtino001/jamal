@@ -400,13 +400,13 @@ body:has(.georg-pdp-section) {
 }
 
 .georg-pdp-section .product-name {
-  font-family: var(--gj-pdp-serif);
-  font-weight: 400;
-  font-size: clamp(32px, 3.4vw, 42px);
-  line-height: 1.15;
-  margin: 0 0 14px;
-  color: #000;
-  letter-spacing: 0;
+    font-family: 'FuturaPT-Light';
+    font-weight: 600;
+    font-size: clamp(32px,3.4vw,42px);
+    line-height: 1.15;
+    margin: 0 0 14px;
+    color: #000;
+    letter-spacing: 0;
 }
 
 .georg-pdp-section .product-material {
@@ -1074,6 +1074,7 @@ body:has(.georg-pdp-section) {
 }
 
 .georg-pdp-section .product-info_content_item_list li {
+  margin-bottom: 10px;
   margin-bottom: 12px;
   display: flex;
   align-items: flex-start;
@@ -1081,8 +1082,9 @@ body:has(.georg-pdp-section) {
   font-size: 15px;
   color: #2a2a2a;
 }
-
 .georg-pdp-section .product-info_content_item_detail {
+  font-weight: 400;
+  margin-right: 6px;
   font-family: var(--gj-pdp-futura);
   font-weight: 700;
   color: #1a1a1a;
@@ -1090,7 +1092,6 @@ body:has(.georg-pdp-section) {
   flex: 0 0 140px;
   font-size: 14px;
 }
-
 .georg-pdp-section .accordion-body ul {
   margin: 0;
   padding-left: 18px;
