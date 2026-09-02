@@ -285,6 +285,21 @@
     "ss_testimonial_20_MF7hCm": {
       "type": "ss-testimonial-20",
       "blocks": {
+        "slide_M3gbJH": {
+          "type": "slide",
+          "settings": {
+            "author_image": "shopify://shop_images/The_unique_disadvantage_older_women_face_in_the_workforce.png",
+            "author": "Louise Hansen",
+            "time": "",
+            "text": "<p>ok jeg skal lige dele det her 🩶 jeg havde faktisk kigget på den ring i en uge og var i tvivl fordi prisen var lavere end jeg regnede med. tænkte om det nu var ægte</p><p>men der står navnet på hende der har lavet den, på selve produktsiden. hanne, hun har værksted i skagen</p><p>den kom i onsdags og den er så fin. stenen har en lille sky i midten som ingen andres har</p>",
+            "image": "shopify://shop_images/iap_1200x1200.7473159858_qyspf2gd_1.png",
+            "count_comments": "30",
+            "comment": "21 comments",
+            "like_text": "",
+            "comment_text": "",
+            "share_text": ""
+          }
+        },
         "slide_n96NDk": {
           "type": "slide",
           "settings": {
@@ -437,6 +452,7 @@
         }
       },
       "block_order": [
+        "slide_M3gbJH",
         "slide_n96NDk",
         "slide_mETKGW",
         "slide_KEYTiD",
