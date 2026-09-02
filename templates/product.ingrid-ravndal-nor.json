@@ -128,14 +128,6 @@
           "type": "product_details",
           "settings": {
             "details_heading": "Produktdetaljer",
-            "item_number_label": "Varenummer:",
-            "materials_label": "",
-            "measurements_label": "",
-            "measurements_fallback": "",
-            "design_year_label": "Desigår:",
-            "design_year_fallback": "2026",
-            "collection_meta_label": "Kollektion:",
-            "explore_label": "Udforsk:",
             "explore_text": "",
             "explore_link": ""
           }
@@ -287,54 +279,6 @@
         "show_rating": false,
         "padding_top": 36,
         "padding_bottom": 28
-      }
-    },
-    "designer_spotlight_fwfGgf": {
-      "type": "designer-spotlight",
-      "blocks": {
-        "caption_URBijB": {
-          "type": "caption",
-          "settings": {
-            "text": "Mød håndværkeren"
-          }
-        },
-        "heading_kYDJY6": {
-          "type": "heading",
-          "settings": {
-            "heading": "Ingrid Ravndal"
-          }
-        },
-        "text_3D4daT": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Norske Ingrid Ravndal bor i Kongsberg, en times kørsel fra minerne, og har arbejdet med sten hele sit voksne liv — først som geolog, siden som guldsmed. Det er hende, der går sorteringsbunkerne igennem og finder de sten, industrien har lagt fra sig, før de sendes videre til værkstederne i Skagen, Tórshavn og Nuuk. I dag står hun bag flere af smykkerne i både Fjeld- og Minen-kollektionen, hvor hun tegner hver indfatning efter stenen, ikke omvendt.</p>"
-          }
-        },
-        "link_AAYDgX": {
-          "type": "link",
-          "settings": {
-            "link_label": "MØD HÅNDVÆRKERNE",
-            "link_url": "shopify://pages/om-os"
-          }
-        }
-      },
-      "block_order": [
-        "caption_URBijB",
-        "heading_kYDJY6",
-        "text_3D4daT",
-        "link_AAYDgX"
-      ],
-      "name": "Designer i fokus",
-      "settings": {
-        "image": "shopify://shop_images/hf_20260728_134601_918cb453-5e59-45ee-8e60-80cf3ef6825d.jpg",
-        "layout": "image_first",
-        "full_width": false,
-        "bg_color": "#f4f3f1",
-        "heading_color": "#1c2633",
-        "caption_color": "#8c8681",
-        "text_color": "#1a1a1a",
-        "padding_top": 36,
-        "padding_bottom": 36
       }
     },
     "ss_testimonial_20_QBcWWU": {
@@ -627,6 +571,54 @@
         "section_radius": 0,
         "lazy": true
       }
+    },
+    "designer_spotlight_fwfGgf": {
+      "type": "designer-spotlight",
+      "blocks": {
+        "caption_URBijB": {
+          "type": "caption",
+          "settings": {
+            "text": "Mød håndværkeren"
+          }
+        },
+        "heading_kYDJY6": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ingrid Ravndal"
+          }
+        },
+        "text_3D4daT": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Norske Ingrid Ravndal bor i Kongsberg, en times kørsel fra minerne, og har arbejdet med sten hele sit voksne liv — først som geolog, siden som guldsmed. Det er hende, der går sorteringsbunkerne igennem og finder de sten, industrien har lagt fra sig, før de sendes videre til værkstederne i Skagen, Tórshavn og Nuuk. I dag står hun bag flere af smykkerne i både Fjeld- og Minen-kollektionen, hvor hun tegner hver indfatning efter stenen, ikke omvendt.</p>"
+          }
+        },
+        "link_AAYDgX": {
+          "type": "link",
+          "settings": {
+            "link_label": "MØD HÅNDVÆRKERNE",
+            "link_url": "shopify://pages/om-os"
+          }
+        }
+      },
+      "block_order": [
+        "caption_URBijB",
+        "heading_kYDJY6",
+        "text_3D4daT",
+        "link_AAYDgX"
+      ],
+      "name": "Designer i fokus",
+      "settings": {
+        "image": "shopify://shop_images/hf_20260728_134601_918cb453-5e59-45ee-8e60-80cf3ef6825d.jpg",
+        "layout": "image_first",
+        "full_width": false,
+        "bg_color": "#f4f3f1",
+        "heading_color": "#1c2633",
+        "caption_color": "#8c8681",
+        "text_color": "#1a1a1a",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -634,7 +626,7 @@
     "product-tabs-swiper",
     "style_it_with_yWgcgt",
     "related-products",
-    "designer_spotlight_fwfGgf",
-    "ss_testimonial_20_QBcWWU"
+    "ss_testimonial_20_QBcWWU",
+    "designer_spotlight_fwfGgf"
   ]
 }
