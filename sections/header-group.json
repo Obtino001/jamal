@@ -17,14 +17,14 @@
         "announcement_MphLPR": {
           "type": "announcement",
           "settings": {
-            "text": "Få besked når vi kommer hjem med nye fund",
+            "text": "Der laves ikke flere. Næste fund klar i april 2027",
             "link": ""
           }
         },
         "announcement_Kffihk": {
           "type": "announcement",
           "settings": {
-            "text": "Hjemmelevering",
+            "text": "Gratis Hjemmelevering",
             "link": ""
           }
         }
