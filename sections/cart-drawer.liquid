@@ -180,9 +180,89 @@ wi-cartdrawer { width: 100%; height: 100dvh; position: fixed; top: 0; left: 0; z
 .WI_cartDrawer_total h5.WI_cartDrawer_total_price { font-size: 16px; font-weight: 700; }
 .WI_free_shipping { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 0 0 8px; padding: 0; font-size: 13px; line-height: 1.2; color: rgba(var(--color-foreground), 0.75); font-family: var(--georg-font-sans, 'Source Sans Pro', sans-serif); font-weight: 300; }
 .WI_free_shipping__icon { flex-shrink: 0; display: block; }
-.WI_set_nudge { margin: 0 0 12px; padding: 0; text-align: center; }
-.WI_set_nudge__link { font-size: 13px; line-height: 1.4; color: rgb(var(--color-foreground)); text-decoration: none; font-family: var(--georg-font-sans, 'Source Sans Pro', sans-serif); font-weight: 300; letter-spacing: 0.01em; }
-.WI_set_nudge__link:hover { text-decoration: underline; }
+.WI_set_nudge {
+  display: block;
+  margin: 0 0 16px;
+  padding: 14px 14px 12px;
+  text-decoration: none;
+  color: inherit;
+  background: #f7f7f5;
+  border: 1px solid #ebeae8;
+}
+.WI_set_nudge:hover {
+  border-color: #d8d6d3;
+}
+.WI_set_nudge__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.WI_set_nudge__title {
+  margin: 0;
+  font-family: var(--georg-font-sans, 'Source Sans Pro', sans-serif);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: #1a1a1a;
+  letter-spacing: 0.01em;
+}
+.WI_set_nudge__count {
+  flex-shrink: 0;
+  font-family: var(--georg-font-futura, 'Futura', sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #666;
+}
+.WI_set_nudge__track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: #e4e2df;
+  overflow: hidden;
+}
+.WI_set_nudge__fill {
+  display: block;
+  height: 100%;
+  width: var(--gj-set-progress, 0%);
+  background: linear-gradient(90deg, #a1deff, #7ecff7);
+  transition: width 0.35s ease;
+}
+.WI_set_nudge__steps {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  gap: 8px;
+}
+.WI_set_nudge__step {
+  flex: 1;
+  height: 2px;
+  background: #ddd;
+}
+.WI_set_nudge__step.is-done {
+  background: #7ecff7;
+}
+.WI_set_nudge__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-family: var(--georg-font-futura, 'Futura', sans-serif);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+}
+.WI_set_nudge__cta svg {
+  display: block;
+  transition: transform 0.2s ease;
+}
+.WI_set_nudge:hover .WI_set_nudge__cta svg {
+  transform: translateX(3px);
+}
 .WI_cartDrawer_checkout { width: 100%; height: 48px; background: linear-gradient(0deg, #a1deff, #b1e5ff) !important; background-color: #aee1fc !important; color: #263040 !important; border: none; font-size: 13px; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background-color 0.2s, opacity 0.2s; }
 .WI_cartDrawer_checkout:hover { opacity: 0.85; }
 .WI_cartDrawer_badges { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 12px; padding: 0; list-style: none; }
@@ -431,9 +511,42 @@ wi-cartdrawer { transition: background-color 0.32s cubic-bezier(0.16, 1, 0.3, 1)
                 
                 <div class="WI_cartDrawerin_cart_footer">
                     {%- if ring_count > 0 and ring_count < 3 -%}
-                      <p class="WI_set_nudge">
-                        <a href="{{ set_builder_url }}" class="WI_set_nudge__link">Tre fund koster 1.200 DKK →</a>
-                      </p>
+                      {%- liquid
+                        assign set_needed = 3
+                        assign set_progress = ring_count | times: 100.0 | divided_by: set_needed
+                        assign rings_left = set_needed | minus: ring_count
+                      -%}
+                      <a
+                        href="{{ set_builder_url }}"
+                        class="WI_set_nudge"
+                        style="--gj-set-progress: {{ set_progress }}%;"
+                        aria-label="Saml {{ set_needed }} fund til 1.200 DKK. Valgt {{ ring_count }} af {{ set_needed }}"
+                      >
+                        <div class="WI_set_nudge__top">
+                          <p class="WI_set_nudge__title">
+                            {%- if rings_left == 1 -%}
+                              Tilføj 1 fund mere → 1.200 DKK
+                            {%- else -%}
+                              Tilføj {{ rings_left }} fund mere → 1.200 DKK
+                            {%- endif -%}
+                          </p>
+                          <span class="WI_set_nudge__count">{{ ring_count }}/{{ set_needed }}</span>
+                        </div>
+                        <div class="WI_set_nudge__track" aria-hidden="true">
+                          <span class="WI_set_nudge__fill"></span>
+                        </div>
+                        <div class="WI_set_nudge__steps" aria-hidden="true">
+                          <span class="WI_set_nudge__step{% if ring_count >= 1 %} is-done{% endif %}"></span>
+                          <span class="WI_set_nudge__step{% if ring_count >= 2 %} is-done{% endif %}"></span>
+                          <span class="WI_set_nudge__step{% if ring_count >= 3 %} is-done{% endif %}"></span>
+                        </div>
+                        <span class="WI_set_nudge__cta">
+                          Vælg flere fund
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                            <path d="M5 12h14M13 5l7 7-7 7"/>
+                          </svg>
+                        </span>
+                      </a>
                     {%- endif -%}
 
                     <div class="WI_cartDrawer_total">
