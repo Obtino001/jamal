@@ -355,6 +355,7 @@ class WIcartDrawer extends HTMLElement {
 
       this.totalSaving();
       this.cartTermsCondition();
+      document.dispatchEvent(new CustomEvent('gj:cart-updated'));
     } catch (err) {
       console.error('WIcartDrawer Update Error:', err);
     } finally {

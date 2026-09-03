@@ -310,8 +310,9 @@
     }
 
     refreshCartState();
+    document.addEventListener('gj:cart-updated', refreshCartState);
     document.addEventListener('opencart', function () {
-      setTimeout(refreshCartState, 800);
+      setTimeout(refreshCartState, 400);
     });
   }
 
