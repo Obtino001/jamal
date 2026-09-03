@@ -193,6 +193,7 @@
           "type": "tab",
           "settings": {
             "title": "→ Saml dit eget fund-sæt – tre fund, 1.200 DKK",
+            "enable_set_builder": true,
             "collection": "fjeldets-ringe",
             "link_text": "Udforsk",
             "link_url": ""
