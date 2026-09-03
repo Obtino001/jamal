@@ -119,7 +119,7 @@
   <div class="gj-reco-card__info">
     <div class="gj-reco-card__title-row">
       {%- if is_set_builder -%}
-        <button type="button" class="gj-reco-card__title gj-reco-card__title--select" data-gj-set-toggle>{{ product.title }}</button>
+        <a href="{{ product.url }}" class="gj-reco-card__title">{{ product.title }}</a>
       {%- else -%}
         <a href="{{ product.url }}" class="gj-reco-card__title">{{ product.title }}</a>
       {%- endif -%}

@@ -136,40 +136,74 @@
       if (card) onSizeChange(card, select);
     });
 
+    var DUMMY_VARIANT_ID = 58234190725503;
+
     var btn = atcBtn();
     if (btn) {
       btn.addEventListener('click', function () {
         if (!isReady() || btn.classList.contains('is-loading')) return;
-        var items = [];
+        var picks = [];
         selection.forEach(function (item) {
-          items.push({ id: item.variantId, quantity: 1 });
+          picks.push(item);
         });
-        if (items.length !== MAX) return;
+        if (picks.length !== MAX) return;
+
+        var properties = {};
+        picks.forEach(function (item, index) {
+          var label = item.title || '';
+          if (item.variantTitle && item.variantTitle !== 'Default Title') {
+            label += ' - ' + item.variantTitle;
+          }
+          properties['Valg ' + (index + 1)] = label;
+        });
 
         btn.classList.add('is-loading');
         btn.disabled = true;
 
+        function openAndRefresh(skipBundle) {
+          document.dispatchEvent(new CustomEvent('opencart'));
+          if (typeof window.refreshedCartDrawer === 'function') {
+            return window.refreshedCartDrawer({ mode: 'add', skipBundle: !!skipBundle });
+          }
+        }
+
+        function addThreeRings() {
+          return fetch(rootRoutes() + 'cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({
+              items: picks.map(function (item) {
+                return { id: item.variantId, quantity: 1 };
+              }),
+            }),
+          }).then(function (r) {
+            if (!r.ok) throw new Error('Add failed');
+            return r.json();
+          });
+        }
+
         fetch(rootRoutes() + 'cart/add.js', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ items: items }),
+          body: JSON.stringify({
+            items: [{
+              id: DUMMY_VARIANT_ID,
+              quantity: 1,
+              properties: properties,
+            }],
+          }),
         })
           .then(function (r) {
-            if (!r.ok) throw new Error('Add failed');
-            return r.json();
+            if (r.ok) return r.json().then(function () { return true; });
+            return addThreeRings().then(function () { return false; });
           })
-          .then(function () {
+          .then(function (usedDummy) {
             selection.clear();
             cards().forEach(function (card) {
               setCardSelected(card, false);
             });
             updateSummary();
-            if (typeof window.refreshedCartDrawer === 'function') {
-              return window.refreshedCartDrawer({ mode: 'add' });
-            }
-          })
-          .then(function () {
-            document.dispatchEvent(new CustomEvent('opencart'));
+            return openAndRefresh(usedDummy);
           })
           .catch(function (err) {
             console.error('Set builder ATC error:', err);

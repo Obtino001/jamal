@@ -81,11 +81,29 @@ class WIcartDrawer extends HTMLElement {
     this.quickAddUpdate();
     this.setupCartForms();
     this.totalSaving();
-    // this.freeShipping();
+    this.bindSetNudge();
     this.cartTermsCondition();
-    // Recommendations carousel removed — set nudge is server-rendered in cart-drawer.liquid
-    // Bind this function globally so other scripts can call it
     window.refreshedCartDrawer = this.updateCart.bind(this);
+  }
+
+  bindSetNudge() {
+    this.addEventListener('click', (event) => {
+      const link = event.target.closest('.WI_set_nudge');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      if (!href) return;
+      event.preventDefault();
+      this.closeCartdrawer();
+      const hash = href.includes('#') ? href.slice(href.indexOf('#')) : '#gj-set-builder';
+      const target = document.querySelector(hash);
+      if (target) {
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 280);
+        return;
+      }
+      window.location.href = href;
+    });
   }
 
   clickOncart() {
@@ -98,7 +116,6 @@ class WIcartDrawer extends HTMLElement {
     }
     document.addEventListener('opencart', () => {
       this.openCart();
-      this.setGlobalLoading(true);
     });
   }
 
@@ -158,7 +175,6 @@ class WIcartDrawer extends HTMLElement {
 
   renderContents(parsedState) {
     this.openCart();
-    this.setGlobalLoading(true);
     const addedKey = parsedState?.items?.length
       ? parsedState.items[parsedState.items.length - 1].key
       : null;
@@ -252,15 +268,17 @@ class WIcartDrawer extends HTMLElement {
   }
 
   async _performCartUpdate(options = {}) {
-    if (!this.isCheckingBundle) {
-      this.isCheckingBundle = true;
-      await this.checkForRingBundle();
-      this.isCheckingBundle = false;
-    }
-
-    const { mode = 'refresh', itemKey = null } = options;
+    const { mode = 'refresh', itemKey = null, skipBundle = false } = options;
 
     try {
+      if (!skipBundle && !this.isCheckingBundle) {
+        this.isCheckingBundle = true;
+        try {
+          await this.checkForRingBundle();
+        } finally {
+          this.isCheckingBundle = false;
+        }
+      }
       const currentCart = this.querySelector('.WI_cartDrawerin_cart');
       const oldKeys = this.getItemKeys(currentCart);
       const hadEmptyState = !!currentCart?.querySelector('.WI_cartDrawerin_cart_empty');
@@ -490,18 +508,15 @@ class WIcartDrawer extends HTMLElement {
           });
 
           if (response.ok) {
-            // REMOVED MODAL/BACKDROP CODE HERE AS REQUESTED
-
-            // Trigger the seamless update
             await this.updateCart({ mode: 'add' });
-            this.isProcessing = false;
           } else {
             console.error('Failed to add to cart');
-            this.isProcessing = false;
           }
         } catch (error) {
           console.error('Error adding to cart:', error);
+        } finally {
           this.isProcessing = false;
+          this.clearLoadingStates();
         }
       }, true);
     });
