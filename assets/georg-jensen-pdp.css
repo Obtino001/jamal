@@ -763,6 +763,29 @@ body:has(.georg-pdp-section) {
   clip: rect(0 0 0 0);
 }
 
+.georg-pdp-section .product-add-to-cart {
+  margin-bottom: 0;
+}
+
+.georg-pdp-section .gj-pdp-free-shipping {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 8px 0 0;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.2;
+  color: rgba(26, 26, 26, 0.75);
+  font-family: var(--gj-pdp-sans, var(--georg-font-sans, 'Source Sans Pro', sans-serif));
+  font-weight: 300;
+}
+
+.georg-pdp-section .gj-pdp-free-shipping__icon {
+  flex-shrink: 0;
+  display: block;
+}
+
 .georg-pdp-section .button-fancy-large.add-to-cart,
 .georg-pdp-section .product-form__submit.button-fancy-large,
 .georg-pdp-section .gj-mobile-atc-bar .button-fancy-large {

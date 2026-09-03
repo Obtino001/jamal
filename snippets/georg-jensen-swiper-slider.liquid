@@ -7,20 +7,22 @@
   - exclude_product_id: {Number} optional
   - low_stock_threshold: {Number}
   - show_stock: {Boolean}
+  - set_builder: {Boolean} optional
 {% endcomment %}
 
 {%- liquid
   assign limit_count = limit | default: 8
+  assign is_set_builder = set_builder | default: false
 -%}
 
-<div class="swiper gj-swiper" data-gj-swiper="{{ slider_id }}">
+<div class="swiper gj-swiper{% if is_set_builder %} gj-swiper--set{% endif %}" data-gj-swiper="{{ slider_id }}">
   <div class="swiper-wrapper">
     {%- if collection != blank and collection.products_count > 0 -%}
       {%- assign shown = 0 -%}
       {%- for product in collection.products -%}
         {%- liquid
           assign skip_product = false
-          if exclude_product_id != blank and product.id == exclude_product_id
+          if is_set_builder == false and exclude_product_id != blank and product.id == exclude_product_id
             assign skip_product = true
           endif
         -%}
@@ -30,7 +32,8 @@
               {% render 'georg-jensen-reco-card',
                 product: product,
                 low_stock_threshold: low_stock_threshold,
-                show_stock: show_stock
+                show_stock: show_stock,
+                set_builder: is_set_builder
               %}
             </div>
             {%- assign shown = shown | plus: 1 -%}

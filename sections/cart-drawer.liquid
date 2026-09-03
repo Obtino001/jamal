@@ -175,9 +175,14 @@ wi-cartdrawer { width: 100%; height: 100dvh; position: fixed; top: 0; left: 0; z
   100% { stroke-dashoffset: 180; transform: rotate(450deg); }
 }
 .WI_cartDrawerin_cart_footer { width: 100%; padding: 16px 24px; border-top: 1px solid rgba(var(--color-foreground), 0.08); background-color: rgb(var(--color-background)); z-index: 10; flex-shrink: 0; }
-.WI_cartDrawer_total { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.WI_cartDrawer_total { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 .WI_cartDrawer_total h5 { margin: 0; font-size: 13px; color: rgb(var(--color-foreground)); font-weight: 400; text-transform: uppercase; letter-spacing: 1px; }
 .WI_cartDrawer_total h5.WI_cartDrawer_total_price { font-size: 16px; font-weight: 700; }
+.WI_free_shipping { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 0 0 8px; padding: 0; font-size: 13px; line-height: 1.2; color: rgba(var(--color-foreground), 0.75); font-family: var(--georg-font-sans, 'Source Sans Pro', sans-serif); font-weight: 300; }
+.WI_free_shipping__icon { flex-shrink: 0; display: block; }
+.WI_set_nudge { margin: 20px 0 0; padding: 0; }
+.WI_set_nudge__link { font-size: 13px; line-height: 1.4; color: rgb(var(--color-foreground)); text-decoration: none; font-family: var(--georg-font-sans, 'Source Sans Pro', sans-serif); font-weight: 300; letter-spacing: 0.01em; }
+.WI_set_nudge__link:hover { text-decoration: underline; }
 .WI_cartDrawer_checkout { width: 100%; height: 48px; background: linear-gradient(0deg, #a1deff, #b1e5ff) !important; background-color: #aee1fc !important; color: #263040 !important; border: none; font-size: 13px; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background-color 0.2s, opacity 0.2s; }
 .WI_cartDrawer_checkout:hover { opacity: 0.85; }
 .WI_cartDrawer_badges { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 12px; padding: 0; list-style: none; }
@@ -374,42 +379,31 @@ wi-cartdrawer { transition: background-color 0.32s cubic-bezier(0.16, 1, 0.3, 1)
                         {% endfor %}
                     </div>
 
-                    {% comment %} COMPLETE THE LOOK - Powered by Shopify Complementary Products (Search & Discovery) {% endcomment %}
-                    <div class="WI_complete_look open" id="WI_complete_look_section" style="display:none;">
-                      <div class="WI_complete_look_header" onclick="this.closest('.WI_complete_look').classList.toggle('open')">
-                        <span>{{ section.settings.complete_look_title | default: 'FULLFØR STILEN' }}</span>
-                        <span class="WI_complete_look_toggle"><svg xmlns="http://www.w3.org/2000/svg" class="icon-cancel" width="9" height="9" viewBox="0 0 9 9" fill="none">
-    <path d="M0.5 8.5L4.5 4.5L0.5 8.5ZM8.5 0.5L4.49924 4.5L8.5 0.5ZM4.49924 4.5L0.5 0.5L4.49924 4.5ZM4.5 4.5L8.5 8.5L4.5 4.5Z" fill="#fff"></path>
-    <path d="M0.5 8.5L4.5 4.5L8.5 8.5M8.5 0.5L4.49924 4.5L0.5 0.5" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg></span>
-                      </div>
-                      <div class="WI_complete_look_body"></div>
-                    </div>
+                    {% comment %} Fund-sæt nudge when 1–2 qualifying rings are in cart {% endcomment %}
+                    {%- liquid
+                      assign ring_count = 0
+                      assign set_builder_url = blank
+                      assign dummy_variant_id = 58234190725503
+                      for item in cart.items
+                        assign ptype = item.product_type | downcase
+                        if ptype contains 'ring' and item.variant_id != dummy_variant_id
+                          assign ring_count = ring_count | plus: item.quantity
+                          if set_builder_url == blank
+                            assign set_builder_url = item.product.url | append: '#gj-set-builder'
+                          endif
+                        endif
+                      endfor
+                    -%}
+                    {%- if ring_count > 0 and ring_count < 3 and set_builder_url != blank -%}
+                      <p class="WI_set_nudge">
+                        <a href="{{ set_builder_url }}" class="WI_set_nudge__link">Tre fund koster 1.200 DKK →</a>
+                      </p>
+                    {%- endif -%}
 
-                    {% comment %} YOU MAY ALSO LIKE - Powered by Shopify Related Products (Search & Discovery) {% endcomment %}
-                    <div class="WI_also_like" id="WI_also_like_section" style="display:none;">
-                      <div class="WI_also_like_header">
-                        <span>{{ section.settings.you_may_also_like_title | default: 'DU VIL KANSKJE OGSÅ LIKE' }}</span>
-                        <div class="WI_also_like_nav">
-                          <button type="button" class="WI_also_like_prev">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <polyline points="15 18 9 12 15 6"></polyline>
-                            </svg>
-                          </button>
-                          <button type="button" class="WI_also_like_next">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                              <polyline points="9 18 15 12 9 6"></polyline>
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="WI_also_like_body">
-                        <div class="WI_also_like_list"></div>
-                      </div>
-                    </div>
-                    <div id="cart-drawer-data" style="display:none;" 
+                    <div id="cart-drawer-data" style="display:none;"
                       data-first-product-id="{% if cart.items.size > 0 %}{{ cart.items[0].product.id }}{% endif %}"
-                      data-cart-handles="{% for item in cart.items %}{{ item.product.handle }}{% unless forloop.last %},{% endunless %}{% endfor %}">
+                      data-cart-handles="{% for item in cart.items %}{{ item.product.handle }}{% unless forloop.last %},{% endunless %}{% endfor %}"
+                      data-ring-count="{{ ring_count }}">
                     </div>
      
 
@@ -420,6 +414,16 @@ wi-cartdrawer { transition: background-color 0.32s cubic-bezier(0.16, 1, 0.3, 1)
                         <h5>{{ 'sections.cart.estimated_total' | t }}</h5>
                         <h5 class="WI_cartDrawer_total_price">{{ cart.total_price | money_without_trailing_zeros | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}</h5>
                     </div>
+
+                    <p class="WI_free_shipping">
+                      <svg class="WI_free_shipping__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <path d="M3 7.5h11v9H3z"/>
+                        <path d="M14 10.5h4.2L21 14v2.5h-7"/>
+                        <circle cx="7" cy="18" r="1.6"/>
+                        <circle cx="17.5" cy="18" r="1.6"/>
+                      </svg>
+                      <span>Fri fragt på alle ordrer</span>
+                    </p>
 
                     <button type="submit" name="checkout" value="Checkout" class="WI_cartDrawer_checkout">{{ section.settings.checkout_btn_text | default: 'GÅ TIL KASSEN' }}</button>
                     

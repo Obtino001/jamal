@@ -83,7 +83,7 @@ class WIcartDrawer extends HTMLElement {
     this.totalSaving();
     // this.freeShipping();
     this.cartTermsCondition();
-    this.loadRecommendations();
+    // Recommendations carousel removed — set nudge is server-rendered in cart-drawer.liquid
     // Bind this function globally so other scripts can call it
     window.refreshedCartDrawer = this.updateCart.bind(this);
   }
@@ -318,7 +318,7 @@ class WIcartDrawer extends HTMLElement {
         currentUpsell.innerHTML = newUpsell.innerHTML;
       }
 
-      this.loadRecommendations();
+      // Recommendations carousel removed
 
       const cartBubble = document.querySelector('#cart-icon-bubble');
       if (cartBubble && data['cart-icon-bubble']) {
@@ -336,101 +336,7 @@ class WIcartDrawer extends HTMLElement {
   }
 
   loadRecommendations() {
-    const dataEl = this.querySelector('#cart-drawer-data');
-    if (!dataEl) return;
-
-    const firstProductId = dataEl.getAttribute('data-first-product-id');
-    const cartHandlesAttr = dataEl.getAttribute('data-cart-handles');
-    if (!firstProductId) return;
-
-    const baseUrl = window.Shopify && Shopify.routes ? Shopify.routes.root : '/';
-    const cartHandles = cartHandlesAttr ? cartHandlesAttr.split(',') : [];
-
-    function formatMoney(cents) {
-      const amt = (cents / 100).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-      return amt + ' DKK';
-    }
-
-    /* ---- COMPLETE THE LOOK (complementary) ---- */
-    fetch(`${baseUrl}recommendations/products.json?product_id=${firstProductId}&limit=4&intent=complementary`)
-      .then(r => r.json())
-      .then(data => {
-        const prods = (data.products || []).filter(p => !cartHandles.includes(p.handle) && p.available);
-        const section = this.querySelector('#WI_complete_look_section');
-        if (!section) return;
-
-        if (!prods.length) {
-          section.style.display = 'none';
-          return;
-        }
-
-        const prod = prods[0];
-        section.style.display = '';
-
-        let optionsHTML = '';
-        if (prod.variants.length > 1) {
-          prod.options.forEach((opt, oi) => {
-            const optName = typeof opt === 'object' ? opt.name : opt;
-            const vals = [...new Set(prod.variants.map(v => v.options[oi]))];
-            optionsHTML += `<div class="WI_complete_look_option_group">
-                            <span class="WI_complete_look_option_label">${optName}:</span>
-                            <div class="WI_complete_look_option_values">
-                                ${vals.map((v, vi) => `<button type="button" class="WI_complete_look_option_val${vi === 0 ? ' selected' : ''}" data-option-index="${oi}" data-value="${v}">${v}</button>`).join('')}
-                            </div>
-                        </div>`;
-          });
-        }
-
-        const variantsJSON = JSON.stringify(prod.variants.map(v => ({ id: v.id, options: v.options, available: v.available })));
-        const imgSrc = prod.featured_image ? (prod.featured_image.replace(/\.([^.]+)$/, '_150x.$1')) : '';
-
-        section.querySelector('.WI_complete_look_body').innerHTML = `
-                    <div class="WI_complete_look_product" data-variants='${variantsJSON}'>
-                        <div class="WI_complete_look_img">
-                            <img src="${imgSrc}" alt="${prod.title}">
-                        </div>
-                        <div class="WI_complete_look_info">
-                            <div class="WI_complete_look_info_top">
-                                <span class="WI_complete_look_title">${prod.title}</span>
-                                <span class="WI_complete_look_price">${formatMoney(prod.price)}</span>
-                            </div>
-                            <div class="WI_complete_look_options">${optionsHTML}</div>
-                            <div class="WI_complete_look_form">
-                                <input type="hidden" name="id" class="WI_complete_look_variant_id" value="${prod.variants[0].id}">
-                                <button type="button" class="WI_complete_look_add_btn">+ LEGG TIL</button>
-                            </div>
-                        </div>
-                    </div>`;
-      })
-      .catch(() => { });
-
-    /* ---- YOU MAY ALSO LIKE (related) ---- */
-    fetch(`${baseUrl}recommendations/products.json?product_id=${firstProductId}&limit=8&intent=related`)
-      .then(r => r.json())
-      .then(data => {
-        const prods = (data.products || []).filter(p => !cartHandles.includes(p.handle) && p.available);
-        const section = this.querySelector('#WI_also_like_section');
-        if (!section) return;
-
-        if (!prods.length) {
-          section.style.display = 'none';
-          return;
-        }
-
-        section.style.display = '';
-        const list = section.querySelector('.WI_also_like_list');
-        list.innerHTML = prods.slice(0, 6).map(prod => {
-          const imgSrc = prod.featured_image ? (prod.featured_image.replace(/\.([^.]+)$/, '_250x.$1')) : '';
-          return `<div class="WI_also_like_item">
-                        <div class="WI_also_like_item_img">
-                            <a href="${prod.url}"><img src="${imgSrc}" alt="${prod.title}"></a>
-                        </div>
-                        <a href="${prod.url}" class="WI_also_like_item_title">${prod.title}</a>
-                        <span class="WI_also_like_item_price">${formatMoney(prod.price)}</span>
-                    </div>`;
-        }).join('');
-      })
-      .catch(() => { });
+    /* Intentionally empty — "DU VIL MÅSKE OGSÅ KUNNE LIDE" carousel removed */
   }
 
   quickAddUpdate() {

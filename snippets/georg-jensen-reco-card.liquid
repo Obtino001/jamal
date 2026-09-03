@@ -4,6 +4,7 @@
   - product: {Object}
   - low_stock_threshold: {Number} optional, default 1
   - show_stock: {Boolean} optional
+  - set_builder: {Boolean} optional — selectable tile with size picker
 {% endcomment %}
 
 {%- liquid
@@ -12,6 +13,7 @@
   if show_stock_status == nil
     assign show_stock_status = true
   endif
+  assign is_set_builder = set_builder | default: false
 
   assign subtitle = product.vendor
   if subtitle == blank and product.tags.size > 0
@@ -28,41 +30,99 @@
       break
     endif
   endfor
+
+  assign size_option_index = blank
+  assign size_option_name = blank
+  assign has_size_option = false
+  for option in product.options_with_values
+    assign option_down = option.name | downcase
+    if option_down contains 'size' or option_down contains 'størrelse' or option_down contains 'storrelse'
+      assign size_option_index = forloop.index0
+      assign size_option_name = option.name
+      assign has_size_option = true
+    endif
+  endfor
 -%}
 
-<article class="gj-reco-card{% if secondary_image != blank %} has-secondary{% endif %}" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}">
-  <a href="{{ product.url }}" class="gj-reco-card__media">
-    {%- if product.featured_media != blank -%}
-      {{
-        product.featured_media
-        | image_url: width: 800
-        | image_tag:
-          loading: 'lazy',
-          class: 'gj-reco-card__img gj-reco-card__img--primary',
-          widths: '300, 400, 600, 800',
-          sizes: '(min-width: 990px) 22vw, 45vw',
-          alt: product.title
-      }}
-      {%- if secondary_image != blank -%}
+<article
+  class="gj-reco-card{% if secondary_image != blank %} has-secondary{% endif %}{% if is_set_builder %} gj-reco-card--set{% endif %}"
+  data-product-id="{{ product.id }}"
+  data-product-handle="{{ product.handle }}"
+  data-product-title="{{ product.title | escape }}"
+  {% if is_set_builder %}
+    data-gj-set-card
+    data-size-option-index="{{ size_option_index }}"
+    aria-pressed="false"
+  {% endif %}
+>
+  {%- if is_set_builder -%}
+    <button type="button" class="gj-reco-card__media gj-reco-card__media--select" data-gj-set-toggle aria-label="Vælg {{ product.title | escape }}">
+      <span class="gj-reco-card__marker" aria-hidden="true"></span>
+      {%- if product.featured_media != blank -%}
         {{
-          secondary_image
+          product.featured_media
           | image_url: width: 800
           | image_tag:
             loading: 'lazy',
-            class: 'gj-reco-card__img gj-reco-card__img--secondary',
+            class: 'gj-reco-card__img gj-reco-card__img--primary',
             widths: '300, 400, 600, 800',
             sizes: '(min-width: 990px) 22vw, 45vw',
             alt: product.title
         }}
+        {%- if secondary_image != blank -%}
+          {{
+            secondary_image
+            | image_url: width: 800
+            | image_tag:
+              loading: 'lazy',
+              class: 'gj-reco-card__img gj-reco-card__img--secondary',
+              widths: '300, 400, 600, 800',
+              sizes: '(min-width: 990px) 22vw, 45vw',
+              alt: product.title
+          }}
+        {%- endif -%}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'gj-reco-card__placeholder' }}
       {%- endif -%}
-    {%- else -%}
-      {{ 'product-1' | placeholder_svg_tag: 'gj-reco-card__placeholder' }}
-    {%- endif -%}
-  </a>
+    </button>
+  {%- else -%}
+    <a href="{{ product.url }}" class="gj-reco-card__media">
+      {%- if product.featured_media != blank -%}
+        {{
+          product.featured_media
+          | image_url: width: 800
+          | image_tag:
+            loading: 'lazy',
+            class: 'gj-reco-card__img gj-reco-card__img--primary',
+            widths: '300, 400, 600, 800',
+            sizes: '(min-width: 990px) 22vw, 45vw',
+            alt: product.title
+        }}
+        {%- if secondary_image != blank -%}
+          {{
+            secondary_image
+            | image_url: width: 800
+            | image_tag:
+              loading: 'lazy',
+              class: 'gj-reco-card__img gj-reco-card__img--secondary',
+              widths: '300, 400, 600, 800',
+              sizes: '(min-width: 990px) 22vw, 45vw',
+              alt: product.title
+          }}
+        {%- endif -%}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'gj-reco-card__placeholder' }}
+      {%- endif -%}
+    </a>
+  {%- endif -%}
 
   <div class="gj-reco-card__info">
     <div class="gj-reco-card__title-row">
-      <a href="{{ product.url }}" class="gj-reco-card__title">{{ product.title }}</a>
+      {%- if is_set_builder -%}
+        <button type="button" class="gj-reco-card__title gj-reco-card__title--select" data-gj-set-toggle>{{ product.title }}</button>
+      {%- else -%}
+        <a href="{{ product.url }}" class="gj-reco-card__title">{{ product.title }}</a>
+      {%- endif -%}
       <button
         type="button"
         class="gj-reco-card__wishlist"
@@ -81,6 +141,63 @@
     {%- endif -%}
 
     <p class="gj-reco-card__price">{{ product.price_min | money_without_trailing_zeros | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}</p>
+
+    {%- if is_set_builder -%}
+      <div class="gj-set-card__size" data-gj-set-size hidden>
+        <label class="visually-hidden" for="SetSize-{{ product.id }}">Vælg størrelse</label>
+        <select id="SetSize-{{ product.id }}" class="gj-set-card__size-select" data-gj-set-size-select>
+          <option value="" selected disabled>Vælg størrelse</option>
+          {%- if has_size_option -%}
+            {%- for option in product.options_with_values -%}
+              {%- if forloop.index0 == size_option_index -%}
+                {%- for value in option.values -%}
+                  {%- liquid
+                    assign matching_variant = blank
+                    for variant in product.variants
+                      assign variant_opt = variant.options[size_option_index]
+                      if variant_opt == value and variant.available
+                        assign matching_variant = variant
+                        break
+                      endif
+                    endfor
+                  -%}
+                  {%- if matching_variant != blank -%}
+                    <option value="{{ matching_variant.id }}" data-variant-title="{{ matching_variant.title | escape }}">{{ value }}</option>
+                  {%- else -%}
+                    <option value="" disabled>{{ value }} — udsolgt</option>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for variant in product.variants -%}
+              {%- if variant.available -%}
+                <option value="{{ variant.id }}" data-variant-title="{{ variant.title | escape }}">
+                  {%- if product.has_only_default_variant -%}One size{%- else -%}{{ variant.title }}{%- endif -%}
+                </option>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </select>
+      </div>
+      <script type="application/json" data-gj-set-variants>
+        {
+          "id": {{ product.id | json }},
+          "title": {{ product.title | json }},
+          "handle": {{ product.handle | json }},
+          "variants": [
+            {%- for variant in product.variants -%}
+              {
+                "id": {{ variant.id | json }},
+                "title": {{ variant.title | json }},
+                "available": {{ variant.available | json }},
+                "options": {{ variant.options | json }}
+              }{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+          ]
+        }
+      </script>
+    {%- endif -%}
 
     {%- if show_stock_status and manage_stock and product.available and inventory_qty > 0 and inventory_qty <= threshold -%}
       <p class="gj-reco-card__stock">Only {{ inventory_qty }} left</p>

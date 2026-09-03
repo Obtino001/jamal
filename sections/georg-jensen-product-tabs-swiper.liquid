@@ -1,11 +1,20 @@
 {{ 'georg-jensen-tabs-swiper.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'georg-jensen-tabs-swiper.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'georg-jensen-set-builder.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
   assign exclude_id = product.id
   if request.page_type != 'product'
     assign exclude_id = blank
   endif
+
+  assign has_set_builder = false
+  for block in section.blocks
+    if block.type == 'tab' and block.settings.enable_set_builder
+      assign has_set_builder = true
+      break
+    endif
+  endfor
 -%}
 
 <section
@@ -14,6 +23,7 @@
   data-columns="{{ section.settings.desktop_columns }}"
   data-space="{{ section.settings.space_between }}"
   data-show-progress="{% if section.settings.show_progress %}true{% else %}false{% endif %}"
+  {% if has_set_builder %}id="gj-set-builder"{% endif %}
   style="
     --gj-ts-columns: {{ section.settings.desktop_columns | default: 4 }};
     --gj-ts-space: {{ section.settings.space_between | default: 24 }}px;
@@ -64,11 +74,13 @@
       <div class="gj-tabs-swiper__panels">
         {%- for block in section.blocks -%}
           {%- if block.type == 'tab' -%}
+            {%- assign is_set_tab = block.settings.enable_set_builder -%}
             <div
-              class="gj-tabs-swiper__panel{% if forloop.first %} is-active{% endif %}"
+              class="gj-tabs-swiper__panel{% if forloop.first %} is-active{% endif %}{% if is_set_tab %} gj-tabs-swiper__panel--set{% endif %}"
               id="Panel-{{ section.id }}-{{ block.id }}"
               role="tabpanel"
               data-gj-tab-panel="{{ block.id }}"
+              {% if is_set_tab %}data-gj-set-builder{% endif %}
               aria-labelledby="Tab-{{ section.id }}-{{ block.id }}"
               {% unless forloop.first %}hidden{% endunless %}
             >
@@ -78,9 +90,26 @@
                 limit: section.settings.products_to_show,
                 exclude_product_id: exclude_id,
                 low_stock_threshold: section.settings.low_stock_threshold,
-                show_stock: section.settings.show_stock
+                show_stock: section.settings.show_stock,
+                set_builder: is_set_tab
               %}
-              {%- if block.settings.link_text != blank -%}
+              {%- if is_set_tab -%}
+                <div class="gj-set-builder__footer" data-gj-set-footer>
+                  <p class="gj-set-builder__summary" data-gj-set-summary>
+                    <span data-gj-set-count>Valgt: 0 af 3</span>
+                    <span class="gj-set-builder__total" data-gj-set-total hidden>1.200 DKK</span>
+                  </p>
+                  <button
+                    type="button"
+                    class="button-fancy-large gj-set-builder__atc"
+                    data-gj-set-atc
+                    disabled
+                    aria-disabled="true"
+                  >
+                    LÆG SÆT I KURV
+                  </button>
+                </div>
+              {%- elsif block.settings.link_text != blank -%}
                 <div class="gj-tabs-swiper__button-wrapper" style="text-align: center; margin-top: 40px;">
                   <a href="{{ block.settings.link_url | default: block.settings.collection.url | default: '#' }}" class="button-fancy-large" style="display: inline-block; min-width: 250px;">
                     {{ block.settings.link_text }}
@@ -242,6 +271,13 @@
           "id": "link_url",
           "label": "Button link URL",
           "info": "Defaults to collection URL if left blank"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_set_builder",
+          "label": "Enable fund-sæt builder",
+          "info": "Lets customers select 3 rings with sizes and add the set for 1.200 DKK",
+          "default": false
         }
       ]
     }
