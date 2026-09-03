@@ -180,7 +180,7 @@ wi-cartdrawer { width: 100%; height: 100dvh; position: fixed; top: 0; left: 0; z
 .WI_cartDrawer_total h5.WI_cartDrawer_total_price { font-size: 16px; font-weight: 700; }
 .WI_free_shipping { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 0 0 8px; padding: 0; font-size: 13px; line-height: 1.2; color: rgba(var(--color-foreground), 0.75); font-family: var(--georg-font-sans, 'Source Sans Pro', sans-serif); font-weight: 300; }
 .WI_free_shipping__icon { flex-shrink: 0; display: block; }
-.WI_set_nudge { margin: 20px 0 0; padding: 0; }
+.WI_set_nudge { margin: 0 0 12px; padding: 0; text-align: center; }
 .WI_set_nudge__link { font-size: 13px; line-height: 1.4; color: rgb(var(--color-foreground)); text-decoration: none; font-family: var(--georg-font-sans, 'Source Sans Pro', sans-serif); font-weight: 300; letter-spacing: 0.01em; }
 .WI_set_nudge__link:hover { text-decoration: underline; }
 .WI_cartDrawer_checkout { width: 100%; height: 48px; background: linear-gradient(0deg, #a1deff, #b1e5ff) !important; background-color: #aee1fc !important; color: #263040 !important; border: none; font-size: 13px; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background-color 0.2s, opacity 0.2s; }
@@ -379,26 +379,46 @@ wi-cartdrawer { transition: background-color 0.32s cubic-bezier(0.16, 1, 0.3, 1)
                         {% endfor %}
                     </div>
 
-                    {% comment %} Fund-sæt nudge when 1–2 qualifying rings are in cart {% endcomment %}
+                    {% comment %} Fund-sæt count — used by footer nudge {% endcomment %}
                     {%- liquid
                       assign ring_count = 0
                       assign set_builder_url = blank
                       assign dummy_variant_id = 58234190725503
                       for item in cart.items
-                        assign ptype = item.product_type | downcase
-                        if ptype contains 'ring' and item.variant_id != dummy_variant_id
-                          assign ring_count = ring_count | plus: item.quantity
-                          if set_builder_url == blank
-                            assign set_builder_url = item.product.url | append: '#gj-set-builder'
+                        unless item.variant_id == dummy_variant_id
+                          assign is_qualifying = false
+                          assign ptype = item.product_type | default: item.product.type | downcase
+                          if ptype contains 'ring' or ptype contains 'fund' or ptype contains 'smykke' or ptype contains 'ringe'
+                            assign is_qualifying = true
                           endif
-                        endif
+
+                          for option_name in item.product.options
+                            assign od = option_name | downcase
+                            if od contains 'size' or od contains 'størrelse' or od contains 'storrelse'
+                              assign is_qualifying = true
+                            endif
+                          endfor
+
+                          for collection in item.product.collections
+                            assign ch = collection.handle
+                            if ch == 'fjeldets-ringe' or ch == 'alle-fund' or ch contains 'ring'
+                              assign is_qualifying = true
+                            endif
+                          endfor
+
+                          if is_qualifying
+                            assign ring_count = ring_count | plus: item.quantity
+                            if set_builder_url == blank
+                              assign set_builder_url = item.product.url | append: '#gj-set-builder'
+                            endif
+                          endif
+                        endunless
                       endfor
+
+                      if set_builder_url == blank
+                        assign set_builder_url = routes.root_url | append: 'collections/fjeldets-ringe'
+                      endif
                     -%}
-                    {%- if ring_count > 0 and ring_count < 3 and set_builder_url != blank -%}
-                      <p class="WI_set_nudge">
-                        <a href="{{ set_builder_url }}" class="WI_set_nudge__link">Tre fund koster 1.200 DKK →</a>
-                      </p>
-                    {%- endif -%}
 
                     <div id="cart-drawer-data" style="display:none;"
                       data-first-product-id="{% if cart.items.size > 0 %}{{ cart.items[0].product.id }}{% endif %}"
@@ -410,6 +430,12 @@ wi-cartdrawer { transition: background-color 0.32s cubic-bezier(0.16, 1, 0.3, 1)
                 </div>
                 
                 <div class="WI_cartDrawerin_cart_footer">
+                    {%- if ring_count > 0 and ring_count < 3 -%}
+                      <p class="WI_set_nudge">
+                        <a href="{{ set_builder_url }}" class="WI_set_nudge__link">Tre fund koster 1.200 DKK →</a>
+                      </p>
+                    {%- endif -%}
+
                     <div class="WI_cartDrawer_total">
                         <h5>{{ 'sections.cart.estimated_total' | t }}</h5>
                         <h5 class="WI_cartDrawer_total_price">{{ cart.total_price | money_without_trailing_zeros | replace: ' kr.', ' DKK' | replace: ' kr', ' DKK' }}</h5>

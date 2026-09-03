@@ -183,10 +183,20 @@ class WIcartDrawer extends HTMLElement {
       let totalRings = 0;
 
       cart.items.forEach(item => {
-        // We will check if the product_type contains "ring". 
-        // IMPORTANT: You must ensure your ring products have the Product Type set to "Ring" in Shopify Admin!
-        const isRing = item.product_type && item.product_type.toLowerCase().includes('ring');
-        
+        // Qualify fund/ring items even when product_type is not literally "Ring"
+        const type = (item.product_type || '').toLowerCase();
+        const hasSizeOption = Array.isArray(item.options_with_values)
+          && item.options_with_values.some((opt) => {
+            const name = (opt.name || '').toLowerCase();
+            return name.includes('size') || name.includes('størrelse') || name.includes('storrelse');
+          });
+        const isRing =
+          type.includes('ring') ||
+          type.includes('fund') ||
+          type.includes('smykke') ||
+          type.includes('ringe') ||
+          hasSizeOption;
+
         if (isRing && item.variant_id.toString() !== DUMMY_VARIANT_ID) {
           ringItems.push(item);
           totalRings += item.quantity;
