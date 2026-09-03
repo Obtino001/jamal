@@ -12,7 +12,7 @@
     "georg_jensen_collection": {
       "type": "georg-jensen-collection-1-to-1",
       "settings": {
-        "show_hero": true,
+        "show_hero": false,
         "hero_title": "",
         "hero_description": "<p>Fjeldet har brugt millioner af år på hver eneste af dem. Så kom de op på et transportbånd, og på få sekunder blev de sorteret fra — en ridse på tværs, en sky i det indre, en kant der aldrig blev jævn.</p><p>De endte i bunkerne udenfor.</p><p>Vi henter dem hjem. Vi former indfatningen efter stenen, ikke omvendt — og ridsen bliver siddende, hvor den altid har været.</p><p>Det er hele grunden til, at de er her. Ingen to er ens.</p>",
         "hero_image": "shopify://shop_images/hf_20260817_165941_8961bce0-3017-49ce-96f6-e5247525e398_1.jpg",

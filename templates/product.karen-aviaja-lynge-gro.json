@@ -128,14 +128,6 @@
           "type": "product_details",
           "settings": {
             "details_heading": "Produktdetaljer",
-            "item_number_label": "Varenummer:",
-            "materials_label": "",
-            "measurements_label": "",
-            "measurements_fallback": "",
-            "design_year_label": "Desigår:",
-            "design_year_fallback": "2026",
-            "collection_meta_label": "Kollektion:",
-            "explore_label": "Udforsk:",
             "explore_text": "",
             "explore_link": ""
           }
@@ -201,10 +193,10 @@
           "type": "tab",
           "settings": {
             "title": "→ Saml dit eget fund-sæt – tre fund, 1.200 DKK",
-            "enable_set_builder": true,
             "collection": "fjeldets-ringe",
             "link_text": "Udforsk",
-            "link_url": ""
+            "link_url": "",
+            "enable_set_builder": true
           }
         },
         "tab_combine": {
