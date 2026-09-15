@@ -97,13 +97,7 @@
             >
               {%- for product in collection.products -%}
                 <li>
-                  {% render 'georg-jensen-collection-card',
-                    product: product,
-                    lazy_load: forloop.index0 > 3,
-                    low_stock_threshold: section.settings.low_stock_threshold,
-                    show_stock: section.settings.show_stock,
-                    show_new_badge: section.settings.show_new_badge
-                  %}
+                  {% render 'georg-jensen-collection-card', product: product, lazy_load: forloop.index0, low_stock_threshold: section.settings.low_stock_threshold, show_stock: section.settings.show_stock, show_new_badge: section.settings.show_new_badge %}
                 </li>
               {%- endfor -%}
             </ul>
@@ -226,3 +220,22 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'georg-jensen-collection-card',
+                        product: product,
+                        lazy_load: forloop.index0 > 3,
+                        low_stock_threshold: section.settings.low_stock_threshold,
+                        show_stock: section.settings.show_stock,
+                        show_new_badge: section.settings.show_new_badge
+                      %}
+  to: "{% render 'georg-jensen-collection-card', product: product, lazy_load: forloop.index0,
+    low_stock_threshold: section.settings.low_stock_threshold, show_stock: section.settings.show_stock,
+    show_new_badge: section.settings.show_new_badge %}"
+  position: 3759..3996
+{% endcomment %}
