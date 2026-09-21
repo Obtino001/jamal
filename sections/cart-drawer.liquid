@@ -327,6 +327,27 @@ wi-cartdrawer.wi-cart-updating .WI_cartDrawerin_cart_items {
 }
 wi-cartdrawer { transition: background-color 0.32s cubic-bezier(0.16, 1, 0.3, 1); }
 
+.wi-cart-reservation-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 20px 0 0 0;
+  margin-bottom: -4px;
+  font-family: var(--georg-font-sans, 'Source Sans Pro', sans-serif);
+  font-size: 12px;
+  color: rgb(var(--color-foreground));
+  line-height: 1.4;
+}
+.wi-cart-reservation-notice svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+}
+.wi-cart-reservation-notice strong {
+  font-weight: 700;
+}
+
 @media screen and (max-width: 800px) {
   .WI_cartDrawerin_cart { width: calc(100vw - 30px); height: 100dvh; }
   .WI_cartDrawerin_cart_footer { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
@@ -369,6 +390,12 @@ wi-cartdrawer { transition: background-color 0.32s cubic-bezier(0.16, 1, 0.3, 1)
             <div class="WI_cartDrawerin_cart_body">
                 {% form 'cart', cart %}
                 <div class="WI_cartDrawerin_cart_form_in">
+                    <div class="wi-cart-reservation-notice">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                      </svg>
+                      <span><strong>Dit fund er ikke reserveret —</strong> andre kan også lægge det i kurven. Gå til kassen, så du er sikker på at få det.</span>
+                    </div>
                     <div class="WI_cartDrawerin_cart_items">
                         {% for item in cart.items %}
                         <div class="WI_cartDrawer_item" data-itemKey="{{item.key}}" 
